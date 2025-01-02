@@ -1,6 +1,4 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
 @layer base {
   ul, ol {
@@ -8,6 +6,9 @@
   }
 }
 
+@theme {
+  --color-black2: rgb(24, 24, 27)
+}
 
 body {
   @apply dark:bg-black2 dark:text-white;
