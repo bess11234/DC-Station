@@ -1,0 +1,88 @@
+@import "tailwindcss";
+
+@layer base {
+  ul, ol {
+    list-style: revert;
+  }
+}
+
+@theme {
+  --color-black2: rgb(24, 24, 27)
+}
+
+body {
+  @apply dark:bg-black2 dark:text-white;
+}
+
+h1 {
+  @apply text-4xl
+}
+
+h2 {
+  @apply text-3xl
+}
+
+h3 {
+  @apply text-2xl
+}
+
+h4 {
+  @apply text-xl
+}
+
+h5 {
+  @apply text-lg
+}
+
+h6 {
+  @apply font-bold
+}
+
+.alert {
+  @apply border p-3 rounded-md
+}
+
+.alert-red{
+  @apply bg-red-50 border-red-300 dark:bg-red-950 dark:border-red-800 text-red-800 dark:text-red-100
+}
+
+.alert-blue{
+  @apply bg-blue-50 border-blue-300 dark:bg-blue-950 dark:border-blue-800 text-blue-800 dark:text-blue-100
+}
+
+.alert-sky{
+  @apply bg-sky-50 border-sky-300 dark:bg-sky-950 dark:border-sky-800 text-sky-800 dark:text-sky-100
+}
+
+.button {
+  @apply px-5 py-2 rounded-lg text-white border-0 transition-all cursor-pointer
+}
+
+.button-red {
+  @apply bg-red-500 hover:bg-red-600 active:bg-red-700 disabled:bg-red-100 disabled:text-red-400 dark:disabled:bg-red-950 dark:disabled:text-red-700 not-disabled:hover:drop-shadow-[0_2px_10px_rgba(255,128,128,0.5)]
+}
+
+.button-blue {
+  @apply bg-blue-500 hover:bg-blue-600 active:bg-blue-700 disabled:bg-blue-100 disabled:text-blue-400 dark:disabled:bg-blue-950 dark:disabled:text-blue-700 not-disabled:hover:drop-shadow-[0_2px_10px_rgba(142,128,255,0.5)]
+}
+
+.button-sky {
+  @apply bg-sky-500 hover:bg-sky-600 active:bg-sky-700 disabled:bg-sky-100 disabled:text-sky-400 dark:disabled:bg-sky-950 dark:disabled:text-sky-700 not-disabled:hover:drop-shadow-[0_2px_10px_rgba(128,170,255,0.5)]
+}
+
+.button-yellow {
+  @apply bg-yellow-500 hover:bg-yellow-600 active:bg-yellow-700 disabled:bg-yellow-100 disabled:text-yellow-400 dark:disabled:bg-yellow-950 dark:disabled:text-yellow-700 not-disabled:hover:drop-shadow-[0_2px_10px_rgba(255,215,143,0.4)];
+}
+
+.button-green {
+  @apply bg-green-500 hover:bg-green-600 active:bg-green-700 disabled:bg-green-100 disabled:text-green-400 dark:disabled:bg-green-950 dark:disabled:text-green-700 not-disabled:hover:drop-shadow-[0_2px_10px_rgba(135,245,164,0.4)];
+}
+
+.button-orange {
+  @apply bg-orange-500 hover:bg-orange-600 active:bg-orange-700 disabled:bg-orange-100 disabled:text-orange-400 dark:disabled:bg-orange-950 dark:disabled:text-orange-700 not-disabled:hover:drop-shadow-[0_2px_10px_rgba(249,179,135,0.4)];
+}
+
+.modal-center{
+  @apply absolute left-[50%] top-[50%];
+  transform: translate(-50%, -75%);
+}
