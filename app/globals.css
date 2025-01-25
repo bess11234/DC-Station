@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@plugin "daisyui";
 
 @layer base {
   ul, ol {
@@ -56,7 +57,7 @@ h6 {
 }
 
 .button {
-  @apply px-5 py-2 rounded-lg text-white border-0 transition-all cursor-pointer
+  @apply text-white border-0 transition-all cursor-pointer select-none shadow
 }
 
 .button-red {
@@ -90,4 +91,8 @@ h6 {
 
 .link-color {
   @apply transition-colors hover:text-amber-400 dark:hover:text-amber-300
+}
+
+.github-user {
+  @apply hover:underline underline-offset-2 decoration-indigo-500/60 dark:decoration-indigo-500 decoration-2 tracking-tight
 }
