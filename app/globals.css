@@ -7,7 +7,8 @@
 }
 
 @theme {
-  --color-black2: rgb(24, 24, 27)
+  --breakpoint-xs: 30rem; /* 480px */
+  --color-black2: rgb(24, 24, 27);
 }
 
 body {
@@ -88,5 +89,5 @@ h6 {
 }
 
 .link-color {
-  @apply transition-colors hover:text-amber-300
+  @apply transition-colors hover:text-amber-400 dark:hover:text-amber-300
 }
