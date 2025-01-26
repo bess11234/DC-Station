@@ -10,6 +10,17 @@
 @theme {
   --breakpoint-xs: 30rem; /* 480px */
   --color-black2: rgb(24, 24, 27);
+  --color-theme-50: #fbf8ef;
+  --color-theme-100: #f7f0de;
+  --color-theme-200: #e8d39f;
+  --color-theme-300: #dcb96d;
+  --color-theme-400: #d3a34c;
+  --color-theme-500: #ca8736;
+  --color-theme-600: #b2692d;
+  --color-theme-700: #954e28;
+  --color-theme-800: #7a3f26;
+  --color-theme-900: #653522;
+  --color-theme-950: #391b0f;
 }
 
 body {
@@ -84,13 +95,17 @@ h6 {
   @apply bg-orange-500 hover:bg-orange-600 active:bg-orange-700 disabled:bg-orange-100 disabled:text-orange-400 dark:disabled:bg-orange-950 dark:disabled:text-orange-700 not-disabled:hover:drop-shadow-[0_2px_10px_rgba(249,179,135,0.4)];
 }
 
+.button-theme {
+  @apply bg-theme-500 hover:bg-theme-600 active:bg-theme-700 disabled:bg-theme-100 disabled:text-theme-400 dark:disabled:bg-theme-950 dark:disabled:text-theme-700 not-disabled:hover:drop-shadow-[0_2px_10px_rgba(249,179,135,0.4)];
+}
+
 .modal-center{
   @apply absolute left-[50%] top-[50%];
   transform: translate(-50%, -75%);
 }
 
 .link-color {
-  @apply transition-colors hover:text-amber-400 dark:hover:text-amber-300
+  @apply transition-colors hover:text-theme-400 dark:hover:text-theme-300
 }
 
 .github-user {

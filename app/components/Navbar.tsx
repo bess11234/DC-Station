@@ -12,7 +12,7 @@ export const metadata = {
 function Navbar() {
     return (
         <>
-            <div className="sticky top-0 z-40 w-full backdrop-blur-2xl">
+            <div className="sticky top-0 z-40 w-full backdrop-blur-2xl h-fit">
                 <div className="max-w-8xl mx-auto border-b not-dark:border-black2/20 border-white/20">
                     <div className="py-4 lg:px-8 lg:mx-0 mx-4">
                         <div className="relative grid xs:grid-cols-3 grid-cols-2 place-items-center max-xs:col-span-2">
@@ -27,9 +27,8 @@ function Navbar() {
                                         // Importing an image will
                                         // automatically set the width and height
                                         src="/favicon.ico"
-                                        sizes="100vw"
                                         // Make the image display full width
-                                        className="w-10 h-10"
+                                        style={{ width: "40px", height: "40px"}}
                                         width={40}
                                         height={40}
                                     />
@@ -47,7 +46,7 @@ function Navbar() {
                                         <span>เกร็ดความรู้</span>
                                     </Link>
                                     <Link href="#" className="link-color duration-300">
-                                        <span>ช่องทางการติดต่อ</span>
+                                        <span>การติดต่อ</span>
                                     </Link>
                                 </div>
 
@@ -70,7 +69,7 @@ function Navbar() {
                                                         <span>เกร็ดความรู้</span>
                                                     </Link>
                                                     <Link href="#" className="link-color">
-                                                        <span>ช่องทางการติดต่อ</span>
+                                                        <span>การติดต่อ</span>
                                                     </Link>
                                                 </div>
                                             </div>
