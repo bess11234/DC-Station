@@ -1,12 +1,7 @@
 * {
     box-sizing: border-box;
   }
-  
-  body {
-    background: rgb(55.5027027027, 112.6378378378, 125.6972972973);
-    /* overflow: hidden; */
-  }
-  
+
   .hide {
     display: none;
   }

@@ -12,7 +12,7 @@ export const metadata = {
 function Navbar() {
     return (
         <>
-            <div className="sticky top-0 z-40 w-full backdrop-blur-sm">
+            <div className="sticky top-0 z-40 w-full backdrop-blur-2xl h-fit">
                 <div className="max-w-8xl mx-auto border-b not-dark:border-black2/20 border-white/20">
                     <div className="py-4 lg:px-8 lg:mx-0 mx-4">
                         <div className="relative grid xs:grid-cols-3 grid-cols-2 place-items-center max-xs:col-span-2">
@@ -27,9 +27,8 @@ function Navbar() {
                                         // Importing an image will
                                         // automatically set the width and height
                                         src="/favicon.ico"
-                                        sizes="100vw"
                                         // Make the image display full width
-                                        className="w-10 h-10"
+                                        style={{ width: "40px", height: "40px"}}
                                         width={40}
                                         height={40}
                                     />
@@ -40,14 +39,14 @@ function Navbar() {
                             {/* Right side */}
                             <div className="flex flex-row max-sm:justify-self-end xs:col-span-2">
                                 <div className="hidden xs:flex sm:space-x-5 space-x-3">
-                                    <Link href="#" className="link-color">
+                                    <Link href="#" className="link-color duration-300">
                                         <span>หาบ้านให้น้อง</span>
                                     </Link>
-                                    <Link href="#" className="link-color">
+                                    <Link href="#" className="link-color duration-300">
                                         <span>เกร็ดความรู้</span>
                                     </Link>
-                                    <Link href="#" className="link-color">
-                                        <span>ช่องทางการติดต่อ</span>
+                                    <Link href="#" className="link-color duration-300">
+                                        <span>การติดต่อ</span>
                                     </Link>
                                 </div>
 
@@ -58,7 +57,7 @@ function Navbar() {
                                     </button>
 
                                     {/* Display Navbar */}
-                                    <div className="fixed z-50 transition-all duration-300 transition-discrete open:opacity-100 starting:open:opacity-0 opacity-0 open:top-[4.6rem] starting:open:top-[4.2rem] top-[4.2rem]"
+                                    <div className="fixed z-50 transition-all duration-300 transition-discrete open:opacity-100 starting:open:opacity-0 opacity-0 open:top-[4.5rem] starting:open:top-[4.1rem] top-[4.1rem]"
                                         popover="auto" id="popoverNavbar" aria-label="Navbar popover" aria-description="Show the navbar items.">
                                         <div className="w-[100vw] overflow-y-hidden bg-neutral-100 dark:bg-neutral-950 dark:text-white shadow-inner border-t">
                                             <div className="py-4 lg:px-8 lg:mx-0 mx-4">
@@ -70,7 +69,7 @@ function Navbar() {
                                                         <span>เกร็ดความรู้</span>
                                                     </Link>
                                                     <Link href="#" className="link-color">
-                                                        <span>ช่องทางการติดต่อ</span>
+                                                        <span>การติดต่อ</span>
                                                     </Link>
                                                 </div>
                                             </div>
