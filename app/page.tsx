@@ -1,17 +1,10 @@
 import Navbar from "./components/Navbar";
 import { HeartIcon } from "@heroicons/react/24/solid";
+
 import { Carousel, GalleryImage } from "./components/Carousel";
 import { Bank, BankType } from "./components/Bank";
 import { Stat } from "./components/Stat";
 import { Card, CardType } from "./components/Card";
-
-import Image from "next/image";
-
-import type { Metadata } from 'next'
-
-export const metadata: Metadata = {
-  title: 'Main',
-}
 
 export default function Home() {
   const gallery: GalleryImage[] = [
@@ -33,6 +26,7 @@ export default function Home() {
   ]
   return (
     <>
+      <Navbar />
       <div className="grid justify-items-center min-h-screen">
 
         <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
@@ -92,6 +86,11 @@ export default function Home() {
         </main>
 
       </div>
+      <footer className="p-3 row-start-3 flex gap-6 flex-wrap items-center justify-center">
+        <p className="font-medium">
+          <span className="font-light">Created by <HeartIcon className="inline-block size-6 text-pink-300 dark:text-pink-200" /> </span>
+          @<span className="github-user">bess11234</span>, @<span className="github-user">KKMAI</span>.</p>
+      </footer>
     </>
   );
 }

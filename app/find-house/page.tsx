@@ -1,5 +1,12 @@
 import { Carousel, GalleryImage } from "../components/Carousel"
 import { CardType, Card } from "../components/Card"
+import { Metadata } from "next"
+
+import { FilterAnimals } from "../components/FilterAnimals"
+
+export const metadata: Metadata = {
+    title: "Find House"
+}
 
 const gallery: GalleryImage[] = [
     { src: "image0.webp", alt: "Clarity for pets." },
@@ -23,11 +30,21 @@ const animals: CardType[] = [
 ]
 
 export default function FindHouse() {
+
     return (
         <div className="grid justify-items-center min-h-screen">
             <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
                 <Carousel images={gallery} />
 
+                {/* Title Content */}
+                <div className="flex flex-col gap-3 w-full place-items-center">
+                    <p className="md:text-3xl sm:text-2xl text-xl text-center">สร้างครอบครัวที่อบอุ่นให้น้อง <span><br />(DC Station 🐶 & 🐱)</span></p>
+
+                    {/* Filter animal (Age) */}
+                    <FilterAnimals />
+                </div>
+
+                {/* Animals */}
                 <div className="flex flex-col gap-3 w-full p-3">
 
                     <div className="grid lg:grid-cols-4 xs:grid-cols-2 grid-cols-1 gap-3">
@@ -37,6 +54,7 @@ export default function FindHouse() {
 
                     </div>
                 </div>
+
             </main>
         </div>
     )
