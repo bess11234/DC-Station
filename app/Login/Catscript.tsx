@@ -7,7 +7,7 @@ type ResizableConfig = {
   mouthSelector: string;
 };
 
-export default function Cat({
+export default function CatScript({
   leftId,
   handWrapSelector,
   mouthSelector,
