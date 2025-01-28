@@ -19,13 +19,13 @@ export function Carousel({ images }: Props) {
 
     return (
         // DiasyUI Class
-        <div className="flex min-h-[8rem] mt-0.5 self-center">
+        <div className="flex mt-0.5 self-center">
             {/* Carousel List */}
-            <div className="carousel carousel-center rounded-box w-auto shadow-sm px-5 bg-black2/5 dark:bg-white/5 overflow-y-hidden">
+            <div className="carousel carousel-center rounded-box w-auto shadow-lg px-5 bg-black2/5 dark:bg-white/5 overflow-y-hidden">
                 {images.map((v, i) => (
                     <div key={i} id={"slide" + i} className="carousel-item relative w-full">
 
-                        <Image className="w-full max-w-4xl" alt={v.alt}
+                        <Image className="w-full max-w-4xl min-h-[12rem]" alt={v.alt}
                             style={{
                                 width: i == 0 ? '100%' : "",
                                 height: i == 0 ? 'auto' : "",
