@@ -6,7 +6,7 @@ export interface CardType {
 }
 export function Card({ src, title, desc }: CardType) {
     return (
-        <div className="select-none card bg-theme-50 dark:bg-theme-950 rounded shadow-sm cursor-pointer transition-transform hover:opacity-70 hover:scale-95 active:opacity-50 active:scale-90 2xl:max-h-[400px] md:max-h-[300px] max-h-[400px]">
+        <div className=" select-none card bg-theme-50 dark:bg-theme-950 rounded shadow-sm cursor-pointer transition-transform hover:opacity-70 hover:scale-95 active:opacity-50 active:scale-90 2xl:max-h-[400px] md:max-h-[300px] max-h-[400px]">
             <figure>
                 <Image
                     src={src}
