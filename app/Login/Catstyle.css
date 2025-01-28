@@ -71,7 +71,8 @@
     }
   }
   .cat-head {
-    background: #444;
+    /* background: #2d2d2d;*/
+    background: #ffffff;
     width: 114px;
     height: 100px;
     border-radius: 141% 98% 0 189%;
@@ -87,7 +88,8 @@
     position: absolute;
     left: 64px;
     top: -28px;
-    border-bottom: 40px solid #444;
+    /* border-bottom: 40px solid #444; */
+    border-bottom: 40px solid #ffffff;
     border-left: 30px solid transparent;
     border-right: 7px solid transparent;
     border-top: 0px solid transparent;
@@ -112,7 +114,8 @@
     position: absolute;
     left: 10px;
     top: -32px;
-    border-bottom: 40px solid #444;
+    /* border-bottom: 40px solid #444; */
+    border-bottom: 40px solid #ffffff;
     border-left: 30px solid transparent;
     border-right: 7px solid transparent;
     border-top: 0px solid transparent;
@@ -221,34 +224,14 @@
     top: 51px;
   }
   
-  .cat-tail {
-    width: 85px;
-    height: 120px;
-    position: absolute;
-    left: 100px;
-    top: 44%;
-    border-radius: 200px;
-    box-shadow: inset 10px 34px 0px #444;
-    transform: rotate(-451deg);
-  }
-  .cat-tail:after {
-    content: "";
-    position: absolute;
-    width: 124px;
-    height: 94px;
-    border-radius: 0 0 264px 218px;
-    top: 57%;
-    box-shadow: inset 10px -10px #444;
-  }
-  
   .hand-wrap {
     display: flex;
     align-items: center;
     justify-content: center;
     position: absolute;
-    height: 100vh;
+    height: 30hv;
     right: 0;
-    bottom: 0;
+    top: 140;
   }
   
   .hand {
@@ -260,10 +243,11 @@
     opacity: 1;
     transform: translateX(20px);
     animation: handpeek 0.4s linear 2.5s forwards;
-    bottom: -215px;
   }
   .hand > div {
-    background-color: #444;
+    /* background-color: #444; */
+    background-color: #fefefe;
+
     width: 17px;
     height: 13px;
     border-radius: 62%;
@@ -273,7 +257,9 @@
     width: 10px;
     height: 5px;
     border-radius: 50%;
-    box-shadow: 1px 3px 0px 0px #fbfbfb;
+    /* box-shadow: 1px 3px 0px 0px #fefefe; */
+    box-shadow: 1px 3px 0px 0px #666666;
+
     display: block;
     transform-origin: left;
     transform: translate(19px, 5px) rotate(-180deg);
@@ -290,44 +276,7 @@
       opacity: 1;
     }
   }
-  
-  .closing .hand-wrap {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 100vw;
-    height: 100%;
-  }
-  .closing .hand {
-    width: 100%;
-    height: 15px;
-    background-color: #444;
-    top: 28px;
-    left: 0;
-  }
-  .closing .hand > div {
-    background-color: #444;
-    width: 18px;
-    height: 34px;
-    border-radius: 62%;
-    transform: translate(-5px, -20px);
-  }
-  .closing .hand > div:before {
-    content: "";
-    width: 10px;
-    height: 20px;
-    border-radius: 50%;
-    box-shadow: 5px 5px 0 0 #fbfbfb;
-    display: block;
-    transform-origin: left;
-    transform: translate(-4px, -10px) rotate(-22deg);
-  }
-  .closing .hand > div:nth-child(2), .closing .hand > div:nth-child(3) {
-    display: none;
-  }
+
   
   .mouth {
     width: 38px;
