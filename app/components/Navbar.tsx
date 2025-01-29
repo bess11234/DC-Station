@@ -41,7 +41,7 @@ function Navbar() {
                                         width={40}
                                         height={40}
                                     />
-                                    <p className="font-semibold text-xl">DC Station</p>
+                                    <p className="font-semibold text-xl">DC <span className="max-xs:text-base">Station</span></p>
                                 </div>
                             </Link>
 

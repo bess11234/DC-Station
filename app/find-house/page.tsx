@@ -1,8 +1,10 @@
 import { Carousel, GalleryImage } from "../components/Carousel"
-import { CardType, Card } from "../components/Card"
+import type { Animal } from "../lib/definition"
+import { Animals } from "../components/animals/Animals"
 import { Metadata } from "next"
 
-import { FilterAnimals } from "../components/FilterAnimals"
+import { FilterAnimals } from "../components/animals/FilterAnimals"
+import { Suspense } from "react"
 
 export const metadata: Metadata = {
     title: "Find House"
@@ -14,19 +16,10 @@ const gallery: GalleryImage[] = [
     { src: "image2.webp", alt: "Stray dogs needed for housing." }
 ]
 
-const animals: CardType[] = [
-    { src: "/animals/bo.webp", title: "น้องโบ", desc: "ซุกซน น่ารัก ชอบวิ่งเล่น และเจ้าเล่ห์" },
-    { src: "/animals/nam_tan.webp", title: "น้องน้ำตาล", desc: "สงบเสงี่ยม ชอบให้กอด แต่ให้เฉพาะคนที่ชอบมาจับ" },
-    { src: "/animals/num.webp", title: "น้องนุ่น", desc: "น่ารัก ขี้อ้อน ชอบให้ลูบ" },
-    { src: "/animals/bo.webp", title: "น้องโบ", desc: "ซุกซน น่ารัก ชอบวิ่งเล่น และเจ้าเล่ห์" },
-    { src: "/animals/nam_tan.webp", title: "น้องน้ำตาล", desc: "สงบเสงี่ยม ชอบให้กอด แต่ให้เฉพาะคนที่ชอบมาจับ" },
-    { src: "/animals/num.webp", title: "น้องนุ่น", desc: "น่ารัก ขี้อ้อน ชอบให้ลูบ" },
-    { src: "/animals/bo.webp", title: "น้องโบ", desc: "ซุกซน น่ารัก ชอบวิ่งเล่น และเจ้าเล่ห์" },
-    { src: "/animals/nam_tan.webp", title: "น้องน้ำตาล", desc: "สงบเสงี่ยม ชอบให้กอด แต่ให้เฉพาะคนที่ชอบมาจับ" },
-    { src: "/animals/num.webp", title: "น้องนุ่น", desc: "น่ารัก ขี้อ้อน ชอบให้ลูบ" },
-    { src: "/animals/bo.webp", title: "น้องโบ", desc: "ซุกซน น่ารัก ชอบวิ่งเล่น และเจ้าเล่ห์" },
-    { src: "/animals/nam_tan.webp", title: "น้องน้ำตาล", desc: "สงบเสงี่ยม ชอบให้กอด แต่ให้เฉพาะคนที่ชอบมาจับ" },
-    { src: "/animals/num.webp", title: "น้องนุ่น", desc: "น่ารัก ขี้อ้อน ชอบให้ลูบ" }
+const animals: Animal[] = [
+    { images: ["/animals/bo.webp"], name: "น้องโบ", personalities: ["ซุกซน", "น่ารัก", "ชอบวิ่งเล่น", "เจ้าเล่ห์"], breed: "Bulldog", dob: "2024/12/30", gender: "Male", healthHistories: { spayingStatus: "หมันแล้ว" }, history: "เกือบเป็นซอยจุ๊ให้คนจีน", id: "123123012039012", specie: "Dog", weight: 20.30 },
+    { images: ["/animals/nam_tan.webp"], name: "น้องน้ำตาล", personalities: ["สงบเสงี่ยม", "ชอบให้กอด", "ให้จับเฉพาะคนที่ชอบมาจับ"], breed: "Persian", dob: "2021/12/30", gender: "Male", healthHistories: { spayingStatus: "หมันแล้ว" }, history: "เกือบเป็นซอยจุ๊ให้คนจีน", id: "123123012039012", specie: "Cat", weight: 20.30 },
+    { images: ["/animals/num.webp"], name: "น้องนุ่น", personalities: ["น่ารัก", "ขี้อ้อน", "ชอบให้ลูบ"], breed: "Siamese", dob: "2021/12/30", gender: "Female", healthHistories: { spayingStatus: "หมันแล้ว" }, history: "เกือบเป็นซอยจุ๊ให้คนจีน", id: "123123012039012", specie: "Cat", weight: 20.30 },
 ]
 
 export default function FindHouse() {
@@ -40,19 +33,15 @@ export default function FindHouse() {
                 <div className="flex flex-col gap-3 w-full place-items-center">
                     <p className="md:text-3xl sm:text-2xl text-xl text-center">สร้างครอบครัวที่อบอุ่นให้น้อง <span><br />(DC Station 🐶 & 🐱)</span></p>
 
-                    {/* Filter animal (Age) */}
+                    {/* Filter animal (Species, Age) */}
                     <FilterAnimals />
                 </div>
 
                 {/* Animals */}
                 <div className="flex flex-col gap-3 w-full p-3">
-
-                    <div className="grid lg:grid-cols-4 xs:grid-cols-2 grid-cols-1 gap-3">
-                        {animals.map((v, i) => (
-                            <Card key={i} src={v.src} title={v.title} desc={v.desc} />
-                        ))}
-
-                    </div>
+                    <Suspense fallback={<p>Loading</p>}>
+                        <Animals animals={animals} />
+                    </Suspense>
                 </div>
 
             </main>

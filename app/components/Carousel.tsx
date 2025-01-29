@@ -1,6 +1,6 @@
 'use client'
 import Image from "next/image"
-import { Suspense } from "react";
+import { useRef, WheelEvent } from "react";
 
 export interface GalleryImage {
     src: string;
@@ -12,16 +12,29 @@ interface Props {
 }
 
 export function Carousel({ images }: Props) {
+    const carourel = useRef<HTMLDivElement>(null)
+
     function slide_smooth(e_id: string) {
         const e = document.getElementById(e_id)
         e?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' })
+    }
+
+    function handleWheel(e: WheelEvent){
+        e.stopPropagation()
+
+        carourel.current?.scrollBy({
+            left: e.deltaY < 0 ? -30 : 30,
+        })
+        window.scrollBy({
+            left: e.deltaY < 0 ? -1 : 1
+        })
     }
 
     return (
         // DiasyUI Class
         <div className="flex mt-0.5 self-center">
             {/* Carousel List */}
-            <div className="carousel carousel-center rounded-box w-auto shadow-lg px-5 bg-black2/5 dark:bg-white/5 overflow-y-hidden">
+            <div ref={carourel} onWheel={(e) => {handleWheel(e);}} onMouseEnter={() => document.body.classList.add("overflow-y-hidden")} onMouseLeave={() => document.body.classList.remove("overflow-y-hidden")} className="carousel carousel-center rounded-box w-auto shadow-lg px-5 bg-black2/5 dark:bg-white/5 overflow-y-hidden" >
                 {images.map((v, i) => (
                     <div key={i} id={"slide" + i} className="carousel-item relative w-full">
 

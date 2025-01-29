@@ -9,7 +9,6 @@ export function Stat() {
                 </div>
                 <div className="stat-title">หาบ้านให้น้อง</div>
                 <div className="stat-value">31K</div>
-                {/* <div className="stat-desc">Jan 1st - Feb 1st</div> */}
             </div>
 
             <div className="stat">
@@ -18,7 +17,6 @@ export function Stat() {
                 </div>
                 <div className="stat-title">ทำหมั่น</div>
                 <div className="stat-value">10K</div>
-                {/* <div className="stat-desc">↘︎ 90 (14%)</div> */}
             </div>
 
             <div className="stat">
@@ -27,7 +25,6 @@ export function Stat() {
                 </div>
                 <div className="stat-title">รักษา</div>
                 <div className="stat-value">1.5K</div>
-                {/* <div className="stat-desc">↘︎ 90 (14%)</div> */}
             </div>
 
             <div className="stat">
@@ -36,7 +33,6 @@ export function Stat() {
                 </div>
                 <div className="stat-title">เคสทั้งหมด</div>
                 <div className="stat-value">50K</div>
-                {/* <div className="stat-desc">↗︎ 400 (22%)</div> */}
             </div>
         </div>
     )

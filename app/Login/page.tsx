@@ -42,9 +42,6 @@ export default function Login() {
 
   return (
     <div>
-      {/* Script animation แมว */}
-      <CatScript {...catConfig} />
-
       {/* ทางซ้าย */}
       <div id="leftSide" className="container h-screen w-3/5 left-0">
 
@@ -56,7 +53,7 @@ export default function Login() {
 
 
       {/* ทางขวา */}
-      <div className='border-0  h-screen w-2/5 bg-white absolute insert-y right-0 flex-col flex justify-center items-center'>
+      <div className='border-0 h-screen w-2/5 bg-white absolute insert-y right-0 flex-col flex justify-center items-center bg-white dark:bg-black2'>
 
         {/* Web title */}
         <h1 className='w-fit font-light mb-7'>DC Station</h1>
@@ -99,11 +96,11 @@ export default function Login() {
               Password
             </label>
             <div className='w-full flex justify-end mt-3'>
-              <a href="#" className='text-sm font-semibold text-amber-950 hover:text-amber-800'>Forgot password?</a>
+              <a href="#" className='text-sm font-semibold text-theme-500 hover:text-theme-600 active:text-theme-700'>Forgot password?</a>
             </div>
           </div>
 
-          <button className='rounded-xl cursor-pointer w-full text-white h-11 bg-amber-900 hover:bg-amber-600 focus:bg-amber-950'>
+          <button className='button-theme rounded-xl cursor-pointer w-full text-white p-3'>
             Login
           </button>
         </form>

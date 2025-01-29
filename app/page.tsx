@@ -61,26 +61,28 @@ export default function Home() {
           <div className="flex flex-col gap-3 w-full p-3">
             <p className="md:text-3xl sm:text-2xl text-xl">น้องหาบ้าน ({animals.length})</p>
 
-            <div className="grid lg:grid-cols-4 xs:grid-cols-2 grid-cols-1 gap-3">
+            {/* If completed will changed to Animals components */}
+            <div className="grid md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-3">
               {animals.map((v, i) => (
                 <Card key={i} src={v.src} title={v.title} desc={v.desc} />
               ))}
 
             </div>
-          </div>
 
-          <div className="h-0.5 bg-theme-200 w-[90%] self-center rounded-full"></div>
+          </div>
 
           {/* Animal found their family */}
           <div className="flex flex-col gap-3 w-full p-3">
             <p className="md:text-3xl sm:text-2xl text-xl">น้องมีบ้านแล้ว ({animals.length})</p>
 
-            <div className="grid lg:grid-cols-4 xs:grid-cols-2 grid-cols-1 gap-3">
+            {/* If completed will changed to Animals components */}
+            <div className="grid md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-3">
               {animals.map((v, i) => (
                 <Card key={i} src={v.src} title={v.title} desc={v.desc} />
               ))}
 
             </div>
+
           </div>
 
         </main>
