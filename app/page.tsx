@@ -1,5 +1,5 @@
 import Navbar from "./components/Navbar";
-import { HeartIcon } from "@heroicons/react/24/solid";
+import { Footer } from "./components/Footer";
 
 import { Carousel, GalleryImage } from "./components/Carousel";
 import { Bank, BankType } from "./components/Bank";
@@ -30,6 +30,7 @@ export default function Home() {
       <div className="grid justify-items-center min-h-screen">
 
         <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
+          
           {/* Carousel */}
           <Carousel images={gallery} />
 
@@ -88,11 +89,8 @@ export default function Home() {
         </main>
 
       </div>
-      <footer className="p-3 row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <p className="font-medium">
-          <span className="font-light">Created by <HeartIcon className="inline-block size-6 text-pink-300 dark:text-pink-200" /> </span>
-          @<span className="github-user">bess11234</span>, @<span className="github-user">KKMAI</span>.</p>
-      </footer>
+
+      <Footer />      
     </>
   );
 }

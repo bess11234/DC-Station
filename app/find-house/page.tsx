@@ -25,20 +25,22 @@ const animals: Animal[] = [
 export default function FindHouse() {
 
     return (
-        <div className="grid justify-items-center min-h-screen">
+        <div className="grid justify-items-center min-h-screen overflow-x-hidden">
             <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
+
+                {/* Carousel */}
                 <Carousel images={gallery} />
 
                 {/* Title Content */}
                 <div className="flex flex-col gap-3 w-full place-items-center">
                     <p className="md:text-3xl sm:text-2xl text-xl text-center">สร้างครอบครัวที่อบอุ่นให้น้อง <span><br />(DC Station 🐶 & 🐱)</span></p>
 
-                    {/* Filter animal (Species, Age) */}
+                    {/* Filter animal (Species, Age, Gender) */}
                     <FilterAnimals />
                 </div>
 
                 {/* Animals */}
-                <div className="flex flex-col gap-3 w-full p-3">
+                <div className="flex flex-col w-screen px-3">
                     <Suspense fallback={<p>Loading</p>}>
                         <Animals animals={animals} />
                     </Suspense>

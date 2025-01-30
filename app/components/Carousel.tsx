@@ -23,10 +23,7 @@ export function Carousel({ images }: Props) {
         e.stopPropagation()
 
         carourel.current?.scrollBy({
-            left: e.deltaY < 0 ? -30 : 30,
-        })
-        window.scrollBy({
-            left: e.deltaY < 0 ? -1 : 1
+            left: e.deltaY < 0 ? -1 : 1,
         })
     }
 
