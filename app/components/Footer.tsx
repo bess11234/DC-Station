@@ -3,7 +3,7 @@ import Image from "next/image"
 
 export function Footer() {
     return (
-        <footer className="p-3 row-start-3 flex gap-6 flex-wrap items-center justify-center">
+        <footer className="p-3 row-start-3 flex gap-6 flex-wrap items-center justify-center text-center break-words">
             <div className="font-medium">
                 <span className="font-light">Created by <HeartIcon className="inline-block size-6 text-pink-300 dark:text-pink-200" /> </span>
                 @

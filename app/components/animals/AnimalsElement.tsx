@@ -4,12 +4,13 @@ import { Card } from "../Card";
 import type { Animal } from "../../lib/definition";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 interface Props {
     animals: Animal[]
 }
 
-export function Animals({ animals }: Props) {
+export function AnimalsElement({ animals }: Props) {
     const searchParams = useSearchParams()
     const pathName = usePathname()
     const [displayAnimal, setAnimals] = useState<Animal[]>(animals)
@@ -60,7 +61,9 @@ export function Animals({ animals }: Props) {
             <div className="grid md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-3">
                 {
                     displayAnimal.map((v, i) => (
-                        <Card key={i} src={v.images[0]} title={v.name} desc={v.personalities.join(", ")} />
+                        <Link href={`/find-house/${v.id}`} key={i}>
+                            <Card src={v.images[0]} title={v.name} desc={v.personalities.join(", ")} />
+                        </Link>
                     ))
                 }
             </div>

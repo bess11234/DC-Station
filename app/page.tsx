@@ -1,17 +1,12 @@
 import Navbar from "./components/Navbar";
 import { Footer } from "./components/Footer";
 
-import { Carousel, GalleryImage } from "./components/Carousel";
+import { Carousel } from "./components/Carousel";
 import { Bank, BankType } from "./components/Bank";
 import { Stat } from "./components/Stat";
 import { Card, CardType } from "./components/Card";
 
 export default function Home() {
-  const gallery: GalleryImage[] = [
-    { src: "image0.webp", alt: "Clarity for pets." },
-    { src: "image1.webp", alt: "Stray cats needed for housing." },
-    { src: "image2.webp", alt: "Stray dogs needed for housing." }
-  ]
 
   const animals: CardType[] = [
     { src: "/animals/bo.webp", title: "น้องโบ", desc: "ซุกซน น่ารัก ชอบวิ่งเล่น และเจ้าเล่ห์" },
@@ -27,12 +22,12 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <div className="grid justify-items-center min-h-screen">
+      <div className="grid justify-items-center min-h-[88vh]">
 
         <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
           
           {/* Carousel */}
-          <Carousel images={gallery} />
+          <Carousel />
 
           {/* Content */}
           <div className="flex flex-col gap-3 w-full place-items-center">

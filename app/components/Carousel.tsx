@@ -1,62 +1,82 @@
 'use client'
 import Image from "next/image"
-import { useRef, WheelEvent } from "react";
+import { useState, useEffect } from "react";
 
-export interface GalleryImage {
-    src: string;
-    alt: string;
-}
+import { gallery } from "../lib/data";
 
-interface Props {
-    images: GalleryImage[]
-}
+export function Carousel() {
+    const [currentIndex, setCurrentIndex] = useState(0);
+    const [isPaused, setIsPaused] = useState(false);
 
-export function Carousel({ images }: Props) {
-    const carourel = useRef<HTMLDivElement>(null)
+    useEffect(() => {
+        if (isPaused) return;
+        const interval = setInterval(() => {
+            nextSlide();
+        }, 3000);
+        return () => clearInterval(interval);
+    }, [currentIndex, isPaused]);
 
-    function slide_smooth(e_id: string) {
-        const e = document.getElementById(e_id)
-        e?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' })
-    }
+    const nextSlide = () => {
+        setCurrentIndex((prevIndex) => (prevIndex + 1) % gallery.length);
+    };
 
-    function handleWheel(e: WheelEvent){
-        e.stopPropagation()
-
-        carourel.current?.scrollBy({
-            left: e.deltaY < 0 ? -1 : 1,
-        })
-    }
+    const prevSlide = () => {
+        setCurrentIndex((prevIndex) => (prevIndex - 1 + gallery.length) % gallery.length);
+    };
 
     return (
-        // DiasyUI Class
-        <div className="flex mt-0.5 self-center">
-            {/* Carousel List */}
-            <div ref={carourel} onWheel={(e) => {handleWheel(e);}} onMouseEnter={() => document.body.classList.add("overflow-y-hidden")} onMouseLeave={() => document.body.classList.remove("overflow-y-hidden")} className="carousel carousel-center rounded-box w-auto shadow-lg px-5 bg-black2/5 dark:bg-white/5 overflow-y-hidden" >
-                {images.map((v, i) => (
-                    <div key={i} id={"slide" + i} className="carousel-item relative w-full">
+        <div className="relative mx-auto overflow-hidden rounded-b-lg bg-black2/5 dark:bg-white/5">
 
-                        <Image className="w-full max-w-4xl min-h-[12rem]" alt={v.alt}
-                            style={{
-                                width: i == 0 ? '100%' : "",
-                                height: i == 0 ? 'auto' : "",
-                                objectFit: "fill"
-                            }}
-                            src={"/gallery/" + v.src}
-                            sizes="100%"
-                            width={i != 0 ? 0 : 100}
-                            height={i != 0 ? 0 : 100}
-                            fill={i != 0}
-                            placeholder="blur"
-                            blurDataURL={v.src}
-                        />
-                        <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-                            <a onClick={() => slide_smooth("slide" + (i == 0 ? images.length - 1 : i - 1))} className="button button-theme rounded-full md:px-5 md:py-3 px-2.5 py-1.5">❮</a>
-                            <a onClick={() => slide_smooth("slide" + (i == 0 ? i + 1 : (i + 1) == images.length ? 0 : i + 1))} className="button button-theme rounded-full md:px-5 md:py-3 px-2.5 py-1.5">❯</a>
-                        </div>
-                    </div>
+            {/* Images */}
+            <div
+                className="w-full sm:max-w-4xl max-w-3xl flex transition-transform duration-500 ease-in-out"
+                style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+            >
+                {gallery.map((v, index) => (
+                    <Image
+                        className="w-full shrink-0 m-auto"
+                        style={{
+                            width: "100%",
+                            height: "auto",
+                            objectFit: "fill"
+                        }}
+                        width={100}
+                        height={100}
+                        sizes="100%"
+                        key={index}
+                        src={`/gallery/${v.src}`}
+                        alt={v.alt}
+                        placeholder="blur"
+                        blurDataURL={`/gallery/${v.src}`}
+                    />
                 ))}
             </div>
 
+            {/* Navigation Buttons */}
+            <button
+                onClick={prevSlide}
+                className="absolute top-1/2 left-4 -translate-y-1/2 button button-theme rounded-full md:px-5 md:py-3 px-2.5 py-1.5 font-bold"
+            >
+                {"<"}
+            </button>
+
+            <button
+                onClick={nextSlide}
+                className="absolute top-1/2 right-4 -translate-y-1/2 button button-theme rounded-full md:px-5 md:py-3 px-2.5 py-1.5"
+            >
+                {">"}
+            </button>
+
+            {/* Dots Indicators */}
+            <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+                {gallery.map((_, index) => (
+                    <button
+                        key={index}
+                        onClick={() => setCurrentIndex(index)}
+                        className={`w-3 h-3 rounded-full ${currentIndex === index ? "bg-theme-500" : "bg-theme-200 dark:bg-theme-900"}`}
+                    ></button>
+                ))}
+            </div>
         </div>
-    )
+    );
 }

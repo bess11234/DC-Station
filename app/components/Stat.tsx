@@ -2,7 +2,7 @@ import { HomeIcon, HeartIcon, PlusCircleIcon, GiftIcon } from "@heroicons/react/
 
 export function Stat() {
     return (
-        <div className="stats stats-vertical sm:stats-horizontal shadow-md dark:bg-white/5 ">
+        <div className="stats stats-vertical sm:stats-horizontal shadow dark:bg-white/5 ">
             <div className="stat">
                 <div className="stat-figure text-theme-200 dark:text-theme-300">
                     <HomeIcon className="size-8" />

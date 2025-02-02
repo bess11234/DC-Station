@@ -16,9 +16,9 @@ function Navbar() {
     const LinkPath = [
         { name: "หาบ้านให้น้อง", link: "/find-house" },
         { name: "เกร็ดความรู้", link: "#" },
-        { name: "การติดต่อ", link: "#" },
+        { name: "การติดต่อ", link: "/contact" },
     ]
-    
+
     return (
         <>
             <div className="sticky top-0 z-40 w-full bg-white dark:bg-black2 h-fit">
