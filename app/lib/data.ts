@@ -16,7 +16,7 @@ export const animals: Animal[] = [
   },
   {
     id: "3c1a5dfb810778868dcad0571c54f3352c2aa01166ae568ad4f3281909329415044ae4e2c7897012",
-    images: ["/animals/nam_tan.webp"],
+    images: ["/animals/nam_tan.webp", "/animals/bo2.webp", "/animals/bo3.webp", "/animals/bo4.webp", "/animals/bo5.webp"],
     name: "น้องน้ำตาล",
     personalities: ["สงบเสงี่ยม", "ชอบให้กอด", "ให้จับเฉพาะคนที่ชอบมาจับ"],
     breed: "Persian",
@@ -29,7 +29,7 @@ export const animals: Animal[] = [
   },
   {
     id: "2d39fe18927d4ab7b9fcbd1e872a67dc58fa293a882886357915757db2e7588aa333569e10ba915f",
-    images: ["/animals/num.webp"],
+    images: ["/animals/num.webp", "/animals/bo2.webp", "/animals/bo3.webp", "/animals/bo4.webp", "/animals/bo5.webp"],
     name: "น้องนุ่น",
     personalities: ["น่ารัก", "ขี้อ้อน", "ชอบให้ลูบ"],
     breed: "Siamese",
@@ -46,5 +46,4 @@ export const gallery: GalleryImage[] = [
   { src: "image0.webp", alt: "Clarity for pets." },
   { src: "image1.webp", alt: "Stray cats needed for housing." },
   { src: "image2.webp", alt: "Stray dogs needed for housing." },
-  { src: "image1.webp", alt: "Stray dogs needed for housing." },
 ];

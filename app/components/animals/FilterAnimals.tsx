@@ -41,27 +41,27 @@ export function FilterAnimals() {
 
     return (
         <>
-            <div className="flex flex-col sm:p-6 p-3 py-6 bg-black2/5 dark:bg-white/5 rounded-lg gap-3 sm:w-[500px] w-[300px] shadow-lg">
+            <div className="flex flex-col sm:p-6 p-3 py-6 bg-gradient-to-tr from-theme-100 to-theme-50 dark:from-theme-950 dark:to-theme-900 rounded-lg gap-3 sm:w-[500px] w-[300px] shadow-lg font-semibold">
 
                 {/* Filter Specie */}
                 <div className="flex flex-row sm:gap-6 gap-3 place-items-center justify-center">
-                    <button onClick={() => filterSpecie("dog")} className={`sm:w-fit button-theme px-6 py-3 rounded-lg cursor-pointer sm:text-2xl text-lg text-white shadow-md transition hover:scale-95 active:scale-90 ${searchParams.get("specie") == "dog" && "outline"}`}>🐶 <span className="max-sm:hidden">น้อง</span>หมา</button>
-                    <button onClick={() => filterSpecie("cat")} className={`sm:w-fit button-theme px-6 py-3 rounded-lg cursor-pointer sm:text-2xl text-lg text-white shadow-md transition hover:scale-95 active:scale-90 ${searchParams.get("specie") == "cat" && "outline"}`}>🐱 <span className="max-sm:hidden">น้อง</span>แมว</button>
+                    <button onClick={() => filterSpecie("dog")} className={`sm:w-fit button-theme sm:px-6 sm:py-3 px-3 py-1.5 rounded-lg cursor-pointer sm:text-2xl text-lg text-white shadow-md transition hover:scale-95 active:scale-90 ${searchParams.get("specie") == "dog" && "outline"}`}>🐶 <span className="max-sm:hidden">น้อง</span>หมา</button>
+                    <button onClick={() => filterSpecie("cat")} className={`sm:w-fit button-theme sm:px-6 sm:py-3 px-3 py-1.5 rounded-lg cursor-pointer sm:text-2xl text-lg text-white shadow-md transition hover:scale-95 active:scale-90 ${searchParams.get("specie") == "cat" && "outline"}`}>🐱 <span className="max-sm:hidden">น้อง</span>แมว</button>
                 </div>
 
                 {/* Filter Gender */}
                 <div className="grid w-full text-center">
-                    <p className="text-xl">เพศ</p>
+                    <p className="sm:text-xl">เพศ</p>
                     <div className="flex justify-center sm:gap-6 gap-3">
-                        <button  onClick={() => filterGender("m")} className={`sm:w-fit button-sky px-6 py-3 rounded-lg cursor-pointer sm:text-2xl text-xl text-white shadow-md transition hover:scale-95 active:scale-90 ${searchParams.get("gd") == "m" && "outline"}`}>♂</button>
-                        <button  onClick={() => filterGender("f")} className={`sm:w-fit button-red px-6 py-3 rounded-lg cursor-pointer sm:text-2xl text-xl text-white shadow-md transition hover:scale-95 active:scale-90 ${searchParams.get("gd") == "f" && "outline"}`}>♀</button>
+                        <button  onClick={() => filterGender("m")} className={`sm:w-fit button-sky sm:px-6 sm:py-3 px-3 py-1.5 rounded-lg cursor-pointer sm:text-2xl text-xl text-white shadow-md transition hover:scale-95 active:scale-90 ${searchParams.get("gd") == "m" && "outline"}`}>♂ <span className="max-sm:hidden">ชาย</span><span className="sm:hidden">ช.</span></button>
+                        <button  onClick={() => filterGender("f")} className={`sm:w-fit button-red sm:px-6 sm:py-3 px-3 py-1.5 rounded-lg cursor-pointer sm:text-2xl text-xl text-white shadow-md transition hover:scale-95 active:scale-90 ${searchParams.get("gd") == "f" && "outline"}`}>♀ <span className="max-sm:hidden">หญิง</span><span className="sm:hidden">ญ.</span></button>
                     </div>
                 </div>
 
                 {/* Filter Age */}
-                <div className="grid w-full text-center sm:text-xl text-lg">
-                    <p>เริ่มช่วงอายุ (ปี)</p>
-                    <input onChange={(e) => filterAge(e.target.value)} type="range" className="range w-full" min={0} max="4" defaultValue="0" step="1" />
+                <div className="grid w-full text-center">
+                    <p className="sm:text-xl">เริ่มช่วงอายุ (ปี)</p>
+                    <input onChange={(e) => filterAge(e.target.value)} type="range" className="range range-theme w-full" min={0} max="4" defaultValue="0" step="1" />
                     <div className="flex justify-between px-2.5 mt-2 text-xs">
                         <span>|</span>
                         <span>|</span>

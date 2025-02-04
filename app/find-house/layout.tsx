@@ -1,5 +1,6 @@
 import Navbar from "../components/Navbar";
 import { Footer } from "../components/Footer";
+import { Breadcrumbs } from "../components/Breadcrumbs";
 
 export default function Layout({
     children,
@@ -9,11 +10,14 @@ export default function Layout({
     return (
         <>
             <Navbar />
+            <Breadcrumbs />
+
             <div className="grid justify-items-center min-h-[88vh] overflow-x-hidden">
-                <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
+                <main className="flex flex-col gap-8 items-center sm:items-start w-full">
                     {children}
                 </main>
             </div>
+
             <Footer />
         </>
     )

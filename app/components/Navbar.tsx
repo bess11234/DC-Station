@@ -16,7 +16,7 @@ function Navbar() {
     const LinkPath = [
         { name: "หาบ้านให้น้อง", link: "/find-house" },
         { name: "เกร็ดความรู้", link: "#" },
-        { name: "การติดต่อ", link: "/contact" },
+        { name: "ติดต่อสอบถาม", link: "/contact" },
     ]
 
     return (
@@ -24,7 +24,7 @@ function Navbar() {
             <div className="sticky top-0 z-40 w-full bg-white dark:bg-black2 h-fit">
                 <div className="max-w-8xl mx-auto border-b not-dark:border-black2/20 border-white/20">
                     <div className="py-4 lg:px-8 lg:mx-0 mx-4">
-                        <div className="relative grid xs:grid-cols-3 grid-cols-2 place-items-center max-xs:col-span-2">
+                        <div className="relative grid xs:grid-cols-3 grid-cols-2 items-center max-xs:col-span-2">
                             {/* Left side */}
                             <Link
                                 className="max-sm:justify-self-start mr-3 flex-none overflow-hidden md:w-auto text-nowrap"
@@ -46,13 +46,13 @@ function Navbar() {
                             </Link>
 
                             {/* Right side */}
-                            <div className="flex flex-row max-sm:justify-self-end xs:col-span-2">
-                                <div className="hidden xs:flex sm:space-x-5 space-x-3">
+                            <div className="flex flex-row justify-self-end xs:col-span-2 md:text-base text-sm">
+                                <div className="hidden xs:flex [&>a]:px-3 [&>a]:py-1 [&>a]:rounded-full space-x-1">
                                     {LinkPath.map((v, i) => (
                                         <Link
                                             key={i}
                                             href={v.link}
-                                            className={"link-color duration-300 " + (path == v.link && "text-theme-400 dark:text-theme-300")}
+                                            className={"transition-colors duration-300 " + (path == v.link && "text-theme-500 dark:text-theme-400 bg-theme-100/80 dark:bg-theme-200/10 ") + (path != v.link && " hover:bg-black2/5 dark:hover:bg-white/10 ")}
                                         >
                                             <span>{v.name}</span>
                                         </Link>

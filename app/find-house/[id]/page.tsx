@@ -3,7 +3,6 @@ import Image from "next/image"
 import { Suspense } from "react"
 
 import { animals } from "@/app/lib/data"
-import { Carousel } from "@/app/components/Carousel"
 import { ShowData } from "./showData"
 
 export default async function FindHouseID({ params }: { params: Promise<{ id: string }> }) {
@@ -13,14 +12,13 @@ export default async function FindHouseID({ params }: { params: Promise<{ id: st
 
     return (
         <>
-            <Carousel />
-
             {/* Title Content */}
             <div className="flex flex-col gap-3 w-full place-items-center">
                 <p className="md:text-3xl sm:text-2xl text-xl text-center">สร้างครอบครัวที่อบอุ่นให้น้อง <span><br />(DC Station 🐶 & 🐱)</span></p>
 
                 {/* Animal Information */}
-                <div className="grid sm:grid-cols-2 grid-cols-1 gap-3 p-3 max-w-[1000px] ">
+                <div className="grid sm:grid-cols-2 grid-cols-1 gap-3 p-3 max-w-[1000px]">
+
                     {/* Main Image */}
                     <Image
                         src={animal.images[0]}
@@ -32,14 +30,16 @@ export default async function FindHouseID({ params }: { params: Promise<{ id: st
                         placeholder="blur"
                         blurDataURL={animal.images[0]}
                         quality={74}
-                        className="rounded-md grow shadow"
+                        className="rounded-xl grow shadow"
                     />
+
                     {/* Data */}
                     <Suspense fallback={<p>Loading...</p>}>
                         <ShowData animal={animal} />
                     </Suspense>
 
-                    <a className="sm:col-span-2 button-theme px-6 p-3 rounded cursor-pointer mt-3 w-fit place-self-center shadow-lg" href="https://mail.google.com/mail/u/1/?fs=1&to=test@hotmail.com&tf=cm" target="_blank">
+                    {/* Button Contact */}
+                    <a className="sm:col-span-2 button-theme px-9 py-3 rounded-full cursor-pointer mt-3 w-fit place-self-center sm:text-3xl text-xl outline-theme-800" href="https://mail.google.com/mail/u/1/?fs=1&to=test@hotmail.com&tf=cm" target="_blank">
                         ติดต่อเพื่อขอรับเลี้ยง
                     </a>
 
@@ -60,7 +60,7 @@ export default async function FindHouseID({ params }: { params: Promise<{ id: st
                                             sizes="100vw"
                                             style={{ width: "100%", height: "100%", objectFit: "cover" }}
                                             alt={`Picture of ${animal.name} No.${i}`}
-                                            className={`rounded-lg shadow ${i % 3 == 0 ? "aspect-3/2" : "aspect-square"}`}
+                                            className={`rounded-xl shadow ${i % 3 == 0 ? "aspect-3/2" : "aspect-square"}`}
                                         />
                                     ))
                                 }
