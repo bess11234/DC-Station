@@ -1,11 +1,10 @@
 "use client"
 import axios from 'axios';
-import CatScript from "./Catscript";
 import './Catstyle.css'
 import './form.css'
 import { useState } from "react";
-import { Eye, EyeOff } from "lucide-react";
 import CatComponent from './CatComponent'
+import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
 
 
 interface FormValues {
@@ -43,8 +42,6 @@ export default function Login(){
 
     return(
       <div>
-        {/* Script animation แมว */}
-        <CatScript {...catConfig} />
 
         {/* ทางซ้าย */}
         <div id="leftSide" className="container h-screen w-3/5 left-0">
@@ -89,9 +86,9 @@ export default function Login(){
                 aria-controls="password"
               >
                 {isVisible ? (
-                  <EyeOff size={20} aria-hidden="true" />
+                  <EyeSlashIcon className='size-5' aria-hidden="true" />
                 ) : (
-                  <Eye size={20} aria-hidden="true" />
+                  <EyeIcon className='size-5' aria-hidden="true"/>
                 )}
               </button>
 
@@ -108,10 +105,7 @@ export default function Login(){
               Login
             </button>
           </form>
-            
         </div>
-        
       </div>
-      
     )
   }
