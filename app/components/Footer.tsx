@@ -3,13 +3,13 @@ import Image from "next/image"
 
 export function Footer() {
     return (
-        <footer className="p-3 row-start-3 flex gap-6 flex-wrap items-center justify-center text-center break-words">
+        <footer className="p-3 mt-3 row-start-3 flex gap-6 flex-wrap items-center justify-center text-center break-words">
             <div className="font-medium">
                 <span className="font-light">Created by <HeartIcon className="inline-block size-6 text-pink-300 dark:text-pink-200" /> </span>
                 @
-                <span className="github-user tooltip" data-tip="hello">
-                    <div className="tooltip-content rounded-lg">
-                        <div className="flex p-1 gap-3 items-center rounded-lg">
+                <span className="github-user tooltip">
+                    <div className="tooltip-content rounded-xl">
+                        <div className="flex p-1 gap-3 items-center">
                             <Image
                                 src="/github/bess11234.webp"
                                 height={56}
@@ -23,9 +23,9 @@ export function Footer() {
                     bess11234
                 </span>,
                 @
-                <span className="github-user tooltip" data-tip="hello">
-                    <div className="tooltip-content rounded-lg">
-                        <div className="flex p-1 gap-3 items-center rounded-lg">
+                <span className="github-user tooltip">
+                    <div className="tooltip-content rounded-xl">
+                        <div className="flex p-1 gap-3 items-center">
                             <Image
                                 src="/github/KKMAI.webp"
                                 height={56}

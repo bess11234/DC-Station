@@ -58,10 +58,10 @@ export function AnimalsElement({ animals }: Props) {
     }, [searchParams, animals, pathName])
     return (
         <>
-            <div className="grid md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-3">
+            <div className="grid md:grid-cols-4 sm:grid-cols-3 grid-cols-2 sm:gap-6 gap-3 sm:m-3">
                 {
                     displayAnimal.map((v, i) => (
-                        <Link href={`/find-house/${v.id}`} key={i}>
+                        <Link scroll href={`/find-house/${v.id}`} key={i}>
                             <Card src={v.images[0]} title={v.name} desc={v.personalities.join(", ")} />
                         </Link>
                     ))

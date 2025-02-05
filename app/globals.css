@@ -104,10 +104,11 @@ h6 {
   transform: translate(-50%, -75%);
 }
 
-.link-color {
-  @apply transition-colors hover:text-theme-400 dark:hover:text-theme-300
+.github-user {
+  @apply hover:underline underline-offset-2 decoration-theme-500/60 dark:decoration-theme-500 decoration-2 tracking-tight
 }
 
-.github-user {
-  @apply hover:underline underline-offset-2 decoration-indigo-500/60 dark:decoration-indigo-500 decoration-2 tracking-tight
+.range-theme {
+  color: var(--color-theme-500) /* var(--color-error) */;
+  --range-thumb: var(--color-theme-950) /* var(--color-error-content) */;
 }

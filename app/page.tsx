@@ -22,10 +22,10 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <div className="grid justify-items-center min-h-[88vh]">
+      <div className="grid justify-items-center min-h-[88vh] overflow-x-hidden">
 
-        <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-          
+        <main className="flex flex-col gap-8 items-center sm:items-start">
+
           {/* Carousel */}
           <Carousel />
 
@@ -36,7 +36,7 @@ export default function Home() {
             <div className="grid grid-cols-1 gap-6 sm:*:size-full *:size-fit place-items-center">
 
               {/* Bank Information */}
-              <div className="flex flex-col space-y-3 bg-black2/5 dark:bg-white/5 p-6 rounded-xl shadow-md">
+              <div className="flex flex-col space-y-3 p-6 rounded-xl bg-theme-100 dark:bg-theme-950">
                 <p className="md:text-2xl sm:text-xl text-lg text-center">ชื่อบัญชี: xxxxxxx ประเภท: xxxxxxx</p>
 
                 {/* bank */}
@@ -46,10 +46,10 @@ export default function Home() {
                   ))}
 
                 </div>
+                <Stat />
               </div>
 
               {/* Carity Status */}
-              <Stat />
             </div>
           </div>
 
@@ -85,7 +85,7 @@ export default function Home() {
 
       </div>
 
-      <Footer />      
+      <Footer />
     </>
   );
 }

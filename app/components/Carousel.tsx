@@ -1,12 +1,17 @@
 'use client'
 import Image from "next/image"
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 import { gallery } from "../lib/data";
 
 export function Carousel() {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isPaused, setIsPaused] = useState(false);
+
+    // Make carousel --draggable--
+    const carouselRef = useRef<HTMLDivElement>(null);
+    let startX = 0;
+    let isDragging = false;
 
     useEffect(() => {
         if (isPaused) return;
@@ -24,17 +29,44 @@ export function Carousel() {
         setCurrentIndex((prevIndex) => (prevIndex - 1 + gallery.length) % gallery.length);
     };
 
+    const handleMouseDown = (e: React.MouseEvent) => {
+        isDragging = true;
+        startX = e.clientX;
+    };
+
+    const handleMouseMove = (e: React.MouseEvent) => {
+        if (!isDragging) return;
+        const diff = startX - e.clientX;
+        if (diff > 50) {
+            nextSlide();
+            isDragging = false;
+        } else if (diff < -50) {
+            prevSlide();
+            isDragging = false;
+        }
+    };
+
+    const handleMouseUp = () => {
+        isDragging = false;
+    };
+
     return (
-        <div className="relative mx-auto overflow-hidden rounded-b-lg bg-black2/5 dark:bg-white/5">
+        <div className="relative mx-auto overflow-hidden select-none cursor-grab active:cursor-grabbing"
+            ref={carouselRef}
+            onMouseDown={handleMouseDown}
+            onMouseMove={handleMouseMove}
+            onMouseUp={handleMouseUp}
+            onMouseLeave={handleMouseUp}
+        >
 
             {/* Images */}
             <div
-                className="w-full sm:max-w-4xl max-w-3xl flex transition-transform duration-500 ease-in-out"
+                className="w-full sm:max-w-7xl max-w-3xl flex transition-transform duration-500 ease-in-out"
                 style={{ transform: `translateX(-${currentIndex * 100}%)` }}
             >
                 {gallery.map((v, index) => (
                     <Image
-                        className="w-full shrink-0 m-auto"
+                        className="w-full shrink-0 m-auto pointer-events-none"
                         style={{
                             width: "100%",
                             height: "auto",
