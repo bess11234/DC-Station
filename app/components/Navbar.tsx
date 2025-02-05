@@ -16,12 +16,12 @@ function Navbar() {
     const LinkPath = [
         { name: "หาบ้านให้น้อง", link: "/find-house" },
         { name: "เกร็ดความรู้", link: "#" },
-        { name: "การติดต่อ", link: "#" },
+        { name: "การติดต่อ", link: "/contact" },
     ]
-    
+
     return (
         <>
-            <div className="sticky top-0 z-40 w-full backdrop-blur-2xl h-fit">
+            <div className="sticky top-0 z-40 w-full bg-white dark:bg-black2 h-fit">
                 <div className="max-w-8xl mx-auto border-b not-dark:border-black2/20 border-white/20">
                     <div className="py-4 lg:px-8 lg:mx-0 mx-4">
                         <div className="relative grid xs:grid-cols-3 grid-cols-2 place-items-center max-xs:col-span-2">
@@ -41,7 +41,7 @@ function Navbar() {
                                         width={40}
                                         height={40}
                                     />
-                                    <p className="font-semibold text-xl">DC Station</p>
+                                    <p className="font-semibold text-xl">DC <span className="max-xs:text-base">Station</span></p>
                                 </div>
                             </Link>
 

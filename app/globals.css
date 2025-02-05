@@ -96,7 +96,7 @@ h6 {
 }
 
 .button-theme {
-  @apply bg-theme-500 hover:bg-theme-600 active:bg-theme-700 disabled:bg-theme-100 disabled:text-theme-400 dark:disabled:bg-theme-950 dark:disabled:text-theme-700 not-disabled:hover:drop-shadow-[0_2px_10px_rgba(249,179,135,0.4)];
+  @apply bg-theme-500 hover:bg-theme-600 active:bg-theme-700 disabled:bg-theme-100 disabled:text-theme-400 dark:disabled:bg-theme-950 dark:disabled:text-theme-700 not-disabled:hover:drop-shadow-[0_2px_10px_rgba(202,135,54,0.4)] text-white;
 }
 
 .modal-center{

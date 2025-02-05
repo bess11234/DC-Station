@@ -1,43 +1,38 @@
-import { Carousel, GalleryImage } from "../components/Carousel"
-import { CardType, Card } from "../components/Card"
+import { Carousel } from "../components/Carousel"
 
-const gallery: GalleryImage[] = [
-    { src: "image0.webp", alt: "Clarity for pets." },
-    { src: "image1.webp", alt: "Stray cats needed for housing." },
-    { src: "image2.webp", alt: "Stray dogs needed for housing." }
-]
+import { AnimalsElement } from "../components/animals/AnimalsElement"
+import { Metadata } from "next"
 
-const animals: CardType[] = [
-    { src: "/animals/bo.webp", title: "น้องโบ", desc: "ซุกซน น่ารัก ชอบวิ่งเล่น และเจ้าเล่ห์" },
-    { src: "/animals/nam_tan.webp", title: "น้องน้ำตาล", desc: "สงบเสงี่ยม ชอบให้กอด แต่ให้เฉพาะคนที่ชอบมาจับ" },
-    { src: "/animals/num.webp", title: "น้องนุ่น", desc: "น่ารัก ขี้อ้อน ชอบให้ลูบ" },
-    { src: "/animals/bo.webp", title: "น้องโบ", desc: "ซุกซน น่ารัก ชอบวิ่งเล่น และเจ้าเล่ห์" },
-    { src: "/animals/nam_tan.webp", title: "น้องน้ำตาล", desc: "สงบเสงี่ยม ชอบให้กอด แต่ให้เฉพาะคนที่ชอบมาจับ" },
-    { src: "/animals/num.webp", title: "น้องนุ่น", desc: "น่ารัก ขี้อ้อน ชอบให้ลูบ" },
-    { src: "/animals/bo.webp", title: "น้องโบ", desc: "ซุกซน น่ารัก ชอบวิ่งเล่น และเจ้าเล่ห์" },
-    { src: "/animals/nam_tan.webp", title: "น้องน้ำตาล", desc: "สงบเสงี่ยม ชอบให้กอด แต่ให้เฉพาะคนที่ชอบมาจับ" },
-    { src: "/animals/num.webp", title: "น้องนุ่น", desc: "น่ารัก ขี้อ้อน ชอบให้ลูบ" },
-    { src: "/animals/bo.webp", title: "น้องโบ", desc: "ซุกซน น่ารัก ชอบวิ่งเล่น และเจ้าเล่ห์" },
-    { src: "/animals/nam_tan.webp", title: "น้องน้ำตาล", desc: "สงบเสงี่ยม ชอบให้กอด แต่ให้เฉพาะคนที่ชอบมาจับ" },
-    { src: "/animals/num.webp", title: "น้องนุ่น", desc: "น่ารัก ขี้อ้อน ชอบให้ลูบ" }
-]
+import { FilterAnimals } from "../components/animals/FilterAnimals"
+import { Suspense } from "react"
+
+import { animals } from "../lib/data"
+
+export const metadata: Metadata = {
+    title: "Find House"
+}
 
 export default function FindHouse() {
+
     return (
-        <div className="grid justify-items-center min-h-screen">
-            <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-                <Carousel images={gallery} />
+        <>
+            {/* Carousel */}
+            <Carousel />
 
-                <div className="flex flex-col gap-3 w-full p-3">
+            {/* Title Content */}
+            <div className="flex flex-col gap-3 w-full place-items-center">
+                <p className="md:text-3xl sm:text-2xl text-xl text-center">สร้างครอบครัวที่อบอุ่นให้น้อง <span><br />(DC Station 🐶 & 🐱)</span></p>
 
-                    <div className="grid lg:grid-cols-4 xs:grid-cols-2 grid-cols-1 gap-3">
-                        {animals.map((v, i) => (
-                            <Card key={i} src={v.src} title={v.title} desc={v.desc} />
-                        ))}
+                {/* Filter animal (Species, Age, Gender) */}
+                <FilterAnimals />
+            </div>
 
-                    </div>
-                </div>
-            </main>
-        </div>
+            {/* Animals */}
+            <div className="flex flex-col w-screen px-3">
+                <Suspense fallback={<p>Loading</p>}>
+                    <AnimalsElement animals={animals} />
+                </Suspense>
+            </div>
+        </>
     )
 }

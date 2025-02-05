@@ -1,24 +1,12 @@
 import Navbar from "./components/Navbar";
-import { HeartIcon } from "@heroicons/react/24/solid";
-import { Carousel, GalleryImage } from "./components/Carousel";
+import { Footer } from "./components/Footer";
+
+import { Carousel } from "./components/Carousel";
 import { Bank, BankType } from "./components/Bank";
 import { Stat } from "./components/Stat";
 import { Card, CardType } from "./components/Card";
 
-import Image from "next/image";
-
-import type { Metadata } from 'next'
-
-export const metadata: Metadata = {
-  title: 'Main',
-}
-
 export default function Home() {
-  const gallery: GalleryImage[] = [
-    { src: "image0.webp", alt: "Clarity for pets." },
-    { src: "image1.webp", alt: "Stray cats needed for housing." },
-    { src: "image2.webp", alt: "Stray dogs needed for housing." }
-  ]
 
   const animals: CardType[] = [
     { src: "/animals/bo.webp", title: "น้องโบ", desc: "ซุกซน น่ารัก ชอบวิ่งเล่น และเจ้าเล่ห์" },
@@ -33,11 +21,13 @@ export default function Home() {
   ]
   return (
     <>
-      <div className="grid justify-items-center min-h-screen">
+      <Navbar />
+      <div className="grid justify-items-center min-h-[88vh]">
 
         <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
+          
           {/* Carousel */}
-          <Carousel images={gallery} />
+          <Carousel />
 
           {/* Content */}
           <div className="flex flex-col gap-3 w-full place-items-center">
@@ -67,31 +57,35 @@ export default function Home() {
           <div className="flex flex-col gap-3 w-full p-3">
             <p className="md:text-3xl sm:text-2xl text-xl">น้องหาบ้าน ({animals.length})</p>
 
-            <div className="grid lg:grid-cols-4 xs:grid-cols-2 grid-cols-1 gap-3">
+            {/* If completed will changed to Animals components */}
+            <div className="grid md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-3">
               {animals.map((v, i) => (
                 <Card key={i} src={v.src} title={v.title} desc={v.desc} />
               ))}
 
             </div>
-          </div>
 
-          <div className="h-0.5 bg-theme-200 w-[90%] self-center rounded-full"></div>
+          </div>
 
           {/* Animal found their family */}
           <div className="flex flex-col gap-3 w-full p-3">
             <p className="md:text-3xl sm:text-2xl text-xl">น้องมีบ้านแล้ว ({animals.length})</p>
 
-            <div className="grid lg:grid-cols-4 xs:grid-cols-2 grid-cols-1 gap-3">
+            {/* If completed will changed to Animals components */}
+            <div className="grid md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-3">
               {animals.map((v, i) => (
                 <Card key={i} src={v.src} title={v.title} desc={v.desc} />
               ))}
 
             </div>
+
           </div>
 
         </main>
 
       </div>
+
+      <Footer />      
     </>
   );
 }
