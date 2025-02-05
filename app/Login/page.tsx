@@ -44,7 +44,7 @@ export default function Login() {
 
       if (response.ok) {
         localStorage.setItem("token", data.token); // Store token in localStorage
-        // alert("Login successful!");
+        alert("Login successful!");
         router.push("/")
       } else {
         alert(data.message || "Login failed");
