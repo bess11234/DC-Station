@@ -11,7 +11,7 @@ export default function Layout({
         <>
             <Navbar />
             <Breadcrumbs />
-            <div className="grid justify-items-center min-h-[88vh] overflow-x-hidden">
+            <div className="grid justify-items-center min-h-[88vh] overflow-x-hidden pb-3">
                 <main className="flex flex-col gap-8 items-center sm:items-start">
                     {children}
                 </main>

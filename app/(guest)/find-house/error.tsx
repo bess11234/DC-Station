@@ -1,6 +1,7 @@
 'use client';
  
 import { useEffect } from 'react';
+import { ExclamationCircleIcon } from '@heroicons/react/24/outline';
  
 export default function Error({
   error,
@@ -15,8 +16,10 @@ export default function Error({
   }, [error]);
  
   return (
-    <main className="flex flex-col items-center justify-center">
-      <h2 className="text-center">เกิดข้อผิดพลาด!</h2>
+    <div className="flex m-auto flex-col items-center justify-center gap-2">
+      <ExclamationCircleIcon className='w-10 text-gray-400' />
+      <h2 className="text-center">500 Server Error!</h2>
+      <p>เกิดข้อผิดพลาด!</p>
       <button
         className="mt-4 rounded-md px-4 py-2 text-sm transition-colors button-theme cursor-pointer"
         onClick={
@@ -26,6 +29,6 @@ export default function Error({
       >
         ลองอีกครั้ง
       </button>
-    </main>
+    </div>
   );
 }

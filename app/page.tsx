@@ -4,15 +4,11 @@ import { Footer } from "./components/Footer";
 import { Carousel } from "./components/Carousel";
 import { Bank, BankType } from "./components/Bank";
 import { Stat } from "./components/Stat";
-import { Card, CardType } from "./components/Card";
+import { Card } from "./components/Card";
+
+import { animals } from "./lib/data";
 
 export default function Home() {
-
-  const animals: CardType[] = [
-    { src: "/animals/bo.webp", title: "น้องโบ", desc: "ซุกซน น่ารัก ชอบวิ่งเล่น และเจ้าเล่ห์" },
-    { src: "/animals/nam_tan.webp", title: "น้องน้ำตาล", desc: "สงบเสงี่ยม ชอบให้กอด แต่ให้เฉพาะคนที่ชอบมาจับ" },
-    { src: "/animals/num.webp", title: "น้องนุ่น", desc: "น่ารัก ขี้อ้อน ชอบให้ลูบ" }
-  ]
 
   const banks: BankType[] = [
     { src: "/bank/scb.webp", title: "ธนาคารไทยพาณิชย์", alt: "Bank SCB." },
@@ -22,7 +18,7 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <div className="grid justify-items-center min-h-[88vh] overflow-x-hidden">
+      <div className="grid justify-items-center min-h-[88vh] overflow-x-hidden pb-3">
 
         <main className="flex flex-col gap-8 items-center sm:items-start">
 
@@ -31,7 +27,7 @@ export default function Home() {
 
           {/* Content */}
           <div className="flex flex-col gap-3 w-full place-items-center">
-            <p className="md:text-3xl sm:text-2xl text-xl text-center">มูลนิธิอาสาช่วยเหลือหมาและแมว <span><br />(DC Station 🐶 & 🐱)</span></p>
+            <p className="md:text-5xl sm:text-4xl xs:text-3xl text-xl text-center">มูลนิธิอาสาช่วยเหลือหมาและแมว <span><br />(DC Station 🐶 & 🐱)</span></p>
 
             <div className="grid grid-cols-1 gap-6 sm:*:size-full *:size-fit place-items-center">
 
@@ -60,7 +56,7 @@ export default function Home() {
             {/* If completed will changed to Animals components */}
             <div className="grid md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-3">
               {animals.map((v, i) => (
-                <Card key={i} src={v.src} title={v.title} desc={v.desc} />
+                <Card key={i} src={v.images[0]} title={v.name} desc={v.personalities.join(", ")} hrefLink={`/find-house/${v.id}`} />
               ))}
 
             </div>
@@ -74,7 +70,7 @@ export default function Home() {
             {/* If completed will changed to Animals components */}
             <div className="grid md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-3">
               {animals.map((v, i) => (
-                <Card key={i} src={v.src} title={v.title} desc={v.desc} />
+                <Card key={i} src={v.images[0]} title={v.name} desc={v.personalities.join(", ")} hrefLink={`/find-house/${v.id}`} />
               ))}
 
             </div>

@@ -1,10 +1,10 @@
 import { Metadata } from "next"
 import { Suspense } from "react"
 
-import { animals } from "../lib/data"
+import { animals } from "@/app/lib/data"
 
-import { AnimalsElement } from "../components/animals/AnimalsElement"
-import { FilterAnimals } from "../components/animals/FilterAnimals"
+import { AnimalsElement } from "@/app/components/animals/AnimalsElement"
+import { FilterAnimals } from "@/app/components/animals/FilterAnimals"
 
 export const metadata: Metadata = {
     title: "Find House"
@@ -16,7 +16,7 @@ export default function FindHouse() {
         <>
             {/* Title Content */}
             <div className="flex flex-col gap-3 w-full place-items-center">
-                <p className="md:text-3xl sm:text-2xl text-xl text-center">สร้างครอบครัวที่อบอุ่นให้น้อง <span><br />(DC Station 🐶 & 🐱)</span></p>
+                <p className="md:text-5xl sm:text-4xl xs:text-3xl text-xl text-center py-3">สร้างครอบครัวที่อบอุ่นให้น้อง <span><br />(DC Station 🐶 & 🐱)</span></p>
 
                 {/* Filter animal (Species, Age, Gender) */}
                 <FilterAnimals />

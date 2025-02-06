@@ -14,7 +14,7 @@ export default async function FindHouseID({ params }: { params: Promise<{ id: st
         <>
             {/* Title Content */}
             <div className="flex flex-col gap-3 w-full place-items-center">
-                <p className="md:text-3xl sm:text-2xl text-xl text-center">สร้างครอบครัวที่อบอุ่นให้น้อง <span><br />(DC Station 🐶 & 🐱)</span></p>
+                <p className="md:text-5xl sm:text-4xl xs:text-3xl text-xl text-center py-3">สร้างครอบครัวที่อบอุ่นให้น้อง <span><br />(DC Station 🐶 & 🐱)</span></p>
 
                 {/* Animal Information */}
                 <div className="grid sm:grid-cols-2 grid-cols-1 gap-3 p-3 max-w-[1000px]">

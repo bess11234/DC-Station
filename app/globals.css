@@ -24,7 +24,7 @@
 }
 
 body {
-  @apply dark:bg-black2 dark:text-white;
+  @apply bg-theme-50 text-black2 dark:bg-black2 dark:text-white;
 }
 
 h1 {

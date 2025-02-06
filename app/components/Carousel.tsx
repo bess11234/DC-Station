@@ -6,7 +6,7 @@ import { gallery } from "../lib/data";
 
 export function Carousel() {
     const [currentIndex, setCurrentIndex] = useState(0);
-    const [isPaused, setIsPaused] = useState(false);
+    const [isPaused] = useState(false);
 
     // Make carousel --draggable--
     const carouselRef = useRef<HTMLDivElement>(null);
@@ -80,6 +80,7 @@ export function Carousel() {
                         alt={v.alt}
                         placeholder="blur"
                         blurDataURL={`/gallery/${v.src}`}
+                        
                     />
                 ))}
             </div>
