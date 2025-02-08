@@ -41,7 +41,7 @@ export function Breadcrumbs() {
     })
     return (
         <>
-            {isGenerated && <div className="py-4 lg:px-8 lg:mx-0 mx-4 w-full place-self-start justify-self-start">
+            {isGenerated && <div className="py-4 lg:px-8 lg:ml-0 ml-4 w-full place-self-start justify-self-start">
                 <div className="hidden sm:flex">{pathLink}</div>
                 {lastLink}
             </div>}

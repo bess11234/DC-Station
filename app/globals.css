@@ -23,8 +23,25 @@
   --color-theme-950: #391b0f;
 }
 
+
 body {
   @apply bg-theme-50 text-black2 dark:bg-black2 dark:text-white;
+}
+
+ol, ul {
+  @apply list-inside
+}
+
+ul {
+  @apply list-disc
+}
+
+ol {
+  @apply list-decimal
+}
+
+.ck-editor__editable .ck-list-bogus-paragraph{
+  @apply inline!
 }
 
 h1 {

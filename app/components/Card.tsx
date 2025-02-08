@@ -1,5 +1,8 @@
+'use client'
 import Image from "next/image"
 import Link from "next/link";
+
+import { useRouter } from "next/navigation";
 
 import { DisplayDateCard } from "./DisplayDateCard";
 
@@ -11,8 +14,9 @@ export interface CardType {
     date?: number;
 }
 export function Card({ src, title, desc, hrefLink, date }: CardType) {
+    const { push } = useRouter()
     return (
-        <div className="select-none card shadow-lg bg-theme-50 dark:bg-theme-950 rounded-xl md:max-h-[400px] max-h-[350px] max-w-full">
+        <div className="select-none card shadow-lg bg-theme-50 dark:bg-theme-950 rounded-xl md:max-h-[400px] max-h-[350px] max-w-full">            
             <figure className="rounded-xl">
                 <Image
                     src={src}
@@ -24,6 +28,8 @@ export function Card({ src, title, desc, hrefLink, date }: CardType) {
                     placeholder="blur"
                     blurDataURL={src}
                     quality={74}
+                    className="transition-transform hover:brightness-50 hover:cursor-pointer hover:scale-110"
+                    onClick={() => push(hrefLink)}
                 />
             </figure>
             <div className="relative card-body max-sm:p-6 pb-4">
