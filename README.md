@@ -11,7 +11,7 @@ You should see
 
 -> Server running on port 5000 
 
--> MongoDB Connected"
+-> MongoDB Connected
 
 Then run the development server:
 ```bash
