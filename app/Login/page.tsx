@@ -4,7 +4,8 @@ import './form.css'
 import { useState } from "react";
 import CatComponent from './CatComponent'
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
-import { useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation';
+import Link from "next/link";
 
 interface FormValues {
   email: string;
@@ -22,30 +23,32 @@ export default function Login() {
     email: "", password: ""
   });
 
-  // Handle form input changes
+  const router = useRouter();
+
+  // Handle input change safely
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormValues({ ...formValues, [e.target.name]: e.target.value });
+    setFormValues({
+      ...formValues,
+      [e.target.name]: e.target.value
+    });
   };
 
   // Handle form submission
-  const router = useRouter();
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
       const response = await fetch("http://localhost:5000/api/auth/login", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: {"Content-Type": "application/json"},
+        credentials: "include", //send cookie 
         body: JSON.stringify(formValues),
       });
 
       const data = await response.json();
 
       if (response.ok) {
-        localStorage.setItem("token", data.token); // Store token in localStorage
         alert("Login successful!");
-        router.push("/")
+        router.push("/") //navigate to home page 
       } else {
         alert(data.message || "Login failed");
       }
@@ -55,33 +58,57 @@ export default function Login() {
     }
   };
 
+  // Fetch user profile after login
+  const [userProfile, setUserProfile] = useState<any>(null); // เก็บข้อมูล user
+  const fetchUserProfile = async (token: string) => {
+    try {
+      const response = await fetch("http://localhost:5000/api/auth/profile", {
+        method: "GET",
+        // headers: {
+        //   "Content-Type": "application/json",
+        //   Authorization: `Bearer ${token}`,
+        // },
+        credentials: "include",
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        setUserProfile(data);
+        console.log("User Profile:", data);
+      } else {
+        console.error("Failed to fetch profile:", data.message);
+      }
+    } catch (error) {
+      console.error("Error fetching profile:", error);
+    }
+  };
+
   return(
     <div>
-
-      {/* ทางซ้าย */}
+      {/*---------------------------- Left Side ----------------------------*/}
       <div id="leftSide" className="container h-screen w-3/5 left-0">
 
       {/* bg */}
       <div className="absolute h-screen w-full left-0 bg-[url(/bg/white_cat_and_beagle.jpg)] bg-cover bg-center shadow-[inset_-10px_0_15px_rgba(0,0,0,0.5)]"></div>
-          {/* cat components */}
           <CatComponent/>
       </div>
 
       
-      {/* ทางขวา */}
+      {/* {/*---------------------------- Right Side ----------------------------*/}
       <div className='border-0  h-screen w-2/5 bg-white absolute insert-y right-0 flex-col flex justify-center items-center'>
           
         {/* Web title */} 
         <h1 className='w-fit font-light mb-7'>DC Station</h1>
 
         <form className='w-2/3' onSubmit={handleSubmit}>
-          {/* ส่วน email */}
+
+          {/* ---- Email ---- */}
           <div className="border-0 relative h-11 w-full min-w-[200px] mb-7">
             <input 
             type="email"
             name="email"
             value={formValues.email}
-            onChange={(e) => setFormValues({ ...formValues, email: e.target.value })}
+            onChange={handleChange}
             required
             className="border-0 peer h-full w-full border-b border-blue-gray-200 bg-transparent pt-4 pb-1.5 text-lg  font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border-blue-gray-200 
               focus:border-yellow-600 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50" 
@@ -93,14 +120,14 @@ export default function Login() {
             </label>
           </div>
 
-          {/* ส่วน password */}
+          {/* ---- Passswod ---- */}
           <div className="border-0 relative h-11 w-full min-w-[200px] mb-12">
             <input
             id="password"
             type={isVisible ? "text" : "password"}
             name="password"
             value={formValues.password}
-            onChange={(e) => setFormValues({ ...formValues, password: e.target.value })}
+            onChange={handleChange}
             required
             className="border-0 peer h-full w-full border-b border-blue-gray-200 bg-transparent pt-4 pb-1.5 text-lg font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border-blue-gray-200 
               focus:border-yellow-600 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50" 
@@ -127,7 +154,7 @@ export default function Login() {
               Password
             </label>
             <div className='w-full flex justify-end mt-3'>
-              <a href="#" className='text-sm font-semibold text-amber-950 hover:text-amber-800'>Forgot password?</a>
+              <Link href="#" className='text-sm font-semibold text-amber-950 hover:text-amber-800'>Forgot password?</Link>
             </div>
           </div>
 
