@@ -2,15 +2,18 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
-First, run both development server and express server:
+First, run the Express server:
 
 ```bash
 nodemon server/server.js
 ```
 You should see
-"Server running on port 5000"
-"MongoDB Connected"
 
+-> Server running on port 5000 
+
+-> MongoDB Connected"
+
+Then run the development server:
 ```bash
 npm run dev
 # or
