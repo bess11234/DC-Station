@@ -1,7 +1,7 @@
 const express = require('express')
 const cors = require("cors")
 
-const Animal = require("../models/animal");
+const Animal = require("../models/animals");
 
 const router = express.Router()
 
