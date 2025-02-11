@@ -8,11 +8,10 @@ export const animals: Animal[] = [
     personalities: ["ซุกซน", "น่ารัก", "ชอบวิ่งเล่น", "เจ้าเล่ห์"],
     breed: "โนวา สก๊อตเทีย ดั๊ก โทริ่ง รีทริฟเวอร์",
     dob: "2024/12/30",
-    gender: "Male",
+    gender: "M",
     healthHistories: { spayingStatus: "หมันแล้ว" },
     history: "เกือบเป็นซอยจุ๊ให้คนจีน",
-    specie: "Dog",
-    weight: 20.3,
+    specie: "Dog"
   },
   {
     id: "3c1a5dfb810778868dcad0571c54f3352c2aa01166ae568ad4f3281909329415044ae4e2c7897012",
@@ -21,11 +20,10 @@ export const animals: Animal[] = [
     personalities: ["สงบเสงี่ยม", "ชอบให้กอด", "ให้จับเฉพาะคนที่ชอบมาจับ"],
     breed: "Persian",
     dob: "2021/12/30",
-    gender: "Male",
+    gender: "M",
     healthHistories: { spayingStatus: "หมันแล้ว" },
     history: "เกือบเป็นซอยจุ๊ให้คนจีน",
-    specie: "Cat",
-    weight: 20.3,
+    specie: "Cat"
   },
   {
     id: "2d39fe18927d4ab7b9fcbd1e872a67dc58fa293a882886357915757db2e7588aa333569e10ba915f",
@@ -34,11 +32,10 @@ export const animals: Animal[] = [
     personalities: ["น่ารัก", "ขี้อ้อน", "ชอบให้ลูบ"],
     breed: "Siamese",
     dob: "2021/12/30",
-    gender: "Female",
+    gender: "F",
     healthHistories: { spayingStatus: "หมันแล้ว" },
     history: "เกือบเป็นซอยจุ๊ให้คนจีน",
-    specie: "Cat",
-    weight: 20.3,
+    specie: "Cat"
   },
 ];
 
@@ -47,3 +44,11 @@ export const gallery: GalleryImage[] = [
   { src: "image1.webp", alt: "Stray cats needed for housing." },
   { src: "image2.webp", alt: "Stray dogs needed for housing." },
 ];
+
+export async function fetchAnimal(): Promise<Animal[]>{
+    const response = await fetch('http://localhost:5000/api/animals')
+    if (!response.ok){
+        throw new Error("Fetch: Failed")
+    }
+    return await response.json()
+}

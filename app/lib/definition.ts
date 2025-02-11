@@ -6,11 +6,10 @@ type HealthHistories = {
 export type Animal = {
     id: string;
     name: string;
-    specie: "Dog" | "Cat";
-    breed: string;
-    gender: "Male" | "Female";
+    specie: "Dog" | "Cat"; // Eng
+    breed: string; // Eng
+    gender: "M" | "F"; // Eng
     dob: string;
-    weight: number;
     history: string;
     personalities: string[];
     healthHistories: HealthHistories
