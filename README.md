@@ -5,6 +5,7 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 First, run the Express server:
 
 ```bash
+cd server
 nodemon server/server.js
 ```
 You should see

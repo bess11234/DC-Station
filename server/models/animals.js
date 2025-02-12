@@ -24,28 +24,45 @@ const HealthHistorySchema = new mongoose.Schema({
 
 const AnimalSchema = new mongoose.Schema({
     name: { type: String, required: true },
-    specie: {
-        type: String,
+    specie: { type: String,
         enum: ["Dog", "Cat"],
         required: true
     },
-    breed: { type: String, required: true },
+    breed: { 
+        type: String, 
+        required: true 
+    },
     gender: {
         type: String,
         enum: ["M", "F"],
         required: true
     },
-    dob: { type: Date, required: true },
-    history: { type: String },
-    personalities: [{ type: String, required: true }],
+    dob: { 
+        type: Date, 
+        required: true 
+    },
+    history: { 
+        type: String 
+    },
+    personalities: [{ 
+        type: String, 
+        required: true 
+    }],
     healthHistories: {
         type: HealthHistorySchema,
-        required: true,
-        default: { spayingStatus: "ยังไม่ทำหมัน", illnesses: [] }
+        required: true
     },
-    images: [{ type: String }],
-    adoptionDate: { type: Date, default: null },
-    knowledgeId : [{ref: "Request"}]
-});
+    images: [{ 
+        type: String
+    }],
+    adoptionDate: { 
+        type: Date, 
+        default:  null 
+    },
+    knowledges : [{
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: "Knowledge"
+    }],
+}, { timestamps: true });
 
 module.exports = mongoose.model("Animal", AnimalSchema);

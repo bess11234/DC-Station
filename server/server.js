@@ -25,11 +25,8 @@ mongoose.connect(process.env.MONGO_URI, {
 //Import router from folder routers
 app.use("/api/auth", require("./routes/auth"));
 app.use("/api/animals", require("./routes/animal"));
-
-// app.use((req, res, next) => {
-//     console.log("Cookies:", req.cookies); // ดูว่ามี token หรือไม่
-//     next();
-// });
+app.use("/api/requests", require("./routes/request"));
+app.use("/api/knowledges", require("./routes/knowledge"));
 
 const PORT = 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

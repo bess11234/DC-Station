@@ -1,0 +1,48 @@
+Knowledge
+{
+    "title": "เคล็ดลับง่าย ๆ ในการเอาใจนก",
+    "image": "",
+    "content": "ความรักและความอบอุ่น"
+}
+
+Request
+{
+    "requester": {
+        "idCard": "1234567890123",
+        "phone": "0891231234",
+        "fb": "test test",
+        "experience": "เคยเลี้ยงแมวเมื่อ 1 ปีก่อน อยากจะขอรับเลี้ยงน้องน้ำตาลเพราะน้องน่ารักเมื่อกับแมวตัวก่อน",
+        "reason": "อยากจะเป็นบ้านที่ดีให้น้องน้ำตาล เลี้ยงให้อ้วน ๆ"
+    },
+    "animalId": "hexCODE"
+}
+
+Animal
+{
+    "name": "Buddy1",
+    "specie": "Dog",
+    "breed": "Golden Retriever",
+    "gender": "M",
+    "dob": "2020-06-15T00:00:00.000Z",
+    "history": "Rescued from a shelter.",
+    "personalities": ["Friendly", "Loyal", "Energetic"],
+    "healthHistories": {
+        "spayingStatus": "ทำหมันแล้ว",
+        "illnesses": [
+            {
+                "name": "Skin Allergy",
+                "status": "กำลังรักษา"
+            },
+            {
+                "name": "Hip Dysplasia",
+                "status": "เรื้อรัง"
+            }
+        ]
+    },
+    "images": [
+        "https://example.com/image1.jpg",
+        "https://example.com/image2.jpg"
+    ],
+    "adoptionDate": "2023-10-05T00:00:00.000Z",
+    "knowledges": ["67ac5aba1347730054d18133"]  // Reference to Knowledge document
+}
