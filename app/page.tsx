@@ -6,15 +6,21 @@ import { Bank, BankType } from "./components/Bank";
 import { Stat } from "./components/Stat";
 import { Card } from "./components/Card";
 
-import { animals } from "./lib/data";
+import { fetchAnimal } from "./lib/data";
+import { Animal } from "./lib/definition";
 
-export default function Home() {
+export default async function Home() {
 
   const banks: BankType[] = [
     { src: "/bank/scb.webp", title: "ธนาคารไทยพาณิชย์", alt: "Bank SCB." },
     { src: "/bank/kbank.webp", title: "ธนาคารกสิกรไทย", alt: "Bank KBank." },
     { src: "/bank/krungthai.webp", title: "ธนาคารกรุงไทย", alt: "Bank Krungthai." }
   ]
+
+  const animals : Animal[] = await fetchAnimal()
+  const no_home = animals.filter(animal => animal.adoptionDate === null);
+  const have_home = animals.filter(animal => animal.adoptionDate != null);
+
   return (
     <>
       <Navbar />
@@ -51,27 +57,27 @@ export default function Home() {
 
           {/* Animals looking for the house */}
           <div className="flex flex-col gap-3 w-full sm:px-6 px-3 py-3">
-            <p className="md:text-3xl sm:text-2xl text-xl">น้องหาบ้าน ({animals.length})</p>
+            <p className="md:text-3xl sm:text-2xl text-xl">น้องหาบ้าน ({no_home.length})</p>
 
             {/* If completed will changed to Animals components */}
             <div className="grid md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-6">
-              {animals.map((v, i) => (
-                <Card key={i} src={v.images[0]} title={v.name} desc={v.personalities.join(", ")} hrefLink={`/find-house/${v.id}`} />
-              ))}
-
+              {no_home.map((v, i) =>
+                <Card key={i} src={v.images[0]} title={v.name} desc={v.personalities.join(", ")} hrefLink={`/find-house/${v.id}`} />) 
+              }
             </div>
 
           </div>
 
           {/* Animal found their family */}
           <div className="flex flex-col gap-3 w-full p-3">
-            <p className="md:text-3xl sm:text-2xl text-xl">น้องมีบ้านแล้ว ({animals.length})</p>
+            <p className="md:text-3xl sm:text-2xl text-xl">น้องมีบ้านแล้ว ({have_home.length})</p>
 
             {/* If completed will changed to Animals components */}
             <div className="grid md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-x-6 gap-y-3">
-              {animals.map((v, i) => (
+              {have_home.map((v, i) => (
                 <Card key={i} src={v.images[0]} title={v.name} desc={v.personalities.join(", ")} hrefLink={`/find-house/${v.id}`} />
               ))}
+              
 
             </div>
 

@@ -24,7 +24,7 @@ const PetsList: React.FC = async () => {
         {/* Render each pet in a list */}
         {pets.map((pet, index) => (
           <li key={index}>
-            {pet.name} ({pet.specie}) {pet.gender == "M" ? "เพศผู้" : "เพศเมีย"} {pet.healthHistories.spayingStatus} {pet.healthHistories.illeness}
+            {pet.name} ({pet.specie}) {pet.gender == "M" ? "เพศผู้" : "เพศเมีย"} {pet.healthHistories.spayingStatus} {pet.healthHistories.illeness.name[1]}
           </li>
         ))}
       </ul>

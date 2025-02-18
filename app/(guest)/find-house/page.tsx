@@ -1,7 +1,8 @@
 import { Metadata } from "next"
 import { Suspense } from "react"
 
-import { animals } from "@/app/lib/data"
+import { Animal } from "@/app/lib/definition"
+import { fetchAnimal } from "@/app/lib/data"
 
 import { AnimalsElement } from "@/app/components/animals/AnimalsElement"
 import { FilterAnimals } from "@/app/components/animals/FilterAnimals"
@@ -10,8 +11,9 @@ export const metadata: Metadata = {
     title: "Find House"
 }
 
-export default function FindHouse() {
-
+export default async function FindHouse() {
+    const animals: Animal[] = await fetchAnimal();
+    const no_home = animals.filter(animal => animal.adoptionDate === null)
     return (
         <>
             {/* Title Content */}
@@ -25,7 +27,7 @@ export default function FindHouse() {
             {/* Animals */}
             <div className="flex flex-col w-screen px-3">
                 <Suspense fallback={<p>Loading</p>}>
-                    <AnimalsElement animals={animals} />
+                    <AnimalsElement animals={no_home} />
                 </Suspense>
             </div>
         </>
