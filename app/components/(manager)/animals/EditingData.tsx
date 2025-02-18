@@ -5,14 +5,20 @@ import { motion, AnimatePresence } from "motion/react"
 
 import { useDebouncedCallback } from "use-debounce"
 
-import { Animal } from "@/app/lib/definition"
-import { createAnimal, State } from "@/app/lib/action"
+import type { Animal, Illness } from "@/app/lib/definition"
+import { updateAnimal, State } from "@/app/lib/action"
 import { XCircleIcon, ArrowTurnDownLeftIcon, PencilSquareIcon } from "@heroicons/react/24/outline"
 
-interface displayPersonality {
+interface display {
     id: number
     visible: boolean;
-    value: string
+    value: string;
+}
+
+interface displayIllness extends Illness {
+    id: number;
+    visible: boolean;
+    value: string;
 }
 
 export function EditingData({ animal }: { animal: Animal }) {
@@ -24,19 +30,30 @@ export function EditingData({ animal }: { animal: Animal }) {
 
     const [mainImage, setMainImage] = useState<File | null>(null)
     const [extraImages, setExtraImages] = useState<File[]>([])
-    const createAnimalWithImages = createAnimal.bind(null, mainImage, extraImages)
+    const updateAnimalWithImages = updateAnimal.bind(null, mainImage, extraImages)
 
-    const [state, formAction] = useActionState(createAnimalWithImages, initialState)
+    const [state, formAction] = useActionState(updateAnimalWithImages, initialState)
 
     // Input Animal
     const [inputAnimal, setInputAnimal] = useState<Animal>({ ...animal })
-    const [displayPersonalities, setDisplayPersonalities] = useState<displayPersonality[]>(inputAnimal.personalities.map((v, i) => {
+    const [displayPersonalities, setDisplayPersonalities] = useState<display[]>(inputAnimal.personalities.map((v, i) => {
         return {
             id: i,
             visible: true,
             value: v
         }
     }))
+
+    // Input Illness
+    const [inputIllness, setInputIllness] = useState<displayIllness[]>(animal.healthHistories.illeness != undefined && animal.healthHistories.illeness.map((v, i) => {
+        return {
+            id: i,
+            name: v.name,
+            value: v.name,
+            status: v.status,
+            visible: true,
+        }
+    }) || [])
 
     // Input Personality
     const inputPersonality = useRef<HTMLInputElement>(null)
@@ -53,8 +70,42 @@ export function EditingData({ animal }: { animal: Animal }) {
         setInputAnimal(prevState => ({ ...prevState, [key]: value }))
     }, 300)
 
+    const handlehealthHistories = useDebouncedCallback((value: string | undefined, key: string) => {
+        if (value == undefined) value = ""
+        setInputAnimal(prevState => ({ ...prevState, ["handlehealthHistories"]: { [key]: value } }))
+    }, 300)
+
+    const handleInputIllness = useDebouncedCallback((value: string | undefined, id: number = inputIllness.length) => {
+        let temp: display[] = []
+
+        if (value == undefined) value = ""
+        value = value.trim()
+
+        if (id < displayPersonalities.length) {
+            temp = displayPersonalities.map((v) => {
+                if (v.id == id) {
+                    // ถ้ามีค่าส่งมาจะปรับ Value
+                    if (value) v.value = value
+                    // ถ้าไม่มีค่าส่งมาปรับ Visible
+                    else if ((value == "" || value == undefined)) v.visible = false
+                }
+                return v
+            })
+            setDisplayPersonalities(temp)
+        } else if (value != "") {
+            temp = [...displayPersonalities, { id: id, value: value, visible: true }]
+            setDisplayPersonalities(temp)
+        }
+
+        // อัพเดทข้อมูล Personalities จาก displayPersonalities
+        if (temp) { setInputAnimal(prevState => ({ ...prevState, ["personalities"]: temp.filter(v => v.visible).map(v => v.value) })) }
+        if (inputPersonality.current && "value" in inputPersonality.current) {
+            inputPersonality.current.value = ""
+        }
+    }, 300)
+
     const handlePersonalitiesInput = useDebouncedCallback((value: string | undefined, id: number = displayPersonalities.length) => {
-        let temp: displayPersonality[] = []
+        let temp: display[] = []
 
         if (value == undefined) value = ""
         value = value.trim()
@@ -188,13 +239,43 @@ export function EditingData({ animal }: { animal: Animal }) {
                 <label className="text-2xl" htmlFor="animalHistory">ประวัติ</label>
                 <textarea className="p-3 field-sizing-content rounded-xl input-focus-theme" onChange={(e) => handleInput(e.target.value, "history")} name="history" id="animalHistory" defaultValue={animal.history} />
 
+                {/* ประวัติสุขภาพ */}
+                <p className="text-2xl">ประวัติสุขภาพ</p>
+
+                {/* สถานะการทำหมั่น */}
+                <label htmlFor="animalSpayingStatus" className="text-lg p-0!">สถานะการทำหมั่น</label>
+                <select className="*:bg-white *:dark:bg-black2 py-1! px-3 mb-3 w-full rounded-xl input-focus-theme" onChange={(e) => handlehealthHistories(e.target.value, "spayingStatus")} name="spayingStatus" id="animalSpayingStatus" defaultValue={animal.healthHistories.spayingStatus ? "1" : "0"} required>
+                    <option value="0">ยังไม่ทำหมัน</option>
+                    <option value="1">ทำหมั่นแล้ว</option>
+                </select>
+
+                {/* อาการเจ็บป่วย */}
+                <p className="text-lg p-0!">อาการเจ็บป่วย</p>
+                <AnimatePresence mode="popLayout">
+                    {/* แสดงอาการเจ็บป่วย */}
+                    {displayPersonalities.filter(v => v.visible).map((v, i) => (
+                        (<motion.div layout initial={{ opacity: 0, y: -10, transition: { ease: "easeIn", delay: 2 } }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, scale: 0, y: -30, transition: { ease: "easeOut", duration: 0.3, delay: 0 } }} className="flex flex-row space-x-3 items-center mb-3 p-0!" key={v.id} >
+                            <XCircleIcon className="cursor-pointer size-6 hover:opacity-40 active:opacity-60 rounded-full" onClick={() => handlePersonalitiesInput("", v.id)} /><input className="py-1 px-3 w-full rounded-xl input-focus-theme" onBlur={(e) => handlePersonalitiesInput(e.target.value, v.id)} type="text" id={`illness_${v.id}`} defaultValue={v.value} />
+                        </motion.div>
+                        )
+                    ))}
+
+                    {/* ช่องกรอกอาการป่วยเพิ่มเติม */}
+                    <motion.div layout className="p-0! flex mt-1" >
+                        <input ref={inputPersonality} className="p-3 w-full rounded-l-xl border-r-0 input-focus-theme" type="text" name="newPersonality" id="newPersonality" placeholder="เพิ่มข้อมูลอุปนิสัย" defaultValue="" onKeyDown={(e) => e.key == "Enter" && handlePersonalitiesInput(e.currentTarget.value)} />
+                        <button onClick={(e) => handlePersonalitiesInput(e.currentTarget.parentNode?.querySelectorAll("input")[0].value)} className="border border-black2 dark:border-white text-theme-600 dark:text-theme-400 text-nowrap rounded-r-xl px-3 cursor-pointer font-semibold outline-offset-4" type="button">
+                            <span className="flex gap-x-1">เพิ่มข้อมูล<ArrowTurnDownLeftIcon className="size-6" /></span>
+                        </button>
+                    </motion.div>
+                </AnimatePresence>
+
                 {/* อุปนิสัย */}
-                <p className="text-xl">อุปนิสัย</p>
+                <p className="text-2xl">อุปนิสัย</p>
                 <AnimatePresence mode="popLayout">
                     {/* ข้อมูลนิสัย */}
                     {displayPersonalities.filter(v => v.visible).map((v, i) => (
                         (<motion.div layout initial={{ opacity: 0, y: -10, transition: { ease: "easeIn", delay: 2 } }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, scale: 0, y: -30, transition: { ease: "easeOut", duration: 0.3, delay: 0 } }} className="flex flex-row space-x-3 items-center mb-3 p-0!" key={v.id} >
-                            <XCircleIcon className="cursor-pointer size-6 hover:opacity-40 active:opacity-60 rounded-full" onClick={() => handlePersonalitiesInput("", v.id)} /><input className="py-1 px-3 w-full rounded-xl input-focus-theme" onBlur={(e) => handlePersonalitiesInput(e.target.value, i)} type="text" id={`personality_${v.id}`} defaultValue={v.value} />
+                            <XCircleIcon className="cursor-pointer size-6 hover:opacity-40 active:opacity-60 rounded-full" onClick={() => handlePersonalitiesInput("", v.id)} /><input className="py-1 px-3 w-full rounded-xl input-focus-theme" onBlur={(e) => handlePersonalitiesInput(e.target.value, v.id)} type="text" id={`personality_${v.id}`} defaultValue={v.value} />
                         </motion.div>
                         )
                     ))}
@@ -261,7 +342,7 @@ export function EditingData({ animal }: { animal: Animal }) {
 
             <div className="flex justify-end">
                 <button onClick={() => inputForm.current?.requestSubmit()} className="cursor-pointer py-3 px-6 rounded-full bg-black2 text-white dark:bg-white dark:text-black2 outline-offset-4" type="button">Save</button>
-                <button className="cursor-pointer py-3 px-4 rounded-full outline-offset-4" onClick={() => resetForm()} type="reset">Close</button>
+                <button className="cursor-pointer py-3 px-4 rounded-full outline-offset-4" onClick={() => resetForm()} type="reset">Cancel</button>
             </div>
         </form>
     )

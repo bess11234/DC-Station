@@ -1,5 +1,4 @@
 import { notFound } from "next/navigation";
-import Image from "next/image";
 import { Suspense } from "react";
 
 import { EditingData } from "@/app/components/(manager)/animals/EditingData";

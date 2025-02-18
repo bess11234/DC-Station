@@ -27,7 +27,7 @@ export default function Home() {
 
           {/* Content */}
           <div className="flex flex-col gap-3 w-full place-items-center">
-            <p className="md:text-5xl sm:text-4xl xs:text-3xl text-xl text-center">มูลนิธิอาสาช่วยเหลือหมาและแมว <span><br />(DC Station 🐶 & 🐱)</span></p>
+            <p className="grid md:text-5xl sm:text-4xl xs:text-3xl text-2xl text-center my-3 md:space-y-3"><span>มูลนิธิอาสาช่วยเหลือหมาและแมว</span><span>(🐶DC Station🐱)</span></p>
 
             <div className="grid grid-cols-1 gap-6 sm:*:size-full *:size-fit place-items-center">
 

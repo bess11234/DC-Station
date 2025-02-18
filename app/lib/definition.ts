@@ -1,6 +1,12 @@
+export type Illness = {
+    name: string;
+    // enum: ["กำลังรักษา", "รักษาหายแล้ว", "เรื้อรัง", "เฝ้าระวัง"]
+    status: "Under treatment" | "Recovered" | "Chronic" | "Under surveillance";
+}
+
 type HealthHistories = {
-    spayingStatus: string;
-    illeness?: []
+    spayingStatus: boolean;
+    illeness?: Illness[]
 }
 
 export type Animal = {

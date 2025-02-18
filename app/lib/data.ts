@@ -14,10 +14,10 @@ export const animals: Animal[] = [
     breed: "โนวา สก๊อตเทีย ดั๊ก โทริ่ง รีทริฟเวอร์",
     dob: "2024/12/30",
     gender: "M",
-    healthHistories: { spayingStatus: "หมันแล้ว" },
+    healthHistories: { spayingStatus: true },
     history: "เกือบเป็นซอยจุ๊ให้คนจีน",
     specie: "Dog",
-    createAt: "12/15/2024"
+    createAt: "12/15/2024",
   },
   {
     id: "3c1a5dfb810778868dcad0571c54f3352c2aa01166ae568ad4f3281909329415044ae4e2c7897012",
@@ -33,11 +33,10 @@ export const animals: Animal[] = [
     breed: "Persian",
     dob: "2021/12/30",
     gender: "M",
-    healthHistories: { spayingStatus: "หมันแล้ว" },
+    healthHistories: { spayingStatus: true },
     history: "เกือบเป็นซอยจุ๊ให้คนจีน",
     specie: "Cat",
-    createAt: "12/15/2024"
-
+    createAt: "12/15/2024",
   },
   {
     id: "2d39fe18927d4ab7b9fcbd1e872a67dc58fa293a882886357915757db2e7588aa333569e10ba915f",
@@ -53,11 +52,10 @@ export const animals: Animal[] = [
     breed: "Siamese",
     dob: "2021/12/30",
     gender: "F",
-    healthHistories: { spayingStatus: "หมันแล้ว" },
+    healthHistories: { spayingStatus: false },
     history: "เกือบเป็นซอยจุ๊ให้คนจีน",
     specie: "Cat",
-    createAt: "12/15/2024"
-
+    createAt: "12/15/2024",
   },
   {
     id: "2d39fe18927d4ab7b9fcbd1e872a67dc58fa293a882886357915757db2e7588aa333569e10ba915f",
@@ -73,11 +71,10 @@ export const animals: Animal[] = [
     breed: "Siamese",
     dob: "2021/12/30",
     gender: "F",
-    healthHistories: { spayingStatus: "หมันแล้ว" },
+    healthHistories: { spayingStatus: false },
     history: "เกือบเป็นซอยจุ๊ให้คนจีน",
     specie: "Cat",
-    createAt: "12/15/2024"
-
+    createAt: "12/15/2024",
   },
   {
     id: "2d39fe18927d4ab7b9fcbd1e872a67dc58fa293a882886357915757db2e7588aa333569e10ba915f",
@@ -93,11 +90,15 @@ export const animals: Animal[] = [
     breed: "Siamese",
     dob: "2021/12/30",
     gender: "F",
-    healthHistories: { spayingStatus: "หมันแล้ว" },
+    healthHistories: {
+      spayingStatus: true,
+      illeness: [
+        { name: "มะเร็ง", status: "Under treatment" }
+      ]
+    },
     history: "เกือบเป็นซอยจุ๊ให้คนจีน",
     specie: "Cat",
-    createAt: "12/15/2024"
-
+    createAt: "12/15/2024",
   },
 ];
 

@@ -1,9 +1,6 @@
-import Image from "next/image"
-import Link from "next/link"
-
 import { animals } from "@/app/lib/data"
 
-import { PencilSquareIcon, XCircleIcon } from "@heroicons/react/24/outline"
+import { PlusIcon } from "@heroicons/react/24/outline"
 
 import { PageNavigation } from "@/app/components/(manager)/PageNavigation"
 import { AnimalItem } from "@/app/components/(manager)/animals/AnimalItem"
@@ -18,6 +15,9 @@ export default function Animals() {
                 <div className="grid space-x-3 p-3">
                     {/* Animals */}
                     <div className="bg-theme-100/50 dark:bg-white/5 rounded-3xl sm:p-5 p-3 overflow-x-auto">
+
+                        {/* Create Animal */}
+                        <button className="button-theme flex flex-row px-4 py-3 rounded-full mb-3 cursor-pointer space-x-1"><PlusIcon className="size-6" /><span>เพิ่มสัตว์</span></button>
 
                         {/* Show Animal */}
                         <div className="grid lg:grid-cols-2 gap-6 max-sm:gap-y-8 w-full max-w-[1500px] mx-auto">

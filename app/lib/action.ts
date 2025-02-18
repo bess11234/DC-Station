@@ -5,7 +5,7 @@ export interface State {
     errors?: string;
 }
 
-export async function createAnimal(mainImage: File | null, extraImages: File[], prevState: State, formData: FormData){
+export async function updateAnimal(mainImage: File | null, extraImages: File[], prevState: State, formData: FormData){
     // Create Animal
 
     // Upload images animal
