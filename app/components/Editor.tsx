@@ -30,26 +30,39 @@ import {
     BlockQuote,
     CodeBlock,
     SimpleUploadAdapter,
-    Alignment
+    Alignment,
+    Font,
+    SourceEditing
 } from 'ckeditor5';
 
 import 'ckeditor5/ckeditor5.css';
 
-export default function Editor() {
+import { Dispatch, SetStateAction } from 'react';
+
+interface Props {
+    content: string;
+    updateContent: Dispatch<SetStateAction<string>>
+}
+
+export default function Editor({ content, updateContent }: Props) {
     return (
         <CKEditor
             editor={ClassicEditor}
             onChange={(event, editor) => {
                 const data = editor.getData()
-                console.log(data)
+                updateContent(data)
             }}
+            
             config={{
+                initialData: content,
                 toolbar: {
                     items: [
                         'undo', 'redo', '|',
                         'heading', '|', 'bold', 'italic', 'alignment', '|',
+                        'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor', '|',
                         'link', 'insertImage', 'blockQuote', 'codeBlock', '|',
-                        'bulletedList', 'numberedList', 'indent', 'outdent'
+                        'bulletedList', 'numberedList', 'indent', 'outdent', '|',
+                        'sourceEditing'
                     ],
                     shouldNotGroupWhenFull: true
                 },
@@ -87,7 +100,9 @@ export default function Editor() {
                     BlockQuote,
                     CodeBlock,
                     SimpleUploadAdapter,
-                    Alignment
+                    Alignment,
+                    Font,
+                    SourceEditing
                 ],
                 licenseKey: 'eyJhbGciOiJFUzI1NiJ9.eyJleHAiOjE3NDAyNjg3OTksImp0aSI6IjNkOWQ4NmY4LTc4ODAtNGM4NC1iMjE3LWY4MWQ2OWI2YWIyYiIsInVzYWdlRW5kcG9pbnQiOiJodHRwczovL3Byb3h5LWV2ZW50LmNrZWRpdG9yLmNvbSIsImRpc3RyaWJ1dGlvbkNoYW5uZWwiOlsiY2xvdWQiLCJkcnVwYWwiLCJzaCJdLCJ3aGl0ZUxhYmVsIjp0cnVlLCJsaWNlbnNlVHlwZSI6InRyaWFsIiwiZmVhdHVyZXMiOlsiKiJdLCJ2YyI6IjQ0NTkyMjY2In0.EcY2u0mwoqE1jRjW0cMa8yTDlTUXrq3ZOsnwPlUGBgddayzllr92WGNhbxIaRy2Ivn-KFjmVOYJZMphoCPfLhQ',
                 simpleUpload: {

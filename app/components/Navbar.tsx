@@ -21,7 +21,7 @@ function Navbar() {
 
     return (
         <>
-            <div className="sticky top-0 z-40 w-full bg-theme-50 dark:bg-black2 h-fit">
+            <div className="sticky top-0 z-40 w-full bg-white dark:bg-black2 h-fit">
                 <div className="max-w-8xl mx-auto border-b not-dark:border-black2/20 border-white/20">
                     <div className="py-4 lg:px-8 lg:mx-0 mx-4">
                         <div className="relative grid xs:grid-cols-3 grid-cols-2 items-center max-xs:col-span-2">
@@ -68,7 +68,7 @@ function Navbar() {
                                     {/* Display Navbar */}
                                     <div className="fixed z-50 transition-all duration-300 transition-discrete open:opacity-100 starting:open:opacity-0 opacity-0 open:top-[4.5rem] starting:open:top-[4.1rem] top-[4.1rem]"
                                         popover="auto" id="popoverNavbar" aria-label="Navbar popover" aria-description="Show the navbar items.">
-                                        <div className="w-[100vw] overflow-y-hidden bg-neutral-100 dark:bg-neutral-950 dark:text-white shadow-inner border-t">
+                                        <div className="w-[100vw] overflow-y-hidden bg-white dark:bg-neutral-950 dark:text-white shadow-inner border-t">
                                             <div className="py-4 lg:px-8 lg:mx-0 mx-4">
                                                 <div className="flex flex-col space-y-3">
                                                     {LinkPath.map((v, i) => (

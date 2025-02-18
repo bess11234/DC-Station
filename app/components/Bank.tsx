@@ -21,7 +21,7 @@ export function Bank({ title, src, alt }: BankType) {
                 <div className="flex flex-col text-sm">
                     <span>{title}</span>
                     <span>สาขาลาดกระบัง</span>
-                    <span>เลขที่บัญชี: <span className="select-all border border-theme-300 text-theme-400 dark:text-theme-300 rounded-full px-2 text-xs">123-456-7891</span></span>
+                    <span>เลขที่บัญชี: <span className="select-all border text-theme-500 rounded-full px-2 text-xs">123-456-7891</span></span>
                 </div>
             </div>
         </div>

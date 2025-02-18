@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const cors = require('cors');
 const cookieParser = require("cookie-parser");
 
-require("dotenv").config({ path: '../.env'});
+require("dotenv").config({ path: __dirname+'/./../.env'});
 
 const app = express()
 app.use(express.json());
@@ -13,6 +13,8 @@ app.use(cors({
     origin: "http://localhost:3000",
     credentials: true //for send cookie
 }))
+
+console.log(process.env.MONGO_URI)
 
 // connect to MongoDBAtlas
 mongoose.connect(process.env.MONGO_URI, {

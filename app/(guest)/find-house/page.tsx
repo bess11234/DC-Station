@@ -16,7 +16,7 @@ export default function FindHouse() {
         <>
             {/* Title Content */}
             <div className="flex flex-col gap-3 w-full place-items-center">
-                <p className="md:text-5xl sm:text-4xl xs:text-3xl text-xl text-center py-3">สร้างครอบครัวที่อบอุ่นให้น้อง <span><br />(DC Station 🐶 & 🐱)</span></p>
+            <p className="grid md:text-5xl sm:text-4xl xs:text-3xl text-2xl text-center my-3 md:space-y-3"><span>มูลนิธิอาสาช่วยเหลือหมาและแมว</span><span>(🐶DC Station🐱)</span></p>
 
                 {/* Filter animal (Species, Age, Gender) */}
                 <FilterAnimals />

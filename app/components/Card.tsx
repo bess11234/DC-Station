@@ -16,14 +16,14 @@ export interface CardType {
 export function Card({ src, title, desc, hrefLink, date }: CardType) {
     const { push } = useRouter()
     return (
-        <div className="select-none card shadow-lg bg-theme-50 dark:bg-theme-950 rounded-xl md:max-h-[400px] max-h-[350px] max-w-full">            
-            <figure className="rounded-xl">
+        <div className="select-none card bg-theme-50 dark:bg-theme-950/50 rounded-xl md:max-h-[400px] max-h-[350px] max-w-full hover:shadow-lg dark:shadow-white/15">
+            <figure className="rounded-t-xl">
                 <Image
                     src={src}
                     alt={title}
                     sizes="100%"
                     width={100}
-                    height={1000}
+                    height={100}
                     style={{ width: "100%", height: "300px", objectFit: "cover" }}
                     placeholder="blur"
                     blurDataURL={src}
@@ -32,7 +32,7 @@ export function Card({ src, title, desc, hrefLink, date }: CardType) {
                     onClick={() => push(hrefLink)}
                 />
             </figure>
-            <div className="relative card-body max-sm:p-6 pb-4">
+            <div className="relative card-body max-sm:p-6 pb-4 lg:px-8 md:px-4 sm:px-4 max-sm:mt-1">
                 {/* Date */}
                 {date && <DisplayDateCard date={date} />}
                 {/* Title */}
@@ -40,7 +40,9 @@ export function Card({ src, title, desc, hrefLink, date }: CardType) {
                 {/* Description */}
                 <p className="text-theme-800 dark:text-theme-100 text-xs truncate">{desc}</p>
                 {/* Button */}
-                <Link href={hrefLink} className="button-theme w-fit lg:px-6 lg:py-3 px-3 py-1.5 mt-3 rounded-full cursor-pointer max-lg:text-xs">ดูรายละเอียด</Link>
+                <Link className="ml-auto mt-4" href={hrefLink} tabIndex={-1}>
+                    <button className="button-theme w-fit lg:px-6 lg:py-3 px-3 py-1.5 rounded-full cursor-pointer max-lg:text-xs">ดูรายละเอียด</button>
+                </Link>
             </div>
         </div>
     )
