@@ -25,7 +25,7 @@
 
 
 body {
-  @apply bg-theme-50 text-black2 dark:bg-black2 dark:text-white;
+  @apply bg-white text-black2 dark:bg-black2 dark:text-white selection:bg-theme-300 selection:text-theme-900;
 }
 
 ol, ul {
@@ -38,10 +38,6 @@ ul {
 
 ol {
   @apply list-decimal
-}
-
-.ck-editor__editable .ck-list-bogus-paragraph{
-  @apply inline!
 }
 
 h1 {
@@ -113,7 +109,15 @@ h6 {
 }
 
 .button-theme {
-  @apply bg-theme-500 hover:bg-theme-600 active:bg-theme-700 disabled:bg-theme-100 disabled:text-theme-400 dark:disabled:bg-theme-950 dark:disabled:text-theme-700 not-disabled:hover:drop-shadow-[0_2px_10px_rgba(202,135,54,0.4)] text-white;
+  @apply text-theme-600 bg-theme-200/35 hover:bg-theme-200/60 active:bg-theme-200 disabled:bg-theme-900/10 disabled:text-theme-900/40 dark:text-theme-400 dark:bg-theme-900/40 dark:hover:bg-theme-900/50 dark:active:bg-theme-900/60 dark:disabled:bg-theme-100/5 dark:disabled:text-theme-100/20 font-semibold disabled:cursor-not-allowed;
+}
+
+.card-theme {
+  @apply bg-theme-300/40 dark:bg-theme-800/50 text-theme-800 dark:text-theme-100
+}
+
+.input-focus-theme {
+  @apply outline-0 focus:ring-2 ring-offset-2 focus:ring-offset-black2 ring-theme-400
 }
 
 .modal-center{
@@ -125,7 +129,109 @@ h6 {
   @apply hover:underline underline-offset-2 decoration-theme-500/60 dark:decoration-theme-500 decoration-2 tracking-tight
 }
 
+/* DaisyUI */
+
 .range-theme {
-  color: var(--color-theme-500) /* var(--color-error) */;
+  @apply text-theme-300;
+  /* color: var(--color-theme-400) var(--color-error); */
   --range-thumb: var(--color-theme-950) /* var(--color-error-content) */;
+}
+
+/* CKEDITOR */
+
+.ck-editor__editable .ck-list-bogus-paragraph {
+  @apply inline!
+}
+
+.ck-source-editing-area{
+  @apply dark:text-white
+}
+
+.image {
+  display: table;
+  clear: both;
+  text-align: center;
+  margin: .9em auto;
+  min-width: 50px;
+}
+
+.image-style-block-align-left {
+  margin-left: 0;
+  margin-right: auto;
+}
+
+.image-style-block-align-right {
+  margin-right: 0;
+  margin-left: auto;
+}
+
+.image-style-align-left {
+  float: left;
+  margin-right: 1.5em;
+}
+
+.image-style-align-left, .image-style-align-right {
+  clear: none;
+}
+
+.image-style-align-right {
+  float: right;
+  margin-left: 1.5em;
+}
+
+.image-style-align-left, .image-style-align-right {
+  clear: none;
+}
+
+.image-inline {
+  display: inline-flex;
+  max-width: 100%;
+  align-items: flex-start;
+}
+
+blockquote {
+  overflow: hidden;
+  padding-right: 1.5em;
+  padding-left: 1.5em;
+  margin-left: 0;
+  margin-right: 0;
+  font-style: italic;
+  border-left: 5px solid #ccc;
+}
+
+pre {
+  padding: 1em;
+  color: inherit;
+  background: #c7c7c74d;
+  border: 1px solid #c4c4c4;
+  border-radius: 2px;
+  text-align: left;
+  direction: ltr;
+  tab-size: 4;
+  white-space: pre-wrap;
+  font-style: normal;
+  min-width: 200px;
+}
+
+code, kbd, samp, pre {
+  font-family: var(--default-mono-font-family, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace);
+  font-feature-settings: var(--default-mono-font-feature-settings, normal);
+  font-variation-settings: var(--default-mono-font-variation-settings, normal);
+  font-size: 1em;
+}
+
+.text-tiny {
+font-size: .7em;
+}
+
+.text-small {
+    font-size: .85em;
+}
+
+.text-big {
+    font-size: 1.4em;
+}
+
+.text-huge {
+    font-size: 1.8em;
 }

@@ -3,7 +3,7 @@ import Image from "next/image"
 import { Suspense } from "react"
 
 import { animals } from "@/app/lib/data"
-import { ShowData } from "./showData"
+import { ShowData } from "../../../components/animals/showData"
 
 export default async function FindHouseID({ params }: { params: Promise<{ id: string }> }) {
     const id = (await params).id
@@ -25,7 +25,7 @@ export default async function FindHouseID({ params }: { params: Promise<{ id: st
                         alt={`Picture of ${animal.name} No.0`}
                         sizes="100%"
                         width={100}
-                        height={1000}
+                        height={100}
                         style={{ width: "100%", height: "300px", objectFit: "cover" }}
                         placeholder="blur"
                         blurDataURL={animal.images[0]}

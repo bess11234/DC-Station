@@ -15,4 +15,5 @@ export type Animal = {
     healthHistories: HealthHistories
     images: string[];
     adoptionDate?: string
+    createAt: string
 }

@@ -32,7 +32,7 @@ export default function Home() {
             <div className="grid grid-cols-1 gap-6 sm:*:size-full *:size-fit place-items-center">
 
               {/* Bank Information */}
-              <div className="flex flex-col space-y-3 p-6 rounded-xl bg-theme-100 dark:bg-theme-950">
+              <div className="flex flex-col space-y-3 p-6 rounded-xl card-theme">
                 <p className="md:text-2xl sm:text-xl text-lg text-center">ชื่อบัญชี: xxxxxxx ประเภท: xxxxxxx</p>
 
                 {/* bank */}
@@ -50,11 +50,11 @@ export default function Home() {
           </div>
 
           {/* Animals looking for the house */}
-          <div className="flex flex-col gap-3 w-full p-3">
+          <div className="flex flex-col gap-3 w-full sm:px-6 px-3 py-3">
             <p className="md:text-3xl sm:text-2xl text-xl">น้องหาบ้าน ({animals.length})</p>
 
             {/* If completed will changed to Animals components */}
-            <div className="grid md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-3">
+            <div className="grid md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-6">
               {animals.map((v, i) => (
                 <Card key={i} src={v.images[0]} title={v.name} desc={v.personalities.join(", ")} hrefLink={`/find-house/${v.id}`} />
               ))}
@@ -68,7 +68,7 @@ export default function Home() {
             <p className="md:text-3xl sm:text-2xl text-xl">น้องมีบ้านแล้ว ({animals.length})</p>
 
             {/* If completed will changed to Animals components */}
-            <div className="grid md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-3">
+            <div className="grid md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-x-6 gap-y-3">
               {animals.map((v, i) => (
                 <Card key={i} src={v.images[0]} title={v.name} desc={v.personalities.join(", ")} hrefLink={`/find-house/${v.id}`} />
               ))}

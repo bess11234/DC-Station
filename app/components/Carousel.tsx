@@ -61,19 +61,19 @@ export function Carousel() {
 
             {/* Images */}
             <div
-                className="w-full sm:max-w-7xl max-w-3xl flex transition-transform duration-500 ease-in-out"
+                className="flex sm:max-w-7xl max-w-3xl transition-transform duration-500 ease-in-out"
                 style={{ transform: `translateX(-${currentIndex * 100}%)` }}
             >
                 {gallery.map((v, index) => (
                     <Image
-                        className="w-full shrink-0 m-auto pointer-events-none"
+                        className="size-full shrink-0 my-auto pointer-events-none"
                         style={{
-                            width: "100%",
-                            height: "auto",
-                            objectFit: "fill"
+                            height: "100%",
+                            maxHeight: "800px",
+                            objectFit: "cover"
                         }}
-                        width={100}
-                        height={100}
+                        width={500}
+                        height={500}
                         sizes="100%"
                         key={index}
                         src={`/gallery/${v.src}`}

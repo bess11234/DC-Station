@@ -4,7 +4,7 @@ export function Stat() {
     return (
         <div className="stats stats-vertical sm:stats-horizontal mt-3">
             <div className="stat">
-                <div className="stat-figure text-theme-200 dark:text-theme-300">
+                <div className="stat-figure">
                     <HomeIcon className="size-8" />
                 </div>
                 <div className="stat-title">หาบ้านให้น้อง</div>
@@ -12,7 +12,7 @@ export function Stat() {
             </div>
 
             <div className="stat">
-                <div className="stat-figure text-theme-200 dark:text-theme-300">
+                <div className="stat-figure">
                     <HeartIcon className="size-8" />
                 </div>
                 <div className="stat-title">ทำหมั่น</div>
@@ -20,7 +20,7 @@ export function Stat() {
             </div>
 
             <div className="stat">
-                <div className="stat-figure text-theme-200 dark:text-theme-300">
+                <div className="stat-figure">
                     <PlusCircleIcon className="size-8" />
                 </div>
                 <div className="stat-title">รักษา</div>
@@ -28,7 +28,7 @@ export function Stat() {
             </div>
 
             <div className="stat">
-                <div className="stat-figure text-theme-200 dark:text-theme-300">
+                <div className="stat-figure">
                     <GiftIcon className="size-8" />
                 </div>
                 <div className="stat-title">เคสทั้งหมด</div>

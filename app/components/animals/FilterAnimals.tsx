@@ -1,5 +1,7 @@
 'use client'
 
+import { useDebouncedCallback } from "use-debounce"
+
 import { useSearchParams, usePathname } from "next/navigation"
 import { useRouter } from "next/navigation"
 import { NoSymbolIcon } from "@heroicons/react/24/outline"
@@ -9,7 +11,7 @@ export function FilterAnimals() {
     const router = useRouter()
     const pathName = usePathname()
 
-    const filterSpecie = (term: string) => {
+    const filterSpecie = useDebouncedCallback((term: string) => {
         const params = new URLSearchParams(searchParams)
         if (params.get("specie") == term) {
             params.delete("specie")
@@ -18,17 +20,17 @@ export function FilterAnimals() {
             params.set("specie", term)
         } else params.delete("specie")
         router.replace(`${pathName}?${params.toString()}`, { scroll: false })
-    }
+    }, 100)
 
-    const filterAge = (term: string) => {
+    const filterAge = useDebouncedCallback((term: string) => {
         const params = new URLSearchParams(searchParams)
         if (term) {
             params.set("age", term)
         } else params.delete("age")
         router.replace(`${pathName}?${params.toString()}`, { scroll: false })
-    }
+    }, 300)
 
-    const filterGender = (term: string) => {
+    const filterGender = useDebouncedCallback((term: string) => {
         const params = new URLSearchParams(searchParams)
         if (params.get("gd") == term) {
             params.delete("gd")
@@ -37,24 +39,24 @@ export function FilterAnimals() {
             params.set("gd", term)
         } else params.delete("gd")
         router.replace(`${pathName}?${params.toString()}`, { scroll: false })
-    }
+    } , 100)
 
     return (
         <>
-            <div className="flex flex-col sm:p-6 p-3 py-6 bg-gradient-to-tr from-theme-100 to-theme-50 dark:from-theme-950 dark:to-theme-900 rounded-lg gap-3 sm:w-[500px] w-[300px] shadow-lg font-semibold">
+            <div className="flex flex-col sm:p-6 p-3 py-6 bg-theme-100 dark:bg-theme-950 rounded-lg gap-3 sm:w-[500px] w-[300px] shadow-lg fonsemibold">
 
                 {/* Filter Specie */}
-                <div className="flex flex-row sm:gap-6 gap-3 place-items-center justify-center">
-                    <button onClick={() => filterSpecie("dog")} className={`sm:w-fit button-theme sm:px-6 sm:py-3 px-3 py-1.5 rounded-lg cursor-pointer sm:text-2xl text-lg text-white shadow-md transition hover:scale-95 active:scale-90 ${searchParams.get("specie") == "dog" && "outline"}`}>🐶 <span className="max-sm:hidden">น้อง</span>หมา</button>
-                    <button onClick={() => filterSpecie("cat")} className={`sm:w-fit button-theme sm:px-6 sm:py-3 px-3 py-1.5 rounded-lg cursor-pointer sm:text-2xl text-lg text-white shadow-md transition hover:scale-95 active:scale-90 ${searchParams.get("specie") == "cat" && "outline"}`}>🐱 <span className="max-sm:hidden">น้อง</span>แมว</button>
+                <div className="flex flex-row place-items-center justify-center">
+                    <button onClick={() => filterSpecie("dog")} className={`sm:w-fit rounded-l-lg sm:px-6 sm:py-3 px-3 py-1.5 cursor-pointer sm:text-2xl text-xl transition hover:scale-105 active:scale-95 ${searchParams.get("specie") == "dog" ? "text-theme-600 bg-theme-200 hover:bg-theme-200/60 active:bg-theme-200 disabled:bg-theme-900/10 disabled:text-theme-900/40 dark:text-theme-400 dark:bg-theme-900/60 dark:hover:bg-theme-900/70 dark:active:bg-theme-900/80 dark:disabled:bg-theme-100/5 dark:disabled:text-theme-100/20 font-semibold disabled:cursor-not-allowed" : "bg-black2/5 dark:bg-white/5"}`}>🐶 <span className="max-sm:hidden">น้อง</span>หมา</button>
+                    <button onClick={() => filterSpecie("cat")} className={`sm:w-fit rounded-r-lg sm:px-6 sm:py-3 px-3 py-1.5 cursor-pointer sm:text-2xl text-xl transition hover:scale-105 active:scale-95 ${searchParams.get("specie") == "cat" ? "text-theme-600 bg-theme-200 hover:bg-theme-200/60 active:bg-theme-200 disabled:bg-theme-900/10 disabled:text-theme-900/40 dark:text-theme-400 dark:bg-theme-900/60 dark:hover:bg-theme-900/70 dark:active:bg-theme-900/80 dark:disabled:bg-theme-100/5 dark:disabled:text-theme-100/20 font-semibold disabled:cursor-not-allowed" : "bg-black2/5 dark:bg-white/5"}`}>🐱 <span className="max-sm:hidden">น้อง</span>แมว</button>
                 </div>
 
                 {/* Filter Gender */}
                 <div className="grid w-full text-center">
                     <p className="sm:text-xl">เพศ</p>
-                    <div className="flex justify-center sm:gap-6 gap-3">
-                        <button  onClick={() => filterGender("m")} className={`sm:w-fit button-sky sm:px-6 sm:py-3 px-3 py-1.5 rounded-lg cursor-pointer sm:text-2xl text-xl text-white shadow-md transition hover:scale-95 active:scale-90 ${searchParams.get("gd") == "m" && "outline"}`}>♂ <span className="max-sm:hidden">ชาย</span><span className="sm:hidden">ช.</span></button>
-                        <button  onClick={() => filterGender("f")} className={`sm:w-fit button-red sm:px-6 sm:py-3 px-3 py-1.5 rounded-lg cursor-pointer sm:text-2xl text-xl text-white shadow-md transition hover:scale-95 active:scale-90 ${searchParams.get("gd") == "f" && "outline"}`}>♀ <span className="max-sm:hidden">หญิง</span><span className="sm:hidden">ญ.</span></button>
+                    <div className="flex justify-center">
+                        <button  onClick={() => filterGender("m")} className={`sm:w-fit rounded-l-lg sm:px-6 sm:py-3 px-3 py-1.5 cursor-pointer sm:text-2xl text-xl transition hover:scale-105 active:scale-90 ${searchParams.get("gd") == "m" ? "bg-sky-600 text-white dark:bg-sky-800/60" : "bg-black2/5 dark:bg-white/5"}`}>♂ <span className="max-sm:hidden">ชาย</span><span className="sm:hidden">ช.</span></button>
+                        <button  onClick={() => filterGender("f")} className={`sm:w-fit rounded-r-lg sm:px-6 sm:py-3 px-3 py-1.5 cursor-pointer sm:text-2xl text-xl transition hover:scale-105 active:scale-90 ${searchParams.get("gd") == "f" ? "bg-rose-800 text-white dark:bg-rose-800/60" : "bg-black2/5 dark:bg-white/5"}`}>♀ <span className="max-sm:hidden">หญิง</span><span className="sm:hidden">ญ.</span></button>
                     </div>
                 </div>
 

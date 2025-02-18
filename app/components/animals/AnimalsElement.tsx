@@ -44,10 +44,10 @@ export function AnimalsElement({ animals }: Props) {
             if (params.get("gd")) {
                 switch (params.get("gd")) {
                     case "m":
-                        tempAnimals = tempAnimals.filter((v) => v.gender == "Male")
+                        tempAnimals = tempAnimals.filter((v) => v.gender == "M")
                         break;
                     case 'f':
-                        tempAnimals = tempAnimals.filter((v) => v.gender == "Female")
+                        tempAnimals = tempAnimals.filter((v) => v.gender == "F")
                         break;
                 }
             }

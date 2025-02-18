@@ -12,11 +12,11 @@ router.post("/", async(req, res)  => {
         res.status(201).json({ status: "ok", message: "Add new animal successfully!", animal: newAnimal});
     }catch(error){
         console.log(error);
-        res.status(500).json({  status: "error", message: "Server error" });
+        res.status(500).json({ status: "error", message: "Server error" });
     }
 })
 
-//Get All Animals
+// Get All Animals
 router.get("/", async(req, res)  => {
     try{
         const animals = await Animal.find({});
@@ -26,17 +26,17 @@ router.get("/", async(req, res)  => {
     }
 })
 
-//Get Specific Animal
+// Get Specific Animal
 router.get("/:id", async(req, res)  => {
     console.log(req.params.id)
     try{
         const animal = await Animal.findById({_id: req.params.id});
         
-        //not found
+        // not found
         if (!animal){
             return res.status(404).json({ status: "error", message: "Animal not found" });
         }
-        //found
+        // found
         res.status(200).json({ status: "ok", animal });
     } catch(error){
         console.log("error.message", error.message)
@@ -44,16 +44,16 @@ router.get("/:id", async(req, res)  => {
     }
 })
 
-//Update Specific Animal
+// Update Specific Animal
 router.put("/:id", async(req, res) => {
     console.log(req.body.name)
     try{
         const animal = await Animal.findById(req.params.id);
-        //not found
+        // not found
         if (!animal){
             return res.status(404).json({ status: "error", message: "Animal not found" });
         }
-        //found
+        // found
         const updateAnimal = await Animal.findByIdAndUpdate(req.params.id, req.body, {new: true});
         res.status(201).json({ status: "ok", updateAnimal});
     }catch(error){
@@ -61,15 +61,15 @@ router.put("/:id", async(req, res) => {
     }
 })
 
-//Delete Specific Animal
+// Delete Specific Animal
 router.delete("/:id" , async(req, res) => {
     try{
         const animal = await Animal.findById(req.params.id);
-        //not found
+        // not found
         if (!animal){
             return res.status(404).json({ status: "error", message: "Animal not found" });
         }
-        //found
+        // found
         await Animal.findByIdAndDelete(req.params.id);
         
         res.status(204).json({ status: "ok", message: "Delete animal successfully!"})

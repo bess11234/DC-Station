@@ -2,39 +2,52 @@ import { NextRequest, NextResponse } from "next/server";
 import { writeFile } from "fs/promises";
 import path from "path";
 
-// Ensure uploads directory exists in public
-const uploadDir = path.join(process.cwd(), "public/uploads");
+export const config = {
+  api: {
+    bodyParser: false,
+  },
+};
 
-// Handle file upload
 export async function POST(req: NextRequest) {
   try {
-    // Ensure content-type is correct
-    if (!req.headers.get("content-type")?.includes("multipart/form-data")) {
-      return NextResponse.json({ error: "Invalid content type" }, { status: 400 });
-    }
-
     const formData = await req.formData();
-    const file = formData.get("upload") as File;
+    const files = formData.getAll("images") as File[]; // Get multiple files
 
-    if (!file) {
-      return NextResponse.json({ error: "No file uploaded" }, { status: 400 });
+    // CKEditor sends a single file with the key "upload"
+    const ckFile = formData.get("upload") as File | null;
+
+    if (!files.length && !ckFile) {
+      return NextResponse.json({ error: "No files uploaded" }, { status: 400 });
     }
 
-    // Convert file to Buffer
-    const bytes = await file.arrayBuffer();
-    const buffer = Buffer.from(bytes);
+    // Function to save a file
+    const saveFile = async (file: File, folder: string) => {
+      const bytes = await file.arrayBuffer();
+      const buffer = Buffer.from(bytes);
+      const fileName = `${Date.now()}-${file.name}`;
+      const filePath = path.join(process.cwd(), `public/${folder}`, fileName);
 
-    // Create unique filename
-    const filename = `${Date.now()}-${file.name}`;
-    const filePath = path.join(uploadDir, filename);
+      await writeFile(filePath, buffer);
 
-    // Save file to /public/uploads/
-    await writeFile(filePath, buffer);
+      return `/${folder}/${fileName}`;
+    };
 
-    // Return URL for CKEditor
-    return NextResponse.json({ url: `/uploads/${filename}` }, { status: 200 });
+    // If CKEditor is uploading
+    if (ckFile) {
+      const ckUrl = await saveFile(ckFile, "uploads");
+      return NextResponse.json({ url: ckUrl }); // CKEditor expects `{ url: "..." }`
+    }
+
+    // If it's a regular form upload
+    const uploadedUrls = await Promise.all(
+      files.map((v) => saveFile(v, "temp"))
+    );
+    return NextResponse.json({
+      message: "Upload successful",
+      urls: uploadedUrls,
+    });
   } catch (error) {
     console.error("Upload error:", error);
-    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
+    return NextResponse.json({ error: "Upload failed" }, { status: 500 });
   }
 }
