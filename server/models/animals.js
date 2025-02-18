@@ -57,7 +57,7 @@ const AnimalSchema = new mongoose.Schema({
     }],
     adoptionDate: { 
         type: Date, 
-        default:  null 
+        default: null 
     },
     knowledges : [{
         type: mongoose.Schema.Types.ObjectId, 

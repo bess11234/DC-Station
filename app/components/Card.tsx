@@ -22,8 +22,8 @@ export function Card({ src, title, desc, hrefLink, date }: CardType) {
                     src={src}
                     alt={title}
                     sizes="100%"
-                    width={100}
-                    height={100}
+                    width={250}
+                    height={250}
                     style={{ width: "100%", height: "300px", objectFit: "cover" }}
                     placeholder="blur"
                     blurDataURL={src}
