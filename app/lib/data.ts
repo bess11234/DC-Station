@@ -1,5 +1,9 @@
-import type { Animal } from "./definition";
+import type { Animal, Knowledge } from "./definition";
 import type { GalleryImage } from "../components/Carousel";
+
+
+//________________________________Animal
+
 export const animals: Animal[] = [
   {
     id: "60a9ee09c52da790cd36f01698d44028ee8b8a34d60caa95eec1c7294535bc96e8e50298ac5e1c03",
@@ -45,10 +49,34 @@ export const gallery: GalleryImage[] = [
   { src: "image2.webp", alt: "Stray dogs needed for housing." },
 ];
 
+
+// Show Animals Data
 export async function fetchAnimal(): Promise<Animal[]>{
     const response = await fetch('http://localhost:5000/api/animals')
     if (!response.ok){
         throw new Error("Fetch: Failed")
     }
     return await response.json()
+}
+
+
+
+
+// ________________________________Knowledge
+
+export const knowledge: Knowledge[] = [
+  {
+    id: "1",
+    title: "เหตุผลที่เราต้องมีสัตว์เลี้ยง บท:ความเห็นอกเห็นใจ",
+    image: "/knowledges/empathy",
+    content: "การเลี้ยงสัตว์เลี้ยงเป็นการฝึกอะไรหลาย ๆ อย่างในตัวของมนุษย์ ไม่ว่าจะเป็นเรื่องของความรับผิดชอบ การจัดสรรเวลา ระเบียบวินัย และความใส่ใจ แต่อีกสิ่งหนึ่งที่สำคัญซึ่งจะพัฒนาขึ้นมาในจิตใจของคุณโดยที่ไม่รู้ตัว นั่นคือความเห็นอกเห็นใจและความอ่อนโยนต่อสิ่งมีชีวิต ซึ่งเป็นสิ่งที่ยากจะเรียนรู้และโลกใบนี้ต้องการจากมนุษย์เป็นอย่างมาก",
+  }
+];
+
+export async function fetchKnowledge(): Promise<Knowledge[]>{
+  const response = await fetch('http://localhost:5000/api/knowledges')
+  if (!response.ok){
+      throw new Error("Fetch: Failed")
+  }
+  return await response.json()
 }

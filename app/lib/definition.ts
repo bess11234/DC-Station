@@ -16,3 +16,10 @@ export type Animal = {
     images: string[];
     adoptionDate?: string
 }
+
+export type Knowledge = {
+    id: string,
+    title: string,
+    image: string,
+    content: string,
+}

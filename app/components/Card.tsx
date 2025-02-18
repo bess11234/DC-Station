@@ -36,7 +36,7 @@ export function Card({ src, title, desc, hrefLink, date }: CardType) {
                 {/* Date */}
                 {date && <DisplayDateCard date={date} />}
                 {/* Title */}
-                <p className="card-title text-theme-950 dark:text-theme-50 lg:text-3xl text-xl text-nowrap">{title}</p>
+                <p className="card-title text-theme-950 dark:text-theme-50 lg:text-3xl text-xl text-nowrap truncate">{title.length <= 31? title:title.slice(0,31).concat("...")}</p>
                 {/* Description */}
                 <p className="text-theme-800 dark:text-theme-100 text-xs truncate">{desc}</p>
                 {/* Button */}

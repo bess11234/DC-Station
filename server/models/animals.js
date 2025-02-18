@@ -5,15 +5,15 @@ const IllnessSchema = new mongoose.Schema({
     name: { type: String },
     status: {
         type: String,
-        enum: ["กำลังรักษา", "รักษาหายแล้ว", "เรื้อรัง", "เฝ้าระวัง"]
+        enum: ["Under treatment", "Recovered", "Chronic", "Under surveillance"]
+        // enum: ["กำลังรักษา", "รักษาหายแล้ว", "เรื้อรัง", "เฝ้าระวัง"]
     }
 }, { _id: false });
 
 // Define Health History Schema
 const HealthHistorySchema = new mongoose.Schema({
     spayingStatus: {
-        type: String,
-        enum: ["ทำหมันแล้ว", "ยังไม่ทำหมัน"],
+        type: Boolean,
         required: true
     },
     illnesses: {
