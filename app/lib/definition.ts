@@ -16,7 +16,7 @@ export type Animal = {
     breed: string // Eng
     gender: "M" | "F" // Eng
     dob: string
-    history: string
+    history?: string
     personalities: string[]
     healthHistories: HealthHistories
     images: string[]
