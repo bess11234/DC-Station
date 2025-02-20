@@ -14,7 +14,10 @@ export const animals: Animal[] = [
     breed: "โนวา สก๊อตเทีย ดั๊ก โทริ่ง รีทริฟเวอร์",
     dob: "2024/12/30",
     gender: "M",
-    healthHistories: { spayingStatus: true },
+    healthHistories: {
+      spayingStatus: true,
+      illeness: [{ name: "มะเร็ง", status: "Under treatment" }],
+    },
     history: "เกือบเป็นซอยจุ๊ให้คนจีน",
     specie: "Dog",
     createAt: "12/15/2024",
@@ -33,7 +36,10 @@ export const animals: Animal[] = [
     breed: "Persian",
     dob: "2021/12/30",
     gender: "M",
-    healthHistories: { spayingStatus: true },
+    healthHistories: {
+      spayingStatus: true,
+      illeness: [{ name: "มะเร็ง", status: "Under treatment" }],
+    },
     history: "เกือบเป็นซอยจุ๊ให้คนจีน",
     specie: "Cat",
     createAt: "12/15/2024",
@@ -52,7 +58,10 @@ export const animals: Animal[] = [
     breed: "Siamese",
     dob: "2021/12/30",
     gender: "F",
-    healthHistories: { spayingStatus: false },
+    healthHistories: {
+      spayingStatus: false,
+      illeness: [{ name: "มะเร็ง", status: "Under treatment" }],
+    },
     history: "เกือบเป็นซอยจุ๊ให้คนจีน",
     specie: "Cat",
     createAt: "12/15/2024",
@@ -71,7 +80,10 @@ export const animals: Animal[] = [
     breed: "Siamese",
     dob: "2021/12/30",
     gender: "F",
-    healthHistories: { spayingStatus: false },
+    healthHistories: {
+      spayingStatus: false,
+      illeness: [{ name: "มะเร็ง", status: "Under treatment" }],
+    },
     history: "เกือบเป็นซอยจุ๊ให้คนจีน",
     specie: "Cat",
     createAt: "12/15/2024",
@@ -92,9 +104,7 @@ export const animals: Animal[] = [
     gender: "F",
     healthHistories: {
       spayingStatus: true,
-      illeness: [
-        { name: "มะเร็ง", status: "Under treatment" }
-      ]
+      illeness: [{ name: "มะเร็ง", status: "Under treatment" }],
     },
     history: "เกือบเป็นซอยจุ๊ให้คนจีน",
     specie: "Cat",
