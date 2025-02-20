@@ -172,7 +172,8 @@ export default function Login() {
               <Link href="#" className='text-sm font-semibold text-theme-950 hover:text-theme-800 dark:text-theme-50 dark:hover:text-theme-300'>Forgot password?</Link>
             </div>
           </div>
-
+          
+          {/* ---- Button ---- */}
           <button type="submit" className='rounded-xl cursor-pointer w-full text-white h-11 bg-theme-500 hover:bg-theme-600 active:bg-theme-700 shadow-lg'>
             Login
           </button>

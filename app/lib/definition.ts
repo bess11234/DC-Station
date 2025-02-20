@@ -21,7 +21,7 @@ export type Animal = {
     healthHistories: HealthHistories
     images: string[]
     adoptionDate?: string
-    createAt: string
+    createdAt: string
 }
 
 export type Knowledge = {
@@ -29,5 +29,5 @@ export type Knowledge = {
     title: string
     image: string
     content: string
-    createAt: string
+    createdAt: string
 }
