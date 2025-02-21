@@ -15,7 +15,7 @@ export function Stat() {
                 <div className="stat-figure">
                     <HeartIcon className="size-8" />
                 </div>
-                <div className="stat-title">ทำหมั่น</div>
+                <div className="stat-title">ทำหมัน</div>
                 <div className="stat-value">10K</div>
             </div>
 
