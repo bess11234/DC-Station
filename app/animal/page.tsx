@@ -2,7 +2,7 @@
 // import React, { useEffect, useState } from 'react';
 
 import type { Animal } from '../lib/definition';
-import { fetchAnimal } from '../lib/data';
+import { fetchAnimals } from '../lib/data';
 
 // Define the Pet type => Key must be the same as database
 // interface Pet {
@@ -14,7 +14,7 @@ const PetsList: React.FC = async () => {
   // State to hold the array of pets
   // const [pets, setPets] = useState<Animal[]>([]);
 
-  const pets: Animal[] = await fetchAnimal();
+  const pets: Animal[] = await fetchAnimals();
 
   return (
     <div>

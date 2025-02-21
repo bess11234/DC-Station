@@ -1,19 +1,19 @@
+import { notFound } from "next/navigation";
+import type { Animal, Knowledge, Request } from "./definition";
+
 type Response<T> = {
   status: string;
   message: T;
 };
 
-import { notFound } from "next/navigation";
-import type { Animal, Knowledge, Request } from "./definition";
-
 // ________________________________Animal
 // Show Animals Data
-export async function fetchAnimal(): Promise<Animal[]> {
-  const response = await fetch(
-    `http://localhost:${process.env.PORT}/backend/animals`
-  );
+export async function fetchAnimals(): Promise<Animal[]> {
+  const response = await fetch(`http://localhost:5000/api/animals`, {
+    cache: "no-cache"
+  });
   if (!response.ok) {
-    if (response.status == 404) notFound();
+    if (response.status == 404) return (await response.json()).message
     throw new Error(`${response.status}`);
   }
   const data: Response<Animal[]> = await response.json();
@@ -23,7 +23,7 @@ export async function fetchAnimal(): Promise<Animal[]> {
 // Show Animal Data from ID
 export async function fetchAnimalId(id: string): Promise<Animal> {
   const response = await fetch(
-    `http://localhost:${process.env.PORT}/backend/animals/${id}`
+    `http://localhost:5000/api/animals/${id}`
   );
   // หากไม่ Status: ok จะทำการส่งตัวเปล่า
   if (!response.ok) {
@@ -43,13 +43,13 @@ export const knowledge: Knowledge[] = [
     image: "/knowledges/empathy",
     content:
       "การเลี้ยงสัตว์เลี้ยงเป็นการฝึกอะไรหลาย ๆ อย่างในตัวของมนุษย์ ไม่ว่าจะเป็นเรื่องของความรับผิดชอบ การจัดสรรเวลา ระเบียบวินัย และความใส่ใจ แต่อีกสิ่งหนึ่งที่สำคัญซึ่งจะพัฒนาขึ้นมาในจิตใจของคุณโดยที่ไม่รู้ตัว นั่นคือความเห็นอกเห็นใจและความอ่อนโยนต่อสิ่งมีชีวิต ซึ่งเป็นสิ่งที่ยากจะเรียนรู้และโลกใบนี้ต้องการจากมนุษย์เป็นอย่างมาก",
-    createAt: "12/15/2024",
+    d: "12/15/2024",
   },
 ];
 
 export async function fetchKnowledge(): Promise<Knowledge[]> {
   const response = await fetch(
-    `http://localhost:${process.env.PORT}/backend/knowledges`
+    `http://localhost:5000/api/knowledges`
   );
   if (!response.ok) {
     if (response.status == 404) notFound();
@@ -63,9 +63,9 @@ export async function fetchKnowledge(): Promise<Knowledge[]> {
 // ________________________________Animal
 //// Animal request
 export async function fetchAnimalRequest(id: string): Promise<Request[]> {
-  const response = await fetch(
-    `http://localhost:${process.env.PORT}/backend/requests/animalId/${id}`
-  );
+  const response = await fetch(`http://localhost:5000/api/requests/animalId/${id}`, {
+    cache: "no-cache"
+  });
   if (!response.ok) {
     if (response.status == 404) notFound();
     throw new Error(`${response.status}`);
@@ -91,11 +91,11 @@ export const animals: Animal[] = [
     gender: "M",
     healthHistories: {
       spayingStatus: true,
-      illeness: [{ name: "มะเร็ง", status: "Under treatment" }],
+      illnesses: [{ name: "มะเร็ง", status: "Under treatment" }],
     },
     history: "เกือบเป็นซอยจุ๊ให้คนจีน",
     specie: "Dog",
-    createAt: "12/15/2024",
+    createdAt: "12/15/2024",
   },
   {
     _id: "3c1a5dfb810778868dcad0571c54f3352c2aa01166ae568ad4f3281909329415044ae4e2c7897012",
@@ -113,11 +113,11 @@ export const animals: Animal[] = [
     gender: "M",
     healthHistories: {
       spayingStatus: true,
-      illeness: [{ name: "มะเร็ง", status: "Under treatment" }],
+      illnesses: [{ name: "มะเร็ง", status: "Under treatment" }],
     },
     history: "เกือบเป็นซอยจุ๊ให้คนจีน",
     specie: "Cat",
-    createAt: "12/15/2024",
+    createdAt: "12/15/2024",
   },
   {
     _id: "2d39fe18927d4ab7b9fcbd1e872a67dc58fa293a882886357915757db2e7588aa333569e10ba915f",
@@ -135,11 +135,11 @@ export const animals: Animal[] = [
     gender: "F",
     healthHistories: {
       spayingStatus: false,
-      illeness: [{ name: "มะเร็ง", status: "Under treatment" }],
+      illnesses: [{ name: "มะเร็ง", status: "Under treatment" }],
     },
     history: "เกือบเป็นซอยจุ๊ให้คนจีน",
     specie: "Cat",
-    createAt: "12/15/2024",
+    createdAt: "12/15/2024",
   },
   {
     _id: "2d39fe18927d4ab7b9fcbd1e872a67dc58fa293a882886357915757db2e7588aa333569e10ba915f",
@@ -157,11 +157,11 @@ export const animals: Animal[] = [
     gender: "F",
     healthHistories: {
       spayingStatus: false,
-      illeness: [{ name: "มะเร็ง", status: "Under treatment" }],
+      illnesses: [{ name: "มะเร็ง", status: "Under treatment" }],
     },
     history: "เกือบเป็นซอยจุ๊ให้คนจีน",
     specie: "Cat",
-    createAt: "12/15/2024",
+    createdAt: "12/15/2024",
   },
   {
     _id: "2d39fe18927d4ab7b9fcbd1e872a67dc58fa293a882886357915757db2e7588aa333569e10ba915f",
@@ -179,11 +179,11 @@ export const animals: Animal[] = [
     gender: "F",
     healthHistories: {
       spayingStatus: true,
-      illeness: [{ name: "มะเร็ง", status: "Under treatment" }],
+      illnesses: [{ name: "มะเร็ง", status: "Under treatment" }],
     },
     history: "เกือบเป็นซอยจุ๊ให้คนจีน",
     specie: "Cat",
-    createAt: "12/15/2024",
+    createdAt: "12/15/2024",
   },
 ];
 

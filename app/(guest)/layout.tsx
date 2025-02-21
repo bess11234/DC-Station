@@ -1,3 +1,4 @@
+
 import Navbar from "../components/Navbar";
 import { Footer } from "../components/Footer";
 import { Breadcrumbs } from "../components/Breadcrumbs";
@@ -7,6 +8,7 @@ export default function Layout({
 }: Readonly<{
     children: React.ReactNode;
 }>) {
+
     return (
         <>
             <Navbar />

@@ -5,7 +5,8 @@ import { ReactElement } from "react"
 
 import { ChevronLeftIcon } from "@heroicons/react/24/outline"
 
-import { animals } from "../lib/data"
+import { fetchAnimalId } from "../lib/data"
+
 
 export function Breadcrumbs() {
     const pathName = usePathname()
@@ -21,8 +22,8 @@ export function Breadcrumbs() {
         let text: string = v
         // ถ้าเป็นสัตว์จะไปค้นหา ID
         if (isAnimal) {
-            const animal = animals.filter((animal) => animal.id == text)[0]
-            text = animal && animal.name
+            const animal = getAnimalName(text)
+            // text = animal
             if (!animal) isGenerated = false // ไม่ทำการ Generate หากไม่เจอสัตว์
             isAnimal = false
         }
@@ -47,4 +48,9 @@ export function Breadcrumbs() {
             </div>}
         </>
     )
+}
+
+async function getAnimalName(id: string){
+    const animal = await fetchAnimalId(id)
+    return animal.name
 }

@@ -19,7 +19,7 @@ router.post("/", async (req, res) => {
 // Get All Animals
 router.get("/", async (req, res) => {
     try {
-        const animals = await Animal.find({});
+        const animals = await Animal.find({}, { knowledges: 0 });
         res.status(200).json({ status: "ok", message: animals });
     } catch (error) {
         res.status(500).json({ status: "error", message: error.message });

@@ -6,7 +6,7 @@ import { Bank, BankType } from "./components/Bank";
 import { Stat } from "./components/Stat";
 import { Card } from "./components/Card";
 
-import { fetchAnimal } from "./lib/data";
+import { fetchAnimals } from "./lib/data";
 import { Animal } from "./lib/definition";
 
 export default async function Home() {
@@ -17,10 +17,7 @@ export default async function Home() {
     { src: "/bank/krungthai.webp", title: "ธนาคารกรุงไทย", alt: "Bank Krungthai." }
   ]
 
-  const animals: Animal[] = (await fetchAnimal()).map(v => {
-    delete v["animalId"]
-    return v
-  })
+  const animals: Animal[] = await fetchAnimals()
 
   const no_home = animals.filter(animal => animal.adoptionDate === null);
   const have_home = animals.filter(animal => animal.adoptionDate != null);
@@ -66,7 +63,7 @@ export default async function Home() {
             {/* If completed will changed to Animals components */}
             <div className="grid md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-6">
               {no_home.map((v, i) =>
-                <Card key={i} src={v.images[0]} title={v.name} desc={v.personalities.join(", ")} hrefLink={`/find-house/${v.id}`} />)
+                <Card key={i} src={v.images[0]} title={v.name} desc={v.personalities.join(", ")} hrefLink={`/find-house/${v._id}`} />)
               }
             </div>
 

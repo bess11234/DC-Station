@@ -2,14 +2,14 @@ import { notFound } from "next/navigation"
 import Image from "next/image"
 import { Suspense } from "react"
 
-import { animals } from "@/app/lib/data"
+import { fetchAnimalId } from "@/app/lib/data"
 import { ShowData } from "../../../components/animals/showData"
 
 export default async function FindHouseID({ params }: { params: Promise<{ id: string }> }) {
     const id = (await params).id
-    const animal = animals.filter(v => v.id == id)[0]
+    const animal = await fetchAnimalId(id)
     if (!animal) notFound();
-
+    
     return (
         <>
             {/* Title Content */}
