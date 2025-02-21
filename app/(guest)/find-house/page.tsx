@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 
 export default async function FindHouse() {
     const animals: Animal[] = (await fetchAnimal()).map(v => {
-        delete v["animalId"]
+        // delete v["animalId"]
         return v
     })
     

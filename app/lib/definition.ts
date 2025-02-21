@@ -29,8 +29,7 @@ export type Knowledge = {
     title: string
     image: string
     content: string
-<<<<<<< HEAD
-    createAt: string
+    createdAt: string
 }
 
 type Requester = {
@@ -45,7 +44,4 @@ export type Request = {
     _id: string;
     requester: Requester;
     animalId: string;
-=======
-    createdAt: string
->>>>>>> 847937f6affcb696baf6dc616373fbbbfa334693
 }

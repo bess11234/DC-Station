@@ -17,7 +17,7 @@ export default async function Knowledges(props : {
     console.log("query", query)
 
     const knowledges: Knowledge[] = await fetchKnowledge();
-    const mockDate = Date.now()
+    console.log(knowledges)
     return (
         <>
             <p className="md:text-5xl sm:text-4xl text-3xl text-center py-3 w-full">สร้างเสริมเกร็ดความรู้</p>
