@@ -1,13 +1,15 @@
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
+import { fetchAnimalId } from "@/app/lib/data";
+
 import { EditingData } from "@/app/components/(manager)/animals/EditingData";
-import { animals } from "@/app/lib/data";
+import { SkeletonAnimalInput } from "@/app/components/skeletons/SkeletonAnimalInput";
 
 export default async function AnimalId({ params }: { params: Promise<{ id: string }> }) {
     const id = (await params).id
-    const animal = animals.filter(v => v.id == id)[0]
-    if (!animal) notFound();
+    const animal = await fetchAnimalId(id)
+    if (!animal) notFound()
 
     return (
         <section className="w-full">
@@ -19,7 +21,7 @@ export default async function AnimalId({ params }: { params: Promise<{ id: strin
                 <div className="grid gap-3 p-3 xl:min-w-[1000px] max-w-[1000px] w-full sm:mx-16 mx-8">
 
                     {/* Data */}
-                    <Suspense fallback={<p>Loading...</p>}>
+                    <Suspense fallback={<SkeletonAnimalInput/>}>
                         <EditingData animal={animal} />
                     </Suspense>
 

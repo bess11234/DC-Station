@@ -53,12 +53,12 @@ router.post("/login", async (req, res) => {
         const user = await User.findOne({ email });
 
         //1. not found
-        if (!user) return res.status(400).json({ msg: "Email not founded" });
+        if (!user) return res.status(400).json({ status: "not found", message: "Email not founded" });
 
         //2. found then check password
         const isMatch = await bcrypt.compare(password, user.password);
 
-        if (!isMatch) return res.status(400).json({ msg: "Invalid Password" });
+        if (!isMatch) return res.status(400).json({ status: "not found", message: "Invalid Password" });
 
         //3. Create JWT Token
         const token = jwt.sign({ userId: user._id, email: user.email }, process.env.JWT_SECRET, {
@@ -74,18 +74,18 @@ router.post("/login", async (req, res) => {
             maxAge: 3600000, // 1 ชั่วโมง
         });
 
-        res.json({ message: "Login successful" });
+        res.status(200).json({ status: "ok", message: "Login successful" });
         // res.json({ token, user: {id: user._id, email: user.email}});
     }
     catch (error) {
-        res.status(500).json({ message: error.message });
+        res.status(500).json({ status: "error", message: error.message });
     }
 });
 
 //LogOut
 router.post("/logout", (req, res) => {
     res.clearCookie("token");
-    res.json({ message: "Logged out successfully" });
+    res.status(200).json({ status: "ok", message: "Logged out successfully" });
 })
 
 //Profile
@@ -93,7 +93,7 @@ router.get("/profile", async (req, res) => {
     try {
         const user = isAuthentication(req, res)
         if (!user) return res.status(404).json({ message: "User not found" });
-        res.json(user);
+        res.json({ status: "ok", message: user });
     } catch (err) {
         res.status(500).json({ message: "Server Error" });
     }

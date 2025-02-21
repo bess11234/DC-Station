@@ -10,7 +10,7 @@ type HealthHistories = {
 }
 
 export type Animal = {
-    id: string
+    _id: string
     name: string
     specie: "Dog" | "Cat" // Eng
     breed: string // Eng
@@ -25,9 +25,23 @@ export type Animal = {
 }
 
 export type Knowledge = {
-    id: string,
+    _id: string,
     title: string
     image: string
     content: string
     createAt: string
+}
+
+type Requester = {
+    idCard: string;
+    phone: string;
+    fb: string;
+    experience: string;
+    reason: string;
+}
+
+export type Request = {
+    _id: string;
+    requester: Requester;
+    animalId: string;
 }

@@ -1,9 +1,11 @@
-import { animals } from "@/app/lib/data"
-
 import { PlusIcon } from "@heroicons/react/24/outline"
 
 import { PageNavigation } from "@/app/components/(manager)/PageNavigation"
 import { AnimalItem } from "@/app/components/(manager)/animals/AnimalItem"
+import { fetchAnimal } from "@/app/lib/data"
+import type { Animal } from "@/app/lib/definition"
+
+const animals: Animal[] = await fetchAnimal()
 
 export default function Animals() {
     return (
@@ -14,7 +16,7 @@ export default function Animals() {
 
                 <div className="grid space-x-3 p-3">
                     {/* Animals */}
-                    <div className="bg-theme-100/50 dark:bg-white/5 rounded-3xl sm:p-5 p-3 overflow-x-auto">
+                    <div className="bg-theme-50/50 dark:bg-white/5 rounded-3xl sm:p-5 p-3 overflow-x-auto">
 
                         {/* Create Animal */}
                         <button className="button-theme flex flex-row px-4 py-3 rounded-full mb-3 cursor-pointer space-x-1"><PlusIcon className="size-6" /><span>เพิ่มสัตว์</span></button>

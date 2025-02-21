@@ -12,13 +12,17 @@ export const metadata: Metadata = {
 }
 
 export default async function FindHouse() {
-    const animals: Animal[] = await fetchAnimal();
+    const animals: Animal[] = (await fetchAnimal()).map(v => {
+        delete v["animalId"]
+        return v
+    })
+    
     const no_home = animals.filter(animal => animal.adoptionDate === null)
     return (
         <>
             {/* Title Content */}
             <div className="flex flex-col gap-3 w-full place-items-center">
-            <p className="grid md:text-5xl sm:text-4xl xs:text-3xl text-2xl text-center my-3 md:space-y-3"><span>มูลนิธิอาสาช่วยเหลือหมาและแมว</span><span>(🐶DC Station🐱)</span></p>
+                <p className="grid md:text-5xl sm:text-4xl xs:text-3xl text-2xl text-center my-3 md:space-y-3"><span>มูลนิธิอาสาช่วยเหลือหมาและแมว</span><span>(🐶DC Station🐱)</span></p>
 
                 {/* Filter animal (Species, Age, Gender) */}
                 <FilterAnimals />

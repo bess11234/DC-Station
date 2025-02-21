@@ -8,7 +8,7 @@ const requesterSchema = new mongoose.Schema({
     fb: { type: String, require: true },
     experience: { type: String, require: true },
     reason: { type: String, require: true },
-});
+}, { _id: false });
 
 // Define Main Schema
 const requestSchema = new mongoose.Schema({

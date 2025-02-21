@@ -55,7 +55,7 @@ router.put("/:id", async (req, res) => {
         }
         //found
         const updateKnowledge = await Knowledge.findByIdAndUpdate(req.params.id, req.body, {new: true});
-        res.status(201).json({ status: "ok", updateKnowledge});
+        res.status(201).json({ status: "ok", message: updateKnowledge});
     }catch(error){
         res.status(500).json({ status: "error", message: error.message });
     }

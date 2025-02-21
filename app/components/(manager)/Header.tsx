@@ -20,7 +20,7 @@ export default function Sidebar() {
         { name: "เกร็ดความรู้", link: "/dashboard/knowledges", icon: <BookmarkSquareIcon className={`${classIcon} ${hoverMouse == "Knowledges" && "scale-105 dark:stroke-theme-200"} ${pathName == "/dashboard/knowledges" ? "stroke-current dark:stroke-theme-200 dark:text-theme-200" : "stroke-current fill-none"}`} strokeWidth={1.8} /> },
     ]
     return (
-        <div className="sticky z-40 top-0 sm:h-screen flex sm:flex-col flex-row place-content-between sm:justify-items-center sm:py-10 sm:px-6 py-4 px-4 sm:border-r max-sm:border-b not-dark:border-black2/20 border-white/20 bg-white dark:bg-black2">
+        <div className="sticky z-40 top-0 sm:h-screen flex sm:flex-col flex-row place-content-between sm:justify-items-center sm:py-10 sm:px-6 py-4 px-4 sm:border-r max-sm:border-b not-dark:border-black2/20 border-white/20 bg-white/80 dark:bg-black2/80 backdrop-blur-sm">
             {/* Sidebar */}
             <div className="sm:block hidden space-y-5">
                 {linkPath.map((v, i) => (

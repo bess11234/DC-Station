@@ -10,10 +10,18 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: "https",
-        hostname: "via.placeholder.com"
-      }
-    ]
-  }
+        hostname: "via.placeholder.com",
+      },
+    ],
+  },
+  async rewrites() {
+      return [
+        {
+          source: "/backend/:path*",
+          destination: "http://localhost:5000/api/:path*"
+        }
+      ]
+  },
 };
 
 export default nextConfig;

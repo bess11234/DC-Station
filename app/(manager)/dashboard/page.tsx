@@ -5,7 +5,7 @@ import { animals } from "@/app/lib/data"
 
 import { AnimalItem } from "@/app/components/(manager)/animals/AnimalItem"
 
-import { InboxIcon, HeartIcon, BookmarkSquareIcon, PencilSquareIcon, TrashIcon, XCircleIcon } from "@heroicons/react/24/outline"
+import { InboxIcon, HeartIcon, BookmarkSquareIcon, PencilSquareIcon, TrashIcon, PlusIcon } from "@heroicons/react/24/outline"
 
 export default function DashBoard() {
     const animals_data = [...animals]
@@ -15,7 +15,7 @@ export default function DashBoard() {
                 {/* Title */}
                 <p className="md:text-5xl sm:text-4xl text-3xl font-semibold text-center my-3">Dashboard</p>
 
-                <div className="grid xl:grid-cols-3 lg:grid-cols-2 grid-cols-1 space-x-3 p-3">
+                <div className="grid xl:grid-cols-3 lg:grid-cols-2 grid-cols-1 space-x-3 space-y-3 p-3">
                     {/* Requests */}
                     <div className="bg-theme-100/50 dark:bg-white/5 rounded-3xl sm:p-5 p-3 hover:shadow-md">
                         <div className="flex items-center space-x-1">
@@ -50,9 +50,13 @@ export default function DashBoard() {
                     </div>
                     {/* Animals */}
                     <div className="bg-theme-100/50 dark:bg-white/5 rounded-3xl sm:p-5 p-3 hover:shadow-md">
-                        <div className="flex items-center space-x-1">
-                            <HeartIcon className="size-8" />
-                            <p className="md:text-3xl sm:text-xl text-lg">สัตว์ ({animals.length})</p>
+                        <div className="flex items-center space-x-3">
+                            <div className="flex space-x-1">
+                                <HeartIcon className="size-8" />
+                                <p className="md:text-3xl sm:text-xl text-lg">สัตว์ ({animals.length})</p>
+                            </div>
+                            {/* Create Animal */}
+                            <button className="button-theme flex flex-row px-4 py-3 rounded-full mb-3 cursor-pointer space-x-1"><PlusIcon className="size-6" /><span>เพิ่มสัตว์</span></button>
                         </div>
 
                         {/* Table */}
