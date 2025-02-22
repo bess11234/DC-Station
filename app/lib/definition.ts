@@ -20,6 +20,7 @@ export type Animal = {
     personalities: string[]
     healthHistories: HealthHistories
     images: string[]
+    knowledges: string[]
     adoptionDate?: string
     createdAt: string
 }
@@ -28,6 +29,7 @@ export type Knowledge = {
     _id: string,
     title: string
     image: string
+    describe: string
     content: string
     createdAt: string
 }

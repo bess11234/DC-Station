@@ -21,7 +21,7 @@ router.post("/", async (req, res) => {
 router.get("/", async (req, res) => {
     try{
         const knowledges = await Knowledge.find({});
-        res.status(200).json(knowledges);
+        res.status(200).json({ status: "ok", message: knowledges });
     }catch(error){
         res.status(500).json({ status: "error", message: error.message });
     }

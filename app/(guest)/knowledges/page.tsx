@@ -1,6 +1,6 @@
 import { Card } from "@/app/components/Card"
 
-import { fetchKnowledge } from '@/app/lib/data';
+import { fetchKnowledges } from '@/app/lib/data';
 import type { Knowledge } from '@/app/lib/definition';
 
 import { SearchAnimals } from "@/app/components/SearchBox";
@@ -16,7 +16,7 @@ export default async function Knowledges(props : {
     const query = searchParams?.title || '';
     console.log("query", query)
 
-    const knowledges: Knowledge[] = await fetchKnowledge();
+    const knowledges: Knowledge[] = await fetchKnowledges();
     const mockDate = Date.now()
     return (
         <>

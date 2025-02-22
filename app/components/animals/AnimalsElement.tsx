@@ -60,7 +60,7 @@ export function AnimalsElement({ animals }: Props) {
             <div className="grid md:grid-cols-4 sm:grid-cols-3 grid-cols-2 sm:gap-6 gap-3 sm:m-3">
                 {
                     displayAnimal.map((v, i) => (
-                        <Card key={i} src={v.images[0]} title={v.name} desc={v.personalities.join(", ")} hrefLink={`/find-house/${v._id}`} date={Date.parse(v.dob)} />
+                        <Card key={i} src={v.images[0]} title={v.name} desc={v.personalities.join(", ")} hrefLink={`/find-house/${v._id}`} date={Date.parse(v.createdAt)} />
                     ))
                 }
             </div>

@@ -20,7 +20,7 @@ export function Card({ src, title, desc, hrefLink, date }: CardType) {
             <figure className="rounded-t-xl">
                 <Image
                     src={src}
-                    alt={title}
+                    alt={`Picture of ${title}.`}
                     sizes="100%"
                     width={250}
                     height={250}
@@ -28,7 +28,7 @@ export function Card({ src, title, desc, hrefLink, date }: CardType) {
                     placeholder="blur"
                     blurDataURL={src}
                     quality={74}
-                    className="transition-transform hover:brightness-50 hover:cursor-pointer hover:scale-110"
+                    className="transition-transform hover:brightness-50 hover:cursor-pointer hover:scale-105"
                     onClick={() => push(hrefLink)}
                 />
             </figure>

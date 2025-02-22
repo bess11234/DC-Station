@@ -63,7 +63,7 @@ export default async function Home() {
             {/* If completed will changed to Animals components */}
             <div className="grid md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-6">
               {no_home.map((v, i) =>
-                <Card key={i} src={v.images[0]} title={v.name} desc={v.personalities.join(", ")} hrefLink={`/find-house/${v._id}`} />)
+                <Card key={i} src={v.images[0]} title={v.name} desc={v.personalities.join(", ")} hrefLink={`/find-house/${v._id}`} date={Date.parse(v.createdAt)} />)
               }
             </div>
 
@@ -76,7 +76,7 @@ export default async function Home() {
             {/* If completed will changed to Animals components */}
             <div className="grid md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-x-6 gap-y-3">
               {have_home.map((v, i) => (
-                <Card key={i} src={v.images[0]} title={v.name} desc={v.personalities.join(", ")} hrefLink={`/find-house/${v.id}`} />
+                <Card key={i} src={v.images[0]} title={v.name} desc={v.personalities.join(", ")} hrefLink={`/find-house/${v._id}`} date={Date.parse(v.adoptionDate ? v.adoptionDate : "")} />
               ))}
 
 

@@ -5,10 +5,11 @@ import { motion, AnimatePresence } from "motion/react"
 
 import { useDebouncedCallback } from "use-debounce"
 
-import type { Animal, Illness } from "@/app/lib/definition"
+import type { Animal, Illness, Knowledge } from "@/app/lib/definition"
 import { updateAnimal, AnimalState } from "@/app/lib/action"
 
-import { XCircleIcon, ArrowTurnDownLeftIcon, PencilSquareIcon } from "@heroicons/react/24/outline"
+import { XCircleIcon, XMarkIcon, ArrowTurnDownLeftIcon, PencilSquareIcon } from "@heroicons/react/24/outline"
+import { DisplayDateCard } from "../../DisplayDateCard"
 
 interface display {
     id: number
@@ -22,7 +23,7 @@ interface displayIllness extends Illness {
     value: string;
 }
 
-export function EditingData({ animal }: { animal: Animal }) {
+export function EditingData({ animal, knowledges }: { animal: Animal, knowledges: Knowledge[] }) {
     // Transform DOB to Date string
     animal.dob = new Date(Date.parse(animal.dob)).toISOString().split("T")[0]
 
@@ -70,7 +71,7 @@ export function EditingData({ animal }: { animal: Animal }) {
         console.log(inputAnimal)
     }, [inputAnimal])
 
-    const handleInput = useDebouncedCallback((value: string | undefined, key: string) => {
+    const handleInput = useDebouncedCallback((value: string | string[] | undefined, key: string) => {
         if (value == undefined) value = ""
         setInputAnimal(prevState => ({ ...prevState, [key]: value }))
     }, 300)
@@ -176,6 +177,27 @@ export function EditingData({ animal }: { animal: Animal }) {
         setInputAnimal(prevState => ({ ...prevState, ["images"]: prevState.images.filter((psrc) => psrc != src) }))
     }
 
+    function validateIllness(status: string): "Under treatment" | "Recovered" | "Chronic" | "Under surveillance" {
+        if (status == "Under treatment" || status == "Recovered" || status == "Chronic" || status == "Under surveillance") {
+            return status
+        }
+        return "Under treatment"
+    }
+
+    // Input Knowledges
+    const [inputKnowledges, setInputKnowledges] = useState<string[]>(inputAnimal.knowledges)
+
+    const handleInputKnowledges = (knowledge: string) => {
+        let temp = []
+        if (inputKnowledges.includes(knowledge)) {
+            temp = inputKnowledges.filter(v => v != knowledge)
+        } else {
+            temp = [...inputKnowledges, knowledge]
+        }
+        setInputKnowledges(temp)
+        handleInput(temp, "knowledges")
+    }
+
     // Reset Form
     function resetForm() {
         setMainImage(null)
@@ -198,24 +220,17 @@ export function EditingData({ animal }: { animal: Animal }) {
                 visible: true,
             }
         }) || [])
-    }
-
-    function validateIllness(status: string): "Under treatment" | "Recovered" | "Chronic" | "Under surveillance" {
-        if (status == "Under treatment" || status == "Recovered" || status == "Chronic" || status == "Under surveillance") {
-            return status
-        }
-        return "Under treatment"
+        setInputKnowledges(animal.knowledges)
     }
 
     return (
         <form ref={inputForm} action={formAction} >
-            {state.errors && <p>{JSON.stringify(state.errors)}</p>}
             <div className="relative">
                 <input type="hidden" name="id" value={inputAnimal._id} />
                 <div className="absolute bottom-0 right-0 mr-2 mb-2" aria-label="Edit main image" role="button">
                     {/* Edit button */}
                     <label htmlFor="animalMainImage" title="Edit">
-                        <div className="button-theme p-1.5 rounded-full cursor-pointer">
+                        <div className="button-theme bg-theme-200/90! dark:bg-black2/50! p-1.5 rounded-full cursor-pointer">
                             <PencilSquareIcon className={`transition-colors size-6`} />
                         </div>
                     </label>
@@ -339,60 +354,135 @@ export function EditingData({ animal }: { animal: Animal }) {
                 </AnimatePresence>
 
                 {/* Other Images */}
-                <>
-                    <p className="md:text-2xl sm:text-2xl text-lg text-center mt-3">รูปภาพเพิ่มเติม</p>
+                <p className="md:text-2xl sm:text-2xl text-lg text-center mt-3">รูปภาพเพิ่มเติม</p>
 
-                    {/* Upload Image */}
-                    <div className="mx-auto">
-                        <label htmlFor="uploadImages" className="py-3 px-5 button-theme rounded-full cursor-pointer">อัพโหลดรูปภาพ</label>
-                        <input onChange={handleUploadExtraImages} tabIndex={-1} type="file" id="uploadImages" accept="image/jpeg,image/png,image/gif,image/bmp,image/webp,image/tiff" multiple hidden />
-                    </div>
+                {/* Upload Image */}
+                <div className="mx-auto">
+                    <label htmlFor="uploadImages" className="py-3 px-5 button-theme rounded-full cursor-pointer">อัพโหลดรูปภาพ</label>
+                    <input onChange={handleUploadExtraImages} tabIndex={-1} type="file" id="uploadImages" accept="image/jpeg,image/png,image/gif,image/bmp,image/webp,image/tiff" multiple hidden />
+                </div>
 
-                    <div className={`columns-2 gap-4 sm:gap-8 space-y-6 ${(inputAnimal.images.length - 1) + (uploadImages.length) >= 5 && "sm:columns-3"}`}>
+                <div className={`columns-2 gap-4 sm:gap-8 space-y-6 ${(inputAnimal.images.length - 1) + (uploadImages.length) >= 5 && "sm:columns-3"}`}>
 
-                        {/* Images of Animals (Origin) */}
-                        {
-                            inputAnimal.images.filter((_, i) => i != 0).map((src, i) => (
-                                <div className="relative pt-2" key={i}>
-                                    <Image
-                                        src={src}
-                                        height={100}
-                                        width={100}
-                                        sizes="100vw"
-                                        style={{ width: "100%", height: "100%", objectFit: "cover" }}
-                                        alt={`Picture of ${inputAnimal.name} No.${i}`}
-                                        className={`rounded-xl shadow ${i % 3 == 0 ? "aspect-3/2" : "aspect-square"}`}
-                                    />
-                                    <XCircleIcon onClick={() => deleteImage(src)} className="absolute top-0 -right-2 size-6 bg-theme-500 hover:bg-theme-600 active:bg-theme-700 rounded-full cursor-pointer select-none" />
+                    {/* Images of Animals (Origin) */}
+                    {
+                        inputAnimal.images.filter((_, i) => i != 0).map((src, i) => (
+                            <div className="relative pt-2" key={i}>
+                                <Image
+                                    src={src}
+                                    height={100}
+                                    width={100}
+                                    sizes="100vw"
+                                    style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                                    alt={`Picture of ${inputAnimal.name} No.${i}`}
+                                    className={`rounded-xl shadow ${i % 3 == 0 ? "aspect-3/2" : "aspect-square"}`}
+                                />
+                                <XMarkIcon onClick={() => deleteImage(src)} className="absolute top-0 -right-2 size-6 p-1 dark:opacity-95 bg-theme-200 text-theme-800 hover:bg-theme-400 hover:text-white rounded-full cursor-pointer select-none" />
+                            </div>
+                        ))
+                    }
+
+                    {/* Preview Images from Upload */}
+                    {
+                        uploadImages.map((src, i) => (
+                            <div className="relative pt-2" key={i}>
+                                <Image
+                                    src={src}
+                                    height={100}
+                                    width={100}
+                                    sizes="100vw"
+                                    style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                                    alt={`Picture of ${inputAnimal.name} No.${i + inputAnimal.images.length}`}
+                                    className={`rounded-xl shadow ${i % 3 == 0 ? "aspect-3/2" : "aspect-square"}`}
+                                />
+                                <XMarkIcon onClick={() => cancelImage(i)} className="absolute top-0 -right-2 size-6 p-1 dark:opacity-95 bg-sky-200 text-sky-800 hover:bg-sky-500 hover:text-white  rounded-full cursor-pointer select-none" />
+                            </div>
+                        ))
+                    }
+                </div>
+
+                <hr className="p-0! my-6 border" />
+
+                {/* Knowledges */}
+                <p className="md:text-2xl sm:text-2xl text-lg text-center">เกร็ดความรู้เพิ่มเติม</p>
+                {/* Add Knowledge */}
+                <div className="mx-auto py-0!">
+                    <button type="button" popoverTarget="my-knowledges" className="py-3 px-5 button-theme rounded-full cursor-pointer">จัดการเกร็ดความรู้</button>
+                </div>
+
+                <div popover="auto" id="my-knowledges" className="p-0! bg-transparent w-screen h-screen opacity-0 transition-all duration-500 transition-discrete open:opacity-100 starting:open:opacity-0">
+                    <div className="relative grid size-full justify-center items-center">
+                        <div onClick={() => document.getElementById("my-knowledges")?.hidePopover()} className="absolute bg-black2/10 dark:bg-black2/50 w-screen h-screen"></div>
+                        <div className="relative z-10 md:w-[80vw] w-screen h-[75vh] bg-white dark:bg-neutral-950 border border-white/10 rounded-xl">
+                            <XMarkIcon onClick={() => document.getElementById("my-knowledges")?.hidePopover()} className="absolute -top-2 -right-2 size-6 p-1 dark:opacity-95 bg-theme-200 text-theme-800 hover:bg-theme-500 hover:text-white  rounded-full cursor-pointer select-none" />
+                            <div className="h-full p-6 overflow-y-auto">
+                                <h1>จัดการเกร็ดความรู้</h1>
+
+                                {/* Display Knowledges */}
+                                <div className="my-3 space-y-3">
+                                    {knowledges.map((v, i) => (
+                                        <div className="flex space-x-3" key={i}>
+                                            <input id={`knowledges_${v._id}`} onChange={() => handleInputKnowledges(v._id)} className="peer bg-theme-600" type="checkbox" defaultChecked={inputKnowledges.includes(v._id)} />
+                                            <label htmlFor={`knowledges_${v._id}`} className="grid p-3 sm:rounded-3xl rounded-xl dark:shadow-theme-50/10 md:text-xl sm:text-lg text-base bg-theme-100/80 peer-checked:bg-theme-200 dark:bg-white/5 dark:peer-checked:bg-theme-300/20">
+                                                <div className="flex items-center space-x-5">
+                                                    <Image
+                                                        src={v.image}
+                                                        alt={`Picture of ${v.title}`}
+                                                        width={50}
+                                                        height={50}
+                                                        className="size-12 object-cover rounded-full"
+                                                    />
+                                                    <div>
+                                                        <p className="line-clamp-1">{v.title}</p>
+                                                        <p className="opacity-50 text-sm line-clamp-1">{v.describe}</p>
+                                                    </div>
+                                                </div>
+                                            </label>
+                                        </div>
+                                    ))}
                                 </div>
-                            ))
-                        }
-
-                        {/* Preview Images from Upload */}
-                        {
-                            uploadImages.map((src, i) => (
-                                <div className="relative pt-2" key={i}>
-                                    <Image
-                                        src={src}
-                                        height={100}
-                                        width={100}
-                                        sizes="100vw"
-                                        style={{ width: "100%", height: "100%", objectFit: "cover" }}
-                                        alt={`Picture of ${inputAnimal.name} No.${i + inputAnimal.images.length}`}
-                                        className={`rounded-xl shadow ${i % 3 == 0 ? "aspect-3/2" : "aspect-square"}`}
-                                    />
-                                    <XCircleIcon onClick={() => cancelImage(i)} className="absolute top-0 -right-2 size-6 animate-pulse bg-sky-500 hover:bg-sky-600 active:bg-sky-700 rounded-full cursor-pointer select-none" />
-                                </div>
-                            ))
-                        }
+                            </div>
+                        </div>
                     </div>
-                </>
+                </div>
+
+                {/* Display Knowledges */}
+                <div className="grid grid-cols-2 gap-6 my-2">
+                    {knowledges.filter(v => inputKnowledges.includes(v._id)).map((v, i) => (
+                        <div key={i} className="select-none card bg-theme-50 dark:bg-theme-950/50 rounded-xl md:max-h-[400px] max-h-[350px] max-w-full hover:shadow-lg dark:shadow-white/15">
+                            <figure className="rounded-t-xl">
+                                <Image
+                                    src={v.image}
+                                    alt={`Picture of ${v.title}.`}
+                                    sizes="100%"
+                                    width={250}
+                                    height={250}
+                                    style={{ width: "100%", height: "300px", objectFit: "cover" }}
+                                    placeholder="blur"
+                                    blurDataURL={v.image}
+                                    quality={74}
+                                    className="transition-transform hover:brightness-50 hover:cursor-pointer hover:scale-105"
+                                />
+                            </figure>
+                            <div className="relative card-body max-sm:p-6 pb-4 lg:px-8 md:px-4 sm:px-4 max-sm:mt-1">
+                                {/* Date */}
+                                {v.createdAt && <DisplayDateCard date={Date.parse(v.createdAt)} />}
+                                {/* Title */}
+                                <p className="card-title text-theme-950 dark:text-theme-50 lg:text-3xl text-xl text-nowrap truncate">{v.title.length <= 31 ? v.title : v.title.slice(0, 31).concat("...")}</p>
+                                {/* Description */}
+                                <p className="text-theme-800 dark:text-theme-100 text-xs truncate">{v.describe}</p>
+                            </div>
+                            <XMarkIcon onClick={() => handleInputKnowledges(v._id)} className="absolute -top-2 -right-2 size-6 p-1 dark:opacity-95 bg-theme-200 text-theme-800 hover:bg-theme-400 hover:text-white rounded-full cursor-pointer select-none" />
+                        </div>
+                    ))}
+                </div>
             </div>
 
             <div className="flex justify-end">
                 <button onClick={() => inputForm.current?.requestSubmit()} className="cursor-pointer py-3 px-6 rounded-full bg-black2 text-white dark:bg-white dark:text-black2 outline-offset-4" type="button">Save</button>
                 <button className="cursor-pointer py-3 px-4 rounded-full outline-offset-4" onClick={() => resetForm()} type="reset">Cancel</button>
             </div>
+
         </form >
     )
 }

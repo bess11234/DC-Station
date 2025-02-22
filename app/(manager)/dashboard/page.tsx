@@ -4,10 +4,10 @@ import Image from "next/image"
 import { AnimalItem } from "@/app/components/(manager)/animals/AnimalItem"
 
 import { InboxIcon, HeartIcon, BookmarkSquareIcon, PencilSquareIcon, TrashIcon, PlusIcon } from "@heroicons/react/24/outline"
-import { fetchAnimals } from "@/app/lib/data"
+import { fetchAnimals, fetchKnowledges } from "@/app/lib/data"
 
 export default async function DashBoard() {
-    const [requests, animals, knowledges] = await Promise.all([fetchAnimals(), fetchAnimals(), fetchAnimals()])
+    const [requests, animals, knowledges] = await Promise.all([fetchAnimals(), fetchAnimals(), fetchKnowledges()])
     return (
         <>
             <div className="flex flex-col w-full py-8">

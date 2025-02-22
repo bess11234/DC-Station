@@ -1,4 +1,6 @@
 import { redirect } from "next/navigation";
+import { revalidateAnimals } from "./revalidate";
+
 import { Animal } from "./definition";
 
 import { z } from "zod";
@@ -58,6 +60,7 @@ const AnimalFormSchema = z.object({
     ),
   }),
   images: z.array(z.string()),
+  knowledges: z.optional(z.array(z.string())),
 });
 
 export async function updateAnimal(
@@ -88,39 +91,46 @@ export async function updateAnimal(
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ images: base64Images }),
+      body: JSON.stringify({
+        images: base64Images,
+        filename: extraImages.map((v) => v.type.replace("image/", "")),
+      }),
     });
 
     if (response.ok) {
+      const urls: string[] = (await response.json()).url;
       // Update Images
-      animal.images.push(...(await response.json()).url);
+      if (mainImage) {
+        animal.images[0] = urls[0];
+        urls.shift();
+      }
+      animal.images.push(...urls);
     }
+
+    const validateData = AnimalFormSchema.safeParse(animal);
+
+    if (!validateData.success) {
+      return {
+        errors: validateData.error.flatten().fieldErrors,
+        message: "Error: Missing some fields.",
+      };
+    }
+
+    try {
+      fetch(`http://localhost:5000/api/animals/${animal._id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(animal),
+      });
+    } catch (error) {
+      return {
+        message: `Error: ${error}`,
+      };
+    }
+
+    revalidateAnimals();
+    redirect(`/dashboard/animals/`);
   }
-
-  const validateData = AnimalFormSchema.safeParse(animal);
-
-  console.log(validateData.data);
-
-  if (!validateData.success) {
-    return {
-      errors: validateData.error.flatten().fieldErrors,
-      message: "Error: Missing some fields.",
-    };
-  }
-
-  try {
-    fetch(`http://localhost:5000/api/animals/${animal._id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(animal),
-    });
-  } catch (error) {
-    return {
-      message: `Error: ${error}`,
-    };
-  }
-
-  redirect("/dashboard/animals");
 }
