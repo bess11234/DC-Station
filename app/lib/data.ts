@@ -1,19 +1,19 @@
+import { notFound } from "next/navigation";
+import type { Animal, Knowledge, Request } from "./definition";
+
 type Response<T> = {
   status: string;
   message: T;
 };
 
-import { notFound } from "next/navigation";
-import type { Animal, Knowledge, Request } from "./definition";
-
 // ________________________________Animal
 // Show Animals Data
-export async function fetchAnimal(): Promise<Animal[]> {
-  const response = await fetch(
-    `http://localhost:${process.env.PORT}/api/animals`
-  );
+export async function fetchAnimals(): Promise<Animal[]> {
+  const response = await fetch(`http://localhost:5000/api/animals`, {
+    cache: "no-cache"
+  });
   if (!response.ok) {
-    if (response.status == 404) notFound();
+    if (response.status == 404) return (await response.json()).message
     throw new Error(`${response.status}`);
   }
   const data: Response<Animal[]> = await response.json();
@@ -23,7 +23,7 @@ export async function fetchAnimal(): Promise<Animal[]> {
 // Show Animal Data from ID
 export async function fetchAnimalId(id: string): Promise<Animal> {
   const response = await fetch(
-    `http://localhost:${process.env.PORT}/api/animals/${id}`
+    `http://localhost:5000/api/animals/${id}`
   );
   // หากไม่ Status: ok จะทำการส่งตัวเปล่า
   if (!response.ok) {
@@ -63,9 +63,9 @@ export async function fetchKnowledge(): Promise<Knowledge[]> {
 // ________________________________Animal
 //// Animal request
 export async function fetchAnimalRequest(id: string): Promise<Request[]> {
-  const response = await fetch(
-    `http://localhost:${process.env.PORT}/api/requests/animalId/${id}`
-  );
+  const response = await fetch(`http://localhost:5000/api/requests/animalId/${id}`, {
+    cache: "no-cache"
+  });
   if (!response.ok) {
     if (response.status == 404) notFound();
     throw new Error(`${response.status}`);
@@ -91,7 +91,7 @@ export const animals: Animal[] = [
     gender: "M",
     healthHistories: {
       spayingStatus: true,
-      illeness: [{ name: "มะเร็ง", status: "Under treatment" }],
+      illnesses: [{ name: "มะเร็ง", status: "Under treatment" }],
     },
     history: "เกือบเป็นซอยจุ๊ให้คนจีน",
     specie: "Dog",
@@ -113,7 +113,7 @@ export const animals: Animal[] = [
     gender: "M",
     healthHistories: {
       spayingStatus: true,
-      illeness: [{ name: "มะเร็ง", status: "Under treatment" }],
+      illnesses: [{ name: "มะเร็ง", status: "Under treatment" }],
     },
     history: "เกือบเป็นซอยจุ๊ให้คนจีน",
     specie: "Cat",
@@ -135,7 +135,7 @@ export const animals: Animal[] = [
     gender: "F",
     healthHistories: {
       spayingStatus: false,
-      illeness: [{ name: "มะเร็ง", status: "Under treatment" }],
+      illnesses: [{ name: "มะเร็ง", status: "Under treatment" }],
     },
     history: "เกือบเป็นซอยจุ๊ให้คนจีน",
     specie: "Cat",
@@ -157,7 +157,7 @@ export const animals: Animal[] = [
     gender: "F",
     healthHistories: {
       spayingStatus: false,
-      illeness: [{ name: "มะเร็ง", status: "Under treatment" }],
+      illnesses: [{ name: "มะเร็ง", status: "Under treatment" }],
     },
     history: "เกือบเป็นซอยจุ๊ให้คนจีน",
     specie: "Cat",
@@ -179,7 +179,7 @@ export const animals: Animal[] = [
     gender: "F",
     healthHistories: {
       spayingStatus: true,
-      illeness: [{ name: "มะเร็ง", status: "Under treatment" }],
+      illnesses: [{ name: "มะเร็ง", status: "Under treatment" }],
     },
     history: "เกือบเป็นซอยจุ๊ให้คนจีน",
     specie: "Cat",

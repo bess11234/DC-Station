@@ -2,10 +2,10 @@ import { PlusIcon } from "@heroicons/react/24/outline"
 
 import { PageNavigation } from "@/app/components/(manager)/PageNavigation"
 import { AnimalItem } from "@/app/components/(manager)/animals/AnimalItem"
-import { fetchAnimal } from "@/app/lib/data"
+import { fetchAnimals } from "@/app/lib/data"
 import type { Animal } from "@/app/lib/definition"
 
-const animals: Animal[] = await fetchAnimal()
+const animals: Animal[] = await fetchAnimals()
 
 export default function Animals() {
     return (

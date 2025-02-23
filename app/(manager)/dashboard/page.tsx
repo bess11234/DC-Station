@@ -1,14 +1,13 @@
 import Link from "next/link"
 import Image from "next/image"
 
-import { animals } from "@/app/lib/data"
-
 import { AnimalItem } from "@/app/components/(manager)/animals/AnimalItem"
 
 import { InboxIcon, HeartIcon, BookmarkSquareIcon, PencilSquareIcon, TrashIcon, PlusIcon } from "@heroicons/react/24/outline"
+import { fetchAnimals } from "@/app/lib/data"
 
-export default function DashBoard() {
-    const animals_data = [...animals]
+export default async function DashBoard() {
+    const [requests, animals, knowledges] = await Promise.all([fetchAnimals(), fetchAnimals(), fetchAnimals()])
     return (
         <>
             <div className="flex flex-col w-full py-8">
@@ -25,7 +24,7 @@ export default function DashBoard() {
 
                         {/* Table */}
                         <div className="flex flex-col mt-3 space-y-3">
-                            {animals_data.map((v, i) => (
+                            {animals.map((v, i) => (
                                 <div key={i} className="w-full">
                                     <div className={`flex mx-auto max-w-[550px] justify-between card-theme sm:rounded-3xl rounded-xl hover:shadow-md dark:shadow-theme-50/10`}>
                                         <div className="flex space-x-5 items-center">
@@ -76,7 +75,7 @@ export default function DashBoard() {
 
                         {/* Table */}
                         <div className="flex flex-col mt-3 space-y-3">
-                            {animals_data.map((v, i) => (
+                            {animals.map((v, i) => (
                                 <div key={i} className="w-full">
                                     <div className={`flex mx-auto max-w-[550px] justify-between card-theme sm:rounded-3xl rounded-xl`}>
                                         <div className="flex space-x-5 items-center">

@@ -6,7 +6,8 @@ import { motion, AnimatePresence } from "motion/react"
 import { useDebouncedCallback } from "use-debounce"
 
 import type { Animal, Illness } from "@/app/lib/definition"
-import { updateAnimal, State } from "@/app/lib/action"
+import { updateAnimal, AnimalState } from "@/app/lib/action"
+
 import { XCircleIcon, ArrowTurnDownLeftIcon, PencilSquareIcon } from "@heroicons/react/24/outline"
 
 interface display {
@@ -22,17 +23,17 @@ interface displayIllness extends Illness {
 }
 
 export function EditingData({ animal }: { animal: Animal }) {
+    // Transform DOB to Date string
+    animal.dob = new Date(Date.parse(animal.dob)).toISOString().split("T")[0]
+
     // Form submit
-    const initialState: State = {
-        message: "",
-        errors: ""
+    const initialState: AnimalState = {
+        errors: {},
+        message: null
     }
 
     const [mainImage, setMainImage] = useState<File | null>(null)
     const [extraImages, setExtraImages] = useState<File[]>([])
-    const updateAnimalWithImages = updateAnimal.bind(null, mainImage, extraImages)
-
-    const [state, formAction] = useActionState(updateAnimalWithImages, initialState)
 
     // Input Animal
     const [inputAnimal, setInputAnimal] = useState<Animal>({ ...animal })
@@ -44,8 +45,11 @@ export function EditingData({ animal }: { animal: Animal }) {
         }
     }))
 
+    const updateAnimalWithImages = updateAnimal.bind(null, mainImage, extraImages, inputAnimal)
+    const [state, formAction] = useActionState(updateAnimalWithImages, initialState)
+
     // Input Illness
-    const [inputIllness, setInputIllness] = useState<displayIllness[]>(inputAnimal.healthHistories.illeness != undefined && inputAnimal.healthHistories.illeness.map((v, i) => {
+    const [inputIllness, setInputIllness] = useState<displayIllness[]>(inputAnimal.healthHistories.illnesses != undefined && inputAnimal.healthHistories.illnesses.map((v, i) => {
         return {
             id: i,
             name: v.name,
@@ -79,8 +83,8 @@ export function EditingData({ animal }: { animal: Animal }) {
             healthTemp.spayingStatus = value == "1"
         }
 
-        if (key == "illeness" && typeof value != "string") {
-            healthTemp.illeness = value
+        if (key == "illnesses" && typeof value != "string") {
+            healthTemp.illnesses = value
         }
 
         setInputAnimal(prevState => ({ ...prevState, ["healthHistories"]: healthTemp }))
@@ -111,7 +115,7 @@ export function EditingData({ animal }: { animal: Animal }) {
         }
 
         // อัพเดทข้อมูล Personalities จาก displayPersonalities
-        if (temp) { handlehealthHistories(temp.filter(v => v.visible), "illeness") }
+        if (temp) { handlehealthHistories(temp.filter(v => v.visible), "illnesses") }
         if (inputIllnessHTML.current && "value" in inputIllnessHTML.current) {
             inputIllnessHTML.current.value = ""
         }
@@ -185,7 +189,7 @@ export function EditingData({ animal }: { animal: Animal }) {
                 value: v
             }
         }))
-        setInputIllness(animal.healthHistories.illeness != undefined && animal.healthHistories.illeness.map((v, i) => {
+        setInputIllness(animal.healthHistories.illnesses != undefined && animal.healthHistories.illnesses.map((v, i) => {
             return {
                 id: i,
                 name: v.name,
@@ -205,8 +209,9 @@ export function EditingData({ animal }: { animal: Animal }) {
 
     return (
         <form ref={inputForm} action={formAction} >
-
+            {state.errors && <p>{JSON.stringify(state.errors)}</p>}
             <div className="relative">
+                <input type="hidden" name="id" value={inputAnimal._id} />
                 <div className="absolute bottom-0 right-0 mr-2 mb-2" aria-label="Edit main image" role="button">
                     {/* Edit button */}
                     <label htmlFor="animalMainImage" title="Edit">
@@ -243,7 +248,7 @@ export function EditingData({ animal }: { animal: Animal }) {
                     {/* วันเกิด */}
                     <div className="grid">
                         <label className="text-2xl py-3" htmlFor="animalDob">วันเกิด: <span className="text-red-500">*</span></label>
-                        <input className="p-3 w-full rounded-xl input-focus-theme invalid:text-red-500" onChange={(e) => handleInput(e.target.value, "dob")} type="date" name="dob" id="animalDob" defaultValue={new Date(Date.parse(animal.dob)).toISOString().split("T")[0]} max={new Date().toISOString().split("T")[0]} required />
+                        <input className="p-3 w-full rounded-xl input-focus-theme invalid:text-red-500" onChange={(e) => handleInput(e.target.value, "dob")} type="date" name="dob" id="animalDob" defaultValue={animal.dob} max={new Date().toISOString().split("T")[0]} required />
                     </div>
                 </div>
 

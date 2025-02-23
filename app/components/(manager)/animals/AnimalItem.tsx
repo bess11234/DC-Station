@@ -8,6 +8,7 @@ import { fetchAnimalRequest } from "@/app/lib/data"
 
 export async function AnimalItem({ animal }: { animal: Animal }) {
     const requests = await fetchAnimalRequest(animal._id)
+
     return (
         <div className="relative grid sm:rounded-3xl rounded-xl dark:shadow-theme-50/10 md:text-xl sm:text-lg text-base bg-theme-100/80 dark:bg-white/5">
             {/* Delete button */}
@@ -37,12 +38,14 @@ export async function AnimalItem({ animal }: { animal: Animal }) {
                     {/* Status */}
                     <span
                         className={`text-xs px-3 py-1 border rounded-full text-nowrap w-fit mb-1 dark:opacity-75
-                             ${!animal.adoptionDate ? (requests.length ? "text-sky-500 dark:text-sky-300" : "text-red-500 dark:text-red-300") : "text-green-500 dark:text-green-300" }`
+                             ${!animal.adoptionDate ? (requests.length ? "text-sky-500 dark:text-sky-300" : "text-red-500 dark:text-red-300") : "text-green-500 dark:text-green-300"}`
                         }>
                         {!animal.adoptionDate ? (requests.length ? <Link href={"#"} className="flex hover:opacity-40 active:opacity-60">คำร้องขอ&nbsp;<span className="animate-pulse">({requests.length})</span></Link> : "ไม่มีคำร้อง") : "รับเลี้ยงแล้ว"}
                     </span>
-                    <p className="line-clamp-1">{animal.name}</p>
-                    <p className="text-black2/50 dark:text-white/50 text-sm line-clamp-2">{animal.personalities.join(", ") + animal.personalities.join(", ") + animal.personalities.join(", ") + animal.personalities.join(", ") + animal.personalities.join(", ") + animal.personalities.join(", ")}</p>
+                    <div className="ml-2 mr-3">
+                        <p className="line-clamp-1">{animal.name}</p>
+                        <p className="text-black2/50 dark:text-white/50 text-sm line-clamp-2">{animal.personalities.join(", ") + animal.personalities.join(", ") + animal.personalities.join(", ") + animal.personalities.join(", ") + animal.personalities.join(", ") + animal.personalities.join(", ")}</p>
+                    </div>
                 </div>
             </div>
         </div>

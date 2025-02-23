@@ -4,7 +4,7 @@ const Request = require("../models/requests");
 const { isAwaitExpression } = require('typescript');
 const { isMarkedAsUntransferable } = require('worker_threads');
 
-var ObjectId = require('mongoose').Types.ObjectId; 
+var ObjectId = require('mongoose').Types.ObjectId;
 
 const router = express.Router();
 
@@ -24,7 +24,7 @@ router.post("/", async (req, res) => {
 router.get("/", async (req, res) => {
     try {
         const request = await Request.find();
-        res.status(200).json({ status: "ok", message: request});
+        res.status(200).json({ status: "ok", message: request });
     } catch (error) {
         res.status(500).json({ status: "error", message: error.message });
     }
@@ -84,7 +84,7 @@ router.delete("/:id", async (req, res) => {
 router.get("/animalId/:animalId", async (req, res) => {
     try {
         const animalId = req.params.animalId
-        const request = await Request.find({ knowledges: animalId })
+        const request = await Request.find({ animals: animalId })
         return res.status(200).json({ status: "ok", message: request })
     } catch (error) {
         res.status(500).json({ status: "error", message: error.message })

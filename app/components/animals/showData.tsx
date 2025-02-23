@@ -3,7 +3,7 @@ import { Animal } from "@/app/lib/definition"
 
 export function ShowData({ animal }: {animal: Animal}) {
     const now = new Date(Date.now())
-    const animal_dob = new Date(Date.parse(animal.dob))
+    const animal_dob = new Date(animal.dob)
     const animal_age = new Date(now.getTime() - animal_dob.getTime())
 
     return (
@@ -11,12 +11,12 @@ export function ShowData({ animal }: {animal: Animal}) {
             <p className="font-semibold text-theme-950 dark:text-theme-50 lg:text-3xl text-xl text-nowrap">{animal.name}</p>
             <div className="text-theme-800 dark:text-theme-100 md:text-base text-sm">
                 <p>สายพันธุ์: {animal.breed}</p>
-                <p>เพศ: {animal.gender}</p>
+                <p>เพศ: {animal.gender == "M" ? "ผู้" : "เมีย"}</p>
                 <p>นิสัย: {animal.personalities.join(", ")}</p>
-                <p>อายุ: {`${now.getFullYear() - animal_dob.getFullYear() - 1} ปี ${animal_age.getMonth()} เดือน (${animal.dob})`}</p>
+                <p>อายุ: {`${now.getFullYear() - animal_dob.getFullYear() - 1} ปี ${animal_age.getMonth()} เดือน (${animal.dob.split("T")[0]})`}</p>
                 <p>ประวัติ: {animal.history}</p>
-                <p>สุขภาพ: {animal.healthHistories.spayingStatus}</p>
-                <p>โรคภัย: {!!animal.healthHistories.illeness ? animal.healthHistories.illeness : "-"}</p>
+                <p>สถานะการทำหมัน: {animal.healthHistories.spayingStatus ? "ทำหมันแล้ว" : "ยังไม่ได้ทำหมัน"}</p>
+                <p>โรคภัย: {animal.healthHistories.illnesses?.length ? animal.healthHistories.illnesses.join(", ") : "-"}</p>
             </div>
         </div>
     )

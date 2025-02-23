@@ -13,7 +13,7 @@ const requesterSchema = new mongoose.Schema({
 // Define Main Schema
 const requestSchema = new mongoose.Schema({
     requester: { type: requesterSchema, required: true},
-    animals : [{type: mongoose.Schema.Types.ObjectId, ref: "Animal"}],
+    animal : {type: mongoose.Schema.Types.ObjectId, ref: "Animal"},
 }, { timestamps: true });
 
 module.exports = mongoose.model("Request", requestSchema)

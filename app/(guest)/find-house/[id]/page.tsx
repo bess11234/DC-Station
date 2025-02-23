@@ -2,20 +2,21 @@ import { notFound } from "next/navigation"
 import Image from "next/image"
 import { Suspense } from "react"
 
-import { animals } from "@/app/lib/data"
+import { fetchAnimalId } from "@/app/lib/data"
 import { ShowData } from "../../../components/animals/showData"
+
+import { AdoptForm } from "@/app/components/AdoptForm"
 
 export default async function FindHouseID({ params }: { params: Promise<{ id: string }> }) {
     const id = (await params).id
-    const animal = animals.filter(v => v.id == id)[0]
+    const animal = await fetchAnimalId(id)
     if (!animal) notFound();
-
+    
     return (
         <>
             {/* Title Content */}
             <div className="flex flex-col gap-3 w-full place-items-center">
-                <p className="md:text-5xl sm:text-4xl xs:text-3xl text-xl text-center py-3">สร้างครอบครัวที่อบอุ่นให้น้อง <span><br />(DC Station 🐶 & 🐱)</span></p>
-
+                <p className="md:text-5xl sm:text-4xl xs:text-3xl text-xl text-center py-3">สร้างครอบครัวที่อบอุ่นให้น้อง <span><br />(🐶DC Station🐱)</span></p>
                 {/* Animal Information */}
                 <div className="grid sm:grid-cols-2 grid-cols-1 gap-3 p-3 max-w-[1000px]">
 
@@ -39,10 +40,9 @@ export default async function FindHouseID({ params }: { params: Promise<{ id: st
                     </Suspense>
 
                     {/* Button Contact */}
-                    <a className="sm:col-span-2 button-theme px-9 py-3 rounded-full cursor-pointer mt-3 w-fit place-self-center sm:text-3xl text-xl outline-theme-800" href="https://mail.google.com/mail/u/1/?fs=1&to=test@hotmail.com&tf=cm" target="_blank">
+                    {/* <a className="sm:col-span-2 button-theme px-9 py-3 rounded-full cursor-pointer mt-3 w-fit place-self-center sm:text-3xl text-xl outline-theme-800" href="https://mail.google.com/mail/u/1/?fs=1&to=test@hotmail.com&tf=cm" target="_blank">
                         ติดต่อเพื่อขอรับเลี้ยง
-                    </a>
-
+                    </a> */}
                     {/* Other Images */}
                     {
                         animal.images.length > 1 &&
@@ -67,8 +67,8 @@ export default async function FindHouseID({ params }: { params: Promise<{ id: st
                             </div>
                         </div>
                     }
-
                 </div>
+                <AdoptForm/>
 
             </div>
 

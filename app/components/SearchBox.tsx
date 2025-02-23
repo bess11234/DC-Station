@@ -50,5 +50,3 @@ export function SearchAnimals() {
         </>
     )
 }
-
-export default SearchAnimals

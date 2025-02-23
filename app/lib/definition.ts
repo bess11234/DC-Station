@@ -6,7 +6,7 @@ export type Illness = {
 
 type HealthHistories = {
     spayingStatus: boolean
-    illeness?: Illness[]
+    illnesses?: Illness[]
 }
 
 export type Animal = {
@@ -43,5 +43,5 @@ type Requester = {
 export type Request = {
     _id: string;
     requester: Requester;
-    animalId: string;
+    animal: string;
 }

@@ -2,7 +2,7 @@ import { Metadata } from "next"
 import { Suspense } from "react"
 
 import { Animal } from "@/app/lib/definition"
-import { fetchAnimal } from "@/app/lib/data"
+import { fetchAnimals } from "@/app/lib/data"
 
 import { AnimalsElement } from "@/app/components/animals/AnimalsElement"
 import { FilterAnimals } from "@/app/components/animals/FilterAnimals"
@@ -12,10 +12,7 @@ export const metadata: Metadata = {
 }
 
 export default async function FindHouse() {
-    const animals: Animal[] = (await fetchAnimal()).map(v => {
-        // delete v["animalId"]
-        return v
-    })
+    const animals: Animal[] = await fetchAnimals()
     
     const no_home = animals.filter(animal => animal.adoptionDate === null)
     return (
