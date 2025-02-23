@@ -1,22 +1,28 @@
 import type { Animal } from "@/app/lib/definition"
 
-export function createAnimal() {
+import { CreateData } from "@/app/components/(manager)/animals/CreateData"
+import { fetchKnowledges } from "@/app/lib/data"
+
+export default async function createAnimal() {
     const animal: Animal = {
+        _id: "",
         breed: "",
-        createAt: "",
         dob: "",
         gender: "M",
         healthHistories: {
             spayingStatus: false,
-            illeness: []
+            illnesses: []
         },
         history: "",
         images: [],
         name: "",
         personalities: [],
         specie: "Dog",
-        adoptionDate: ""
+        adoptionDate: "",
+        knowledges: [],
     }
+
+    const knowledges = await fetchKnowledges()
     return (
         <section className="w-full">
             <div className="flex flex-col gap-3 w-full place-items-center py-8">
@@ -27,7 +33,7 @@ export function createAnimal() {
                 <div className="grid gap-3 p-3 xl:min-w-[1000px] max-w-[1000px] w-full sm:mx-16 mx-8">
 
                     {/* Data */}
-                    <EditingData animal={animal} />
+                    <CreateData animal={animal} knowledges={knowledges} />
 
                 </div>
 

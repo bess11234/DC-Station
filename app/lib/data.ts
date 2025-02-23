@@ -8,12 +8,12 @@ type Response<T> = {
 
 // ________________________________Animal
 // Show Animals Data
-export async function fetchAnimals(): Promise<Animal[]> {
-  const response = await fetch(`http://localhost:5000/api/animals`, {
-    next: { tags: ["animals"] }
+export async function fetchAnimals(skip: number = 0): Promise<Animal[]> {
+  const response = await fetch(`http://localhost:5000/api/animals?skip=${skip}`, {
+    next: { tags: ["animals"] },
   });
   if (!response.ok) {
-    if (response.status == 404) return (await response.json()).message
+    if (response.status == 404) return (await response.json()).message;
     throw new Error(`${response.status}`);
   }
   const data: Response<Animal[]> = await response.json();
@@ -23,11 +23,11 @@ export async function fetchAnimals(): Promise<Animal[]> {
 // Show Animal Data from ID
 export async function fetchAnimalId(id: string): Promise<Animal> {
   const response = await fetch(`http://localhost:5000/api/animals/${id}`, {
-    next: { tags: ["animals"] }
+    next: { tags: ["animals"] },
   });
   // หากไม่ Status: ok จะทำการส่งตัวเปล่า
   if (!response.ok) {
-    if (response.status == 404) return (await response.json()).message
+    if (response.status == 404) return (await response.json()).message;
     throw new Error(`${response.status}`);
   }
   const data: Response<Animal> = await response.json();
@@ -42,14 +42,15 @@ export const knowledge: Knowledge[] = [
     title: "เหตุผลที่เราต้องมีสัตว์เลี้ยง บท:ความเห็นอกเห็นใจ",
     image: "/knowledges/empathy",
     content: "",
-    describe: "การเลี้ยงสัตว์เลี้ยงเป็นการฝึกอะไรหลาย ๆ อย่างในตัวของมนุษย์ ไม่ว่าจะเป็นเรื่องของความรับผิดชอบ การจัดสรรเวลา ระเบียบวินัย และความใส่ใจ แต่อีกสิ่งหนึ่งที่สำคัญซึ่งจะพัฒนาขึ้นมาในจิตใจของคุณโดยที่ไม่รู้ตัว นั่นคือความเห็นอกเห็นใจและความอ่อนโยนต่อสิ่งมีชีวิต ซึ่งเป็นสิ่งที่ยากจะเรียนรู้และโลกใบนี้ต้องการจากมนุษย์เป็นอย่างมาก",
+    describe:
+      "การเลี้ยงสัตว์เลี้ยงเป็นการฝึกอะไรหลาย ๆ อย่างในตัวของมนุษย์ ไม่ว่าจะเป็นเรื่องของความรับผิดชอบ การจัดสรรเวลา ระเบียบวินัย และความใส่ใจ แต่อีกสิ่งหนึ่งที่สำคัญซึ่งจะพัฒนาขึ้นมาในจิตใจของคุณโดยที่ไม่รู้ตัว นั่นคือความเห็นอกเห็นใจและความอ่อนโยนต่อสิ่งมีชีวิต ซึ่งเป็นสิ่งที่ยากจะเรียนรู้และโลกใบนี้ต้องการจากมนุษย์เป็นอย่างมาก",
     createdAt: "12/15/2024",
   },
 ];
 
 export async function fetchKnowledges(): Promise<Knowledge[]> {
   const response = await fetch(`http://localhost:5000/api/knowledges`, {
-    next: { tags: ["knowledges"] }
+    next: { tags: ["knowledges"] },
   });
   if (!response.ok) {
     if (response.status == 404) notFound();
@@ -63,9 +64,12 @@ export async function fetchKnowledges(): Promise<Knowledge[]> {
 // ________________________________Animal
 //// Animal request
 export async function fetchAnimalRequest(id: string): Promise<Request[]> {
-  const response = await fetch(`http://localhost:5000/api/requests/animalId/${id}`, {
-    next: { tags: ["knowledges"] }
-  });
+  const response = await fetch(
+    `http://localhost:5000/api/requests/animalId/${id}`,
+    {
+      next: { tags: ["knowledges"] },
+    }
+  );
   if (!response.ok) {
     if (response.status == 404) notFound();
     throw new Error(`${response.status}`);

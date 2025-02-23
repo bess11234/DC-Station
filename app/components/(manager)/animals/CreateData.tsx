@@ -23,10 +23,7 @@ interface displayIllness extends Illness {
     value: string;
 }
 
-export function EditingData({ animal, knowledges }: { animal: Animal, knowledges: Knowledge[] }) {
-    // Transform DOB to Date string
-    animal.dob = new Date(Date.parse(animal.dob)).toISOString().split("T")[0]
-
+export function CreateData({ animal, knowledges }: { animal: Animal, knowledges: Knowledge[] }) {
     // Form submit
     const initialState: AnimalState = {
         errors: {},
@@ -46,8 +43,8 @@ export function EditingData({ animal, knowledges }: { animal: Animal, knowledges
         }
     }))
 
-    const updateAnimalWithImages = createAndUpdateAnimal.bind(null, mainImage, extraImages, inputAnimal)
-    const [state, formAction] = useActionState(updateAnimalWithImages, initialState)
+    const createAnimalWithImages = createAndUpdateAnimal.bind(null, mainImage, extraImages, inputAnimal)
+    const [state, formAction] = useActionState(createAnimalWithImages, initialState)
 
     // Input Illness
     const [inputIllness, setInputIllness] = useState<displayIllness[]>(inputAnimal.healthHistories.illnesses != undefined && inputAnimal.healthHistories.illnesses.map((v, i) => {
@@ -229,40 +226,49 @@ export function EditingData({ animal, knowledges }: { animal: Animal, knowledges
                 <div className="absolute bottom-0 right-0 mr-2 mb-2" aria-label="Edit main image" role="button">
                     {/* Edit button */}
                     <label htmlFor="animalMainImage" title="Edit">
+                        <input onChange={(e) => handleUploadMainImage(e)} accept="image/jpeg,image/png,image/gif,image/bmp,image/webp,image/tiff" type="file" name="animalMainImage" id="animalMainImage" hidden required />
                         <div className="button-theme bg-theme-200/90! dark:bg-black2/50! p-1.5 rounded-full cursor-pointer">
                             <PencilSquareIcon className={`transition-colors size-6`} />
                         </div>
                     </label>
-                    <input onChange={(e) => handleUploadMainImage(e)} accept="image/jpeg,image/png,image/gif,image/bmp,image/webp,image/tiff" type="file" name="animalMainImage" id="animalMainImage" hidden />
                 </div>
 
                 {/* Main Image */}
                 <Image
-                    src={mainImage ? URL.createObjectURL(mainImage) : animal.images[0]}
+                    src={mainImage ? URL.createObjectURL(mainImage) : "/default_image.webp"}
                     alt={`Picture of ${animal.name} No.0`}
                     sizes="100%"
-                    width={100}
-                    height={100}
+                    width={300}
+                    height={300}
                     style={{ objectFit: "cover" }}
                     placeholder="blur"
-                    blurDataURL={animal.images[0]}
-                    quality={74}
-                    className="w-full sm:h-[500px] h-[300px] rounded-xl grow shadow"
+                    blurDataURL={"/default_image.webp"}
+                    quality={80}
+                    className={`w-full sm:h-[500px] h-[300px] rounded-xl grow shadow ${!mainImage && `border-2 border-red-500`}`}
                 />
             </div>
 
             <div className="grid *:py-3 md:text-lg sm:text-base text-sm">
-                <div className="grid sm:grid-cols-2 grid-cols-1 py-0! *:text-nowrap sm:space-x-3 items-center">
+                <div className="grid md:grid-cols-3 xs:grid-cols-2 py-0! *:text-nowrap gap-x-3 items-center">
                     {/* ชื่อ */}
                     <div className="grid">
                         <label className="text-2xl py-3" htmlFor="animalName">ชื่อ: <span className="text-red-500">*</span></label>
-                        <input className="p-3 w-full rounded-xl input-focus-theme invalid:text-red-500" onChange={(e) => handleInput(e.target.value, "name")} type="text" name="name" id="animalName" autoComplete="name" defaultValue={animal.name} required placeholder="กรุณากรอกชื่อน้องสัตว์" />
+                        <input className="p-3 w-full rounded-xl input-focus-theme invalid:text-red-500" onChange={(e) => handleInput(e.target.value, "name")} type="text" name="name" id="animalName" autoComplete="name" required placeholder="กรุณากรอกชื่อน้องสัตว์" />
                     </div>
 
                     {/* วันเกิด */}
                     <div className="grid">
                         <label className="text-2xl py-3" htmlFor="animalDob">วันเกิด: <span className="text-red-500">*</span></label>
-                        <input className="p-3 w-full rounded-xl input-focus-theme invalid:text-red-500" onChange={(e) => handleInput(e.target.value, "dob")} type="date" name="dob" id="animalDob" defaultValue={animal.dob} max={new Date().toISOString().split("T")[0]} required />
+                        <input className="p-3 w-full rounded-xl input-focus-theme invalid:text-red-500" onChange={(e) => handleInput(e.target.value, "dob")} type="date" name="dob" id="animalDob" max={new Date().toISOString().split("T")[0]} required />
+                    </div>
+
+                    {/* สายพันธุ์ */}
+                    <div className="grid">
+                        <label className="text-2xl py-3" htmlFor="animalDob">สายพันธุ์: <span className="text-red-500">*</span></label>
+                        <select className="*:bg-white *:dark:bg-black2 p-3 w-full rounded-xl input-focus-theme" onChange={(e) => handleInput(e.target.value, "specie")} name="specie" id="animalSpecie" required>
+                            <option value="Dog">หมา 🐶</option>
+                            <option value="Cat">แมว 🐱</option>
+                        </select>
                     </div>
                 </div>
 
@@ -270,13 +276,13 @@ export function EditingData({ animal, knowledges }: { animal: Animal, knowledges
                     {/* พันธุ์ */}
                     <div className="grid col-span-3">
                         <label className="text-2xl py-3" htmlFor="animalBreed">พันธุ์: <span className="text-red-500">*</span></label>
-                        <input className="p-3 w-full rounded-xl input-focus-theme invalid:text-red-500" onChange={(e) => handleInput(e.target.value, "breed")} type="text" name="breed" id="animalBreed" defaultValue={animal.breed} required placeholder="กรุณากรอกชื่อสายพันธุ์" />
+                        <input className="p-3 w-full rounded-xl input-focus-theme invalid:text-red-500" onChange={(e) => handleInput(e.target.value, "breed")} type="text" name="breed" id="animalBreed" required placeholder="กรุณากรอกชื่อสายพันธุ์" />
                     </div>
 
                     {/* เพศ */}
                     <div className="grid">
                         <label className="text-2xl py-3" htmlFor="animalGender">เพศ: <span className="text-red-500">*</span></label>
-                        <select className="*:bg-white *:dark:bg-black2 p-3 w-full rounded-xl input-focus-theme" onChange={(e) => handleInput(e.target.value, "gender")} name="gender" id="animalGender" defaultValue={animal.gender} required>
+                        <select className="*:bg-white *:dark:bg-black2 p-3 w-full rounded-xl input-focus-theme" onChange={(e) => handleInput(e.target.value, "gender")} name="gender" id="animalGender" required>
                             <option value="M">เพศผู้ ♂</option>
                             <option value="F">เพศเมีย ♀</option>
                         </select>
@@ -285,7 +291,7 @@ export function EditingData({ animal, knowledges }: { animal: Animal, knowledges
 
                 {/* ประวัติ */}
                 <label className="text-2xl" htmlFor="animalHistory">ประวัติ:</label>
-                <textarea className="p-3 field-sizing-content rounded-xl input-focus-theme" onChange={(e) => handleInput(e.target.value, "history")} name="history" id="animalHistory" defaultValue={animal.history} placeholder="ประวัติความเป็นมา" />
+                <textarea className="p-3 field-sizing-content rounded-xl input-focus-theme" onChange={(e) => handleInput(e.target.value, "history")} name="history" id="animalHistory" placeholder="ประวัติความเป็นมา" />
 
                 {/* ประวัติสุขภาพ */}
                 <AnimatePresence mode="popLayout">
@@ -294,7 +300,7 @@ export function EditingData({ animal, knowledges }: { animal: Animal, knowledges
 
                         {/* สถานะการทำหมั่น */}
                         <label htmlFor="animalSpayingStatus" className="text-lg p-0!">สถานะการทำหมั่น: <span className="text-red-500">*</span></label>
-                        <select className="*:bg-white *:dark:bg-black2 py-1! px-3 mb-3 w-full rounded-xl input-focus-theme" onChange={(e) => handlehealthHistories(e.target.value, "spayingStatus")} name="spayingStatus" id="animalSpayingStatus" defaultValue={animal.healthHistories.spayingStatus ? "1" : "0"} required>
+                        <select className="*:bg-white *:dark:bg-black2 py-1! px-3 mb-3 w-full rounded-xl input-focus-theme" onChange={(e) => handlehealthHistories(e.target.value, "spayingStatus")} name="spayingStatus" id="animalSpayingStatus" defaultValue={"0"} required>
                             <option value="0">ยังไม่ทำหมัน</option>
                             <option value="1">ทำหมั่นแล้ว</option>
                         </select>
