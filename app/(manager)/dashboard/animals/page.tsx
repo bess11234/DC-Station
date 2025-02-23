@@ -5,9 +5,9 @@ import { AnimalItem } from "@/app/components/(manager)/animals/AnimalItem"
 import { fetchAnimals } from "@/app/lib/data"
 import type { Animal } from "@/app/lib/definition"
 
-const animals: Animal[] = await fetchAnimals()
 
-export default function Animals() {
+export default async function Animals() {
+    const animals: Animal[] = await fetchAnimals()
     return (
         <>
             <div className="flex flex-col w-full py-8">

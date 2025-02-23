@@ -1,7 +1,7 @@
 'use client'
 import { usePathname } from "next/navigation"
 import Link from "next/link"
-import { ReactElement } from "react"
+import { ReactElement, useState } from "react"
 
 import { ChevronLeftIcon } from "@heroicons/react/24/outline"
 
@@ -9,6 +9,16 @@ import { fetchAnimalId } from "../lib/data"
 
 
 export function Breadcrumbs() {
+    // Animal State
+    const [animalName, setAnimalName] = useState<string>("")
+
+    async function getAnimalName(id: string) {
+        const animal = await fetchAnimalId(id)
+        if (animal){
+            setAnimalName(animal.name)
+        }
+    }
+
     const pathName = usePathname()
 
     let pathLink: string[] | ReactElement[] = pathName.split("/")
@@ -20,11 +30,12 @@ export function Breadcrumbs() {
 
     pathLink = pathLink.map((v, i, before) => {
         let text: string = v
+        
         // ถ้าเป็นสัตว์จะไปค้นหา ID
         if (isAnimal) {
-            const animal = getAnimalName(text)
-            // text = animal
-            if (!animal) isGenerated = false // ไม่ทำการ Generate หากไม่เจอสัตว์
+            getAnimalName(text)
+            text = animalName
+            if (!animalName) isGenerated = false // ไม่ทำการ Generate หากไม่เจอสัตว์
             isAnimal = false
         }
 
@@ -48,9 +59,4 @@ export function Breadcrumbs() {
             </div>}
         </>
     )
-}
-
-async function getAnimalName(id: string){
-    const animal = await fetchAnimalId(id)
-    return animal.name
 }

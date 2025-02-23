@@ -1,4 +1,6 @@
 import { redirect } from "next/navigation";
+import { revalidateAnimals } from "./revalidate";
+
 import { Animal } from "./definition";
 import { z } from "zod";
 import { error } from "console";
@@ -59,6 +61,7 @@ const AnimalFormSchema = z.object({
     ),
   }),
   images: z.array(z.string()),
+  knowledges: z.optional(z.array(z.string())),
 });
 
 export async function updateAnimal(
@@ -89,61 +92,63 @@ export async function updateAnimal(
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ images: base64Images }),
+      body: JSON.stringify({
+        images: base64Images,
+        filename: extraImages.map((v) => v.type.replace("image/", "")),
+      }),
     });
 
     if (response.ok) {
+      const urls: string[] = (await response.json()).url;
       // Update Images
-      animal.images.push(...(await response.json()).url);
+      if (mainImage) {
+        animal.images[0] = urls[0];
+        urls.shift();
+      }
+      animal.images.push(...urls);
     }
+
+    const validateData = AnimalFormSchema.safeParse(animal);
+
+    if (!validateData.success) {
+      return {
+        errors: validateData.error.flatten().fieldErrors,
+        message: "Error: Missing some fields.",
+      };
+    }
+
+    try {
+      fetch(`http://localhost:5000/api/animals/${animal._id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(animal),
+      });
+    } catch (error) {
+      return {
+        message: `Error: ${error}`,
+      };
+    }
+
+    revalidateAnimals();
+    redirect(`/dashboard/animals/`);
   }
-
-  const validateData = AnimalFormSchema.safeParse(animal);
-
-  console.log(validateData.data);
-
-  if (!validateData.success) {
-    return {
-      errors: validateData.error.flatten().fieldErrors,
-      message: "Error: Missing some fields.",
-    };
-  }
-
-  try {
-    fetch(`http://localhost:5000/api/animals/${animal._id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(animal),
-    });
-  } catch (error) {
-    return {
-      message: `Error: ${error}`,
-    };
-  }
-
-  redirect("/dashboard/animals");
 }
 
+// <--------------------CREATE REQUEST----------------------->
 
-// export
 const RequestFormSchema = z.object({
   id: z.string(),
-  idCard: z.string({
-    invalid_type_error: "กรุรากรอกรหัสบัตรประชาชน"
-  }),
-  phone: z.string({
-    invalid_type_error: "กรุณากรอกหมายเลขโทรศัพท์"
-  }),
-  fd: z.string({
-    invalid_type_error: "กรุณาใส่ชื่อหรือลิงค์เฟซบุ๊ค"
-  }),
+  idCard: z.string().min(13, "กรุณากรอกรหัสบัตรประชาชนให้ครบถ้วน"),
+  phone: z.string().min(10, "กรุณากรอกหมายเลขโทรศัพท์ให้ครบถ้วน"),
+  fb: z.string().min(1, "กรุณาใส่ชื่อหรือลิงค์เฟซบุ๊ค"),
   experience: z.string(),
-  reason: z.string({
-    invalid_type_error: "กรุณาระบุเหตุผลการรับเลี้ยง"
-  }),
-  animal: z.string()
+  reason: z.string().min(1, "กรุณาระบุเหตุผลการรับเลี้ยง"),
+  animal: z.string(),
+  accept: z.literal(true, {
+    errorMap: () => ({ message: "กรุณายอมรับเงื่อนไข" }),
+  })
 })
 
 const CreateRequest = RequestFormSchema.omit({ id: true, animal: true})
@@ -152,21 +157,29 @@ export type RequestState = {
   errors?: {
     idCard?: string[];
     phone?: string[];
-    fd?: string[];
+    fb?: string[];
     reason?: string[];
+    accept?: string[];
   };
   message?: string | null;
 }
 
-export async function createInvoice(preState: RequestState, formData: FormData) {
+export async function createRequest(preState: RequestState, formData: FormData) {
+  const animalId = formData.get("animalId") as string;
+
   const validateFields = CreateRequest.safeParse({
-    idCard: formData.get(''),
-    phone: formData.get(''),
-    fb: formData.get(''),
-    reason: formData.get(''),
+    idCard: formData.get('idCard'),
+    phone: formData.get('phone'),
+    fb: formData.get('fb'),
+    experience: formData.get('experience'),
+    reason: formData.get('reason'),
+    accept: formData.has('accept')
   });
 
+  console.log(formData.has('accept'))
+
   if (!validateFields.success) {
+    console.log("Validation Errors:", validateFields.error.flatten().fieldErrors);
     return {
       errors: validateFields.error.flatten().fieldErrors,
       message: 'กรอกข้อมูลไม่ครบถ้วน ไม่สามารถสร้างคำขอรับเลี้ยงได้.'
@@ -174,25 +187,25 @@ export async function createInvoice(preState: RequestState, formData: FormData) 
   }
 
   // Prepare data for insertion to database
-  const {idCard, phone, fd, reason} = validateFields.data;
+  const {idCard, phone, fb, experience, reason} = validateFields.data;
 
   try{
-    fetch(`http://localhost:5000/api/requests`), {
+    const response = await fetch(`http://localhost:5000/api/requests`, {
       method: "POST",
       headers : {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify(),
-    }
+      body: JSON.stringify({
+        requester: { idCard, phone, fb, experience, reason, animalId },
+        animal : animalId
+      }),
+    })
+
+    if (!response.ok) throw new Error("Failed to send request");
+    return {message: "ขอบคุณที่รับเลี้ยงหนู หวังว่าเราจะได้เป็นครอบครัวเดียวกัน"}
   }catch(error){
     return {
       message: `Error ${error}`
     }
   }
-  
 }
-
-// } 
-// export async function addRequest(formData: FormData){
-//   const { requestId, idCard, phone}
-// }

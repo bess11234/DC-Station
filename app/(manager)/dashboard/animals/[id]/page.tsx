@@ -1,15 +1,18 @@
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
-import { fetchAnimalId } from "@/app/lib/data";
+import { fetchAnimalId, fetchKnowledges } from "@/app/lib/data";
 
 import { EditingData } from "@/app/components/(manager)/animals/EditingData";
 import { SkeletonAnimalInput } from "@/app/components/skeletons/SkeletonAnimalInput";
+import { Knowledge } from "@/app/lib/definition";
 
 export default async function AnimalId({ params }: { params: Promise<{ id: string }> }) {
     const id = (await params).id
     const animal = await fetchAnimalId(id)
-    if (!animal) notFound()
+    if (!animal) notFound();
+
+    const knowledges: Knowledge[] = await fetchKnowledges()
 
     return (
         <section className="w-full">
@@ -22,7 +25,7 @@ export default async function AnimalId({ params }: { params: Promise<{ id: strin
 
                     {/* Data */}
                     <Suspense fallback={<SkeletonAnimalInput/>}>
-                        <EditingData animal={animal} />
+                        <EditingData animal={animal} knowledges={knowledges} />
                     </Suspense>
 
                 </div>

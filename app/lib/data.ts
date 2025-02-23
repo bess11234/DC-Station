@@ -6,11 +6,11 @@ type Response<T> = {
   message: T;
 };
 
-// ________________________________Animal
-// Show Animals Data
+// <---------------------------- Animal ---------------------------->
+// Show Animals Data : All
 export async function fetchAnimals(): Promise<Animal[]> {
   const response = await fetch(`http://localhost:5000/api/animals`, {
-    cache: "no-cache"
+    next: { tags: ["animals"] }
   });
   if (!response.ok) {
     if (response.status == 404) return (await response.json()).message
@@ -22,9 +22,9 @@ export async function fetchAnimals(): Promise<Animal[]> {
 
 // Show Animal Data from ID
 export async function fetchAnimalId(id: string): Promise<Animal> {
-  const response = await fetch(
-    `http://localhost:5000/api/animals/${id}`
-  );
+  const response = await fetch(`http://localhost:5000/api/animals/${id}`, {
+    next: { tags: ["animals"] }
+  });
   // หากไม่ Status: ok จะทำการส่งตัวเปล่า
   if (!response.ok) {
     if (response.status == 404) return (await response.json()).message
@@ -34,23 +34,23 @@ export async function fetchAnimalId(id: string): Promise<Animal> {
   return data.message;
 }
 
-// ________________________________Knowledge
+// <---------------------------- Knowledge ---------------------------->
 
 export const knowledge: Knowledge[] = [
   {
     _id: "1",
     title: "เหตุผลที่เราต้องมีสัตว์เลี้ยง บท:ความเห็นอกเห็นใจ",
     image: "/knowledges/empathy",
-    content:
-      "การเลี้ยงสัตว์เลี้ยงเป็นการฝึกอะไรหลาย ๆ อย่างในตัวของมนุษย์ ไม่ว่าจะเป็นเรื่องของความรับผิดชอบ การจัดสรรเวลา ระเบียบวินัย และความใส่ใจ แต่อีกสิ่งหนึ่งที่สำคัญซึ่งจะพัฒนาขึ้นมาในจิตใจของคุณโดยที่ไม่รู้ตัว นั่นคือความเห็นอกเห็นใจและความอ่อนโยนต่อสิ่งมีชีวิต ซึ่งเป็นสิ่งที่ยากจะเรียนรู้และโลกใบนี้ต้องการจากมนุษย์เป็นอย่างมาก",
+    content: "",
+    describe: "การเลี้ยงสัตว์เลี้ยงเป็นการฝึกอะไรหลาย ๆ อย่างในตัวของมนุษย์ ไม่ว่าจะเป็นเรื่องของความรับผิดชอบ การจัดสรรเวลา ระเบียบวินัย และความใส่ใจ แต่อีกสิ่งหนึ่งที่สำคัญซึ่งจะพัฒนาขึ้นมาในจิตใจของคุณโดยที่ไม่รู้ตัว นั่นคือความเห็นอกเห็นใจและความอ่อนโยนต่อสิ่งมีชีวิต ซึ่งเป็นสิ่งที่ยากจะเรียนรู้และโลกใบนี้ต้องการจากมนุษย์เป็นอย่างมาก",
     createdAt: "12/15/2024",
   },
 ];
 
-export async function fetchKnowledge(): Promise<Knowledge[]> {
-  const response = await fetch(
-    `http://localhost:5000/api/knowledges`
-  );
+export async function fetchKnowledges(): Promise<Knowledge[]> {
+  const response = await fetch(`http://localhost:5000/api/knowledges`, {
+    next: { tags: ["knowledges"] }
+  });
   if (!response.ok) {
     if (response.status == 404) notFound();
     throw new Error(`${response.status}`);
@@ -59,12 +59,27 @@ export async function fetchKnowledge(): Promise<Knowledge[]> {
   return data.message;
 }
 
-// --------------------- Manager ---------------------
-// ________________________________Animal
+
+// <---------------------------- Request ---------------------------->
+
+export async function fetchRequest(): Promise<Knowledge[]> {
+  const response = await fetch(`http://localhost:5000/api/requests`, {
+    next: { tags: ["requests"] }
+  });
+  if (!response.ok) {
+    if (response.status == 404) notFound();
+    throw new Error(`${response.status}`);
+  }
+  const data: Response<Knowledge[]> = await response.json();
+  return data.message;
+}
+
+// <---------------------------- Manager ---------------------------->
+// <---------------------------- Animal
 //// Animal request
 export async function fetchAnimalRequest(id: string): Promise<Request[]> {
   const response = await fetch(`http://localhost:5000/api/requests/animalId/${id}`, {
-    cache: "no-cache"
+    next: { tags: ["knowledges"] }
   });
   if (!response.ok) {
     if (response.status == 404) notFound();
@@ -96,6 +111,7 @@ export const animals: Animal[] = [
     history: "เกือบเป็นซอยจุ๊ให้คนจีน",
     specie: "Dog",
     createdAt: "12/15/2024",
+    knowledges: []
   },
   {
     _id: "3c1a5dfb810778868dcad0571c54f3352c2aa01166ae568ad4f3281909329415044ae4e2c7897012",
@@ -118,6 +134,7 @@ export const animals: Animal[] = [
     history: "เกือบเป็นซอยจุ๊ให้คนจีน",
     specie: "Cat",
     createdAt: "12/15/2024",
+    knowledges: []
   },
   {
     _id: "2d39fe18927d4ab7b9fcbd1e872a67dc58fa293a882886357915757db2e7588aa333569e10ba915f",
@@ -140,6 +157,7 @@ export const animals: Animal[] = [
     history: "เกือบเป็นซอยจุ๊ให้คนจีน",
     specie: "Cat",
     createdAt: "12/15/2024",
+    knowledges: []
   },
   {
     _id: "2d39fe18927d4ab7b9fcbd1e872a67dc58fa293a882886357915757db2e7588aa333569e10ba915f",
@@ -162,6 +180,7 @@ export const animals: Animal[] = [
     history: "เกือบเป็นซอยจุ๊ให้คนจีน",
     specie: "Cat",
     createdAt: "12/15/2024",
+    knowledges: []
   },
   {
     _id: "2d39fe18927d4ab7b9fcbd1e872a67dc58fa293a882886357915757db2e7588aa333569e10ba915f",
@@ -184,6 +203,7 @@ export const animals: Animal[] = [
     history: "เกือบเป็นซอยจุ๊ให้คนจีน",
     specie: "Cat",
     createdAt: "12/15/2024",
+    knowledges: []
   },
 ];
 

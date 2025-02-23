@@ -44,7 +44,7 @@ export async function AnimalItem({ animal }: { animal: Animal }) {
                     </span>
                     <div className="ml-2 mr-3">
                         <p className="line-clamp-1">{animal.name}</p>
-                        <p className="text-black2/50 dark:text-white/50 text-sm line-clamp-2">{animal.personalities.join(", ") + animal.personalities.join(", ") + animal.personalities.join(", ") + animal.personalities.join(", ") + animal.personalities.join(", ") + animal.personalities.join(", ")}</p>
+                        <p className="text-black2/50 dark:text-white/50 text-sm line-clamp-2">{animal.personalities.join(", ")}</p>
                     </div>
                 </div>
             </div>

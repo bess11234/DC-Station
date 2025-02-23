@@ -1,6 +1,6 @@
 import { Card } from "@/app/components/Card"
 
-import { fetchKnowledge } from '@/app/lib/data';
+import { fetchKnowledges } from '@/app/lib/data';
 import type { Knowledge } from '@/app/lib/definition';
 
 import { SearchAnimals } from "@/app/components/SearchBox";
@@ -16,8 +16,8 @@ export default async function Knowledges(props : {
     const query = searchParams?.title || '';
     console.log("query", query)
 
-    const knowledges: Knowledge[] = await fetchKnowledge();
-    console.log(knowledges)
+    const knowledges: Knowledge[] = await fetchKnowledges();
+    const mockDate = Date.now()
     return (
         <>
             <p className="md:text-5xl sm:text-4xl text-3xl text-center py-3 w-full">สร้างเสริมเกร็ดความรู้</p>

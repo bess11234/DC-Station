@@ -13,6 +13,7 @@ const requesterSchema = new mongoose.Schema({
 // Define Main Schema
 const requestSchema = new mongoose.Schema({
     requester: { type: requesterSchema, required: true},
+    status: {type: String, enum: ["Pending", "Accepted", "Rejected"], default: "Pending"},
     animal : {type: mongoose.Schema.Types.ObjectId, ref: "Animal"},
 }, { timestamps: true });
 

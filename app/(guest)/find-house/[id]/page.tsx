@@ -5,7 +5,7 @@ import { Suspense } from "react"
 import { fetchAnimalId } from "@/app/lib/data"
 import { ShowData } from "../../../components/animals/showData"
 
-import { AdoptForm } from "@/app/components/AdoptForm"
+import { RequestForm } from "@/app/components/RequestForm"
 
 export default async function FindHouseID({ params }: { params: Promise<{ id: string }> }) {
     const id = (await params).id
@@ -68,7 +68,7 @@ export default async function FindHouseID({ params }: { params: Promise<{ id: st
                         </div>
                     }
                 </div>
-                <AdoptForm/>
+                <RequestForm animalId={animal._id}/>
 
             </div>
 
