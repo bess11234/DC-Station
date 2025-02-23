@@ -22,7 +22,8 @@ export type Animal = {
     images: string[]
     knowledges: string[]
     adoptionDate?: string
-    createdAt: string
+    createdAt?: string
+    updatedAt?: string
 }
 
 export type Knowledge = {

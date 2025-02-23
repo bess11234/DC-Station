@@ -64,12 +64,19 @@ const AnimalFormSchema = z.object({
   knowledges: z.optional(z.array(z.string())),
 });
 
-export async function updateAnimal(
+export async function createAndUpdateAnimal(
   mainImage: File | null,
   extraImages: File[],
   animal: Animal,
   prevState: AnimalState
 ) {
+  // หากเป็นการสร้าง Animal จะต้องใส่รูป MainImage ด้วย
+  if (!animal._id && !mainImage) {
+    return {
+      message: "ต้องใส่รูปภาพหลักของสัตว์ด้วย",
+    };
+  }
+
   // Upload images animal
   if (mainImage) {
     extraImages = [mainImage, ...extraImages];
@@ -118,13 +125,30 @@ export async function updateAnimal(
     }
 
     try {
-      fetch(`http://localhost:5000/api/animals/${animal._id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(animal),
-      });
+      // Update Animal
+      if (animal._id) {
+        fetch(`http://localhost:5000/api/animals/${animal._id}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(validateData.data),
+        })
+          .then((response) => response.json())
+          .then((data) => console.log(data));
+      }
+      // Create Animal
+      else {
+        fetch(`http://localhost:5000/api/animals/`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(validateData.data),
+        })
+          .then((response) => response.json())
+          .then((data) => console.log(data));
+      }
     } catch (error) {
       return {
         message: `Error: ${error}`,
@@ -208,4 +232,17 @@ export async function createRequest(preState: RequestState, formData: FormData) 
       message: `Error ${error}`
     }
   }
+}
+
+export async function deleteAnimal(id: string) {
+  try {
+    fetch(`http://localhost:5000/api/animals/${id}`, {
+      method: "DELETE",
+    });
+  } catch (error) {
+    console.error(error);
+  }
+
+  revalidateAnimals();
+  redirect(`/dashboard/animals/`);
 }

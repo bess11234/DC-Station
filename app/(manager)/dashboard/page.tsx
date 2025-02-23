@@ -1,7 +1,7 @@
 import Link from "next/link"
 import Image from "next/image"
 
-import { AnimalItem } from "@/app/components/(manager)/animals/AnimalItem"
+import { ShowAnimals } from "@/app/components/(manager)/animals/ShowAnimals"
 
 import { InboxIcon, HeartIcon, BookmarkSquareIcon, PencilSquareIcon, TrashIcon, PlusIcon } from "@heroicons/react/24/outline"
 import { fetchAnimals, fetchKnowledges } from "@/app/lib/data"
@@ -60,9 +60,7 @@ export default async function DashBoard() {
 
                         {/* Table */}
                         <div className="grid gap-6 max-sm:gap-y-8 w-full max-w-[1500px] mx-auto mt-3">
-                            {animals.map((v, i) => (
-                                <AnimalItem key={i} animal={v} />
-                            ))}
+                            <ShowAnimals animals={animals} />
                         </div>
                     </div>
 
