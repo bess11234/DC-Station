@@ -1,12 +1,12 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# DC-Station
+เว็บไซต์เกี่ยวกับดูแลรับสัตว์เลี้ยง โดยแสดงข้อมูลของสัตว์ที่ต้องการรับเลี้ยง เพื่อหาบ้านให้น้อง ๆ ได้อยู่อาศัย และมีการแสดงข้อมูลที่มีประโยชน์ในการเลี้ยงสัตว์
 
 ## Getting Started
 
 First, run the Express server:
 
 ```bash
-cd server
-nodemon server/server.js
+npm run server
 ```
 You should see
 
