@@ -6,6 +6,8 @@ import { z } from "zod";
 import { error } from "console";
 import { METHODS } from "http";
 
+// <--------------------UPDATE ANIMAL----------------------->
+
 export interface AnimalState {
   message?: string | null;
   errors?: {
@@ -160,19 +162,50 @@ export async function createAndUpdateAnimal(
   }
 }
 
+// <--------------------DELETE ANIMAL----------------------->
+
+export async function deleteAnimal(id: string) {
+  try {
+    fetch(`http://localhost:5000/api/animals/${id}`, {
+      method: "DELETE",
+    });
+  } catch (error) {
+    console.error(error);
+  }
+
+  revalidateAnimals();
+  redirect(`/dashboard/animals/`);
+}
+
+
 // <--------------------CREATE REQUEST----------------------->
 
 const RequestFormSchema = z.object({
   id: z.string(),
-  idCard: z.string().min(13, "กรุณากรอกรหัสบัตรประชาชนให้ครบถ้วน"),
-  phone: z.string().min(10, "กรุณากรอกหมายเลขโทรศัพท์ให้ครบถ้วน"),
-  fb: z.string().min(1, "กรุณาใส่ชื่อหรือลิงค์เฟซบุ๊ค"),
-  experience: z.string(),
-  reason: z.string().min(1, "กรุณาระบุเหตุผลการรับเลี้ยง"),
-  animal: z.string(),
-  accept: z.literal(true, {
-    errorMap: () => ({ message: "กรุณายอมรับเงื่อนไข" }),
-  })
+  idCard: 
+      z.string()
+      .min(13, "กรุณากรอกรหัสบัตรประชาชนให้ครบถ้วน")
+      .max(13, "กรุณากรอกรหัสบัตรประชาชนให้ครบถ้วน")
+      .regex(/^\d+$/, "กรุณากรอกเฉพาะตัวเลข"),
+  phone: z
+      .string()
+      .min(10, "กรุณากรอกหมายเลขโทรศัพท์ให้ครบถ้วน")
+      .max(10, "กรุณากรอกหมายเลขโทรศัพท์ให้ครบถ้วน")
+      .regex(/^\d+$/, "กรุณากรอกเฉพาะตัวเลข"),
+  fb: z
+      .string()
+      .min(1, "กรุณาใส่ชื่อหรือลิงค์เฟซบุ๊ค"),
+  experience: z
+      .string(),
+  reason: z
+      .string()
+      .min(1, "กรุณาระบุเหตุผลในการรับเลี้ยง"),
+  animal: z
+      .string(),
+  accept: z
+      .literal(true, {
+        errorMap: () => ({ message: "กรุณายอมรับเงื่อนไข" }),
+    })
 })
 
 const CreateRequest = RequestFormSchema.omit({ id: true, animal: true})
@@ -234,15 +267,3 @@ export async function createRequest(preState: RequestState, formData: FormData) 
   }
 }
 
-export async function deleteAnimal(id: string) {
-  try {
-    fetch(`http://localhost:5000/api/animals/${id}`, {
-      method: "DELETE",
-    });
-  } catch (error) {
-    console.error(error);
-  }
-
-  revalidateAnimals();
-  redirect(`/dashboard/animals/`);
-}

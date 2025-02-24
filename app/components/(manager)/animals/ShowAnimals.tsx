@@ -31,13 +31,6 @@ export function ShowAnimals({ animals }: { animals: Animal[] }) {
         <>
             {animals.map((animal, i) => (
                 <div key={i} className="relative grid rounded-3xl dark:shadow-theme-50/10 md:text-xl sm:text-lg text-base bg-theme-200/30 dark:bg-white/5 p-3">
-                    {/* Delete button */}
-                    <div className="absolute z-10 -right-3 -top-3" aria-label="Delete" role="button" tabIndex={-1}>
-                        <button popoverTarget={`deleteAnimal_${i}`} title="Delete" className="p-1.5 rounded-full cursor-pointer">
-                            <XCircleIcon className={`hover:opacity-40 active:opacity-60 transition-colors size-6`} />
-                        </button>
-                    </div>
-
                     {/* Display Delete */}
                     <DeleteAnimal id={animal._id} name={animal.name} index={i} />
 
