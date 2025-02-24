@@ -26,7 +26,7 @@ export default async function Knowledges(props : {
                 {knowledges
                 .filter((knowledge) => knowledge.title.includes(query))
                 .map((knowledge, index) => (
-                    <Card key={index} hrefLink="/knowledges/1" src={knowledge.image} title={knowledge.title} desc={knowledge.content} date={new Date(knowledge.createdAt).getTime()} />
+                    <Card key={index} hrefLink="/knowledges/1" src={knowledge.image} title={knowledge.title} desc={knowledge.describe} date={new Date(knowledge.createdAt).getTime()} />
                 ))}
             </div>
         </>

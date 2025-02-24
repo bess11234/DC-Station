@@ -10,16 +10,7 @@ import type { Animal } from "@/app/lib/definition"
 
 
 export default async function Animals() {
-    const animals: Animal[] = (await fetchAnimals()).sort((c, n) => {
-        if (c.updatedAt && n.updatedAt){
-            if (c.updatedAt > n.updatedAt){
-                return -1
-            }else{
-                return 1
-            }
-        }
-        return 0
-    })
+    const animals: Animal[] = (await fetchAnimals())
     return (
         <>
             <div className="flex flex-col w-full py-8">
@@ -28,7 +19,7 @@ export default async function Animals() {
 
                 <div className="grid space-x-3 p-3">
                     {/* Animals */}
-                    <div className="bg-theme-50/50 dark:bg-white/5 rounded-3xl sm:p-5 p-3 overflow-x-auto">
+                    <div className="bg-theme-50 dark:bg-white/5 rounded-3xl sm:p-5 p-3 overflow-x-auto">
 
                         {/* Create Animal */}
                         <Link href={"/dashboard/animals/create"} className="button-theme w-fit flex flex-row px-4 py-3 rounded-full mb-3 cursor-pointer space-x-1">

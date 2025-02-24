@@ -12,7 +12,7 @@ export function DeleteAnimal({ id, name, index }: Prop) {
                 <div className="relative grid size-full justify-center items-center">
                     <div onClick={() => document.getElementById(`deleteAnimal_${index}`)?.hidePopover()} className="absolute bg-black2/10 dark:bg-black2/50 w-screen h-screen"></div>
                     <div className="relative z-10 bg-white dark:bg-neutral-950 border border-white/10 rounded-xl">
-                        <div className="p-3">
+                        <div className="px-6 py-3">
                             <p>ต้องการลบข้อมูล <span className="text-theme-400">{name}</span> ?</p>
                             <hr className="my-3" />
                             <div className="flex justify-end space-x-3">

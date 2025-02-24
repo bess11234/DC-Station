@@ -14,8 +14,6 @@ app.use(cors({
     credentials: true //for send cookie
 }))
 
-console.log(process.env.MONGO_URI)
-
 // connect to MongoDBAtlas
 mongoose.connect(process.env.MONGO_URI, {
             useNewUrlParser: true,

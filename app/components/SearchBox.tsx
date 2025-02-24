@@ -30,7 +30,7 @@ export function SearchAnimals() {
     return (
         <>
             <div className="w-full flex justify-center ">
-                <div className="flex items-center w-120 rounded-full border-1 bg-white overflow-hidden">
+                <div className="flex items-center w-120 rounded-full border-1 overflow-hidden">
                     <input value={title}
                     className="bg-transparent focus:outline-none w-110 h-full px-5 border-0" 
                     type="text" 
@@ -40,8 +40,8 @@ export function SearchAnimals() {
                         searchName(e.target.value);
                     }}/>
 
-                    <div 
-                    className="flex items-center justify-center cursor-pointer w-10 h-10 bg-theme-300" 
+                    <div role="button"
+                    className="flex items-center justify-center cursor-pointer w-10 h-10 bg-black2/10 hover:bg-black2/15 dark:bg-white/10 dark:hover:bg-white/5"
                     onClick={()=>{setTitle(""); searchName("")}}>
                         { title? <XMarkIcon className="size-5"/> :<MagnifyingGlassIcon className="size-5"/>}
                     </div>
