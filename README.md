@@ -2,19 +2,18 @@
 เว็บไซต์เกี่ยวกับดูแลรับสัตว์เลี้ยง โดยแสดงข้อมูลของสัตว์ที่ต้องการรับเลี้ยง เพื่อหาบ้านให้น้อง ๆ ได้อยู่อาศัย และมีการแสดงข้อมูลที่มีประโยชน์ในการเลี้ยงสัตว์
 
 ## Getting Started
-
-First, run the Express server:
-
+อย่างแรกเลยคือต้องรัน Express server:
 ```bash
 npm run server
 ```
-You should see
+เห็นได้ว่าจะมีการขึ้นตามนี้
 
 -> Server running on port 5000 
 
 -> MongoDB Connected
 
-Then run the development server:
+เมื่อต้องการรัน Development server:
+
 ```bash
 npm run dev
 # or
@@ -25,11 +24,7 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+เปิด [http://localhost:3000](http://localhost:3000) ใน Browser เพื่อดูผลลัพธ์
 
 ## Learn More
 
