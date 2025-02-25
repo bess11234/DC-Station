@@ -84,8 +84,9 @@ router.delete("/:id", async (req, res) => {
 router.get("/animalId/:animalId", async (req, res) => {
     try {
         const animalId = req.params.animalId
-        const request = await Request.find({ animals: animalId })
-        return res.status(200).json({ status: "ok", message: request })
+        const request = await Request.find({ animal: animalId })
+        
+        res.status(200).json({ status: "ok", message: request })
     } catch (error) {
         res.status(500).json({ status: "error", message: error.message })
     }

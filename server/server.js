@@ -27,6 +27,7 @@ app.use("/api/auth", require("./routes/auth"));
 app.use("/api/animals", require("./routes/animal"));
 app.use("/api/requests", require("./routes/request"));
 app.use("/api/knowledges", require("./routes/knowledge"));
+app.use("/api/counts", require("./routes/counts"));
 
 const PORT = 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

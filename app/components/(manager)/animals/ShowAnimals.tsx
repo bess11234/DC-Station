@@ -1,45 +1,57 @@
+"use client"
+
+import { Suspense, use, useEffect, useState } from "react"
+
+import { useSearchParams } from "next/navigation"
 import Link from "next/link"
 import Image from "next/image"
 
-import type { Animal } from "@/app/lib/definition"
+import { PencilSquareIcon } from "@heroicons/react/24/outline"
 
-import { XCircleIcon, PencilSquareIcon } from "@heroicons/react/24/outline"
+import type { Animal, Request } from "@/app/lib/definition"
 import { fetchAnimalRequest } from "@/app/lib/data"
+import { deleteAnimal } from "@/app/lib/action"
 
-import { DeleteAnimal } from "./DeleteAnimal"
+import { DeleteItem } from "../DeleteItem"
+import { EditItem } from "../EditItem"
 
-export function ShowAnimals({ animals }: { animals: Animal[] }) {
-    animals = animals.sort((c, n) => {
-        let valueSort = 0
-        if (c.adoptionDate && !n.adoptionDate){
-            valueSort += 2
+export function ShowAnimals({ animals }: { animals: Promise<Animal[][]> }) {
+    const [isLoading, setIsLoading] = useState(false)
+
+    const searchParams = useSearchParams()
+
+    const [indexAnimals, setIndexAnimals] = useState<number>(0)
+    const showAnimals = use(animals) // Solved Promise
+
+    const [showAnimalRequest, setShowAnimalRequest] = useState<Request[][]>([]); // Fetch Request from animal.id
+
+    useEffect(() => {
+        if (showAnimals.length > 0) {
+            Promise.all(showAnimals[indexAnimals].map((v) => fetchAnimalRequest(v._id)))
+                .then((e) => setShowAnimalRequest(e))
+                .catch((error) => console.error("Error fetching:", error));
         }
-        if (!c.adoptionDate && n.adoptionDate){
-            valueSort += -2
-        }
+    }, [showAnimals, indexAnimals]); // ✅ Fetch only when showAnimals changes
 
-        if (c.updatedAt && n.updatedAt){
-            if (c.updatedAt > n.updatedAt){
-                valueSort += -1
-            }else{
-                valueSort += 1
+    useEffect(() => {
+        const params = new URLSearchParams(searchParams);
+        if (params.get("pages")) {
+            const pages = Number(params.get("pages")) - 1
+            if (pages < showAnimals.length && pages > 0) {
+                setIndexAnimals(pages)
             }
         }
-        return valueSort
-    })
+    }, [searchParams, setIndexAnimals, showAnimals])
+
     return (
         <>
-            {animals.map((animal, i) => (
-                <div key={i} className="relative grid rounded-3xl dark:shadow-theme-50/10 md:text-xl sm:text-lg text-base bg-theme-200/30 dark:bg-white/5 p-3">
+            {showAnimals[indexAnimals].map((animal, i) => (
+                <div key={i} className="relative grid rounded-3xl dark:shadow-theme-50/10 md:text-xl sm:text-lg text-base bg-theme-200/15 dark:bg-white/5 p-3 hover:shadow-md">
                     {/* Display Delete */}
-                    <DeleteAnimal id={animal._id} name={animal.name} index={i} />
+                    <DeleteItem id={animal._id} name={animal.name} index={i} handleDelete={deleteAnimal} />
 
                     {/* Edit button */}
-                    <Link className="absolute z-10 bottom-0 right-0 mr-2 mb-2" aria-label="Edit" role="button" tabIndex={-1} href={`/dashboard/animals/editing/${animal._id}`}>
-                        <button title="Edit" className=" p-1.5 rounded-full cursor-pointer">
-                            <PencilSquareIcon className={`hover:opacity-40 active:opacity-60 transition-colors size-6`} />
-                        </button>
-                    </Link>
+                    <EditItem href={`/dashboard/animals/editing/${animal._id}`} />
 
                     {/* Display Data */}
                     <div className="flex flex-row sm:gap-x-3 gap-x-3 w-full">
@@ -53,12 +65,23 @@ export function ShowAnimals({ animals }: { animals: Animal[] }) {
                                 className="rounded-3xl w-[100px] h-[100px] flex-none"
                             />
                             {/* Status */}
-                            <Status animal={animal} />
+                            <Suspense fallback={<p>Loading...</p>}>
+                                <span
+                                    className={`text-xs px-3 py-1 border rounded-full text-nowrap w-full text-center dark:opacity-75
+                                    ${isLoading ? "cursor-wait" : "cursor-pointer"}
+                                    ${!animal.adoptionDate ? (showAnimalRequest[i]?.length ? "text-sky-500 dark:text-sky-300" : "text-red-500 dark:text-red-300") : "text-green-500 dark:text-green-300"}`}>
+                                    {!animal.adoptionDate ?
+                                        (showAnimalRequest[i]?.length ?
+                                            <Link href={"#"} onClick={() => setIsLoading(true)} className="flex hover:opacity-40 active:opacity-60 justify-self-center">คำร้องขอ&nbsp;<span className="animate-pulse">({showAnimalRequest[i]?.length})</span></Link>
+                                            : "รอรับเลี้ยง")
+                                        : "ถูกรับเลี้ยง"}
+                                </span>
+                            </Suspense>
                         </div>
 
                         <div className="relative flex flex-col pr-6 pt-2">
                             <div className="ml-2 mr-6">
-                                <p className="line-clamp-1 mb-1">{`${animal.specie == "Dog" ? "🐶" : "🐱"} `+animal.name}</p>
+                                <p className="line-clamp-1 mb-1"><span className="max-sm:hidden">{`${animal.specie == "Dog" ? "🐶" : "🐱"} `}</span> {animal.name}</p>
                                 <div className="sm:line-clamp-3 line-clamp-4 opacity-50 sm:text-base text-sm">
                                     <p>อุปนิสัย: {animal.personalities.join(", ")}</p>
                                     <p>ประวัติ: {animal.history ? animal.history : "-"}</p>
@@ -70,17 +93,4 @@ export function ShowAnimals({ animals }: { animals: Animal[] }) {
             ))}
         </>
     )
-}
-
-async function Status({ animal }: { animal: Animal }) {
-    const requests = await fetchAnimalRequest(animal._id)
-    return (
-        <span
-            className={`text-xs px-3 py-1 border rounded-full text-nowrap w-full text-center dark:opacity-75
-                         ${!animal.adoptionDate ? (requests.length ? "text-sky-500 dark:text-sky-300" : "text-red-500 dark:text-red-300") : "text-green-500 dark:text-green-300"}`
-            }>
-            {!animal.adoptionDate ? (requests.length ? <Link href={"#"} className="flex hover:opacity-40 active:opacity-60">คำร้องขอ&nbsp;<span className="animate-pulse">({requests.length})</span></Link> : "รอรับเลี้ยง") : "ถูกรับเลี้ยง"}
-        </span>
-    )
-
 }

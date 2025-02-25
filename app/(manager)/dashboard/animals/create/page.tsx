@@ -1,9 +1,9 @@
 import type { Animal } from "@/app/lib/definition"
 
-import { CreateData } from "@/app/components/(manager)/animals/CreateData"
+import { CreateAnimal } from "@/app/components/(manager)/animals/CreateAnimal"
 import { fetchKnowledges } from "@/app/lib/data"
 
-export default async function createAnimal() {
+export default async function AnimalCreate() {
     const animal: Animal = {
         _id: "",
         breed: "",
@@ -33,7 +33,7 @@ export default async function createAnimal() {
                 <div className="grid gap-3 p-3 xl:min-w-[1000px] max-w-[1000px] w-full sm:mx-16 mx-8">
 
                     {/* Data */}
-                    <CreateData animal={animal} knowledges={knowledges} />
+                    <CreateAnimal animal={animal} knowledges={knowledges} />
 
                 </div>
 

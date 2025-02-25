@@ -5,17 +5,24 @@ import { ReactElement, useState } from "react"
 
 import { ChevronLeftIcon } from "@heroicons/react/24/outline"
 
-import { fetchAnimalId } from "../lib/data"
-
+import { fetchAnimalId, fetchKnowledgeId } from "../lib/data"
 
 export function Breadcrumbs() {
     // Animal State
-    const [animalName, setAnimalName] = useState<string>("")
+    const [fetchName, setFetchName] = useState<string>("")
 
-    async function getAnimalName(id: string) {
-        const animal = await fetchAnimalId(id)
-        if (animal){
-            setAnimalName(animal.name)
+    async function getFetchName(id: string, fetch: "animal" | "knowledge") {
+        if (fetch == "animal") {
+            const animal = await fetchAnimalId(id)
+            if (animal) {
+                setFetchName(animal.name)
+            }
+        }
+        if (fetch == "knowledge"){
+            const knowledge = await fetchKnowledgeId(id)
+            if (knowledge){
+                setFetchName(knowledge.title)
+            }
         }
     }
 
@@ -24,26 +31,26 @@ export function Breadcrumbs() {
     let pathLink: string[] | ReactElement[] = pathName.split("/")
     let lastLink: ReactElement = <span></span>
 
-    let isAnimal = false
+    let keyFetch: "animal" | "knowledge" | ""
 
     let isGenerated = true
 
     pathLink = pathLink.map((v, i, before) => {
         let text: string = v
-        
+
         // ถ้าเป็นสัตว์จะไปค้นหา ID
-        if (isAnimal) {
-            getAnimalName(text)
-            text = animalName
-            if (!animalName) isGenerated = false // ไม่ทำการ Generate หากไม่เจอสัตว์
-            isAnimal = false
+        if (keyFetch) {
+            getFetchName(text, keyFetch)
+            text = fetchName
+            if (!fetchName) isGenerated = false // ไม่ทำการ Generate หากไม่เจอสัตว์
+            keyFetch = ""
         }
 
         // Normal Case
         if (v == "") text = "หน้าหลัก"
-        if (v == "find-house") { text = "หาบ้านให้น้อง"; isAnimal = true }
+        if (v == "find-house") { text = "หาบ้านให้น้อง"; keyFetch = "animal" }
         if (v == "contact") { text = "ติดต่อสอบถาม"; }
-        if (v == "knowledges") { text = "เกร็ดความรู้"; }
+        if (v == "knowledges") { text = "เกร็ดความรู้"; keyFetch = "knowledge" }
 
         // Generate Link
         if (i == pathLink.length - 1) {

@@ -1,5 +1,5 @@
 "use client"
-import { ChangeEvent, useEffect, useState, useRef, useActionState } from "react"
+import { ChangeEvent, useState, useRef, useActionState } from "react"
 import Image from "next/image"
 import { motion, AnimatePresence } from "motion/react"
 
@@ -23,7 +23,7 @@ interface displayIllness extends Illness {
     value: string;
 }
 
-export function CreateData({ animal, knowledges }: { animal: Animal, knowledges: Knowledge[] }) {
+export function CreateAnimal({ animal, knowledges }: { animal: Animal, knowledges: Knowledge[] }) {
     // Form submit
     const initialState: AnimalState = {
         errors: {},
@@ -61,12 +61,8 @@ export function CreateData({ animal, knowledges }: { animal: Animal, knowledges:
     const inputPersonality = useRef<HTMLInputElement>(null)
     const inputIllnessHTML = useRef<HTMLInputElement>(null)
 
-    // Form Animal
+    // Input Form
     const inputForm = useRef<HTMLFormElement>(null)
-
-    useEffect(() => {
-        console.log(inputAnimal)
-    }, [inputAnimal])
 
     const handleInput = useDebouncedCallback((value: string | string[] | undefined, key: string) => {
         if (value == undefined) value = ""
@@ -363,7 +359,7 @@ export function CreateData({ animal, knowledges }: { animal: Animal, knowledges:
 
                 {/* Upload Image */}
                 <div className="mx-auto">
-                    <label htmlFor="uploadImages" className="py-3 px-5 button-theme rounded-full cursor-pointer">อัพโหลดรูปภาพ</label>
+                    <label htmlFor="uploadImages" className="py-3 px-5 button-secondary rounded-full cursor-pointer">อัพโหลดรูปภาพ</label>
                     <input onChange={handleUploadExtraImages} tabIndex={-1} type="file" id="uploadImages" accept="image/jpeg,image/png,image/gif,image/bmp,image/webp,image/tiff" multiple hidden />
                 </div>
 
@@ -412,7 +408,7 @@ export function CreateData({ animal, knowledges }: { animal: Animal, knowledges:
                 <p className="md:text-2xl sm:text-2xl text-lg text-center">เกร็ดความรู้เพิ่มเติม</p>
                 {/* Add Knowledge */}
                 <div className="mx-auto py-0!">
-                    <button type="button" popoverTarget="my-knowledges" className="py-3 px-5 button-theme rounded-full cursor-pointer">จัดการเกร็ดความรู้</button>
+                    <button type="button" popoverTarget="my-knowledges" className="py-3 px-5 button-secondary rounded-full cursor-pointer">จัดการเกร็ดความรู้</button>
                 </div>
 
                 <div popover="auto" id="my-knowledges" className="p-0! bg-transparent w-screen h-screen opacity-0 transition-all duration-500 transition-discrete open:opacity-100 starting:open:opacity-0">
@@ -483,9 +479,9 @@ export function CreateData({ animal, knowledges }: { animal: Animal, knowledges:
                 </div>
             </div>
 
-            <div className="flex justify-end">
-                <button onClick={() => inputForm.current?.requestSubmit()} className="cursor-pointer py-3 px-6 rounded-full bg-black2 text-white dark:bg-white dark:text-black2 outline-offset-4" type="button">Save</button>
-                <button className="cursor-pointer py-3 px-4 rounded-full outline-offset-4" onClick={() => resetForm()} type="reset">Cancel</button>
+            <div className="grid grid-cols-1 justify-end space-y-2">
+                <button onClick={() => inputForm.current?.requestSubmit()} className="cursor-pointer py-3 px-6 rounded-full button-theme-primary outline-offset-4" type="button">สร้าง</button>
+                <button className="cursor-pointer py-3 px-4 rounded-full outline-offset-4" onClick={() => resetForm()} type="reset">ยกเลิก</button>
             </div>
 
         </form >

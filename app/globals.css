@@ -112,6 +112,14 @@ h6 {
   @apply text-theme-600 bg-theme-200/35 hover:bg-theme-200/60 active:bg-theme-200 disabled:bg-theme-900/10 disabled:text-theme-900/40 dark:text-theme-400 dark:bg-theme-900/40 dark:hover:bg-theme-900/50 dark:active:bg-theme-900/60 dark:disabled:bg-theme-100/5 dark:disabled:text-theme-100/20 font-semibold disabled:cursor-not-allowed;
 }
 
+.button-theme-primary {
+  @apply text-white bg-theme-800 hover:bg-theme-800/90 active:bg-theme-800/85 disabled:bg-theme-900/10 disabled:text-theme-900/40 dark:text-theme-700 dark:bg-theme-200 dark:hover:bg-theme-200/98 dark:active:bg-theme-200/95 dark:disabled:bg-theme-100/5 dark:disabled:text-theme-100/20 font-semibold disabled:cursor-not-allowed;
+}
+
+.button-secondary {
+  @apply text-theme-600 bg-theme-200/35 hover:bg-theme-200/60 active:bg-theme-200 disabled:bg-theme-900/10 disabled:text-theme-900/40 dark:text-white dark:bg-white/5 dark:hover:bg-white/10 dark:active:bg-white/15 dark:disabled:bg-theme-100/5 dark:disabled:text-theme-100/20 font-semibold disabled:cursor-not-allowed;
+}
+
 .card-theme {
   @apply bg-theme-300/40 dark:bg-theme-800/50 text-theme-800 dark:text-theme-100
 }

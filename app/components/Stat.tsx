@@ -3,7 +3,7 @@ import { HomeIcon, HeartIcon, PlusCircleIcon, GiftIcon } from "@heroicons/react/
 export function Stat() {
     return (
         <div className="stats stats-vertical sm:stats-horizontal mt-3">
-            <div className="stat">
+            <div className="stat sm:py-3 py-1">
                 <div className="stat-figure">
                     <HomeIcon className="size-8" />
                 </div>
@@ -11,7 +11,7 @@ export function Stat() {
                 <div className="stat-value">31K</div>
             </div>
 
-            <div className="stat">
+            <div className="stat sm:py-3 py-1">
                 <div className="stat-figure">
                     <HeartIcon className="size-8" />
                 </div>
@@ -19,7 +19,7 @@ export function Stat() {
                 <div className="stat-value">10K</div>
             </div>
 
-            <div className="stat">
+            <div className="stat sm:py-3 py-1">
                 <div className="stat-figure">
                     <PlusCircleIcon className="size-8" />
                 </div>
@@ -27,7 +27,7 @@ export function Stat() {
                 <div className="stat-value">1.5K</div>
             </div>
 
-            <div className="stat">
+            <div className="stat sm:py-3 py-1">
                 <div className="stat-figure">
                     <GiftIcon className="size-8" />
                 </div>

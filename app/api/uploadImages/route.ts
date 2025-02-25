@@ -4,7 +4,7 @@ import path from "path";
 
 export async function POST(req: NextRequest) {
   try {
-    const { images, filename } = await req.json();
+    const { images, filename, folder } = await req.json();
 
     if (!images[0].startsWith("data:image/")) {
         return NextResponse.json(
@@ -17,7 +17,7 @@ export async function POST(req: NextRequest) {
     // **Need to create folder location that will be saved.**
     const filePaths = []
     for (let index = 0; index < images.length; index++) {
-      const element = await saveFileBase64(images[index], "images", filename[index]);
+      const element = await saveFileBase64(images[index], folder, filename[index]);
       filePaths.push(element)
     }
 

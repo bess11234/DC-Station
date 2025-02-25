@@ -8,13 +8,20 @@ type Response<T> = {
 
 // <---------------------------- Animal ---------------------------->
 // Show Animals Data
-export async function fetchAnimals(skip: number = 0): Promise<Animal[]> {
-  const response = await fetch(`http://localhost:5000/api/animals?skip=${skip}`, {
-    next: { tags: ["animals"] },
-  });
+export async function fetchAnimals(
+  skip: number = 0,
+  limit: number = 0
+): Promise<Animal[]> {
+  const response = await fetch(
+    `http://localhost:5000/api/animals?skip=${skip}&limit=${limit}`,
+    {
+      next: { tags: ["animals"] },
+    }
+  );
   if (!response.ok) {
-    if (response.status == 404) return (await response.json()).message;
-    throw new Error(`${response.status}`);
+    const data = await response.json();
+    if (response.status == 404) return data.message;
+    throw new Error(`${response.status} ${data.message}`);
   }
   const data: Response<Animal[]> = await response.json();
   return data.message;
@@ -27,11 +34,25 @@ export async function fetchAnimalId(id: string): Promise<Animal> {
   });
   // หากไม่ Status: ok จะทำการส่งตัวเปล่า
   if (!response.ok) {
-    if (response.status == 404) return (await response.json()).message;
-    throw new Error(`${response.status}`);
+    const data = await response.json();
+    if (response.status == 404) return data.message;
+    throw new Error(`${response.status} ${data.message}`);
   }
   const data: Response<Animal> = await response.json();
   return data.message;
+}
+
+// Show number of animals
+export async function fetchAnimalCount(): Promise<number> {
+  const response = await fetch(`http://localhost:5000/api/counts/animals`, {
+    next: { tags: ["animals"] },
+  })
+  .catch((error) => {
+    throw new Error(error)
+  })
+
+  const count = (await response.json()).message
+  return count
 }
 
 // <---------------------------- Knowledge ---------------------------->
@@ -48,28 +69,58 @@ export const knowledge: Knowledge[] = [
   },
 ];
 
-export async function fetchKnowledges(): Promise<Knowledge[]> {
-  const response = await fetch(`http://localhost:5000/api/knowledges`, {
+export async function fetchKnowledges(skip: number = 0, limit: number = 0): Promise<Knowledge[]> {
+  const response = await fetch(`http://localhost:5000/api/knowledges?skip=${skip}&limit=${limit}`, {
     next: { tags: ["knowledges"] },
   });
   if (!response.ok) {
     if (response.status == 404) notFound();
-    throw new Error(`${response.status}`);
+
+    const data = await response.json();
+    throw new Error(`${response.status} ${data.message}`);
   }
   const data: Response<Knowledge[]> = await response.json();
   return data.message;
 }
 
+export async function fetchKnowledgeId(id: string): Promise<Knowledge> {
+  const response = await fetch(`http://localhost:5000/api/knowledges/${id}`, {
+    next: { tags: ["knowledges"] },
+  });
+  if (!response.ok) {
+    if (response.status == 404) notFound();
+
+    const data = await response.json();
+    throw new Error(`${response.status} ${data.message}`);
+  }
+  const data: Response<Knowledge> = await response.json();
+  return data.message;
+}
+
+// Show number of knowledges
+export async function fetchfetchKnowledgeCount(): Promise<number> {
+  const response = await fetch(`http://localhost:5000/api/counts/knowledges`, {
+    next: { tags: ["knowledges"] },
+  })
+  .catch((error) => {
+    throw new Error(error)
+  })
+
+  const count = (await response.json()).message
+  return count
+}
 
 // <---------------------------- Request ---------------------------->
 
 export async function fetchRequest(): Promise<Knowledge[]> {
   const response = await fetch(`http://localhost:5000/api/requests`, {
-    next: { tags: ["requests"] }
+    next: { tags: ["requests"] },
   });
   if (!response.ok) {
     if (response.status == 404) notFound();
-    throw new Error(`${response.status}`);
+
+    const data = await response.json();
+    throw new Error(`${response.status} ${data.message}`);
   }
   const data: Response<Knowledge[]> = await response.json();
   return data.message;
@@ -87,7 +138,9 @@ export async function fetchAnimalRequest(id: string): Promise<Request[]> {
   );
   if (!response.ok) {
     if (response.status == 404) notFound();
-    throw new Error(`${response.status}`);
+
+    const data = await response.json();
+    throw new Error(`${response.status} ${data.message}`);
   }
   const data: Response<Request[]> = await response.json();
   return data.message;
@@ -115,7 +168,7 @@ export const animals: Animal[] = [
     history: "เกือบเป็นซอยจุ๊ให้คนจีน",
     specie: "Dog",
     createdAt: "12/15/2024",
-    knowledges: []
+    knowledges: [],
   },
   {
     _id: "3c1a5dfb810778868dcad0571c54f3352c2aa01166ae568ad4f3281909329415044ae4e2c7897012",
@@ -138,7 +191,7 @@ export const animals: Animal[] = [
     history: "เกือบเป็นซอยจุ๊ให้คนจีน",
     specie: "Cat",
     createdAt: "12/15/2024",
-    knowledges: []
+    knowledges: [],
   },
   {
     _id: "2d39fe18927d4ab7b9fcbd1e872a67dc58fa293a882886357915757db2e7588aa333569e10ba915f",
@@ -161,7 +214,7 @@ export const animals: Animal[] = [
     history: "เกือบเป็นซอยจุ๊ให้คนจีน",
     specie: "Cat",
     createdAt: "12/15/2024",
-    knowledges: []
+    knowledges: [],
   },
   {
     _id: "2d39fe18927d4ab7b9fcbd1e872a67dc58fa293a882886357915757db2e7588aa333569e10ba915f",
@@ -184,7 +237,7 @@ export const animals: Animal[] = [
     history: "เกือบเป็นซอยจุ๊ให้คนจีน",
     specie: "Cat",
     createdAt: "12/15/2024",
-    knowledges: []
+    knowledges: [],
   },
   {
     _id: "2d39fe18927d4ab7b9fcbd1e872a67dc58fa293a882886357915757db2e7588aa333569e10ba915f",
@@ -207,7 +260,7 @@ export const animals: Animal[] = [
     history: "เกือบเป็นซอยจุ๊ให้คนจีน",
     specie: "Cat",
     createdAt: "12/15/2024",
-    knowledges: []
+    knowledges: [],
   },
 ];
 

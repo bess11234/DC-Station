@@ -1,12 +1,11 @@
 import { redirect } from "next/navigation";
-import { revalidateAnimals } from "./revalidate";
+import { revalidateCustom } from "./revalidate";
 
-import { Animal } from "./definition";
+import { Animal, Knowledge } from "./definition";
 import { z } from "zod";
-import { error } from "console";
-import { METHODS } from "http";
 
-// <--------------------UPDATE ANIMAL----------------------->
+// <--------------------ANIMALS----------------------->
+//// <--------------------CREATE & UPDATE ANIMAL----------------------->
 
 export interface AnimalState {
   message?: string | null;
@@ -104,6 +103,7 @@ export async function createAndUpdateAnimal(
       body: JSON.stringify({
         images: base64Images,
         filename: extraImages.map((v) => v.type.replace("image/", "")),
+        folder: "animals",
       }),
     });
 
@@ -116,53 +116,53 @@ export async function createAndUpdateAnimal(
       }
       animal.images.push(...urls);
     }
-
-    const validateData = AnimalFormSchema.safeParse(animal);
-
-    if (!validateData.success) {
-      return {
-        errors: validateData.error.flatten().fieldErrors,
-        message: "Error: Missing some fields.",
-      };
-    }
-
-    try {
-      // Update Animal
-      if (animal._id) {
-        fetch(`http://localhost:5000/api/animals/${animal._id}`, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(validateData.data),
-        })
-          .then((response) => response.json())
-          .then((data) => console.log(data));
-      }
-      // Create Animal
-      else {
-        fetch(`http://localhost:5000/api/animals/`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(validateData.data),
-        })
-          .then((response) => response.json())
-          .then((data) => console.log(data));
-      }
-    } catch (error) {
-      return {
-        message: `Error: ${error}`,
-      };
-    }
-
-    revalidateAnimals();
-    redirect(`/dashboard/animals/`);
   }
+
+  const validateData = AnimalFormSchema.safeParse(animal);
+
+  if (!validateData.success) {
+    return {
+      errors: validateData.error.flatten().fieldErrors,
+      message: "Error: Missing some fields.",
+    };
+  }
+
+  try {
+    // Update Animal
+    if (animal._id) {
+      fetch(`http://localhost:5000/api/animals/${animal._id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(validateData.data),
+      })
+        .then((response) => response.json())
+        .then((data) => console.log(data));
+    }
+    // Create Animal
+    else {
+      fetch(`http://localhost:5000/api/animals/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(validateData.data),
+      })
+        .then((response) => response.json())
+        .then((data) => console.log(data));
+    }
+  } catch (error) {
+    return {
+      message: `Error: ${error}`,
+    };
+  }
+
+  revalidateCustom("animals");
+  redirect(`/dashboard/animals/`);
 }
 
-// <--------------------DELETE ANIMAL----------------------->
+//// <--------------------DELETE ANIMAL----------------------->
 
 export async function deleteAnimal(id: string) {
   try {
@@ -173,42 +173,153 @@ export async function deleteAnimal(id: string) {
     console.error(error);
   }
 
-  revalidateAnimals();
+  revalidateCustom("animals");
   redirect(`/dashboard/animals/`);
 }
 
+// <--------------------KNOWLEDGES----------------------->
+export interface KnowledgeState {
+  message?: string | null;
+  errors?: {
+    title?: string[];
+    image?: string[];
+    describe?: string[];
+    content?: string[];
+  };
+}
 
-// <--------------------CREATE REQUEST----------------------->
+const KnowledgeFormSchema = z.object({
+  title: z.string({ invalid_type_error: "กรุณากรอกชื่อเรื่อง" }),
+  image: z.string({ invalid_type_error: "กรุณาใส่รูปให้เกร็ดความรู้" }),
+  describe: z.string({ invalid_type_error: "กรุณากรอกคำอธิบาย" }),
+  content: z.string({ invalid_type_error: "กรุณาใส่เนื้อหา" }),
+});
+//// <--------------------CREATE & UPDATE KNOWLEDGE----------------------->
+export async function createAndUpdateKnowledge(
+  image: File | null,
+  knowledge: Knowledge,
+  prevState: KnowledgeState
+) {
+  if (!knowledge._id && !image) {
+    return {
+      message: "กรุณาใส่รูปให้เกร็ดความรู้",
+    };
+  }
+
+  if (image) {
+    const readers = [image].map((file) => {
+      return new Promise<string>((resolve) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result as string);
+      });
+    });
+
+    const base64Images = await Promise.all(readers);
+
+    const response = await fetch("/api/uploadImages", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        images: base64Images,
+        filename: [image].map((v) => v.type.replace("image/", "")),
+        folder: "knowledges",
+      }),
+    });
+
+    if (response.ok) {
+      const urls: string[] = (await response.json()).url;
+      // Update Images
+      knowledge.image = urls[0];
+    }
+  }
+
+  const validateData = KnowledgeFormSchema.safeParse(knowledge);
+
+  if (!validateData.success) {
+    return {
+      errors: validateData.error.flatten().fieldErrors,
+      message: "Error: Missing some fields.",
+    };
+  }
+
+  try {
+    // Update Animal
+    if (knowledge._id) {
+      fetch(`http://localhost:5000/api/knowledges/${knowledge._id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(validateData.data),
+      })
+        .then((response) => response.json())
+        .then((data) => console.log(data));
+    }
+    // Create Animal
+    else {
+      fetch(`http://localhost:5000/api/knowledges/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(validateData.data),
+      })
+        .then((response) => response.json())
+        .then((data) => console.log(data));
+    }
+  } catch (error) {
+    return {
+      message: `Error: ${error}`,
+    };
+  }
+
+  revalidateCustom("knowledges");
+  redirect(`/dashboard/knowledges/`);
+}
+
+//// <--------------------DELETE KNOWLEDGE----------------------->
+
+export async function deleteKnowledge(id: string) {
+  try {
+    fetch(`http://localhost:5000/api/knowledges/${id}`, {
+      method: "DELETE",
+    });
+  } catch (error) {
+    console.error(error);
+  }
+
+  revalidateCustom("knowledges");
+  redirect(`/dashboard/knowledges/`);
+}
+
+// <--------------------REQUEST----------------------->
+//// <--------------------CREATE REQUEST----------------------->
 
 const RequestFormSchema = z.object({
   id: z.string(),
-  idCard: 
-      z.string()
-      .min(13, "กรุณากรอกรหัสบัตรประชาชนให้ครบถ้วน")
-      .max(13, "กรุณากรอกรหัสบัตรประชาชนให้ครบถ้วน")
-      .regex(/^\d+$/, "กรุณากรอกเฉพาะตัวเลข"),
+  idCard: z
+    .string()
+    .min(13, "กรุณากรอกรหัสบัตรประชาชนให้ครบถ้วน")
+    .max(13, "กรุณากรอกรหัสบัตรประชาชนให้ครบถ้วน")
+    .regex(/^\d+$/, "กรุณากรอกเฉพาะตัวเลข"),
   phone: z
-      .string()
-      .min(10, "กรุณากรอกหมายเลขโทรศัพท์ให้ครบถ้วน")
-      .max(10, "กรุณากรอกหมายเลขโทรศัพท์ให้ครบถ้วน")
-      .regex(/^\d+$/, "กรุณากรอกเฉพาะตัวเลข"),
-  fb: z
-      .string()
-      .min(1, "กรุณาใส่ชื่อหรือลิงค์เฟซบุ๊ค"),
-  experience: z
-      .string(),
-  reason: z
-      .string()
-      .min(1, "กรุณาระบุเหตุผลในการรับเลี้ยง"),
-  animal: z
-      .string(),
-  accept: z
-      .literal(true, {
-        errorMap: () => ({ message: "กรุณายอมรับเงื่อนไข" }),
-    })
-})
+    .string()
+    .min(10, "กรุณากรอกหมายเลขโทรศัพท์ให้ครบถ้วน")
+    .max(10, "กรุณากรอกหมายเลขโทรศัพท์ให้ครบถ้วน")
+    .regex(/^\d+$/, "กรุณากรอกเฉพาะตัวเลข"),
+  fb: z.string().min(1, "กรุณาใส่ชื่อหรือลิงค์เฟซบุ๊ค"),
+  experience: z.string(),
+  reason: z.string().min(1, "กรุณาระบุเหตุผลในการรับเลี้ยง"),
+  animal: z.string(),
+  accept: z.literal(true, {
+    errorMap: () => ({ message: "กรุณายอมรับเงื่อนไข" }),
+  }),
+});
 
-const CreateRequest = RequestFormSchema.omit({ id: true, animal: true})
+const CreateRequest = RequestFormSchema.omit({ id: true, animal: true });
 
 export type RequestState = {
   errors?: {
@@ -219,51 +330,58 @@ export type RequestState = {
     accept?: string[];
   };
   message?: string | null;
-}
+};
 
-export async function createRequest(preState: RequestState, formData: FormData) {
+export async function createRequest(
+  preState: RequestState,
+  formData: FormData
+) {
   const animalId = formData.get("animalId") as string;
 
   const validateFields = CreateRequest.safeParse({
-    idCard: formData.get('idCard'),
-    phone: formData.get('phone'),
-    fb: formData.get('fb'),
-    experience: formData.get('experience'),
-    reason: formData.get('reason'),
-    accept: formData.has('accept')
+    idCard: formData.get("idCard"),
+    phone: formData.get("phone"),
+    fb: formData.get("fb"),
+    experience: formData.get("experience"),
+    reason: formData.get("reason"),
+    accept: formData.has("accept"),
   });
 
-  console.log(formData.has('accept'))
+  console.log(formData.has("accept"));
 
   if (!validateFields.success) {
-    console.log("Validation Errors:", validateFields.error.flatten().fieldErrors);
+    console.log(
+      "Validation Errors:",
+      validateFields.error.flatten().fieldErrors
+    );
     return {
       errors: validateFields.error.flatten().fieldErrors,
-      message: 'กรอกข้อมูลไม่ครบถ้วน ไม่สามารถสร้างคำขอรับเลี้ยงได้.'
-    }
+      message: "กรอกข้อมูลไม่ครบถ้วน ไม่สามารถสร้างคำขอรับเลี้ยงได้.",
+    };
   }
 
   // Prepare data for insertion to database
-  const {idCard, phone, fb, experience, reason} = validateFields.data;
+  const { idCard, phone, fb, experience, reason } = validateFields.data;
 
-  try{
+  try {
     const response = await fetch(`http://localhost:5000/api/requests`, {
       method: "POST",
-      headers : {
-        "Content-Type": "application/json"
+      headers: {
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         requester: { idCard, phone, fb, experience, reason, animalId },
-        animal : animalId
+        animal: animalId,
       }),
-    })
+    });
 
     if (!response.ok) throw new Error("Failed to send request");
-    return {message: "ขอบคุณที่รับเลี้ยงหนู หวังว่าเราจะได้เป็นครอบครัวเดียวกัน"}
-  }catch(error){
     return {
-      message: `Error ${error}`
-    }
+      message: "ขอบคุณที่รับเลี้ยงหนู หวังว่าเราจะได้เป็นครอบครัวเดียวกัน",
+    };
+  } catch (error) {
+    return {
+      message: `Error ${error}`,
+    };
   }
 }
-

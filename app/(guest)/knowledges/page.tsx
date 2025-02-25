@@ -6,7 +6,7 @@ import type { Knowledge } from '@/app/lib/definition';
 import { SearchAnimals } from "@/app/components/SearchBox";
 
 
-export default async function Knowledges(props : {
+export default async function KnowledgesPage(props : {
     searchParams?: Promise<{
         title?: string
     }>;
@@ -26,7 +26,7 @@ export default async function Knowledges(props : {
                 {knowledges
                 .filter((knowledge) => knowledge.title.includes(query))
                 .map((knowledge, index) => (
-                    <Card key={index} hrefLink="/knowledges/1" src={knowledge.image} title={knowledge.title} desc={knowledge.describe} date={new Date(knowledge.createdAt).getTime()} />
+                    <Card key={index} hrefLink={`/knowledges/${knowledge._id}`} src={knowledge.image} title={knowledge.title} desc={knowledge.describe} date={new Date(knowledge.createdAt).getTime()} />
                 ))}
             </div>
         </>

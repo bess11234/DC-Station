@@ -16,8 +16,7 @@ export function Bank({ title, src, alt }: BankType) {
                     width={60}
                     height={60}
                     alt={alt}
-                    style={{ width: "60px", height: "60px"}}
-                    className="rounded-full shadow-md" />
+                    className="rounded-full shadow-md sm:size-[60px] size-[50px]" />
                 <div className="flex flex-col text-sm">
                     <span>{title}</span>
                     <span>สาขาลาดกระบัง</span>

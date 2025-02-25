@@ -104,7 +104,8 @@ export default function Editor({ content, updateContent }: Props) {
                     Font,
                     SourceEditing
                 ],
-                licenseKey: 'eyJhbGciOiJFUzI1NiJ9.eyJleHAiOjE3NDAyNjg3OTksImp0aSI6IjNkOWQ4NmY4LTc4ODAtNGM4NC1iMjE3LWY4MWQ2OWI2YWIyYiIsInVzYWdlRW5kcG9pbnQiOiJodHRwczovL3Byb3h5LWV2ZW50LmNrZWRpdG9yLmNvbSIsImRpc3RyaWJ1dGlvbkNoYW5uZWwiOlsiY2xvdWQiLCJkcnVwYWwiLCJzaCJdLCJ3aGl0ZUxhYmVsIjp0cnVlLCJsaWNlbnNlVHlwZSI6InRyaWFsIiwiZmVhdHVyZXMiOlsiKiJdLCJ2YyI6IjQ0NTkyMjY2In0.EcY2u0mwoqE1jRjW0cMa8yTDlTUXrq3ZOsnwPlUGBgddayzllr92WGNhbxIaRy2Ivn-KFjmVOYJZMphoCPfLhQ',
+                // Licenkey CKEditor
+                licenseKey: process.env.NEXT_PUBLIC_CK_LICENSEKEY,
                 simpleUpload: {
                     uploadUrl: "/api/upload",
                 },
