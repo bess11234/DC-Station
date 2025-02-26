@@ -46,9 +46,9 @@ export function ShowAnimals({ animals }: { animals: Promise<Animal[][]> }) {
     return (
         <>
             {showAnimals[indexAnimals].map((animal, i) => (
-                <div key={i} className="relative grid rounded-3xl dark:shadow-theme-50/10 md:text-xl sm:text-lg text-base bg-theme-200/15 dark:bg-white/5 p-3 hover:shadow-md">
+                <div key={i} className="relative grid rounded-3xl dark:shadow-theme-50/10 md:text-xl sm:text-lg text-base card-theme dark:bg-white/5 p-3 hover:shadow-md">
                     {/* Display Delete */}
-                    <DeleteItem id={animal._id} name={animal.name} index={i} handleDelete={deleteAnimal} />
+                    <DeleteItem id={animal._id} name={animal.name} index={"animal"+i} handleDelete={deleteAnimal} />
 
                     {/* Edit button */}
                     <EditItem href={`/dashboard/animals/editing/${animal._id}`} />
@@ -67,12 +67,12 @@ export function ShowAnimals({ animals }: { animals: Promise<Animal[][]> }) {
                             {/* Status */}
                             <Suspense fallback={<p>Loading...</p>}>
                                 <span
-                                    className={`text-xs px-3 py-1 border rounded-full text-nowrap w-full text-center dark:opacity-75
+                                    className={`text-xs px-3 py-1 rounded-full text-nowrap w-full text-center text-white font-semibold
                                     ${isLoading ? "cursor-wait" : "cursor-pointer"}
-                                    ${!animal.adoptionDate ? (showAnimalRequest[i]?.length ? "text-sky-500 dark:text-sky-300" : "text-red-500 dark:text-red-300") : "text-green-500 dark:text-green-300"}`}>
+                                    ${!animal.adoptionDate ? (showAnimalRequest[i]?.length ? "bg-sky-500 dark:bg-sky-400" : "bg-red-500 dark:bg-red-400") : "bg-green-500 dark:bg-green-400"}`}>
                                     {!animal.adoptionDate ?
                                         (showAnimalRequest[i]?.length ?
-                                            <Link href={"#"} onClick={() => setIsLoading(true)} className="flex hover:opacity-40 active:opacity-60 justify-self-center">คำร้องขอ&nbsp;<span className="animate-pulse">({showAnimalRequest[i]?.length})</span></Link>
+                                            <Link href={"#"} onClick={() => setIsLoading(true)} className="flex hover:opacity-70 active:opacity-80 justify-self-center">คำร้องขอ&nbsp;<span className="animate-pulse">({showAnimalRequest[i]?.length})</span></Link>
                                             : "รอรับเลี้ยง")
                                         : "ถูกรับเลี้ยง"}
                                 </span>

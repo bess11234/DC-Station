@@ -5,10 +5,10 @@ import { PlusIcon } from "@heroicons/react/24/outline"
 import { PageNavigation } from "@/app/components/(manager)/PageNavigation"
 import { ShowKnowledges } from "@/app/components/(manager)/knowledges/ShowKnowledges"
 
-import { fetchfetchKnowledgeCount, fetchKnowledges } from "@/app/lib/data"
+import { fetchKnowledgeCount, fetchKnowledges } from "@/app/lib/data"
 
 export default async function KnowledgesManagerPage() {
-    const countKnowledge: number = await fetchfetchKnowledgeCount()
+    const countKnowledge: number = await fetchKnowledgeCount()
     const pageNumber = Math.ceil(countKnowledge / 6)
     const fetchListKnowledges = []
     for (let i = 0; i < pageNumber; i++) {
@@ -26,7 +26,7 @@ export default async function KnowledgesManagerPage() {
                     <div className="bg-theme-100/50 dark:bg-white/5 rounded-3xl sm:p-5 p-3 overflow-x-auto">
 
                         {/* Create Knowledge */}
-                        <Link href={"/dashboard/knowledges/create"} className="button-secondary w-fit flex flex-row px-4 py-3 rounded-full mb-3 cursor-pointer space-x-1">
+                        <Link role="button" href={"/dashboard/knowledges/create"} className="button-secondary w-fit flex flex-row px-4 py-3 rounded-full mb-3 cursor-pointer space-x-1">
                             <PlusIcon className="size-6" /><span>เพิ่มเกร็ดความรู้</span>
                         </Link>
 

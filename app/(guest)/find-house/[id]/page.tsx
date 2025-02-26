@@ -11,67 +11,66 @@ export default async function FindHouseID({ params }: { params: Promise<{ id: st
     const id = (await params).id
     const animal = await fetchAnimalId(id)
     if (!animal) notFound();
-    
+
     return (
         <>
-            {/* Title Content */}
-            <div className="flex flex-col gap-3 w-full place-items-center">
-                <p className="md:text-5xl sm:text-4xl xs:text-3xl text-xl text-center py-3">สร้างครอบครัวที่อบอุ่นให้น้อง <span><br />(🐶DC Station🐱)</span></p>
-                {/* Animal Information */}
-                <div className="grid sm:grid-cols-2 grid-cols-1 gap-3 p-3 max-w-[1000px]">
+            <section className="w-full">
+                <div className="flex flex-col gap-3 w-full place-items-center py-2">
+                    {/* Title Content */}
+                    <p className="md:text-5xl sm:text-4xl text-3xl text-center font-semibold py-3">{animal.name}</p>
+                    {/* Animal Information */}
+                    <div className="flex flex-col gap-6 p-3 xl:min-w-[1000px] max-w-[1000px] w-full sm:mx-16 mx-8">
 
-                    {/* Main Image */}
-                    <Image
-                        src={animal.images[0]}
-                        alt={`Picture of ${animal.name} No.0`}
-                        sizes="100%"
-                        width={100}
-                        height={100}
-                        style={{ width: "100%", height: "300px", objectFit: "cover" }}
-                        placeholder="blur"
-                        blurDataURL={animal.images[0]}
-                        quality={74}
-                        className="rounded-xl grow shadow"
-                    />
+                        {/* Main Image */}
+                        <Image
+                            src={animal.images[0]}
+                            alt={`Picture of ${animal.name} No.0`}
+                            sizes="100%"
+                            width={500}
+                            height={500}
+                            style={{ objectFit: "cover" }}
+                            placeholder="blur"
+                            blurDataURL={animal.images[0]}
+                            quality={80}
+                            className="w-full sm:h-[500px] h-[300px] rounded-xl grow border border-black2/15 dark:border-white/15 shadow-lg dark:shadow-white/10"
+                        />
 
-                    {/* Data */}
-                    <Suspense fallback={<p>Loading...</p>}>
-                        <ShowData animal={animal} />
-                    </Suspense>
+                        {/* Data */}
+                        <Suspense fallback={<p>Loading...</p>}>
+                            <ShowData animal={animal} />
+                        </Suspense>
 
-                    {/* Button Contact */}
-                    {/* <a className="sm:col-span-2 button-theme px-9 py-3 rounded-full cursor-pointer mt-3 w-fit place-self-center sm:text-3xl text-xl outline-theme-800" href="https://mail.google.com/mail/u/1/?fs=1&to=test@hotmail.com&tf=cm" target="_blank">
-                        ติดต่อเพื่อขอรับเลี้ยง
-                    </a> */}
-                    {/* Other Images */}
-                    {
-                        animal.images.length > 1 &&
                         <div className="sm:col-span-2 ">
-                            <p className="md:text-2xl sm:text-xl text-lg text-center m-3">รูปภาพเพิ่มเติม</p>
+                            {/* Other Images */}
+                            {
+                                animal.images.length > 1 &&
+                                <>
+                                    <p className="md:text-2xl sm:text-xl text-lg text-center m-3">รูปภาพเพิ่มเติม</p>
 
-                            <div className={`columns-2 gap-4 sm:gap-8 space-y-8 ${animal.images.length - 1 >= 5 && "sm:columns-3"}`}>
-                                {
-                                    animal.images.filter((v, i) => i != 0).map((src, i) => (
-                                        <Image
-                                            key={i}
-                                            src={src}
-                                            height={100}
-                                            width={100}
-                                            sizes="100vw"
-                                            style={{ width: "100%", height: "100%", objectFit: "cover" }}
-                                            alt={`Picture of ${animal.name} No.${i}`}
-                                            className={`rounded-xl shadow ${i % 3 == 0 ? "aspect-3/2" : "aspect-square"}`}
-                                        />
-                                    ))
-                                }
-                            </div>
+                                    <div className={`columns-2 gap-4 sm:gap-8 space-y-8 ${animal.images.length - 1 >= 5 && "sm:columns-3"}`}>
+                                        {
+                                            animal.images.filter((v, i) => i != 0).map((src, i) => (
+                                                <Image
+                                                    key={i}
+                                                    src={src}
+                                                    height={100}
+                                                    width={100}
+                                                    sizes="100vw"
+                                                    style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                                                    alt={`Picture of ${animal.name} No.${i}`}
+                                                    className={`rounded-xl shadow ${i % 3 == 0 ? "aspect-3/2" : "aspect-square"}`}
+                                                />
+                                            ))
+                                        }
+                                    </div>
+                                </>
+                            }
                         </div>
-                    }
+                    </div>
+                    <RequestForm animalId={animal._id} />
+
                 </div>
-                <RequestForm animalId={animal._id}/>
-
-            </div>
-
+            </section>
         </>
     )
 }

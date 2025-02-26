@@ -23,10 +23,10 @@ export default async function Animals() {
 
                 <div className="grid space-x-3 p-3">
                     {/* Animals */}
-                    <div className="bg-theme-100/50 dark:bg-white/5 rounded-3xl sm:p-5 p-3 overflow-x-auto">
+                    <div className="bg-theme-50 dark:bg-white/5 rounded-3xl sm:p-5 p-3 overflow-x-auto">
 
                         {/* Create Animal */}
-                        <Link href={"/dashboard/animals/create"} className="button-secondary w-fit flex flex-row px-4 py-3 rounded-full mb-3 cursor-pointer space-x-1">
+                        <Link role="button" href={"/dashboard/animals/create"} className="button-secondary w-fit flex flex-row px-4 py-3 rounded-full mb-3 cursor-pointer space-x-1">
                             <PlusIcon className="size-6" /><span>เพิ่มสัตว์</span>
                         </Link>
 

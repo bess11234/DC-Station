@@ -35,9 +35,9 @@ export function ShowKnowledges({ knowledges }: { knowledges: Promise<Knowledge[]
     return (
         <>
             {showKnowledges[indexKnowledges].map((knowledge, i) => (
-                <div key={i} className="relative grid rounded-3xl dark:shadow-theme-50/10 md:text-xl sm:text-lg text-base bg-theme-200/15 dark:bg-white/5 p-3 hover:shadow-md">
+                <div key={i} className="relative grid rounded-3xl dark:shadow-theme-50/10 card-theme md:text-xl sm:text-lg text-base p-3 hover:shadow-md">
                     {/* Display Delete */}
-                    <DeleteItem id={knowledge._id} name={knowledge.title} index={i} handleDelete={deleteKnowledge} />
+                    <DeleteItem id={knowledge._id} name={knowledge.title} index={"knowledge"+i} handleDelete={deleteKnowledge} />
 
                     {/* Edit button */}
                     <EditItem href={`/dashboard/knowledges/editing/${knowledge._id}`} />

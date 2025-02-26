@@ -15,6 +15,6 @@ export function DisplayDateCard({ date }: Props) {
         return `${day} ${month} ${year}`
     }
     return (
-        <p className="absolute sm:top-3 top-2 text-xs">{displayDate(date)}</p>
+        <p className="absolute sm:top-3 top-2 text-xs">วันที่ {displayDate(date)}</p>
     )
 }

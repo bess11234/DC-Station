@@ -4,7 +4,7 @@ import { XCircleIcon } from "@heroicons/react/24/outline";
 interface Prop { 
     id: string;
     name: string;
-    index: number;
+    index: string;
     handleDelete: (id: string) => void;
 }
 

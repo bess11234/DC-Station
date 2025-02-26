@@ -66,7 +66,7 @@ export function EditingKnowledge({ knowledge }: { knowledge: Knowledge }) {
 
             {/* Title Content */}
             <p className="md:text-5xl sm:text-4xl text-3xl text-center py-3">{preview ? inputKnowledge.title : knowledge.title}</p>
-            {preview && <p className="indent-4 opacity-50">{inputKnowledge.describe}</p>}
+            {preview && <p className="indent-4 opacity-50 mb-3">{inputKnowledge.describe}</p>}
 
             <div className="relative">
                 <div className={`${preview && "hidden"} absolute bottom-0 right-0 mr-2 mb-2`} aria-label="Edit main image" role="button">
@@ -112,7 +112,7 @@ export function EditingKnowledge({ knowledge }: { knowledge: Knowledge }) {
                 </div>
             </div>
 
-            <div>
+            <div className="my-3">
                 {preview && parse(inputContentKnowledge)}
             </div>
 

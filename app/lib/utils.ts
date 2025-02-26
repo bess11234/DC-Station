@@ -26,3 +26,18 @@ export function displayMonthThai(month: number) {
       return "ธ.ค";
   }
 }
+
+export function displayIllness(status: "Under treatment" | "Recovered" | "Chronic" | "Under surveillance"){
+  if (status == "Under treatment"){
+    return "กำลังรักษา"
+  }
+  if (status == "Chronic"){
+    return "เรื้อรัง"
+  }
+  if (status == "Recovered"){
+    return "หายแล้ว"
+  }
+  if (status == "Under surveillance"){
+    return "เฝ้าระวัง"
+  }
+}
