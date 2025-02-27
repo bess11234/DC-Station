@@ -98,7 +98,7 @@ export async function fetchKnowledgeId(id: string): Promise<Knowledge> {
 }
 
 // Show number of knowledges
-export async function fetchfetchKnowledgeCount(): Promise<number> {
+export async function fetchKnowledgeCount(): Promise<number> {
   const response = await fetch(`http://localhost:5000/api/counts/knowledges`, {
     next: { tags: ["knowledges"] },
   })
@@ -124,6 +124,19 @@ export async function fetchRequest(): Promise<Knowledge[]> {
   }
   const data: Response<Knowledge[]> = await response.json();
   return data.message;
+}
+
+// Show number of requests
+export async function fetchRequestCount(): Promise<number> {
+  const response = await fetch(`http://localhost:5000/api/counts/requests`, {
+    next: { tags: ["requests"] },
+  })
+  .catch((error) => {
+    throw new Error(error)
+  })
+
+  const count = (await response.json()).message
+  return count
 }
 
 // <---------------------------- Manager ---------------------------->

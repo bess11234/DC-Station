@@ -112,6 +112,10 @@ h6 {
   @apply text-theme-600 bg-theme-200/35 hover:bg-theme-200/60 active:bg-theme-200 disabled:bg-theme-900/10 disabled:text-theme-900/40 dark:text-theme-400 dark:bg-theme-900/40 dark:hover:bg-theme-900/50 dark:active:bg-theme-900/60 dark:disabled:bg-theme-100/5 dark:disabled:text-theme-100/20 font-semibold disabled:cursor-not-allowed;
 }
 
+.button-theme-secondary {
+  
+}
+
 .button-theme-primary {
   @apply text-white bg-theme-800 hover:bg-theme-800/90 active:bg-theme-800/85 disabled:bg-theme-900/10 disabled:text-theme-900/40 dark:text-theme-700 dark:bg-theme-200 dark:hover:bg-theme-200/98 dark:active:bg-theme-200/95 dark:disabled:bg-theme-100/5 dark:disabled:text-theme-100/20 font-semibold disabled:cursor-not-allowed;
 }
@@ -140,7 +144,7 @@ h6 {
 /* DaisyUI */
 
 .range-theme {
-  @apply text-theme-300;
+  @apply text-theme-400 dark:text-theme-300;
   /* color: var(--color-theme-400) var(--color-error); */
   --range-thumb: var(--color-theme-950) /* var(--color-error-content) */;
 }

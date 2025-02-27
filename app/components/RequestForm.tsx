@@ -121,7 +121,7 @@ export function RequestForm({animalId}: {animalId : string}) {
                     </div>
                 </div>
                 <div className="flex justify-end">
-                    <button className="cursor-pointer mt-1 p-3 rounded-2xl button-theme-primary" type="submit">ยืนยันการรับเลี้ยง</button>
+                    <button className="cursor-pointer mt-1 p-3 px-5 rounded-2xl button-theme" type="submit">ยืนยันการรับเลี้ยง</button>
                 </div> 
             </form>
         </div>

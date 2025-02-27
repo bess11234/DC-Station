@@ -112,7 +112,7 @@ export function CreateKnowledge({ knowledge }: { knowledge: Knowledge }) {
                 </div>
             </div>
 
-            <div>
+            <div className="my-3">
                 {preview && parse(inputContentKnowledge)}
             </div>
 

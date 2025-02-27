@@ -19,13 +19,13 @@ export default function Contact() {
                     {/* Phone */}
                     <div className="flex items-center gap-3 mt-4">
                         <button className="bg-theme-300/40 dark:bg-theme-700/80 rounded-full p-3"><PhoneIcon className="size-8 text-theme-800 dark:text-theme-50" /></button>
-                        <span className="md:text-xl text-lg">123-456-7890</span>
+                        <span className="select-all md:text-xl text-lg">123-456-7890</span>
                     </div>
 
                     {/* Mail */}
                     <div className="flex items-center gap-3 mt-4">
                         <button className="bg-theme-300/40 dark:bg-theme-700/80 rounded-full p-3"><EnvelopeIcon className="size-8 text-theme-800 dark:text-theme-50" /></button>
-                        <span className="md:text-xl text-lg">test@mail.com</span>
+                        <span className="select-all md:text-xl text-lg">test@mail.com</span>
                     </div>
                 </div>
             </div>

@@ -16,7 +16,7 @@ export interface CardType {
 export function Card({ src, title, desc, hrefLink, date }: CardType) {
     const { push } = useRouter()
     return (
-        <div className="select-none card bg-theme-50 dark:bg-theme-950/50 rounded-xl md:max-h-[400px] max-h-[350px] max-w-full hover:shadow-lg dark:shadow-white/15">
+        <div className="select-none card bg-theme-50 dark:bg-theme-950/50 rounded-xl md:max-h-[400px] max-h-[350px] max-w-full hover:shadow dark:shadow-white/15">
             <figure className="rounded-t-xl">
                 <Image
                     src={src}

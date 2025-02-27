@@ -248,7 +248,7 @@ export function EditingAnimal({ animal, knowledges }: { animal: Animal, knowledg
             </div>
 
             <div className="grid *:py-3 md:text-lg sm:text-base text-sm">
-                <div className="grid sm:grid-cols-2 grid-cols-1 py-0! *:text-nowrap sm:space-x-3 items-center">
+                <div className="grid md:grid-cols-3 xs:grid-cols-2 py-0! *:text-nowrap gap-x-3 items-center">
                     {/* ชื่อ */}
                     <div className="grid">
                         <label className="text-2xl py-3" htmlFor="animalName">ชื่อ: <span className="text-red-500">*</span></label>
@@ -260,6 +260,15 @@ export function EditingAnimal({ animal, knowledges }: { animal: Animal, knowledg
                         <label className="text-2xl py-3" htmlFor="animalDob">วันเกิด: <span className="text-red-500">*</span></label>
                         <input className="p-3 w-full rounded-xl input-focus-theme invalid:text-red-500" onChange={(e) => handleInput(e.target.value, "dob")} type="date" name="dob" id="animalDob" defaultValue={animal.dob} max={new Date().toISOString().split("T")[0]} required />
                     </div>
+
+                    {/* สายพันธุ์ */}
+                    <div className="grid">
+                        <label className="text-2xl py-3" htmlFor="animalDob">สายพันธุ์: <span className="text-red-500">*</span></label>
+                        <select className="*:bg-white *:dark:bg-black2 p-3 w-full rounded-xl input-focus-theme" onChange={(e) => handleInput(e.target.value, "specie")} name="specie" id="animalSpecie" required>
+                            <option value="Dog">หมา 🐶</option>
+                            <option value="Cat">แมว 🐱</option>
+                        </select>
+                    </div>  
                 </div>
 
                 <div className="grid sm:grid-cols-4 grid-cols-1 py-0! *:text-nowrap sm:space-x-3 items-center">
