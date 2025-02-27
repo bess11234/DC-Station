@@ -1,3 +1,5 @@
+import { Metadata } from "next";
+
 import { Card } from "@/app/components/Card"
 
 import { fetchKnowledges } from '@/app/lib/data';
@@ -5,6 +7,9 @@ import type { Knowledge } from '@/app/lib/definition';
 
 import { SearchAnimals } from "@/app/components/SearchBox";
 
+export const metadata: Metadata = {
+    title: "Knowledges"
+}
 
 export default async function KnowledgesPage(props : {
     searchParams?: Promise<{

@@ -46,7 +46,7 @@ export function ShowAnimals({ animals }: { animals: Promise<Animal[][]> }) {
     return (
         <>
             {showAnimals[indexAnimals].map((animal, i) => (
-                <div key={i} className="relative grid rounded-3xl dark:shadow-theme-50/10 md:text-xl sm:text-lg text-base card-theme dark:bg-white/5 p-3 hover:shadow-md">
+                <div key={i} className="relative grid rounded-3xl dark:shadow-theme-50/10 md:text-xl sm:text-lg text-base card-theme dark:bg-white/5 sm:py-4 sm:px-6 py-3 px-3 hover:shadow-md">
                     {/* Display Delete */}
                     <DeleteItem id={animal._id} name={animal.name} index={"animal"+i} handleDelete={deleteAnimal} />
 

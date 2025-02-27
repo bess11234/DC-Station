@@ -422,8 +422,8 @@ export function CreateAnimal({ animal, knowledges }: { animal: Animal, knowledge
                                 {/* Display Knowledges */}
                                 <div className="my-3 space-y-3">
                                     {knowledges.map((v, i) => (
-                                        <div className="flex space-x-3" key={i}>
-                                            <input id={`knowledges_${v._id}`} onChange={() => handleInputKnowledges(v._id)} className="peer bg-theme-600" type="checkbox" defaultChecked={inputKnowledges.includes(v._id)} />
+                                        <div className="flex space-x-3 items-center" key={i}>
+                                            <input id={`knowledges_${v._id}`} onChange={() => handleInputKnowledges(v._id)} className="peer checkbox" type="checkbox" defaultChecked={inputKnowledges.includes(v._id)} />
                                             <label htmlFor={`knowledges_${v._id}`} className="grid p-3 sm:rounded-3xl rounded-xl dark:shadow-theme-50/10 md:text-xl sm:text-lg text-base bg-theme-100/80 peer-checked:bg-theme-200 dark:bg-white/5 dark:peer-checked:bg-theme-300/20">
                                                 <div className="flex items-center space-x-5">
                                                     <Image

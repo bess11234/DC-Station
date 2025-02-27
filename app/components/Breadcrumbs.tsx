@@ -8,25 +8,32 @@ import { ChevronLeftIcon } from "@heroicons/react/24/outline"
 import { fetchAnimalId, fetchKnowledgeId } from "../lib/data"
 
 export function Breadcrumbs() {
+    const pathName = usePathname()
+
     // Animal State
     const [fetchName, setFetchName] = useState<string>("")
 
     async function getFetchName(id: string, fetch: "animal" | "knowledge") {
         if (fetch == "animal") {
             const animal = await fetchAnimalId(id)
-            if (animal) {
-                setFetchName(animal.name)
+            if (pathName.indexOf("find-house") !== -1) {
+                if (animal && !animal.adoptionDate) {
+                    setFetchName(animal.name)
+                }
+            }
+            if (pathName.indexOf("found-house") !== -1) {
+                if (animal && !!animal.adoptionDate) {
+                    setFetchName(animal.name)
+                }
             }
         }
-        if (fetch == "knowledge"){
+        if (fetch == "knowledge") {
             const knowledge = await fetchKnowledgeId(id)
-            if (knowledge){
+            if (knowledge) {
                 setFetchName(knowledge.title)
             }
         }
     }
-
-    const pathName = usePathname()
 
     let pathLink: string[] | ReactElement[] = pathName.split("/")
     let lastLink: ReactElement = <span></span>
@@ -42,13 +49,14 @@ export function Breadcrumbs() {
         if (keyFetch) {
             getFetchName(text, keyFetch)
             text = fetchName
-            if (!fetchName) isGenerated = false // ไม่ทำการ Generate หากไม่เจอสัตว์
+            if (!fetchName) isGenerated = false // ไม่ทำการ Generate หาก FetchName ไม่มี
             keyFetch = ""
         }
 
         // Normal Case
         if (v == "") text = "หน้าหลัก"
-        if (v == "find-house") { text = "หาบ้านให้น้อง"; keyFetch = "animal" }
+        if (v == "find-house") { text = "น้องหาบ้าน"; keyFetch = "animal" }
+        if (v == "found-house") { text = "น้องมีบ้านแล้ว"; keyFetch = "animal" }
         if (v == "contact") { text = "ติดต่อสอบถาม"; }
         if (v == "knowledges") { text = "เกร็ดความรู้"; keyFetch = "knowledge" }
 

@@ -29,7 +29,7 @@ export async function fetchAnimals(
 
 // Show Animal Data from ID
 export async function fetchAnimalId(id: string): Promise<Animal> {
-  const response = await fetch(`http://localhost:5000/api/animals/${id}`, {
+  const response = await fetch(`http://localhost:5000/api/animals/id/${id}`, {
     next: { tags: ["animals"] },
   });
   // หากไม่ Status: ok จะทำการส่งตัวเปล่า
@@ -42,17 +42,56 @@ export async function fetchAnimalId(id: string): Promise<Animal> {
   return data.message;
 }
 
+// Show find house Animals
+export async function fetchFindHouseAnimals(
+  skip: number = 0,
+  limit: number = 0
+): Promise<Animal[]> {
+  const response = await fetch(
+    `http://localhost:5000/api/animals/find-house?skip=${skip}&limit=${limit}`,
+    {
+      next: { tags: ["animals"] },
+    }
+  );
+  if (!response.ok) {
+    const data = await response.json();
+    if (response.status == 404) return data.message;
+    throw new Error(`${response.status} ${data.message}`);
+  }
+  const data: Response<Animal[]> = await response.json();
+  return data.message;
+}
+
+// Show find house Animals
+export async function fetchFoundHouseAnimals(
+  skip: number = 0,
+  limit: number = 0
+): Promise<Animal[]> {
+  const response = await fetch(
+    `http://localhost:5000/api/animals/found-house?skip=${skip}&limit=${limit}`,
+    {
+      next: { tags: ["animals"] },
+    }
+  );
+  if (!response.ok) {
+    const data = await response.json();
+    if (response.status == 404) return data.message;
+    throw new Error(`${response.status} ${data.message}`);
+  }
+  const data: Response<Animal[]> = await response.json();
+  return data.message;
+}
+
 // Show number of animals
 export async function fetchAnimalCount(): Promise<number> {
   const response = await fetch(`http://localhost:5000/api/counts/animals`, {
     next: { tags: ["animals"] },
-  })
-  .catch((error) => {
-    throw new Error(error)
-  })
+  }).catch((error) => {
+    throw new Error(error);
+  });
 
-  const count = (await response.json()).message
-  return count
+  const count = (await response.json()).message;
+  return count;
 }
 
 // <---------------------------- Knowledge ---------------------------->
@@ -69,10 +108,16 @@ export const knowledge: Knowledge[] = [
   },
 ];
 
-export async function fetchKnowledges(skip: number = 0, limit: number = 0): Promise<Knowledge[]> {
-  const response = await fetch(`http://localhost:5000/api/knowledges?skip=${skip}&limit=${limit}`, {
-    next: { tags: ["knowledges"] },
-  });
+export async function fetchKnowledges(
+  skip: number = 0,
+  limit: number = 0
+): Promise<Knowledge[]> {
+  const response = await fetch(
+    `http://localhost:5000/api/knowledges?skip=${skip}&limit=${limit}`,
+    {
+      next: { tags: ["knowledges"] },
+    }
+  );
   if (!response.ok) {
     if (response.status == 404) notFound();
 
@@ -101,13 +146,12 @@ export async function fetchKnowledgeId(id: string): Promise<Knowledge> {
 export async function fetchKnowledgeCount(): Promise<number> {
   const response = await fetch(`http://localhost:5000/api/counts/knowledges`, {
     next: { tags: ["knowledges"] },
-  })
-  .catch((error) => {
-    throw new Error(error)
-  })
+  }).catch((error) => {
+    throw new Error(error);
+  });
 
-  const count = (await response.json()).message
-  return count
+  const count = (await response.json()).message;
+  return count;
 }
 
 // <---------------------------- Request ---------------------------->
@@ -130,13 +174,12 @@ export async function fetchRequest(): Promise<Knowledge[]> {
 export async function fetchRequestCount(): Promise<number> {
   const response = await fetch(`http://localhost:5000/api/counts/requests`, {
     next: { tags: ["requests"] },
-  })
-  .catch((error) => {
-    throw new Error(error)
-  })
+  }).catch((error) => {
+    throw new Error(error);
+  });
 
-  const count = (await response.json()).message
-  return count
+  const count = (await response.json()).message;
+  return count;
 }
 
 // <---------------------------- Manager ---------------------------->

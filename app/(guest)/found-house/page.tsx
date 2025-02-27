@@ -2,17 +2,17 @@ import { Metadata } from "next"
 import { Suspense } from "react"
 
 import { Animal } from "@/app/lib/definition"
-import { fetchFindHouseAnimals } from "@/app/lib/data"
+import { fetchFoundHouseAnimals } from "@/app/lib/data"
 
 import { AnimalsElement } from "@/app/components/animals/AnimalsElement"
 import { FilterAnimals } from "@/app/components/animals/FilterAnimals"
 
 export const metadata: Metadata = {
-    title: "Find House"
+    title: "Found House"
 }
 
-export default async function FindHouse() {
-    const animals: Animal[] = await fetchFindHouseAnimals()
+export default async function Found0House() {
+    const animals: Animal[] = await fetchFoundHouseAnimals()
     return (
         <>
             {/* Title Content */}

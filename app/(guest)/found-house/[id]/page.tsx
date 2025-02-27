@@ -5,13 +5,11 @@ import { Suspense } from "react"
 import { fetchAnimalId } from "@/app/lib/data"
 import { ShowData } from "../../../components/animals/showData"
 
-import { RequestForm } from "@/app/components/RequestForm"
-
-export default async function FindHouseID({ params }: { params: Promise<{ id: string }> }) {
+export default async function FoundHouseID({ params }: { params: Promise<{ id: string }> }) {
     const id = (await params).id
     const animal = await fetchAnimalId(id)
     if (!animal) notFound();
-    if (animal && !!animal.adoptionDate) notFound();
+    if (animal && !animal.adoptionDate) notFound();
 
     return (
         <>
@@ -69,7 +67,6 @@ export default async function FindHouseID({ params }: { params: Promise<{ id: st
                             }
                         </div>
                     </div>
-                    <RequestForm animalId={animal._id} />
 
                 </div>
             </section>
