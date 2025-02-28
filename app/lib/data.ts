@@ -7,7 +7,7 @@ type Response<T> = {
 };
 
 // <---------------------------- Animal ---------------------------->
-// Show Animals Data
+// Show All Animals
 export async function fetchAnimals(
   skip: number = 0,
   limit: number = 0
@@ -27,7 +27,7 @@ export async function fetchAnimals(
   return data.message;
 }
 
-// Show Animal Data from ID
+// Show Specific Animal
 export async function fetchAnimalId(id: string): Promise<Animal> {
   const response = await fetch(`http://localhost:5000/api/animals/id/${id}`, {
     next: { tags: ["animals"] },
@@ -62,7 +62,7 @@ export async function fetchFindHouseAnimals(
   return data.message;
 }
 
-// Show find house Animals
+// Show found house Animals
 export async function fetchFoundHouseAnimals(
   skip: number = 0,
   limit: number = 0
@@ -108,6 +108,7 @@ export const knowledge: Knowledge[] = [
   },
 ];
 
+// Show All Knowledge
 export async function fetchKnowledges(
   skip: number = 0,
   limit: number = 0
@@ -128,6 +129,7 @@ export async function fetchKnowledges(
   return data.message;
 }
 
+// Show Specific Knowledge
 export async function fetchKnowledgeId(id: string): Promise<Knowledge> {
   const response = await fetch(`http://localhost:5000/api/knowledges/${id}`, {
     next: { tags: ["knowledges"] },
@@ -156,6 +158,7 @@ export async function fetchKnowledgeCount(): Promise<number> {
 
 // <---------------------------- Request ---------------------------->
 
+// Show All Request
 export async function fetchRequest(skip: number = 0, limit: number = 0): Promise<Request[]> {
   const response = await fetch(`http://localhost:5000/api/requests?skip=${skip}&limit=${limit}`, {
     next: { tags: ["requests"] },
@@ -170,6 +173,7 @@ export async function fetchRequest(skip: number = 0, limit: number = 0): Promise
   return data.message;
 }
 
+// Show Specific Request
 export async function fetchRequestId(id: string): Promise<Request[]> {
   const response = await fetch(`http://localhost:5000/api/request/${id}`, {
     next: {tags: ["requests"]},
@@ -184,7 +188,22 @@ export async function fetchRequestId(id: string): Promise<Request[]> {
   return data.message
 }
 
-// Show number of requests
+// Show Request Specific Animal
+export async function fetchRequestAnimalId(id: string): Promise<Request[]> {
+  const response = await fetch(`http://localhost:5000/api/request/animal/${id}`, {
+    next: {tags: ["requests"]},
+  });
+  if (!response.ok) {
+    if (response.status == 404) notFound();
+
+    const data = await response.json();
+    throw new Error(`${response.status} ${data.message}`);
+  }
+  const data: Response<Request[]> = await response.json();
+  return data.message
+}
+
+// Show Number Of Requests
 export async function fetchRequestCount(): Promise<number> {
   const response = await fetch(`http://localhost:5000/api/counts/requests`, {
     next: { tags: ["requests"] },
