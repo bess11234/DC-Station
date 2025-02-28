@@ -94,6 +94,30 @@ export async function fetchAnimalCount(): Promise<number> {
   return count;
 }
 
+// Show number of animal finding house
+export async function fetchAnimalFindHouseCount(): Promise<number> {
+  const response = await fetch(`http://localhost:5000/api/counts/animals/find-house`, {
+    next: { tags: ["animals"] },
+  }).catch((error) => {
+    throw new Error(error);
+  });
+
+  const count = (await response.json()).message;
+  return count;
+}
+
+// Show number of animal found house
+export async function fetchAnimalFoundHouseCount(): Promise<number> {
+  const response = await fetch(`http://localhost:5000/api/counts/animals/found-house`, {
+    next: { tags: ["animals"] },
+  }).catch((error) => {
+    throw new Error(error);
+  });
+
+  const count = (await response.json()).message;
+  return count;
+}
+
 // <---------------------------- Knowledge ---------------------------->
 
 export const knowledge: Knowledge[] = [
@@ -173,6 +197,18 @@ export async function fetchRequest(): Promise<Knowledge[]> {
 // Show number of requests
 export async function fetchRequestCount(): Promise<number> {
   const response = await fetch(`http://localhost:5000/api/counts/requests`, {
+    next: { tags: ["requests"] },
+  }).catch((error) => {
+    throw new Error(error);
+  });
+
+  const count = (await response.json()).message;
+  return count;
+}
+
+// Show number of pending requests
+export async function fetchRequestPendingCount(): Promise<number> {
+  const response = await fetch(`http://localhost:5000/api/counts/requests/pending`, {
     next: { tags: ["requests"] },
   }).catch((error) => {
     throw new Error(error);

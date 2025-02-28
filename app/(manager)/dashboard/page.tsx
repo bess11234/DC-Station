@@ -4,43 +4,44 @@ import Image from "next/image"
 import { ShowAnimals } from "@/app/components/(manager)/animals/ShowAnimals"
 import { ShowKnowledges } from "@/app/components/(manager)/knowledges/ShowKnowledges"
 
-import { InboxIcon, BookmarkSquareIcon, ArrowRightIcon, PlusIcon, ClockIcon, DocumentIcon, HomeIcon, HomeModernIcon } from "@heroicons/react/24/outline"
+import { InboxIcon, BookmarkSquareIcon, ArrowRightIcon, PlusIcon } from "@heroicons/react/24/outline"
+import { ClockIcon, DocumentIcon, HomeIcon, HomeModernIcon } from "@heroicons/react/24/solid"
 
-import { fetchAnimalCount, fetchKnowledgeCount, fetchAnimals, fetchKnowledges } from "@/app/lib/data"
+import { fetchAnimalCount, fetchKnowledgeCount, fetchAnimals, fetchKnowledges, fetchAnimalFindHouseCount, fetchAnimalFoundHouseCount, fetchRequestCount, fetchRequestPendingCount } from "@/app/lib/data"
 
 export default async function DashBoard() {
-    const [countAnimal, countKnowledge] = await Promise.all([fetchAnimalCount(), fetchKnowledgeCount()])
+    const [countAnimal, countKnowledge, countAnimalsFindHouse, countAnimalsFoundHouse, countRequests, countRequestsPending] = await Promise.all([fetchAnimalCount(), fetchKnowledgeCount(), fetchAnimalFindHouseCount(), fetchAnimalFoundHouseCount(), fetchRequestCount(), fetchRequestPendingCount()])
     const animals = Promise.all([fetchAnimals(0, 3)])
     const knowledges = Promise.all([fetchKnowledges(0, 3)])
     return (
         <>
             <div className="flex flex-col w-full py-8">
                 {/* Title */}
-                <p className="md:text-5xl sm:text-4xl text-3xl font-semibold text-center my-3">แดชบอร์ด</p>
+                <p className="md:text-5xl sm:text-4xl text-3xl font-bold text-center my-3">แดชบอร์ด</p>
 
                 <div className="grid lg:grid-cols-4 grid-cols-2 sm:gap-6 gap-4 p-3 mb-6">
-                    <div className="grid justify-items-center gap-2 bg-theme-200/40 dark:bg-theme-700/20 rounded-3xl sm:py-6 sm:px-8 py-3 px-4">
+                    <div className="grid justify-items-center gap-2 bg-theme-200/40 dark:bg-theme-700/20 rounded-3xl sm:py-6 sm:px-8 py-3 px-4 border border-black2/5 dark:border-white/5 shadow-lg dark:shadow-white/3">
                         <ClockIcon className="w-[10vw] h-[10vw] min-w-[50px] min-h-[50px]" />
-                        <p className="text-center lg:text-3xl md:text-2xl text-lg">คำร้องขอที่ยังไม่ตอบ</p>
-                        <p className="lg:text-6xl md:text-5xl text-3xl">10</p>
+                        <p className="text-center lg:text-3xl md:text-2xl text-lg font-semibold">คำร้องขอที่ยังไม่ตอบ</p>
+                        <p className="lg:text-6xl md:text-5xl text-3xl text-theme-500 dark:text-theme-400 ">{countRequestsPending}</p>
                     </div>
 
-                    <div className="grid justify-items-center gap-2 bg-theme-200/40 dark:bg-theme-700/20 rounded-3xl sm:py-6 sm:px-8 py-3 px-4">
+                    <div className="grid justify-items-center gap-2 bg-theme-200/40 dark:bg-theme-700/20 rounded-3xl sm:py-6 sm:px-8 py-3 px-4 border border-black2/5 dark:border-white/5 shadow-lg dark:shadow-white/3">
                         <DocumentIcon className="w-[10vw] h-[10vw] min-w-[50px] min-h-[50px]" />
-                        <p className="text-center lg:text-3xl md:text-2xl text-lg">คำร้องขอทั้งหมด</p>
-                        <p className="lg:text-6xl md:text-5xl text-3xl">10</p>
+                        <p className="text-center lg:text-3xl md:text-2xl text-lg font-semibold">คำร้องขอทั้งหมด</p>
+                        <p className="lg:text-6xl md:text-5xl text-3xl">{countRequests}</p>
                     </div>
 
-                    <div className="grid justify-items-center gap-2 bg-theme-200/40 dark:bg-theme-700/20 rounded-3xl sm:py-6 sm:px-8 py-3 px-4">
+                    <div className="grid justify-items-center gap-2 bg-theme-200/40 dark:bg-theme-700/20 rounded-3xl sm:py-6 sm:px-8 py-3 px-4 border border-black2/5 dark:border-white/5 shadow-lg dark:shadow-white/3">
                         <HomeIcon className="w-[10vw] h-[10vw] min-w-[50px] min-h-[50px]" />
-                        <p className="text-center lg:text-3xl md:text-2xl text-lg">สัตว์ที่ต้องการบ้าน</p>
-                        <p className="lg:text-6xl md:text-5xl text-3xl">10</p>
+                        <p className="text-center lg:text-3xl md:text-2xl text-lg font-semibold">สัตว์ที่ต้องการบ้าน</p>
+                        <p className="lg:text-6xl md:text-5xl text-3xl">{countAnimalsFindHouse}</p>
                     </div>
 
-                    <div className="grid justify-items-center gap-2 bg-theme-200/40 dark:bg-theme-700/20 rounded-3xl sm:py-6 sm:px-8 py-3 px-4">
+                    <div className="grid justify-items-center gap-2 bg-theme-200/40 dark:bg-theme-700/20 rounded-3xl sm:py-6 sm:px-8 py-3 px-4 border border-black2/5 dark:border-white/5 shadow-lg dark:shadow-white/3">
                         <HomeModernIcon className="w-[10vw] h-[10vw] min-w-[50px] min-h-[50px]" />
-                        <p className="text-center lg:text-3xl md:text-2xl text-lg">สัตว์ที่ได้รับบ้าน</p>
-                        <p className="lg:text-6xl md:text-5xl text-3xl">10</p>
+                        <p className="text-center lg:text-3xl md:text-2xl text-lg font-semibold">สัตว์ที่ได้รับบ้าน</p>
+                        <p className="lg:text-6xl md:text-5xl text-3xl">{countAnimalsFoundHouse}</p>
                     </div>
 
                 </div>

@@ -68,11 +68,10 @@ export function ShowAnimals({ animals }: { animals: Promise<Animal[][]> }) {
                             <Suspense fallback={<p>Loading...</p>}>
                                 <span
                                     className={`text-xs px-3 py-1 rounded-full text-nowrap w-full text-center text-white font-semibold
-                                    ${isLoading ? "cursor-wait" : "cursor-pointer"}
-                                    ${!animal.adoptionDate ? (showAnimalRequest[i]?.length ? "bg-sky-500 dark:bg-sky-400" : "bg-red-500 dark:bg-red-400") : "bg-green-500 dark:bg-green-400"}`}>
+                                    ${!animal.adoptionDate ? (showAnimalRequest[i]?.length ? "bg-sky-500 dark:bg-sky-600" : "bg-red-400 dark:bg-red-600") : "bg-green-500 dark:bg-green-600"}`}>
                                     {!animal.adoptionDate ?
                                         (showAnimalRequest[i]?.length ?
-                                            <Link href={"#"} onClick={() => setIsLoading(true)} className="flex hover:opacity-70 active:opacity-80 justify-self-center">คำร้องขอ&nbsp;<span className="animate-pulse">({showAnimalRequest[i]?.length})</span></Link>
+                                            <Link href={"#"} onClick={() => setIsLoading(true)} className={`flex hover:opacity-70 active:opacity-80 justify-self-center ${isLoading ? "cursor-wait" : "cursor-pointer"}`}>คำร้องขอ&nbsp;<span className="animate-pulse">({showAnimalRequest[i]?.length})</span></Link>
                                             : "รอรับเลี้ยง")
                                         : "ถูกรับเลี้ยง"}
                                 </span>
