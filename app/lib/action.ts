@@ -296,7 +296,7 @@ export async function deleteKnowledge(id: string) {
 }
 
 // <--------------------REQUEST----------------------->
-//// <--------------------CREATE REQUEST----------------------->
+//// CREATE REQUEST
 
 const RequestFormSchema = z.object({
   id: z.string(),
@@ -384,4 +384,19 @@ export async function createRequest(
       message: `Error ${error}`,
     };
   }
+}
+
+//// DELETE REQUEST
+
+export async function deleteRequest(id: string) {
+  try {
+    fetch(`http://localhost:5000/api/reques/${id}`, {
+      method: "DELETE",
+    });
+  } catch (error) {
+    console.error(error);
+  }
+
+  revalidateCustom("requests");
+  redirect(`/dashboard/requests/`);
 }

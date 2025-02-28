@@ -112,8 +112,8 @@ export async function fetchKnowledgeCount(): Promise<number> {
 
 // <---------------------------- Request ---------------------------->
 
-export async function fetchRequest(): Promise<Knowledge[]> {
-  const response = await fetch(`http://localhost:5000/api/requests`, {
+export async function fetchRequest(skip: number = 0, limit: number = 0): Promise<Request[]> {
+  const response = await fetch(`http://localhost:5000/api/requests?skip=${skip}&limit=${limit}`, {
     next: { tags: ["requests"] },
   });
   if (!response.ok) {
@@ -122,8 +122,22 @@ export async function fetchRequest(): Promise<Knowledge[]> {
     const data = await response.json();
     throw new Error(`${response.status} ${data.message}`);
   }
-  const data: Response<Knowledge[]> = await response.json();
+  const data: Response<Request[]> = await response.json();
   return data.message;
+}
+
+export async function fetchRequestId(id: string): Promise<Request[]> {
+  const response = await fetch(`http://localhost:5000/api/request/${id}`, {
+    next: {tags: ["requests"]},
+  });
+  if (!response.ok) {
+    if (response.status == 404) notFound();
+
+    const data = await response.json();
+    throw new Error(`${response.status} ${data.message}`);
+  }
+  const data: Response<Request[]> = await response.json();
+  return data.message
 }
 
 // Show number of requests

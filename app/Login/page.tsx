@@ -111,7 +111,7 @@ export default function Login() {
       <div className='absolute sm:h-screen sm:w-2/5 w-full bg-white dark:bg-black2 border-0 insert-y right-0 flex-col flex justify-center items-center py-32 max-sm:bottom-0'>
 
         {/* Web title */}
-        <h1 className='md:text-5xl sm:text-4xl xs:text-3xl text-xl w-fit mb-7'>DC Station</h1>
+        <h1 className='md:text-5xl sm:text-4xl xs:text-3xl text-xl w-fit mb-7'>🐶DC Station🐱</h1>
 
         <form className='w-2/3' onSubmit={handleSubmit}>
 

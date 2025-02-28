@@ -67,7 +67,7 @@ export default async function FindHouseID({ params }: { params: Promise<{ id: st
                             }
                         </div>
                     </div>
-                    <RequestForm animalId={animal._id} />
+                    <RequestForm animalId={animal._id} animalName={animal.name} animalSpecie={animal.specie === "Dog"? "🐶":"🐱"}/>
 
                 </div>
             </section>
