@@ -14,7 +14,7 @@ export const metadata = {
 function Navbar() {
     const path = usePathname()
     const LinkPath = [
-        { name: "หาบ้านให้น้อง", link: "/find-house" },
+        { name: "น้องหาบ้าน", link: "/find-house" },
         { name: "เกร็ดความรู้", link: "/knowledges" },
         { name: "ติดต่อสอบถาม", link: "/contact" },
     ]

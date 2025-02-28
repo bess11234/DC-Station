@@ -1,5 +1,5 @@
 "use client"
-import { XCircleIcon } from "@heroicons/react/24/outline";
+import { FaTrashAlt } from "react-icons/fa"
 
 interface Prop { 
     id: string;
@@ -12,9 +12,9 @@ export function DeleteItem({ id, name, index, handleDelete }: Prop) {
     return (
         <>
             {/* Delete button */}
-            <div className="absolute z-10 -right-3 -top-3" aria-label="Delete" role="button" tabIndex={-1}>
-                <button popoverTarget={`deleteItem_${index}`} title="Delete" className="p-1.5 rounded-full cursor-pointer">
-                    <XCircleIcon className={`hover:opacity-40 active:opacity-60 transition-colors size-6`} />
+            <div className="absolute z-10 -right-1 -top-1" aria-label="Delete" role="button" tabIndex={-1}>
+                <button popoverTarget={`deleteItem_${index}`} title="Delete" className="rounded-full cursor-pointer">
+                    <FaTrashAlt className={`button-secondary hover:opacity-60 active:opacity-80 transition-colors size-5`} />
                 </button>
             </div>
 
@@ -23,7 +23,7 @@ export function DeleteItem({ id, name, index, handleDelete }: Prop) {
                 <div className="relative grid size-full justify-center items-center">
                     <div onClick={() => document.getElementById(`deleteItem_${index}`)?.hidePopover()} className="absolute bg-black2/10 dark:bg-black2/50 w-screen h-screen"></div>
                     <div className="relative z-10 bg-white dark:bg-neutral-950 border border-white/10 rounded-xl">
-                        <div className="px-6 py-3">
+                        <div className="px-8 py-6">
                             {/* Content */}
                             <p>ต้องการลบข้อมูล <span className="text-theme-400">{name}</span> ?</p>
                             <hr className="my-3" />

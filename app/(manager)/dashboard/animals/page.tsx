@@ -12,7 +12,7 @@ export default async function Animals() {
     const pageNumber = Math.ceil(countAnimal / 6)
     const fetchListAnimals = []
     for (let i = 0; i < pageNumber; i++) {
-        fetchListAnimals.push(fetchAnimals(i*6, 6))
+        fetchListAnimals.push(fetchAnimals(i * 6, 6))
     }
     const listAnimals = Promise.all(fetchListAnimals)
     return (
@@ -23,7 +23,7 @@ export default async function Animals() {
 
                 <div className="grid space-x-3 p-3">
                     {/* Animals */}
-                    <div className="bg-theme-50 dark:bg-white/5 rounded-3xl sm:p-5 p-3 overflow-x-auto">
+                    <div className="bg-theme-200/40 dark:bg-theme-700/20 rounded-3xl sm:p-5 p-3 hover:shadow-md dark:shadow-theme-50/10">
 
                         {/* Create Animal */}
                         <Link role="button" href={"/dashboard/animals/create"} className="button-secondary w-fit flex flex-row px-4 py-3 rounded-full mb-3 cursor-pointer space-x-1">

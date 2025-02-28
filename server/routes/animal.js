@@ -27,7 +27,7 @@ router.get("/", async (req, res) => {
 })
 
 // Get Specific Animal
-router.get("/:id", async (req, res) => {
+router.get("/id/:id", async (req, res) => {
     let animal
     try {
         animal = await Animal.findById(req.params.id);
@@ -46,9 +46,48 @@ router.get("/:id", async (req, res) => {
     res.status(200).json({ status: "ok", message: animal });
 })
 
+// Get all find house Animals
+router.get("/find-house", async (req, res) => {
+    let animal
+    try {
+        animal = await Animal.find({ adoptionDate: null }).sort({ createdAt: "desc" }).skip(req.query.skip).limit(req.query.limit);
+    } catch (error) {
+        console.log("error.message", error.message)
+        // res.status(500).json({ status: "error", message: error.message });
+        // หากไม่เจอจะให้ส่งตัว null มาแทน
+        animal = null
+    }
+
+    // not found
+    if (!animal || !animal.length) {
+        return res.status(404).json({ status: "error", message: null });
+    }
+    // found
+    res.status(200).json({ status: "ok", message: animal });
+})
+
+// Get all found house Animals
+router.get("/found-house", async (req, res) => {
+    let animal
+    try {
+        animal = await Animal.find({ adoptionDate: { $ne: null } }).sort({ adoptionDate: "asc", updatedAt: "desc" }).skip(req.query.skip).limit(req.query.limit);
+    } catch (error) {
+        console.log("error.message", error.message)
+        // res.status(500).json({ status: "error", message: error.message });
+        // หากไม่เจอจะให้ส่งตัว null มาแทน
+        animal = null
+    }
+
+    // not found
+    if (!animal || !animal.length) {
+        return res.status(404).json({ status: "error", message: null });
+    }
+    // found
+    res.status(200).json({ status: "ok", message: animal });
+})
+
 // Update Specific Animal
 router.put("/:id", async (req, res) => {
-    console.log(req.body.name)
     try {
         const animal = await Animal.findById(req.params.id);
         // not found

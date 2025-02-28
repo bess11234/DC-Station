@@ -4,7 +4,8 @@ import Image from "next/image"
 import { ShowAnimals } from "@/app/components/(manager)/animals/ShowAnimals"
 import { ShowKnowledges } from "@/app/components/(manager)/knowledges/ShowKnowledges"
 
-import { InboxIcon, HeartIcon, BookmarkSquareIcon, ArrowRightIcon, PlusIcon } from "@heroicons/react/24/outline"
+import { InboxIcon, BookmarkSquareIcon, ArrowRightIcon, PlusIcon, ClockIcon, DocumentIcon, HomeIcon, HomeModernIcon } from "@heroicons/react/24/outline"
+
 import { fetchAnimalCount, fetchKnowledgeCount, fetchAnimals, fetchKnowledges } from "@/app/lib/data"
 
 export default async function DashBoard() {
@@ -17,32 +18,36 @@ export default async function DashBoard() {
                 {/* Title */}
                 <p className="md:text-5xl sm:text-4xl text-3xl font-semibold text-center my-3">แดชบอร์ด</p>
 
-                <div className="grid lg:grid-cols-4 grid-cols-2 gap-x-6 gap-y-6 p-3">
-                    <div className="bg-theme-100/50 dark:bg-white/5 rounded-3xl sm:py-6 sm:px-8 py-3 px-4">
-                        <p className="lg:text-3xl md:text-2xl text-lg">จำนวนคำร้องขอที่ยังไม่ตอบ</p>
+                <div className="grid lg:grid-cols-4 grid-cols-2 sm:gap-6 gap-4 p-3 mb-6">
+                    <div className="grid justify-items-center gap-2 bg-theme-200/40 dark:bg-theme-700/20 rounded-3xl sm:py-6 sm:px-8 py-3 px-4">
+                        <ClockIcon className="w-[10vw] h-[10vw] min-w-[50px] min-h-[50px]" />
+                        <p className="text-center lg:text-3xl md:text-2xl text-lg">คำร้องขอที่ยังไม่ตอบ</p>
                         <p className="lg:text-6xl md:text-5xl text-3xl">10</p>
                     </div>
 
-                    <div className="bg-theme-100/50 dark:bg-white/5 rounded-3xl sm:py-6 sm:px-8 py-3 px-4">
-                        <p className="lg:text-3xl md:text-2xl text-lg">จำนวนคำร้องขอ</p>
+                    <div className="grid justify-items-center gap-2 bg-theme-200/40 dark:bg-theme-700/20 rounded-3xl sm:py-6 sm:px-8 py-3 px-4">
+                        <DocumentIcon className="w-[10vw] h-[10vw] min-w-[50px] min-h-[50px]" />
+                        <p className="text-center lg:text-3xl md:text-2xl text-lg">คำร้องขอทั้งหมด</p>
                         <p className="lg:text-6xl md:text-5xl text-3xl">10</p>
                     </div>
 
-                    <div className="bg-theme-100/50 dark:bg-white/5 rounded-3xl sm:py-6 sm:px-8 py-3 px-4">
-                        <p className="lg:text-3xl md:text-2xl text-lg">จำนวนสัตว์ที่ต้องการบ้าน</p>
+                    <div className="grid justify-items-center gap-2 bg-theme-200/40 dark:bg-theme-700/20 rounded-3xl sm:py-6 sm:px-8 py-3 px-4">
+                        <HomeIcon className="w-[10vw] h-[10vw] min-w-[50px] min-h-[50px]" />
+                        <p className="text-center lg:text-3xl md:text-2xl text-lg">สัตว์ที่ต้องการบ้าน</p>
                         <p className="lg:text-6xl md:text-5xl text-3xl">10</p>
                     </div>
 
-                    <div className="bg-theme-100/50 dark:bg-white/5 rounded-3xl sm:py-6 sm:px-8 py-3 px-4">
-                        <p className="lg:text-3xl md:text-2xl text-lg">จำนวนสัตว์ที่ได้รับบ้าน</p>
+                    <div className="grid justify-items-center gap-2 bg-theme-200/40 dark:bg-theme-700/20 rounded-3xl sm:py-6 sm:px-8 py-3 px-4">
+                        <HomeModernIcon className="w-[10vw] h-[10vw] min-w-[50px] min-h-[50px]" />
+                        <p className="text-center lg:text-3xl md:text-2xl text-lg">สัตว์ที่ได้รับบ้าน</p>
                         <p className="lg:text-6xl md:text-5xl text-3xl">10</p>
                     </div>
 
                 </div>
 
-                <div className="grid grid-cols-1 gap-6 p-3">
+                <div className="grid grid-cols-1 sm:gap-8 gap-6 p-3">
                     {/* Requests */}
-                    <div className="bg-theme-100/50 dark:bg-white/5 rounded-3xl sm:p-5 p-3 hover:shadow-md">
+                    <div className="bg-theme-200/40 dark:bg-theme-700/20 rounded-3xl sm:p-5 p-3 hover:shadow-md dark:shadow-theme-50/10">
                         <div className="flex items-center space-x-1">
                             <InboxIcon className="size-8" />
                             <p className="md:text-3xl sm:text-xl text-lg">คำร้องขอ (0)</p>
@@ -74,7 +79,7 @@ export default async function DashBoard() {
                         </div> */}
                     </div>
                     {/* Animals */}
-                    <div className="bg-theme-100/50 dark:bg-white/5 rounded-3xl sm:p-5 p-3 hover:shadow-md">
+                    <div className="bg-theme-200/40 dark:bg-theme-700/20 rounded-3xl sm:p-5 p-3 hover:shadow-md dark:shadow-theme-50/10">
                         {/* Head Title */}
                         <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
                             <div className="flex flex-wrap items-center space-x-3">
@@ -83,25 +88,25 @@ export default async function DashBoard() {
                                     <p className="md:text-3xl sm:text-xl text-lg">สัตว์ ({countAnimal})</p>
                                 </div>
                                 {/* Create Knowledge */}
-                                <Link role="button" href={"/dashboard/knowledges/create"} className="button-secondary w-fit flex flex-row px-4 py-3 rounded-full cursor-pointer space-x-1">
+                                <Link role="button" href={"/dashboard/animals/create"} className="button-secondary w-fit flex flex-row px-4 py-3 rounded-full cursor-pointer space-x-1">
                                     <PlusIcon className="size-6" /><span>เพิ่มสัตว์</span>
                                 </Link>
                             </div>
 
-                            <Link href={"/dashboard/knowledges"} className="hover:opacity-60 active:opacity-80 flex items-center space-x-1">
+                            <Link href={"/dashboard/animals"} className="px-3 hover:opacity-60 active:opacity-80 flex items-center space-x-1">
                                 <p>ดูเพิ่มเติม</p>
                                 <ArrowRightIcon className="size-4" />
                             </Link>
                         </div>
 
                         {/* Table */}
-                        <div className="grid gap-6 max-sm:gap-y-8 w-full max-w-[1500px] mx-auto mt-3">
+                        <div className="grid sm:gap-8 gap-6 py-3 w-full max-w-[1500px] mx-auto mt-3">
                             <ShowAnimals animals={animals} />
                         </div>
                     </div>
 
                     {/* Knowledges */}
-                    <div className="bg-theme-100/50 dark:bg-white/5 rounded-3xl sm:p-5 p-3 hover:shadow-md">
+                    <div className="bg-theme-200/40 dark:bg-theme-700/20 rounded-3xl sm:p-5 p-3 hover:shadow-md dark:shadow-theme-50/10">
                         {/* Head Title */}
                         <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
                             <div className="flex flex-wrap items-center space-x-3">
@@ -115,14 +120,14 @@ export default async function DashBoard() {
                                 </Link>
                             </div>
 
-                            <Link href={"/dashboard/knowledges"} className="hover:opacity-60 active:opacity-80 flex items-center space-x-1">
+                            <Link href={"/dashboard/knowledges"} className="px-3 hover:opacity-60 active:opacity-80 flex items-center space-x-1">
                                 <p>ดูเพิ่มเติม</p>
                                 <ArrowRightIcon className="size-4" />
                             </Link>
                         </div>
 
                         {/* Table */}
-                        <div className="grid gap-6 max-sm:gap-y-8 w-full max-w-[1500px] mx-auto mt-3">
+                        <div className="grid gap-8 py-3 max-sm:gap-y-8 w-full max-w-[1500px] mx-auto mt-3">
                             <ShowKnowledges knowledges={knowledges} />
                         </div>
                     </div>

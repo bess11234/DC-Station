@@ -45,7 +45,6 @@ router.get("/:id", async (req, res) => {
 
 //Update Specific Knowledge
 router.put("/:id", async (req, res) => {
-    console.log(req.body.name)
     try {
         const knowledge = await Knowledge.findById(req.params.id);
         //not found
