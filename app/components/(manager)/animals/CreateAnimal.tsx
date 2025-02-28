@@ -424,7 +424,7 @@ export function CreateAnimal({ animal, knowledges }: { animal: Animal, knowledge
                                     {knowledges.map((v, i) => (
                                         <div className="flex space-x-3 items-center" key={i}>
                                             <input id={`knowledges_${v._id}`} onChange={() => handleInputKnowledges(v._id)} className="peer checkbox" type="checkbox" defaultChecked={inputKnowledges.includes(v._id)} />
-                                            <label htmlFor={`knowledges_${v._id}`} className="grid p-3 sm:rounded-3xl rounded-xl dark:shadow-theme-50/10 md:text-xl sm:text-lg text-base bg-theme-100/80 peer-checked:bg-theme-200 dark:bg-white/5 dark:peer-checked:bg-theme-300/20">
+                                            <label htmlFor={`knowledges_${v._id}`} className="grid p-3 sm:rounded-3xl rounded-xl dark:shadow-theme-50/10 md:text-xl sm:text-lg text-base bg-theme-100/80 peer-checked:bg-theme-200 dark:bg-white/5 dark:peer-checked:bg-theme-300/20 cursor-pointer">
                                                 <div className="flex items-center space-x-5">
                                                     <Image
                                                         src={v.image}
@@ -462,7 +462,7 @@ export function CreateAnimal({ animal, knowledges }: { animal: Animal, knowledge
                                     placeholder="blur"
                                     blurDataURL={v.image}
                                     quality={74}
-                                    className="transition-transform hover:brightness-50 hover:cursor-pointer hover:scale-105"
+                                    className="transition-transform"
                                 />
                             </figure>
                             <div className="relative card-body max-sm:p-6 pb-4 lg:px-8 md:px-4 sm:px-4 max-sm:mt-1">
