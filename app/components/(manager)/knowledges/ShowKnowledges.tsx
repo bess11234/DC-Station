@@ -26,7 +26,7 @@ export function ShowKnowledges({ knowledges }: { knowledges: Promise<Knowledge[]
         const params = new URLSearchParams(searchParams);
         if (params.get("pages")) {
             const pages = Number(params.get("pages")) - 1
-            if (pages < showKnowledges.length && pages > 0) {
+            if (pages < showKnowledges.length && pages >= 0) {
                 setIndexKnowledges(pages)
             }
         }
