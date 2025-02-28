@@ -47,5 +47,6 @@ export type Request = {
     _id: string;
     requester: Requester;
     status: "Pending" | "Accepted" | "Rejected";
+    createdAt: string;
     animal: string;
 }

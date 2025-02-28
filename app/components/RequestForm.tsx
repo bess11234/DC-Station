@@ -1,24 +1,37 @@
 'use client'
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useActionState } from 'react';
 import {createRequest, RequestState} from '@/app/lib/action';
-import  SuccessModal from './SuccessModel';
 
-export function RequestForm({animalId}: {animalId : string}) {
-    const initialState: RequestState = {message: null, errors: {}};
+export function RequestForm({animalId, animalName, animalSpecie}: {animalId : string; animalName: string, animalSpecie: string}) {
+    const isMounted = useRef(true);
+
+    useEffect(() => {
+        isMounted.current = true;
+        return () => {
+            isMounted.current = false;
+        };
+    }, []);
+
+    const initialState: RequestState = { message: null, errors: {} };
     const [state, formAction] = useActionState(async (prevState: RequestState, formData: FormData) => {
         const response = await createRequest(prevState, formData);
+    
+        // 🔹 ป้องกันการอัพเดต state หลังจาก unmount
+        if (!isMounted.current) return prevState;
+    
         if (!response.errors) {
-            setFormData({ // Reset form
+            setFormData({
                 idCard: "",
                 phone: "",
                 fb: "",
                 experience: "",
                 reason: "",
                 accept: false
-        });
-        setShowModal(true);
-    }return response;}, initialState);
+            });
+        }
+        return response;
+    }, initialState);
 
     const [formData, setFormData] = useState({
         idCard: "",
@@ -28,7 +41,6 @@ export function RequestForm({animalId}: {animalId : string}) {
         reason: "",
         accept: false
     });
-    const [showModal, setShowModal] = useState(false);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -36,9 +48,8 @@ export function RequestForm({animalId}: {animalId : string}) {
 
     return (
         <>
-        {showModal && <SuccessModal onClose={() => setShowModal(false)} />}
-        <div className="w-full h-fit border-1 border-dashed p-10 rounded-2xl">
-            <p className="mb-5 flex justify-center text-3xl font-bold">ฟอร์มการขอรับเลี้ยง</p>
+        <div className="w-full h-fit bg-theme-100 dark:bg-theme-950/50 p-10 rounded-2xl shadow-md">
+            <p className="mb-5 flex justify-center text-3xl font-bold">ฟอร์มการขอรับเลี้ยงน้อง "{animalName}{animalSpecie}"</p>
             <form action={formAction}>
                 <input type="hidden" name="animalId" value={animalId} />
                 <div className="flex flex-col">
@@ -46,10 +57,11 @@ export function RequestForm({animalId}: {animalId : string}) {
                         {/* รหัสบัตรประชาชน */}
                         <div className="flex flex-col md:w-1/2 mb-5">
                             <label>รหัสบัตรประชาชน: <span className="text-red-600">*</span></label>
-                            <input name="idCard" className="px-2 h-10 rounded-lg" type="text" maxLength={13} aria-describedby="idCard-error"
+                            <input name="idCard" className="bg-theme-200 dark:bg-theme-900/50 shadow-inner px-2 h-10 rounded-lg border-0" type="text" maxLength={13} aria-describedby="idCard-error"
                             value={formData.idCard}
                             onChange={handleChange}
                             />
+
                             <div id="idCard-error" aria-live="polite" aria-atomic="true">
                                 {state.errors?.idCard &&
                                 state.errors.idCard.map((error: string) => (
@@ -61,9 +73,10 @@ export function RequestForm({animalId}: {animalId : string}) {
                         {/* หมายเลขโทรศัพท์ */}
                         <div className="flex flex-col md:w-1/2 mb-5">
                             <label>หมายเลขโทรศัพท์: <span className="text-red-600">*</span></label>
-                            <input name="phone"  className="px-2 h-10 rounded-lg" type="text" maxLength={10} aria-describedby="phone-error"
+                            <input name="phone" className="bg-theme-200 dark:bg-theme-900/50 shadow-inner px-2 h-10 rounded-lg border-0" type="text" maxLength={10} aria-describedby="phone-error"
                             value={formData.phone}
                             onChange={handleChange}/>
+
                             <div id="phone-error" aria-live="polite" aria-atomic="true">
                                 {state.errors?.phone &&
                                 state.errors.phone.map((error: string) => (
@@ -76,9 +89,10 @@ export function RequestForm({animalId}: {animalId : string}) {
                     {/* facebook */}
                     <div className="flex flex-col mb-5">
                         <label>ชื่อ/ลิงค์ facebook: <span className="text-red-600">*</span></label>
-                        <input name="fb"  className="px-2 h-10 rounded-lg" type="text" aria-describedby="fb-error"
+                        <input name="fb" className="bg-theme-200 dark:bg-theme-900/50 px-2 h-10 rounded-lg shadow-inner border-0" type="text" aria-describedby="fb-error"
                         value={formData.fb}
                         onChange={handleChange}/>
+
                         <div id="fb-error" aria-live='polite' aria-atomic="true">
                             {state.errors?.fb &&
                             state.errors.fb.map((error: string) => (
@@ -90,16 +104,18 @@ export function RequestForm({animalId}: {animalId : string}) {
                     {/* ประสบการณ์ */}
                     <div className="flex flex-col mb-5">
                         <label>ประสบการณ์การเลี้ยงสัตว์:</label>
-                        <textarea name="experience" className="px-2 pt-2 h-20 rounded-lg resize-none"
+                        <textarea name="experience" className="bg-theme-200 dark:bg-theme-900/50 shadow-inner px-2 pt-2 h-20 rounded-lg resize-none border-0"
                         value={formData.experience}
                         onChange={handleChange}/>
                     </div>
+
                     {/* เหตุผล */}
                     <div className="flex flex-col mb-5">
                         <label>เหตุผลในการขอรับเลี้ยงน้อง: <span className="text-red-600">*</span></label>
-                        <textarea name="reason"  className="px-2 pt-2 h-20 rounded-lg resize-none" aria-describedby="reason-error"
+                        <textarea name="reason"  className="bg-theme-200 dark:bg-theme-900/50 shadow-inner px-2 pt-2 h-20 rounded-lg resize-none border-0" aria-describedby="reason-error"
                         value={formData.reason}
                         onChange={handleChange}/>
+
                         <div id="reason-error" aria-live='polite' aria-atomic="true">
                             {state.errors?.reason &&
                             state.errors.reason.map((error: string) => (
