@@ -1,5 +1,5 @@
 import { Request, Animal } from "@/app/lib/definition"
-import { fetchRequest, fetchAnimalId, fetchRequestCount } from "@/app/lib/data"
+import { fetchRequest, fetchAnimalId } from "@/app/lib/data"
 import { PageNavigation } from "@/app/components/(manager)/PageNavigation"
 import { ShowAnimalRequests } from "@/app/components/(manager)/requests/ShowAnimalRequests"
 
@@ -19,7 +19,6 @@ export default async function Requests() {
             distinctAnimal.push(animal);
         }
     }
-    console.log("setAnimal", distinctAnimal)
 
     const countAnimalRequest: number = distinctAnimal.length
     const pageNumber = Math.ceil(countAnimalRequest / 6)
@@ -27,7 +26,6 @@ export default async function Requests() {
     for (let i = 0; i < pageNumber; i++) {
         ListAnimalRequests.push(Promise.resolve(distinctAnimal.slice(i * 6, (i+1)*6)))
     }
-    console.log("ListAnimalRequests", ListAnimalRequests)
     const listAnimalRequests = Promise.all(ListAnimalRequests);
 
     //Count status for animal
@@ -45,7 +43,7 @@ export default async function Requests() {
                 <p className="md:text-5xl sm:text-4xl text-3xl font-semibold text-center my-3">คำร้องขอรับเลี้ยง</p>
 
                 <div className="grid space-x-3 p-3">
-                    {/* Knowledges */}
+                    {/* Request */}
                     <div className="bg-theme-100/50 dark:bg-white/5 rounded-3xl sm:p-5 p-3 overflow-x-auto">
 
                         {/* Create Knowledge */}

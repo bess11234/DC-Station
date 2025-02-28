@@ -46,22 +46,6 @@ router.get("/:id", async (req, res) => {
     }
 })
 
-//Get All Adopter's Request Specific Animal
-router.get("animal/:id", async (req, res) => {
-    try {
-        const request = await Request.findById(req.params.id);
-
-        //not found
-        if (!request) {
-            return res.status(404).json({ status: "error", message: "Adopter's Request not found" });
-        }
-        //found
-        res.status(200).json({ status: "ok", message: request });
-    } catch (error) {
-        res.status(500).json({ status: "error", message: error.message });
-    }
-})
-
 //Update Specific Request
 router.put("/:id", async (req, res) => {
     try {

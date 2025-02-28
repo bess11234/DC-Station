@@ -212,21 +212,6 @@ export async function fetchRequestId(id: string): Promise<Request[]> {
   return data.message
 }
 
-// Show Request Specific Animal
-export async function fetchRequestAnimalId(id: string): Promise<Request[]> {
-  const response = await fetch(`http://localhost:5000/api/request/animal/${id}`, {
-    next: {tags: ["requests"]},
-  });
-  if (!response.ok) {
-    if (response.status == 404) notFound();
-
-    const data = await response.json();
-    throw new Error(`${response.status} ${data.message}`);
-  }
-  const data: Response<Request[]> = await response.json();
-  return data.message
-}
-
 // Show Number Of Requests
 export async function fetchRequestCount(): Promise<number> {
   const response = await fetch(`http://localhost:5000/api/counts/requests`, {
@@ -253,7 +238,7 @@ export async function fetchRequestPendingCount(): Promise<number> {
 
 // <---------------------------- Manager ---------------------------->
 // <---------------------------- Animal
-//// Animal request
+// Show Request Specific Animal
 export async function fetchAnimalRequest(id: string): Promise<Request[]> {
   const response = await fetch(
     `http://localhost:5000/api/requests/animalId/${id}`,

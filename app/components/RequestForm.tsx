@@ -1,7 +1,8 @@
 'use client'
 import { useState, useEffect, useRef } from 'react';
 import { useActionState } from 'react';
-import {createRequest, RequestState} from '@/app/lib/action';
+import { createRequest, RequestState } from '@/app/lib/action';
+import { SuccessModal } from '@/app/components/SuccessModel'
 
 export function RequestForm({animalId, animalName, animalSpecie}: {animalId : string; animalName: string, animalSpecie: string}) {
     const isMounted = useRef(true);
@@ -14,13 +15,15 @@ export function RequestForm({animalId, animalName, animalSpecie}: {animalId : st
     }, []);
 
     const initialState: RequestState = { message: null, errors: {} };
+    const [isSuccess, setIsSuccess] = useState(false);
+
     const [state, formAction] = useActionState(async (prevState: RequestState, formData: FormData) => {
         const response = await createRequest(prevState, formData);
     
-        // 🔹 ป้องกันการอัพเดต state หลังจาก unmount
         if (!isMounted.current) return prevState;
     
         if (!response.errors) {
+            setIsSuccess(true);
             setFormData({
                 idCard: "",
                 phone: "",
@@ -48,7 +51,8 @@ export function RequestForm({animalId, animalName, animalSpecie}: {animalId : st
 
     return (
         <>
-        <div className="w-full h-fit bg-theme-100 dark:bg-theme-950/50 p-10 rounded-2xl shadow-md">
+        {isSuccess && <SuccessModal onClose={() => setIsSuccess(false)} name={animalName}/>}
+        <div className="w-full h-fit bg-theme-100 dark:bg-theme-950/50 p-10 rounded-2xl shadow-md sm:mx-16 mx-8">
             <p className="mb-5 flex justify-center text-3xl font-bold">ฟอร์มการขอรับเลี้ยงน้อง "{animalName}{animalSpecie}"</p>
             <form action={formAction}>
                 <input type="hidden" name="animalId" value={animalId} />
@@ -137,7 +141,7 @@ export function RequestForm({animalId, animalName, animalSpecie}: {animalId : st
                     </div>
                 </div>
                 <div className="flex justify-end">
-                    <button className="cursor-pointer mt-1 p-3 px-5 rounded-2xl button-theme" type="submit">ยืนยันการรับเลี้ยง</button>
+                    <button className="cursor-pointer mt-1 p-3 px-5 rounded-2xl button-theme-primary" type="submit">ยืนยันการรับเลี้ยง</button>
                 </div> 
             </form>
         </div>
