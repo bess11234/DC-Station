@@ -31,7 +31,10 @@ export function DetailRequests({ requests, status = [] }: { requests : Request[]
                             <div className="ml-2 mr-6">
                                 {/* <p className="line-clamp-1 mb-1">{v.requester.name}</p> */}
                                 <div className="sm:line-clamp-1 line-clamp-3 opacity-80 sm:text-base text-sm">
-                                    <p><span className="font-semibold">รหัสบัตรประชาชน:</span> {v.requester.idCard}</p>
+                                    <p><span className="font-semibold">ชื่อ-นามสกุล:</span> {v.requester.firstname} {v.requester.lastname}</p>
+                                </div>
+                                <div className="sm:line-clamp-1 line-clamp-3 opacity-80 sm:text-base text-sm">
+                                    <p><span className="font-semibold">อีเมล:</span> {v.requester.email}</p>
                                 </div>
                                 <div className="sm:line-clamp-1 line-clamp-3 opacity-80 sm:text-base text-sm">
                                     <p><span className="font-semibold">ชื่อ/ลิงค์เฟซบุ๊ค:</span> {v.requester.fb}</p>
@@ -54,16 +57,16 @@ export function DetailRequests({ requests, status = [] }: { requests : Request[]
                     </div>
                     {v.status == "Pending"? 
                     <div className="flex justify-end space-x-3">
-                        <button type="button" className="bg-theme-300/70 rounded-xl py-1 md:px-6 sm:px-3 text-base cursor-pointer font-semibold"
+                        <button type="button" className="bg-theme-300/70 rounded-xl py-1 md:px-6 sm:px-3 px-3 text-base cursor-pointer font-semibold hover:opacity-50 dark:hover:opacity-80"
                         onClick={() => setShowModalDetail(v)}>ดูรายละเอียด
                         </button>
-                        <button type="button" className="bg-red-400 dark:bg-red-600 rounded-xl py-1 px-3 text-base cursor-pointer text-white font-semibold"
+                        <button type="button" className="bg-red-400 dark:bg-red-600 rounded-xl py-1 px-3 text-base cursor-pointer text-white font-semibold hover:opacity-60"
                         onClick={() => setShowModalRejected(v)}>ปฏิเสธ</button>
-                        <button type="button" className="bg-green-500 dark:bg-green-600 rounded-xl text-base py-1 px-3 cursor-pointer text-white font-semibold"
+                        <button type="button" className="bg-green-500 dark:bg-green-600 rounded-xl text-base py-1 px-3 cursor-pointer text-white font-semibold hover:opacity-60"
                         onClick={() => setShowModalAccepted(v)}>ยืนยัน</button>
                     </div>: 
                     <div className="flex justify-end space-x-3">
-                        <button type="button" className="bg-theme-300/70 rounded-xl py-1 md:px-6 sm:px-3 text-base cursor-pointer font-semibold"
+                        <button type="button" className="bg-theme-300/70 rounded-xl py-1 md:px-6 sm:px-3 px-3 text-base cursor-pointer font-semibold hover:opacity-50 dark:hover:opacity-80"
                             onClick={() => setShowModalDetail(v)}>ดูรายละเอียด
                         </button>
                     </div>

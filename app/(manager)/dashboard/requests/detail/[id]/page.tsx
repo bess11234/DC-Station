@@ -24,10 +24,10 @@ export default async function AnimalRequestDetail({ params }: { params: Promise<
             
             {/* Request */}
             <div className="grid space-x-3 p-3">
-                <div className="bg-theme-100/50 dark:bg-white/5 rounded-3xl sm:p-5 p-3 overflow-x-auto">
+                <div className="bg-theme-200/40 dark:bg-white/5 rounded-3xl sm:p-5 p-3 overflow-x-auto">
                     <div className="flex items-center text-theme-950 mb-2">
-                        <ClockIcon className="size-10"></ClockIcon>
-                        <div className="font-semibold md:text-4xl sm:text-3xl text-2xl  m-3"><p>คำร้องขอที่ยังไม่ตอบ</p></div>
+                        <ClockIcon className="size-10 dark:text-white"></ClockIcon>
+                        <div className="font-semibold md:text-4xl sm:text-3xl text-2xl m-3 dark:text-white"><p>คำร้องขอที่ยังไม่ตอบ</p></div>
                     </div>
                     <div className="grid lg:grid-cols-2 gap-6 max-sm:gap-y-8 w-full max-w-[1500px] mx-auto">
                     {/* Data */}
@@ -41,10 +41,10 @@ export default async function AnimalRequestDetail({ params }: { params: Promise<
 
 
             <div className="grid space-x-3 p-3">
-                <div className="bg-theme-100/50 dark:bg-white/5 rounded-3xl sm:p-5 p-3 overflow-x-auto">
+                <div className="bg-theme-200/40 dark:bg-white/5 rounded-3xl sm:p-5 p-3 overflow-x-auto">
                     <div className="flex items-center text-theme-950 mb-2">
-                        <CheckBadgeIcon className="size-10"></CheckBadgeIcon>
-                        <div className="font-semibold md:text-4xl sm:text-3xl text-2xl  m-3"><p>ตอบรับคำร้องขอแล้ว</p></div>
+                        <CheckBadgeIcon className="size-10 dark:text-white"></CheckBadgeIcon>
+                        <div className="font-semibold md:text-4xl sm:text-3xl text-2xl m-3 dark:text-white"><p>ตอบรับคำร้องขอแล้ว</p></div>
                     </div>
                     <div className="grid lg:grid-cols-2 gap-6 max-sm:gap-y-8 w-full max-w-[1500px] mx-auto">
                     {/* Data */}

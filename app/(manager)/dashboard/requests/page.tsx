@@ -44,7 +44,7 @@ export default async function Requests() {
 
                 <div className="grid space-x-3 p-3">
                     {/* Request */}
-                    <div className="bg-theme-100/50 dark:bg-white/5 rounded-3xl sm:p-5 p-3 overflow-x-auto">
+                    <div className="bg-theme-200/40 dark:bg-white/5 rounded-3xl sm:p-5 p-3 overflow-x-auto">
 
                         {/* Create Knowledge */}
                         {/* <Link role="button" href={"/dashboard/knowledges/create"} className="button-secondary w-fit flex flex-row px-4 py-3 rounded-full mb-3 cursor-pointer space-x-1">

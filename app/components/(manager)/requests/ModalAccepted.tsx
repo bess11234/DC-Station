@@ -34,7 +34,7 @@ export function ModalAccepted({ onClose, request }: { onClose: () => void; reque
                     <h3 className="text-lg font-semibold text-theme-700">ยืนยันการยอมรับคำขอนี้</h3>
                     <hr />
                     <div className="py-4">
-                        <p><span className="">แน่ใจหรือไม่ที่จะยอมรับคุณ</span> {request.requester.idCard}</p>
+                        <p><span className="">แน่ใจหรือไม่ที่จะยอมรับคุณ</span> {request.requester.firstname} {request.requester.lastname}</p>
                         <p className=" text-red-500">*เมื่อยืนยันแล้วจะไม่สามารถแก้ไขได้</p>
                     </div>
                     <div className="flex justify-end gap-2">
