@@ -70,7 +70,7 @@ router.get("/find-house", async (req, res) => {
 router.get("/found-house", async (req, res) => {
     let animal
     try {
-        animal = await Animal.find({ adoptionDate: { $ne: null } }).sort({ adoptionDate: "asc", updatedAt: "desc" }).skip(req.query.skip).limit(req.query.limit);
+        animal = await Animal.find({ adoptionDate: { $ne: null } }).sort({ adoptionDate: "desc", updatedAt: "desc" }).skip(req.query.skip).limit(req.query.limit);
     } catch (error) {
         console.log("error.message", error.message)
         // res.status(500).json({ status: "error", message: error.message });

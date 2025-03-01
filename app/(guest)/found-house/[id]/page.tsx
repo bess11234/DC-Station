@@ -3,13 +3,20 @@ import Image from "next/image"
 import { Suspense } from "react"
 
 import { fetchAnimalId } from "@/app/lib/data"
+import { displayMonthThai } from "@/app/lib/utils"
+
 import { ShowData } from "../../../components/animals/showData"
+
+import { StarIcon } from "@heroicons/react/24/solid";
+
 
 export default async function FoundHouseID({ params }: { params: Promise<{ id: string }> }) {
     const id = (await params).id
     const animal = await fetchAnimalId(id)
     if (!animal) notFound();
     if (animal && !animal.adoptionDate) notFound();
+
+    const animal_adoption = new Date(animal.adoptionDate ? animal.adoptionDate : "")
 
     return (
         <>
@@ -36,6 +43,15 @@ export default async function FoundHouseID({ params }: { params: Promise<{ id: s
 
                         {/* Data */}
                         <Suspense fallback={<p>Loading...</p>}>
+                            
+                            <div className="grid justify-items-center border border-black2/5 dark:border-white/30 gap-1 text-center text-white bg-green-500 dark:bg-green-600 p-4 md:text-3xl text-xl rounded-xl shadow-lg font-semibold">
+                                <div className="flex items-center space-x-2">
+                                    <StarIcon className="sm:size-8 size-6" />
+                                    <p>ถูกรับเลี้ยง</p>
+                                </div>
+                                <p>วันที่ {animal_adoption && `${animal_adoption.getDay()} ${displayMonthThai(animal_adoption.getMonth())} ${animal_adoption.getFullYear()}`}</p>
+                            </div>
+
                             <ShowData animal={animal} />
                         </Suspense>
 
