@@ -1,18 +1,43 @@
 import Link from "next/link"
 import Image from "next/image"
-
+import { Animal } from "@/app/lib/definition"
 import { ShowAnimals } from "@/app/components/(manager)/animals/ShowAnimals"
 import { ShowKnowledges } from "@/app/components/(manager)/knowledges/ShowKnowledges"
+
+import { ShowAnimalRequests } from "@/app/components/(manager)/requests/ShowAnimalRequests"
 
 import { InboxIcon, BookmarkSquareIcon, ArrowRightIcon, PlusIcon } from "@heroicons/react/24/outline"
 import { ClockIcon, DocumentIcon, HomeIcon, HomeModernIcon } from "@heroicons/react/24/solid"
 
-import { fetchAnimalCount, fetchKnowledgeCount, fetchAnimals, fetchKnowledges, fetchAnimalFindHouseCount, fetchAnimalFoundHouseCount, fetchRequestCount, fetchRequestPendingCount } from "@/app/lib/data"
+import { fetchAnimalCount, fetchKnowledgeCount, fetchAnimals, fetchKnowledges, fetchAnimalFindHouseCount, fetchAnimalFoundHouseCount, fetchRequestCount, fetchRequestPendingCount, fetchRequest, fetchAnimalId } from "@/app/lib/data"
 
 export default async function DashBoard() {
     const [countAnimal, countKnowledge, countAnimalsFindHouse, countAnimalsFoundHouse, countRequests, countRequestsPending] = await Promise.all([fetchAnimalCount(), fetchKnowledgeCount(), fetchAnimalFindHouseCount(), fetchAnimalFoundHouseCount(), fetchRequestCount(), fetchRequestPendingCount()])
     const animals = Promise.all([fetchAnimals(0, 3)])
     const knowledges = Promise.all([fetchKnowledges(0, 3)])
+
+    const requests = await fetchRequest()
+    const animalRequest = await Promise.all(requests.map((v)=> fetchAnimalId(v.animal)))
+    
+    //distint animal Id
+    const distinctAnimal : Animal[] = []
+    for (const animal of animalRequest) {
+        if (!distinctAnimal.some(a => a._id === animal._id)) {
+            distinctAnimal.push(animal);
+        }
+        if (distinctAnimal.length == 3) break;
+    }
+
+    const listAnimalRequests = Promise.resolve([distinctAnimal]);
+    
+    //Count status for animal
+    const pendingCounts = distinctAnimal.map(animal => 
+        requests.filter(req => req.status === "Pending" && req.animal === animal._id).length
+    );
+    const rejectCounts = distinctAnimal.map(animal => 
+        requests.filter(req => req.status === "Rejected" && distinctAnimal.some(animal => animal._id === req.animal)).length
+    );
+
     return (
         <>
             <div className="flex flex-col w-full py-8">
@@ -49,35 +74,23 @@ export default async function DashBoard() {
                 <div className="grid grid-cols-1 sm:gap-8 gap-6 p-3">
                     {/* Requests */}
                     <div className="bg-theme-200/40 dark:bg-theme-700/20 rounded-3xl sm:p-5 p-3 hover:shadow-md dark:shadow-theme-50/10">
-                        <div className="flex items-center space-x-1">
-                            <InboxIcon className="size-8" />
-                            <p className="md:text-3xl sm:text-xl text-lg">คำร้องขอ (0)</p>
+                        <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
+                            <div className="flex items-center space-x-1">
+                                <InboxIcon className="size-8" />
+                                <p className="md:text-3xl sm:text-xl text-lg">คำร้องขอ ({countRequestsPending})</p>
+                                
+                            </div>
+                            <Link href={"/dashboard/requests"} className="px-3 hover:opacity-60 active:opacity-80 flex items-center space-x-1">
+                                <p>ดูเพิ่มเติม</p>
+                                <ArrowRightIcon className="size-4" />
+                            </Link>
                         </div>
 
                         {/* Table */}
-                        {/* <div className="flex flex-col mt-3 space-y-3">
-                            {animals.map((v, i) => (
-                                <div key={i} className="w-full">
-                                    <div className={`flex mx-auto max-w-[550px] justify-between card-theme sm:rounded-3xl rounded-xl hover:shadow-md dark:shadow-theme-50/10`}>
-                                        <div className="flex space-x-5 items-center">
-                                            <Image
-                                                alt={`Picture of ${v.name}.`}
-                                                src={v.images[0]}
-                                                width={150}
-                                                height={150}
-                                                style={{ width: 100, height: 100, objectFit: "cover" }}
-                                                className="sm:rounded-l-3xl rounded-l-xl"
-                                            />
-                                            <p className="md:text-xl sm:text-lg text-base truncate md:max-w-64 xs:max-w-52 min-[400px]:max-w-40 min-[325px]:max-w-20 max-w-16">{v.name}</p>
-                                        </div>
-                                        <div className="flex space-x-3 items-center mr-2">
-                                            <Link href="#"><button title="Edit"><PencilSquareIcon className="transition-colors xs:size-8 size-7 rounded-lg p-0.5 cursor-pointer hover:bg-white/40 dark:hover:bg-black2/50" /></button></Link>
-                                            <Link href="#"><button title="Delete"><TrashIcon className="transition-colors xs:size-8 size-7 rounded-lg p-0.5 cursor-pointer hover:bg-white/40 dark:hover:bg-black2/50" /></button></Link>
-                                        </div>
-                                    </div>
-                                </div>
-                            ))}
-                        </div> */}
+                        <div className="grid gap-8 py-3 max-sm:gap-y-8 w-full max-w-[1500px] mx-auto mt-3">
+                            <ShowAnimalRequests animals={listAnimalRequests} pendingCounts={pendingCounts} rejectCounts={rejectCounts}/>
+                        </div>
+                        
                     </div>
                     {/* Animals */}
                     <div className="bg-theme-200/40 dark:bg-theme-700/20 rounded-3xl sm:p-5 p-3 hover:shadow-md dark:shadow-theme-50/10">

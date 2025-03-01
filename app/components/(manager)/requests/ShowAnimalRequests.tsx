@@ -23,7 +23,7 @@ export function ShowAnimalRequests({ animals, pendingCounts, rejectCounts}: { an
         const params = new URLSearchParams(searchParams);
         if (params.get("pages")) {
             const pages = Number(params.get("pages")) - 1
-            if (pages < showAnimals.length && pages > 0) {
+            if (pages < showAnimals.length && pages >= 0) {
                 setindexAnimalRequests(pages)
             }
         }
@@ -36,7 +36,7 @@ export function ShowAnimalRequests({ animals, pendingCounts, rejectCounts}: { an
                     
                     {/* Display Animals that have request */}
                     <div className="flex flex-row sm:gap-x-3 gap-x-3 w-full">
-                        <div className="grid space-y-1 flex-none">
+                        <div className="grid space-y-1 flex-none md:pl-3">
                             <Image
                                 alt={`Picture of ${animal.name}.`}
                                 src={animal.images[0]}
@@ -53,7 +53,7 @@ export function ShowAnimalRequests({ animals, pendingCounts, rejectCounts}: { an
                                     <p>กำลังรอดำเนินการ: {pendingCounts[i]} คำขอ</p>
                                 </div>
                                 <div className="sm:line-clamp-2 line-clamp-3 opacity-50 sm:text-base text-sm">
-                                <p>ดำเนินการปฏิเสธ: {rejectCounts[i]} คำขอ</p>
+                                <p>ปฏิเสธ: {rejectCounts[i]} คำขอ</p>
                                 </div>
                             </div>
                         </div>
