@@ -33,7 +33,7 @@ export default async function Requests() {
         requests.filter(req => req.status === "Pending" && req.animal === animal._id).length
     );
     const rejectCounts = distinctAnimal.map(animal => 
-        requests.filter(req => req.status === "Rejected" && distinctAnimal.some(animal => animal._id === req.animal)).length
+        requests.filter(req => req.status === "Rejected" && req.animal === animal._id).length
     );
 
     return (

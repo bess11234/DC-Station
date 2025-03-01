@@ -386,11 +386,32 @@ export async function createRequest(
   }
 }
 
+//// Change REQUEST
+
+export async function changeRequestStatus(id: string, status: string, animalId: string) {
+  try {
+    const response = await fetch(`http://localhost:5000/api/requests/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ status }),
+    });
+
+    if (!response.ok) throw new Error("Failed to send request");
+  } catch (error) {
+    console.error(error);
+  }
+
+  // revalidateCustom("requests");
+  // redirect(`/dashboard/requests/detail/${animalId}`);
+}
+
 //// DELETE REQUEST
 
 export async function deleteRequest(id: string) {
   try {
-    fetch(`http://localhost:5000/api/reques/${id}`, {
+    fetch(`http://localhost:5000/api/requests/${id}`, {
       method: "DELETE",
     });
   } catch (error) {
