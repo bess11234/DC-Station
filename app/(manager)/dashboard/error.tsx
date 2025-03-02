@@ -1,7 +1,5 @@
-'use client';
- 
-import { useEffect } from 'react';
-import { ExclamationCircleIcon } from '@heroicons/react/24/outline';
+"use client"
+import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
  
 export default function Error({
   error,
@@ -10,10 +8,7 @@ export default function Error({
   error: Error & { digest?: string };
   reset: () => void;
 }) {
-  useEffect(() => {
-    // Optionally log the error to an error reporting service
-    console.error(error);
-  }, [error]);
+  console.error(error)
 
   return (
     <div className="flex m-auto flex-col items-center justify-center gap-2">

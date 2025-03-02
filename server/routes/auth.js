@@ -65,7 +65,7 @@ router.post("/login", async (req, res) => {
             expiresIn: "1h",
         });
 
-        console.log("Check if authen success: ", token);
+        // console.log("Check if authen success: ", token);
         //2. Send Token in HTTP-only Cookie
         res.cookie("token", token, {
             httpOnly: true,

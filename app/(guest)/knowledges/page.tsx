@@ -19,7 +19,7 @@ export default async function KnowledgesPage(props : {
 
     const searchParams = await props.searchParams;
     const query = searchParams?.title || '';
-    console.log("query", query)
+    // console.log("query", query)
 
     const knowledges: Knowledge[] = await fetchKnowledges();
     const mockDate = Date.now()

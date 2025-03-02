@@ -63,7 +63,7 @@ router.put("/:id", async (req, res) => {
             { new: true, runValidators: true } // Return updated document & validate
         );
 
-        console.log(updatedRequest);
+        // console.log(updatedRequest);
         res.status(201).json({ status: "ok", message: updatedRequest });
     } catch (error) {
         res.status(201).json({ status: "error", message: error.message });
@@ -80,7 +80,7 @@ router.delete("/:id", async (req, res) => {
         }
         //found
         await Request.findByIdAndDelete(req.params.id);
-        console.log("Delete adopter's request successfully!")
+        // console.log("Delete adopter's request successfully!")
         res.status(204).json({ status: "ok", message: "Delete adopter's request successfully!" })
     } catch (error) {
         res.status(500).json({ status: "error", message: error.message });

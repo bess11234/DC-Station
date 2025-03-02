@@ -28,9 +28,9 @@ export default function Login() {
   const toggleVisibility = () => setIsVisible(prevState => !prevState);
 
   return (
-    <div className='grid sm:grid-cols-1 grid-cols-2'>
+    <div className={`grid sm:grid-cols-1 grid-cols-2 ${isPending && "cursor-wait"}`}>
       {/*---------------------------- Left Side ----------------------------*/}
-      <div id="leftSide" className="absolute right-0 bottom-0 h-screen sm:w-3/5 w-full left-0">
+      <div id="leftSide" className="absolute right-0 bottom-0 h-screen lg:w-3/5 md:w-2/5 sm:3/5 w-full left-0">
 
         {/* Background Image */}
         <Image
@@ -48,10 +48,10 @@ export default function Login() {
 
 
       {/* {/*---------------------------- Right Side ----------------------------*/}
-      <div className='absolute sm:h-screen sm:w-2/5 w-full bg-white dark:bg-black2 border-0 insert-y right-0 flex-col flex justify-center items-center py-32 max-sm:bottom-0'>
+      <div className='absolute sm:h-screen lg:w-2/5 md:w-3/5 sm:2/5 w-full bg-white dark:bg-black2 border-0 sm:border-l-1 max-sm:border-t-1 border-white/15 insert-y right-0 flex-col flex justify-center items-center py-32 max-sm:bottom-0'>
 
         {/* Web title */}
-        <h1 className='md:text-5xl sm:text-4xl xs:text-3xl text-xl w-fit mb-7'>🐶DC Station🐱</h1>
+        <h1 className='md:text-5xl sm:text-4xl text-3xl font-semibold w-fit mb-7'>🐶DC Station🐱</h1>
 
         <form className='w-2/3' action={formAction}>
 
@@ -112,8 +112,8 @@ export default function Login() {
           </div>
           
           {/* ---- Button ---- */}
-          <button aria-disabled={isPending} type="submit" className='rounded-xl cursor-pointer w-full text-white h-11 bg-theme-500 hover:bg-theme-600 active:bg-theme-700 shadow-lg'>
-            Login
+          <button aria-disabled={isPending} type="submit" className='rounded-xl cursor-pointer w-full text-white h-11 button-theme shadow-lg'>
+            {!isPending ? "Login" : <div className='size-6 loading'></div>}
           </button>
         </form>
 

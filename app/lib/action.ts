@@ -101,7 +101,7 @@ export async function createRequest(
     accept: formData.has("accept"),
   });
 
-  console.log(formData.has("accept"));
+  // console.log(formData.has("accept"));
 
   if (!validateFields.success) {
     console.log(

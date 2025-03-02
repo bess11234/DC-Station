@@ -83,7 +83,7 @@ export default async function FindHouseID({ params }: { params: Promise<{ id: st
                         <div>
                             {/* Other Images */}
                             {
-                                animalKnowledges.length &&
+                                animalKnowledges.length ?
                                 <>
                                     <p className="md:text-2xl sm:text-xl text-lg text-center m-3">เกร็ดความรู้เพิ่มเติม</p>
 
@@ -118,7 +118,7 @@ export default async function FindHouseID({ params }: { params: Promise<{ id: st
                                         ))}
                                     </div>
                                 </>
-                            }
+                            : ""}
                         </div>
                     </div>
                     
