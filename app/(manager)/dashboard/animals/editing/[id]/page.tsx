@@ -1,11 +1,17 @@
-import { notFound } from "next/navigation";
 import { Suspense } from "react";
+
+import { Metadata } from "next";
+import { notFound } from "next/navigation";
 
 import { fetchAnimalId, fetchKnowledges } from "@/app/lib/data";
 
 import { EditingAnimal } from "@/app/components/(manager)/animals/EditingAnimal";
 import { SkeletonAnimalInput } from "@/app/components/skeletons/SkeletonAnimalInput";
 import { Knowledge } from "@/app/lib/definition";
+
+export const metadata: Metadata = {
+    title: "Dashboard Animal Editing"
+}
 
 export default async function AnimalEditing({ params }: { params: Promise<{ id: string }> }) {
     const id = (await params).id

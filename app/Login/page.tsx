@@ -3,93 +3,34 @@ import './Catstyle.css'
 import './form.css'
 
 import { useState } from "react";
-import { useRouter } from 'next/navigation';
 import Link from "next/link";
 import Image from 'next/image';
 
 import CatComponent from './CatComponent'
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
+import { ExclamationCircleIcon } from '@heroicons/react/24/outline';
 
-interface FormValues {
-  email: string;
-  password: string;
-}
+import { useActionState } from 'react';
+import { authenticate } from '../lib/action';
+import { useSearchParams } from 'next/navigation';
 
 export default function Login() {
+  const searchParams = useSearchParams()
+  const callBackUrl = searchParams.get("callbackUrl") || "/dashboard"
+  
+  const [errorMessage, formAction, isPending] = useActionState(
+    authenticate,
+    undefined
+  )
 
   // Verify password visibility
   const [isVisible, setIsVisible] = useState(false);
   const toggleVisibility = () => setIsVisible(prevState => !prevState);
 
-  // State for form values
-  const [formValues, setFormValues] = useState<FormValues>({
-    email: "", password: ""
-  });
-
-  const router = useRouter();
-
-  // Handle input change safely
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormValues({
-      ...formValues,
-      [e.target.name]: e.target.value
-    });
-  };
-
-  // Handle form submission
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    try {
-      const response = await fetch("http://localhost:5000/api/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include", //send cookie 
-        body: JSON.stringify(formValues),
-      });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        alert("Login successful!");
-        router.push("/") //navigate to home page 
-      } else {
-        alert(data.message || "Login failed");
-      }
-    } catch (error) {
-      console.error("Error:", error);
-      alert("An error occurred. Please try again.");
-    }
-  };
-
-  // Fetch user profile after login
-  const [userProfile, setUserProfile] = useState<any>(null); // เก็บข้อมูล user
-  const fetchUserProfile = async (token: string) => {
-    try {
-      const response = await fetch("http://localhost:5000/api/auth/profile", {
-        method: "GET",
-        // headers: {
-        //   "Content-Type": "application/json",
-        //   Authorization: `Bearer ${token}`,
-        // },
-        credentials: "include",
-      });
-
-      const data = await response.json();
-      if (response.ok) {
-        setUserProfile(data);
-        console.log("User Profile:", data);
-      } else {
-        console.error("Failed to fetch profile:", data.message);
-      }
-    } catch (error) {
-      console.error("Error fetching profile:", error);
-    }
-  };
-
   return (
     <div className='grid sm:grid-cols-1 grid-cols-2'>
       {/*---------------------------- Left Side ----------------------------*/}
-      <div id="leftSide" className="container h-screen sm:w-3/5 w-full left-0">
+      <div id="leftSide" className="absolute right-0 bottom-0 h-screen sm:w-3/5 w-full left-0">
 
         {/* Background Image */}
         <Image
@@ -102,7 +43,6 @@ export default function Login() {
           placeholder='blur'
           blurDataURL='/bg/white_cat_and_beagle.jpg'
         />
-        {/* <div className="absolute h-screen w-full left-0 bg-[url(/bg/white_cat_and_beagle.jpg)] bg-cover bg-center shadow-[inset_-10px_0_15px_rgba(0,0,0,0.5)]"></div> */}
         <CatComponent />
       </div>
 
@@ -113,15 +53,15 @@ export default function Login() {
         {/* Web title */}
         <h1 className='md:text-5xl sm:text-4xl xs:text-3xl text-xl w-fit mb-7'>🐶DC Station🐱</h1>
 
-        <form className='w-2/3' onSubmit={handleSubmit}>
+        <form className='w-2/3' action={formAction}>
+
+          <input type="hidden" name="redirectTo" value={callBackUrl} />
 
           {/* ---- Email ---- */}
           <div className="border-0 relative h-11 w-full min-w-[200px] mb-7">
             <input
               type="email"
               name="email"
-              value={formValues.email}
-              onChange={handleChange}
               required
               autoComplete="email"
               className="border-0 peer h-full w-full border-b border-blue-gray-200 bg-transparent pt-4 pb-1.5 text-lg  font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border-blue-gray-200 
@@ -140,8 +80,6 @@ export default function Login() {
               id="password"
               type={isVisible ? "text" : "password"}
               name="password"
-              value={formValues.password}
-              onChange={handleChange}
               required
               autoComplete="current-password"
               className="border-0 peer h-full w-full border-b border-blue-gray-200 bg-transparent pt-4 pb-1.5 text-lg font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border-blue-gray-200 
@@ -174,10 +112,18 @@ export default function Login() {
           </div>
           
           {/* ---- Button ---- */}
-          <button type="submit" className='rounded-xl cursor-pointer w-full text-white h-11 bg-theme-500 hover:bg-theme-600 active:bg-theme-700 shadow-lg'>
+          <button aria-disabled={isPending} type="submit" className='rounded-xl cursor-pointer w-full text-white h-11 bg-theme-500 hover:bg-theme-600 active:bg-theme-700 shadow-lg'>
             Login
           </button>
         </form>
+
+        {errorMessage && (
+            <div className='flex my-3 space-x-1 items-center'>
+              <ExclamationCircleIcon className='size-6 text-red-500' />
+              <p className='text-sm! p-0! text-red-500'>{errorMessage}</p>
+            </div>
+          )}
+
       </div>
     </div>
   )

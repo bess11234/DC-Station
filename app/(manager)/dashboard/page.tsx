@@ -1,5 +1,7 @@
+import { Metadata } from "next"
 import Link from "next/link"
 import Image from "next/image"
+
 import { Animal } from "@/app/lib/definition"
 import { ShowAnimals } from "@/app/components/(manager)/animals/ShowAnimals"
 import { ShowKnowledges } from "@/app/components/(manager)/knowledges/ShowKnowledges"
@@ -10,6 +12,10 @@ import { InboxIcon, BookmarkSquareIcon, ArrowRightIcon, PlusIcon } from "@heroic
 import { ClockIcon, DocumentIcon, HomeIcon, HomeModernIcon } from "@heroicons/react/24/solid"
 
 import { fetchAnimalCount, fetchKnowledgeCount, fetchAnimals, fetchKnowledges, fetchAnimalFindHouseCount, fetchAnimalFoundHouseCount, fetchRequestCount, fetchRequestPendingCount, fetchRequest, fetchAnimalId } from "@/app/lib/data"
+
+export const metadata: Metadata = {
+    title: "Dashboard"
+}
 
 export default async function DashBoard() {
     const [countAnimal, countKnowledge, countAnimalsFindHouse, countAnimalsFoundHouse, countRequests, countRequestsPending] = await Promise.all([fetchAnimalCount(), fetchKnowledgeCount(), fetchAnimalFindHouseCount(), fetchAnimalFoundHouseCount(), fetchRequestCount(), fetchRequestPendingCount()])
@@ -46,25 +52,25 @@ export default async function DashBoard() {
 
                 <div className="grid lg:grid-cols-4 grid-cols-2 sm:gap-6 gap-4 p-3 mb-6">
                     <div className="grid justify-items-center gap-2 bg-theme-200/40 dark:bg-theme-700/20 rounded-3xl sm:py-6 sm:px-8 py-3 px-4 border border-black2/5 dark:border-white/5 shadow-lg dark:shadow-white/3">
-                        <ClockIcon className="w-[10vw] h-[10vw] min-w-[50px] min-h-[50px]" />
+                        <ClockIcon className="max-w-[144px] max-h-[144px] w-[10vw] h-[10vw] min-w-[50px] min-h-[50px]" />
                         <p className="text-center lg:text-3xl md:text-2xl text-lg font-semibold">คำร้องขอที่ยังไม่ตอบ</p>
                         <p className="lg:text-6xl md:text-5xl text-3xl text-theme-500 dark:text-theme-400 ">{countRequestsPending}</p>
                     </div>
 
                     <div className="grid justify-items-center gap-2 bg-theme-200/40 dark:bg-theme-700/20 rounded-3xl sm:py-6 sm:px-8 py-3 px-4 border border-black2/5 dark:border-white/5 shadow-lg dark:shadow-white/3">
-                        <DocumentIcon className="w-[10vw] h-[10vw] min-w-[50px] min-h-[50px]" />
+                        <DocumentIcon className="max-w-[144px] max-h-[144px] w-[10vw] h-[10vw] min-w-[50px] min-h-[50px]" />
                         <p className="text-center lg:text-3xl md:text-2xl text-lg font-semibold">คำร้องขอทั้งหมด</p>
                         <p className="lg:text-6xl md:text-5xl text-3xl">{countRequests}</p>
                     </div>
 
                     <div className="grid justify-items-center gap-2 bg-theme-200/40 dark:bg-theme-700/20 rounded-3xl sm:py-6 sm:px-8 py-3 px-4 border border-black2/5 dark:border-white/5 shadow-lg dark:shadow-white/3">
-                        <HomeIcon className="w-[10vw] h-[10vw] min-w-[50px] min-h-[50px]" />
+                        <HomeIcon className="max-w-[144px] max-h-[144px] w-[10vw] h-[10vw] min-w-[50px] min-h-[50px]" />
                         <p className="text-center lg:text-3xl md:text-2xl text-lg font-semibold">สัตว์ที่ต้องการบ้าน</p>
                         <p className="lg:text-6xl md:text-5xl text-3xl">{countAnimalsFindHouse}</p>
                     </div>
 
                     <div className="grid justify-items-center gap-2 bg-theme-200/40 dark:bg-theme-700/20 rounded-3xl sm:py-6 sm:px-8 py-3 px-4 border border-black2/5 dark:border-white/5 shadow-lg dark:shadow-white/3">
-                        <HomeModernIcon className="w-[10vw] h-[10vw] min-w-[50px] min-h-[50px]" />
+                        <HomeModernIcon className="max-w-[144px] max-h-[144px] w-[10vw] h-[10vw] min-w-[50px] min-h-[50px]" />
                         <p className="text-center lg:text-3xl md:text-2xl text-lg font-semibold">สัตว์ที่ได้รับบ้าน</p>
                         <p className="lg:text-6xl md:text-5xl text-3xl">{countAnimalsFoundHouse}</p>
                     </div>

@@ -61,7 +61,7 @@ router.post("/login", async (req, res) => {
         if (!isMatch) return res.status(400).json({ status: "not found", message: "Invalid Password" });
 
         //3. Create JWT Token
-        const token = jwt.sign({ userId: user._id, email: user.email }, process.env.JWT_SECRET, {
+        const token = jwt.sign({ id: user._id, email: user.email }, process.env.JWT_SECRET, {
             expiresIn: "1h",
         });
 
@@ -74,7 +74,7 @@ router.post("/login", async (req, res) => {
             maxAge: 3600000, // 1 ชั่วโมง
         });
 
-        res.status(200).json({ status: "ok", message: "Login successful" });
+        res.status(200).json({ status: "ok", message: user });
         // res.json({ token, user: {id: user._id, email: user.email}});
     }
     catch (error) {

@@ -1,9 +1,15 @@
 import { Suspense } from "react";
 
+import { Metadata } from "next";
+
 import { Knowledge } from "@/app/lib/definition";
 
 import { CreateKnowledge } from "@/app/components/(manager)/knowledges/CreateKnowledge";
 import { SkeletonAnimalInput } from "@/app/components/skeletons/SkeletonAnimalInput";
+
+export const metadata: Metadata = {
+    title: "Dashboard Knowledge Create"
+}
 
 export default async function KnowledgeCreate() {
     const knowledge: Knowledge = {

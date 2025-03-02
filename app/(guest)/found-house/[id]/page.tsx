@@ -1,14 +1,21 @@
-import { notFound } from "next/navigation"
-import Image from "next/image"
 import { Suspense } from "react"
 
-import { fetchAnimalId } from "@/app/lib/data"
+import { notFound } from "next/navigation"
+import Image from "next/image"
+import Link from "next/link"
+import { Metadata } from "next"
+
+import { fetchAnimalId, fetchKnowledgeId } from "@/app/lib/data"
 import { displayMonthThai } from "@/app/lib/utils"
 
 import { ShowData } from "../../../components/animals/showData"
 
 import { StarIcon } from "@heroicons/react/24/solid";
+import { DisplayDateCard } from "@/app/components/DisplayDateCard"
 
+export const metadata: Metadata = {
+    title: "Found House"
+}
 
 export default async function FoundHouseID({ params }: { params: Promise<{ id: string }> }) {
     const id = (await params).id
@@ -17,6 +24,8 @@ export default async function FoundHouseID({ params }: { params: Promise<{ id: s
     if (animal && !animal.adoptionDate) notFound();
 
     const animal_adoption = new Date(animal.adoptionDate ? animal.adoptionDate : "")
+
+    const animalKnowledges = await Promise.all(animal.knowledges.map(id => fetchKnowledgeId(id)))
 
     return (
         <>
@@ -43,7 +52,7 @@ export default async function FoundHouseID({ params }: { params: Promise<{ id: s
 
                         {/* Data */}
                         <Suspense fallback={<p>Loading...</p>}>
-                            
+
                             <div className="grid justify-items-center border border-black2/5 dark:border-white/30 gap-1 text-center text-white bg-green-500 dark:bg-green-600 p-4 md:text-3xl text-xl rounded-xl shadow-lg font-semibold">
                                 <div className="flex items-center space-x-2">
                                     <StarIcon className="sm:size-8 size-6" />
@@ -82,6 +91,49 @@ export default async function FoundHouseID({ params }: { params: Promise<{ id: s
                                 </>
                             }
                         </div>
+
+                        <div>
+                            {/* Other Images */}
+                            {
+                                animalKnowledges.length &&
+                                <>
+                                    <p className="md:text-2xl sm:text-xl text-lg text-center m-3">เกร็ดความรู้เพิ่มเติม</p>
+
+                                    <div className="grid grid-cols-2 sm:gap-6 gap-3 my-2">
+                                        {animalKnowledges.map((v, i) => (
+                                            <Link key={i} href={`/knowledges/${v._id}`} target="_blank" className="rounded-xl">
+                                                <div className="select-none card bg-theme-100 dark:bg-theme-950/50 rounded-xl md:max-h-[400px] max-h-[350px] max-w-full hover:shadow-lg dark:shadow-white/5 cursor-pointer">
+                                                    <figure className="rounded-t-xl">
+                                                        <Image
+                                                            src={v.image}
+                                                            alt={`Picture of ${v.title}.`}
+                                                            sizes="100%"
+                                                            width={250}
+                                                            height={250}
+                                                            style={{ width: "100%", objectFit: "cover" }}
+                                                            placeholder="blur"
+                                                            blurDataURL={v.image}
+                                                            quality={74}
+                                                            className="sm:h-[300px] h-[150px] transition-transform hover:brightness-50 hover:scale-105"
+                                                        />
+                                                    </figure>
+                                                    <div className="relative card-body max-sm:p-6 pb-4 lg:px-8 md:px-4 sm:px-4 max-sm:mt-1">
+                                                        {/* Date */}
+                                                        {v.createdAt && <DisplayDateCard date={Date.parse(v.createdAt)} />}
+                                                        {/* Title */}
+                                                        <p className="card-title text-theme-950 dark:text-theme-50 lg:text-3xl text-xl text-nowrap truncate">{v.title.length <= 31 ? v.title : v.title.slice(0, 31).concat("...")}</p>
+                                                        {/* Description */}
+                                                        <p className="text-theme-800 dark:text-theme-100 text-xs truncate">{v.describe}</p>
+                                                    </div>
+                                                </div>
+                                            </Link>
+                                        ))}
+                                    </div>
+                                </>
+                            }
+                        </div>
+
+
                     </div>
 
                 </div>

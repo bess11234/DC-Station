@@ -1,10 +1,16 @@
+import { Metadata } from "next"
+import Link from "next/link"
+
 import { Request, Animal } from "@/app/lib/definition"
 import { fetchRequest, fetchAnimalId } from "@/app/lib/data"
 import { PageNavigation } from "@/app/components/(manager)/PageNavigation"
 import { ShowAnimalRequests } from "@/app/components/(manager)/requests/ShowAnimalRequests"
 
-import Link from "next/link"
 import { ArrowRightIcon } from "@heroicons/react/24/outline"
+
+export const metadata: Metadata = {
+    title: "Dashboard Requests"
+}
 
 export default async function Requests() {
     const requests : Request[] = await fetchRequest()

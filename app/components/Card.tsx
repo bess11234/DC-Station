@@ -16,7 +16,7 @@ export interface CardType {
 export function Card({ src, title, desc, hrefLink, date }: CardType) {
     const { push } = useRouter()
     return (
-        <div className="select-none card bg-theme-50 dark:bg-theme-950/50 rounded-xl md:max-h-[400px] max-h-[350px] max-w-full hover:shadow dark:shadow-white/15">
+        <div className="select-none card card-theme rounded-xl md:max-h-[400px] max-h-[350px] max-w-full hover:shadow dark:shadow-white/15">
             <figure className="rounded-t-xl">
                 <Image
                     src={src}
@@ -41,7 +41,7 @@ export function Card({ src, title, desc, hrefLink, date }: CardType) {
                 <p className="text-theme-800 dark:text-theme-100 text-xs truncate">{desc}</p>
                 {/* Button */}
                 <Link className="ml-auto mt-4" href={hrefLink} tabIndex={-1}>
-                    <button className="button-theme w-fit lg:px-6 lg:py-3 px-3 py-1.5 rounded-full cursor-pointer max-lg:text-xs">ดูรายละเอียด</button>
+                    <button className="button-theme-primary w-fit lg:px-6 lg:py-3 px-3 py-1.5 rounded-full cursor-pointer max-lg:text-xs">ดูรายละเอียด</button>
                 </Link>
             </div>
         </div>

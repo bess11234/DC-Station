@@ -1,3 +1,4 @@
+import { Metadata } from "next"
 import Link from "next/link"
 
 import { PlusIcon } from "@heroicons/react/24/outline"
@@ -6,6 +7,10 @@ import { PageNavigation } from "@/app/components/(manager)/PageNavigation"
 import { ShowKnowledges } from "@/app/components/(manager)/knowledges/ShowKnowledges"
 
 import { fetchKnowledgeCount, fetchKnowledges } from "@/app/lib/data"
+
+export const metadata: Metadata = {
+    title: "Dashboard Knowledges"
+}
 
 export default async function KnowledgesManagerPage() {
     const countKnowledge: number = await fetchKnowledgeCount()

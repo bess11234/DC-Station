@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "motion/react"
 import { useDebouncedCallback } from "use-debounce"
 
 import type { Animal, Illness, Knowledge } from "@/app/lib/definition"
-import { createAndUpdateAnimal, AnimalState } from "@/app/lib/action"
+import { createAndUpdateAnimal, AnimalState } from "@/app/lib/actionClient"
 
 import { XCircleIcon, XMarkIcon, ArrowTurnDownLeftIcon, PencilSquareIcon } from "@heroicons/react/24/outline"
 import { DisplayDateCard } from "../../DisplayDateCard"
@@ -453,7 +453,7 @@ export function EditingAnimal({ animal, knowledges }: { animal: Animal, knowledg
                 {/* Display Knowledges */}
                 <div className="grid grid-cols-2 gap-6 my-2">
                     {knowledges.filter(v => inputKnowledges.includes(v._id)).map((v, i) => (
-                        <div key={i} className="select-none card bg-theme-50 dark:bg-theme-950/50 rounded-xl md:max-h-[400px] max-h-[350px] max-w-full hover:shadow-lg dark:shadow-white/15">
+                        <div key={i} className="select-none card bg-theme-100 dark:bg-theme-950/50 rounded-xl md:max-h-[400px] max-h-[350px] max-w-full hover:shadow-lg dark:shadow-white/15">
                             <figure className="rounded-t-xl">
                                 <Image
                                     src={v.image}

@@ -4,7 +4,6 @@ import Navbar from "./components/Navbar";
 import { Footer } from "./components/Footer";
 import { Carousel } from "./components/Carousel";
 import { Bank, BankType } from "./components/Bank";
-import { Stat } from "./components/Stat";
 import { Card } from "./components/Card";
 
 import { fetchFindHouseAnimals, fetchFoundHouseAnimals } from "./lib/data";
@@ -37,11 +36,11 @@ export default async function Home() {
           <div className="flex flex-col gap-3 w-full place-items-center">
             <p className="grid md:text-5xl sm:text-4xl xs:text-3xl text-2xl text-center my-3 md:space-y-3"><span>มูลนิธิอาสาช่วยเหลือหมาและแมว</span><span>(🐶DC Station🐱)</span></p>
 
-            <div className="grid grid-cols-1 gap-6 sm:*:size-full *:size-fit place-items-center rounded-xl shadow-xl">
+            <div className="grid grid-cols-1 gap-6 sm:*:size-full *:size-fit place-items-center rounded-xl">
 
               {/* Bank Information */}
-              <div className="flex flex-col space-y-3 p-6 rounded-xl card-theme">
-                <p className="md:text-2xl sm:text-xl text-lg text-center">ชื่อบัญชี: xxxxxxx ประเภท: xxxxxxx</p>
+              <div className="flex flex-col sm:px-8 sm:py-6 px-6 py-4 mx-3 space-y-3 rounded-xl card-theme shadow-lg">
+                <p className="md:text-2xl sm:text-xl text-lg text-center dark:text-white font-semibold">ชื่อบัญชี: xxxxxxx ประเภท: xxxxxxx</p>
 
                 {/* bank */}
                 <div className="grid sm:grid-cols-2 grid-cols-1 gap-3 justify-items-center">
@@ -50,7 +49,6 @@ export default async function Home() {
                   ))}
 
                 </div>
-                <Stat />
               </div>
 
               {/* Carity Status */}

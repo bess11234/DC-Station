@@ -12,7 +12,7 @@ import { useDebouncedCallback } from "use-debounce"
 import { PencilSquareIcon } from "@heroicons/react/24/outline"
 
 import { Knowledge } from "@/app/lib/definition"
-import { KnowledgeState, createAndUpdateKnowledge } from "@/app/lib/action"
+import { KnowledgeState, createAndUpdateKnowledge } from "@/app/lib/actionClient"
 
 const CustomEditor = dynamic(() => import('../../EditorV2'), { ssr: false });
 

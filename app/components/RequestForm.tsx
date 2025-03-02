@@ -52,8 +52,8 @@ export function RequestForm({animalId, animalName, animalSpecie}: {animalId : st
     return (
         <>
         {isSuccess && <SuccessModal onClose={() => setIsSuccess(false)} name={animalName}/>}
-        <div className="w-full h-fit bg-theme-100 dark:bg-theme-950/50 p-10 rounded-2xl shadow-md sm:mx-16 mx-8">
-            <p className="mb-5 flex justify-center text-3xl font-bold">ฟอร์มการขอรับเลี้ยงน้อง "{animalName}{animalSpecie}"</p>
+        <div className="w-full h-fit bg-theme-100 dark:bg-theme-950/50 p-10 rounded-2xl shadow-md hover:shadow-lg sm:mx-16 mx-8 dark:shadow-white/5">
+            <p className="mb-5 flex justify-center text-3xl font-bold">ฟอร์มการขอรับเลี้ยงน้อง {`"${animalName}${animalSpecie}"`}</p>
             <form action={formAction}>
                 <input type="hidden" name="animalId" value={animalId} />
                 <div className="flex flex-col">

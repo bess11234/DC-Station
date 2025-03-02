@@ -1,11 +1,14 @@
-import { lazy, Suspense } from "react"
-
+import { Metadata } from "next"
+import { notFound } from "next/navigation"
 import Image from "next/image"
 
 import parse from "html-react-parser"
 
 import { fetchKnowledgeId } from "@/app/lib/data"
-import { notFound } from "next/navigation"
+
+export const metadata: Metadata = {
+    title: "Knowledges"
+}
 
 export default async function KnowledgesId({ params }: { params: Promise<{ id: string }> }) {
     const id = (await params).id

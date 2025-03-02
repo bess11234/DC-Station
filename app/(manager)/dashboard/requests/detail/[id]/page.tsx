@@ -1,5 +1,7 @@
-import { notFound } from "next/navigation";
 import { Suspense } from "react";
+
+import { Metadata } from "next";
+import { notFound } from "next/navigation";
 
 import { fetchAnimalId, fetchRequest, fetchAnimalRequest } from "@/app/lib/data";
 
@@ -7,6 +9,10 @@ import { EditingKnowledge } from "@/app/components/(manager)/knowledges/EditingK
 import { SkeletonAnimalInput } from "@/app/components/skeletons/SkeletonAnimalInput";
 import { DetailRequests } from "@/app/components/(manager)/requests/DetailRequest";
 import { ClockIcon, DocumentIcon, HomeIcon, HomeModernIcon } from "@heroicons/react/24/solid";
+
+export const metadata: Metadata = {
+    title: "Dashboard Request Details"
+}
 
 export default async function AnimalRequestDetail({ params }: { params: Promise<{ id: string }> }) {
     const id = (await params).id

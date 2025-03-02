@@ -6,6 +6,11 @@ import { PageNavigation } from "@/app/components/(manager)/PageNavigation"
 import { ShowAnimals } from "@/app/components/(manager)/animals/ShowAnimals"
 
 import { fetchAnimals, fetchAnimalCount } from "@/app/lib/data"
+import { Metadata } from "next"
+
+export const metadata: Metadata = {
+    title: "Dashboard Animals"
+}
 
 export default async function Animals() {
     const countAnimal: number = await fetchAnimalCount()

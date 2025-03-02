@@ -1,7 +1,13 @@
+import { Metadata } from "next"
+
 import type { Animal } from "@/app/lib/definition"
 
 import { CreateAnimal } from "@/app/components/(manager)/animals/CreateAnimal"
 import { fetchKnowledges } from "@/app/lib/data"
+
+export const metadata: Metadata = {
+    title: "Dashboard Animal Create"
+}
 
 export default async function AnimalCreate() {
     const animal: Animal = {
