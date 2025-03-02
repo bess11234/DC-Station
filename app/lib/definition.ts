@@ -36,7 +36,9 @@ export type Knowledge = {
 }
 
 type Requester = {
-    idCard: string;
+    firstname: string;
+    lastname: string;
+    email: string;
     phone: string;
     fb: string;
     experience: string;

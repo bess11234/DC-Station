@@ -25,20 +25,24 @@ export function RequestForm({animalId, animalName, animalSpecie}: {animalId : st
         if (!response.errors) {
             setIsSuccess(true);
             setFormData({
-                idCard: "",
+                firstname: "",
+                lastname: "",
                 phone: "",
+                email: "",
                 fb: "",
                 experience: "",
                 reason: "",
                 accept: false
-            });
+                    });
         }
         return response;
     }, initialState);
 
     const [formData, setFormData] = useState({
-        idCard: "",
+        firstname: "",
+        lastname: "",
         phone: "",
+        email: "",
         fb: "",
         experience: "",
         reason: "",
@@ -57,23 +61,37 @@ export function RequestForm({animalId, animalName, animalSpecie}: {animalId : st
             <form action={formAction}>
                 <input type="hidden" name="animalId" value={animalId} />
                 <div className="flex flex-col">
-                   <div className="md:flex gap-4">
-                        {/* รหัสบัตรประชาชน */}
+                <div className="md:flex gap-4">
+                        {/* ชื่อจริง */}
                         <div className="flex flex-col md:w-1/2 mb-5">
-                            <label>รหัสบัตรประชาชน: <span className="text-red-600">*</span></label>
-                            <input name="idCard" className="bg-theme-200 dark:bg-theme-900/50 shadow-inner px-2 h-10 rounded-lg border-0" type="text" maxLength={13} aria-describedby="idCard-error"
-                            value={formData.idCard}
+                            <label>ชื่อจริง: <span className="text-red-600">*</span></label>
+                            <input name="firstname" className="bg-theme-200 dark:bg-theme-900/50 shadow-inner px-2 h-10 rounded-lg border-0" type="text" aria-describedby="firstname-error"
+                            value={formData.firstname}
                             onChange={handleChange}
                             />
-
-                            <div id="idCard-error" aria-live="polite" aria-atomic="true">
-                                {state.errors?.idCard &&
-                                state.errors.idCard.map((error: string) => (
+                            <div id="firstName-error" aria-live="polite" aria-atomic="true">
+                                {state.errors?.firstname &&
+                                state.errors.firstname.map((error: string) => (
                                     <p className="mt-2 text-sm text-red-500" key={error}>{error}</p>
                                 ))}
                             </div>
                         </div>
 
+                        {/* นามสกุล */}
+                        <div className="flex flex-col md:w-1/2 mb-5">
+                            <label>นามสกุล: <span className="text-red-600">*</span></label>
+                            <input name="lastname" className="bg-theme-200 dark:bg-theme-900/50 shadow-inner px-2 h-10 rounded-lg border-0" type="text" aria-describedby="lastname-error"
+                            value={formData.lastname}
+                            onChange={handleChange}/>
+
+                            <div id="lastname-error" aria-live="polite" aria-atomic="true">
+                                {state.errors?.lastname &&
+                                state.errors.lastname.map((error: string) => (
+                                    <p className="mt-2 text-sm text-red-500" key={error}>{error}
+                                    </p>
+                                ))}
+                            </div>
+                        </div>
                         {/* หมายเลขโทรศัพท์ */}
                         <div className="flex flex-col md:w-1/2 mb-5">
                             <label>หมายเลขโทรศัพท์: <span className="text-red-600">*</span></label>
@@ -90,19 +108,37 @@ export function RequestForm({animalId, animalName, animalSpecie}: {animalId : st
                             </div>
                         </div>
                     </div>
-                    {/* facebook */}
-                    <div className="flex flex-col mb-5">
-                        <label>ชื่อ/ลิงค์ facebook: <span className="text-red-600">*</span></label>
-                        <input name="fb" className="bg-theme-200 dark:bg-theme-900/50 px-2 h-10 rounded-lg shadow-inner border-0" type="text" aria-describedby="fb-error"
-                        value={formData.fb}
-                        onChange={handleChange}/>
 
-                        <div id="fb-error" aria-live='polite' aria-atomic="true">
-                            {state.errors?.fb &&
-                            state.errors.fb.map((error: string) => (
-                                <p className="mt-2 text-sm text-red-500" key={error}>{error}</p>
-                            ))}
+                    <div className="md:flex gap-4">
+                        {/* Email */}
+                        <div className="flex flex-col md:w-1/2 mb-5">
+                            <label>อีเมล: <span className="text-red-600">*</span></label>
+                            <input name="email" className="bg-theme-200 dark:bg-theme-900/50 shadow-inner px-2 h-10 rounded-lg border-0" type="text" aria-describedby="email-error"
+                            value={formData.email}
+                            onChange={handleChange}
+                            />
 
+                            <div id="email-error" aria-live="polite" aria-atomic="true">
+                                {state.errors?.email &&
+                                state.errors.email.map((error: string) => (
+                                    <p className="mt-2 text-sm text-red-500" key={error}>{error}</p>
+                                ))}
+                            </div>
+                        </div>
+
+                        <div className="flex flex-col md:w-1/2 mb-5">
+                            {/* facebook */}
+                            <label>ชื่อ/ลิงค์ facebook: <span className="text-red-600">*</span></label>
+                            <input name="fb" className="bg-theme-200 dark:bg-theme-900/50 px-2 h-10 rounded-lg shadow-inner border-0" type="text" aria-describedby="fb-error"
+                            value={formData.fb}
+                            onChange={handleChange}/>
+
+                            <div id="fb-error" aria-live='polite' aria-atomic="true">
+                                {state.errors?.fb &&
+                                state.errors.fb.map((error: string) => (
+                                    <p className="mt-2 text-sm text-red-500" key={error}>{error}</p>
+                                ))}
+                            </div>
                         </div>
                     </div>
                     {/* ประสบการณ์ */}

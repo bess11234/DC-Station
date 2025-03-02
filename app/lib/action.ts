@@ -45,11 +45,16 @@ export async function deleteKnowledge(id: string) {
 
 const RequestFormSchema = z.object({
   id: z.string(),
-  idCard: z
+  firstname: z
     .string()
-    .min(13, "กรุณากรอกรหัสบัตรประชาชนให้ครบถ้วน")
-    .max(13, "กรุณากรอกรหัสบัตรประชาชนให้ครบถ้วน")
-    .regex(/^\d+$/, "กรุณากรอกเฉพาะตัวเลข"),
+    .min(1, { message: "กรุณากรอกชื่อ" }),
+  lastname: z
+    .string()
+    .min(1, { message: "กรุณากรอกนามสกุล" }),
+  email: z
+    .string()
+    .min(1, { message: "กรุณากรอกอีเมล" })
+    .email("รูปแบบอีเมลไม่ถูกต้อง"),
   phone: z
     .string()
     .min(10, "กรุณากรอกหมายเลขโทรศัพท์ให้ครบถ้วน")
@@ -68,7 +73,9 @@ const CreateRequest = RequestFormSchema.omit({ id: true, animal: true });
 
 export type RequestState = {
   errors?: {
-    idCard?: string[];
+    firstname?: string[];
+    lastname?: string[];
+    email?: string[];
     phone?: string[];
     fb?: string[];
     reason?: string[];
@@ -84,7 +91,9 @@ export async function createRequest(
   const animalId = formData.get("animalId") as string;
 
   const validateFields = CreateRequest.safeParse({
-    idCard: formData.get("idCard"),
+    firstname: formData.get("firstname"),
+    lastname: formData.get("lastname"),
+    email: formData.get("email"),
     phone: formData.get("phone"),
     fb: formData.get("fb"),
     experience: formData.get("experience"),
@@ -106,7 +115,7 @@ export async function createRequest(
   }
 
   // Prepare data for insertion to database
-  const { idCard, phone, fb, experience, reason } = validateFields.data;
+  const { firstname, lastname, email, phone, fb, experience, reason } = validateFields.data;
 
   try {
     const response = await fetch(`http://localhost:5000/api/requests`, {
@@ -115,7 +124,7 @@ export async function createRequest(
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        requester: { idCard, phone, fb, experience, reason, animalId },
+        requester: { firstname, lastname, email, phone, fb, experience, reason, animalId },
         animal: animalId,
       }),
     });
@@ -131,11 +140,32 @@ export async function createRequest(
   }
 }
 
+//// Change REQUEST
+
+export async function changeRequestStatus(id: string, status: string, animalId: string) {
+  try {
+    const response = await fetch(`http://localhost:5000/api/requests/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ status }),
+    });
+
+    if (!response.ok) throw new Error("Failed to send request");
+  } catch (error) {
+    console.error(error);
+  }
+
+  // revalidateCustom("requests");
+  // redirect(`/dashboard/requests/detail/${animalId}`);
+}
+
 //// DELETE REQUEST
 
 export async function deleteRequest(id: string) {
   try {
-    fetch(`http://localhost:5000/api/reques/${id}`, {
+    fetch(`http://localhost:5000/api/requests/${id}`, {
       method: "DELETE",
     });
   } catch (error) {
