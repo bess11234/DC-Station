@@ -1,12 +1,12 @@
 "use client"
 
-import { Suspense, use, useEffect, useState } from "react"
+import { use, useEffect, useState } from "react"
 
 import { useSearchParams } from "next/navigation"
 import Link from "next/link"
 import Image from "next/image"
 
-import type {Request, Animal } from "@/app/lib/definition"
+import type {Animal } from "@/app/lib/definition"
 import { ArrowRightIcon } from "@heroicons/react/24/outline"
 
 export function ShowAnimalRequests({ animals, pendingCounts, rejectCounts}: { animals : Promise<Animal[][]>; pendingCounts: number[]; rejectCounts: number[];}) {

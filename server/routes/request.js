@@ -46,23 +46,6 @@ router.get("/:id", async (req, res) => {
     }
 })
 
-//Update Specific Request
-// router.put("/:id", async (req, res) => {
-//     try {
-//         const request = await Request.findById(req.params.id);
-//         //not found
-//         if (!request) {
-//             return res.status(404).json({ status: "error", message: "Adopter's Request not found" });
-//         }
-//         //found
-//         const updateRequest = await Request.findByIdAndUpdate(req.params.id, req.body, { new: true });
-//         console.log(updateRequest);
-//         res.status(201).json({ status: "ok", message: updateRequest });
-//     } catch (error) {
-//         res.status(201).json({ status: "error", message: error.message });
-//     }
-// })
-
 
 router.put("/:id", async (req, res) => {
     try {
@@ -109,6 +92,28 @@ router.get("/animalId/:animalId", async (req, res) => {
     try {
         const animalId = req.params.animalId
         const request = await Request.find({ animal: animalId })
+        
+        res.status(200).json({ status: "ok", message: request })
+    } catch (error) {
+        res.status(500).json({ status: "error", message: error.message })
+    }
+})
+
+router.get("/pending/animalId/:animalId", async (req, res) => {
+    try {
+        const animalId = req.params.animalId
+        const request = await Request.find({ status: "Pending", animal: animalId }).skip(req.query.skip).limit(req.query.limit);
+        
+        res.status(200).json({ status: "ok", message: request })
+    } catch (error) {
+        res.status(500).json({ status: "error", message: error.message })
+    }
+})
+
+router.get("/responsed/animalId/:animalId", async (req, res) => {
+    try {
+        const animalId = req.params.animalId
+        const request = await Request.find({ status: { $ne: "Pending" }, animal: animalId }).skip(req.query.skip).limit(req.query.limit);
         
         res.status(200).json({ status: "ok", message: request })
     } catch (error) {

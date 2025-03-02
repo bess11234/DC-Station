@@ -52,11 +52,6 @@ export default async function Requests() {
                     {/* Request */}
                     <div className="bg-theme-200/40 dark:bg-white/5 rounded-3xl sm:p-5 p-3 overflow-x-auto">
 
-                        {/* Create Knowledge */}
-                        {/* <Link role="button" href={"/dashboard/knowledges/create"} className="button-secondary w-fit flex flex-row px-4 py-3 rounded-full mb-3 cursor-pointer space-x-1">
-                            <PlusIcon className="size-6" /><span>เพิ่มเกร็ดความรู้</span>
-                        </Link> */}
-
                         {/* Show Animal */}
                         <div className="grid lg:grid-cols-2 gap-6 max-sm:gap-y-8 w-full max-w-[1500px] mx-auto">
                             <ShowAnimalRequests animals={listAnimalRequests} pendingCounts={pendingCounts} rejectCounts={rejectCounts}/>

@@ -14,7 +14,8 @@ export function PageNavigation({ totalPage }: Props) {
     const router = useRouter()
     const pathName = usePathname()
 
-    const [page, setPage] = useState<number>(1)
+    // ดึงข้อมูลจาก param pages มาใส่ไว้ หากไม่ใช่ Number ก็กำหนดให้เป็น 1
+    const [page, setPage] = useState<number>(searchParams.get("pages") != undefined ? Number(searchParams.get("pages")) <= totalPage ? Number(searchParams.get("pages")) : 1 || 1 : 1)
 
     const handlePages = useDebouncedCallback((number: number) => {
         const params = new URLSearchParams(searchParams)
@@ -23,13 +24,14 @@ export function PageNavigation({ totalPage }: Props) {
 
         router.replace(`${pathName}?${params.toString()}`, { scroll: false })
     }, 300)
+
     return (
         <div className="flex justify-end w-full max-w-[1500px] mx-auto mt-3 space-x-3 items-center select-none">
-            <ChevronDoubleLeftIcon onClick={() => handlePages(1)} className="size-6 cursor-pointer" />
-            <ChevronLeftIcon onClick={() => handlePages(page - 1 > 0 ? page - 1 : page)} className="size-6 cursor-pointer" />
+            <ChevronDoubleLeftIcon aria-disabled={page != 1} onClick={() => page == 1 && handlePages(1)} className={`transition-colors duration-300 size-8 p-1 rounded-full hover:bg-black2/5 dark:hover:bg-white/5 ${page == 1 ? "opacity-25" : "cursor-pointer"}`} />
+            <ChevronLeftIcon aria-disabled={page != 1} onClick={() => handlePages(page - 1 > 0 ? page - 1 : page)} className={`transition-colors duration-300 size-8 p-1 rounded-full hover:bg-black2/5 dark:hover:bg-white/5 ${page == 1 ? "opacity-25" : "cursor-pointer"}`} />
             <p className="w-8 text-center">{page}</p>
-            <ChevronRightIcon onClick={() => handlePages(page + 1 <= totalPage ? page + 1 : page)} className="size-6 cursor-pointer" />
-            <ChevronDoubleRightIcon onClick={() => handlePages(totalPage)} className="size-6 cursor-pointer" />
+            <ChevronRightIcon aria-disabled={page != totalPage} onClick={() => handlePages(page + 1 <= totalPage ? page + 1 : page)} className={`transition-colors duration-300 size-8 p-1 rounded-full hover:bg-black2/5 dark:hover:bg-white/5 ${page == totalPage ? "opacity-25" : "cursor-pointer"}`} />
+            <ChevronDoubleRightIcon aria-disabled={page != totalPage} onClick={() => handlePages(totalPage)} className={`transition-colors duration-300 size-8 p-1 rounded-full hover:bg-black2/5 dark:hover:bg-white/5 ${page == totalPage ? "opacity-25" : "cursor-pointer"}`} />
         </div>
     )
 }

@@ -22,18 +22,36 @@ router.get("/animals/found-house", async (req, res) => {
 })
 
 router.get("/knowledges", async (req, res) => {
-    const animal = await Knowledge.countDocuments()
-    res.status(200).json({ status: "ok", message: animal })
+    const knowledges = await Knowledge.countDocuments()
+    res.status(200).json({ status: "ok", message: knowledges })
 })
 
 router.get("/requests", async (req, res) => {
-    const animal = await Request.countDocuments()
-    res.status(200).json({ status: "ok", message: animal })
+    const requests = await Request.countDocuments()
+    res.status(200).json({ status: "ok", message: requests })
+})
+
+router.get("/requests/animal/:animalId", async (req, res) => {
+    const animalId = req.params.animalId
+    const requests = await Request.find({ animal: animalId }).countDocuments()
+    res.status(200).json({ status: "ok", message: requests })
 })
 
 router.get("/requests/pending", async (req, res) => {
-    const animal = await Request.find({ status: "Pending" }).countDocuments()
-    res.status(200).json({ status: "ok", message: animal })
+    const requests = await Request.find({ status: "Pending" }).countDocuments()
+    res.status(200).json({ status: "ok", message: requests })
+})
+
+router.get("/requests/pending/:animalId", async (req, res) => {
+    const animalId = req.params.animalId
+    const requests = await Request.find({ status: "Pending", animal: animalId }).countDocuments()
+    res.status(200).json({ status: "ok", message: requests })
+})
+
+router.get("/requests/responsed/:animalId", async (req, res) => {
+    const animalId = req.params.animalId
+    const requests = await Request.find({ status: { $ne: "Pending" }, animal: animalId }).countDocuments()
+    res.status(200).json({ status: "ok", message: requests })
 })
 
 module.exports = router;
