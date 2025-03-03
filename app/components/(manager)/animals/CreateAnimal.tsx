@@ -233,7 +233,6 @@ export function CreateAnimal({ animal, knowledges }: { animal: Animal, knowledge
                 <Image
                     src={mainImage ? URL.createObjectURL(mainImage) : "/default_image.webp"}
                     alt={`Main picture of ${animal.name}`}
-                    sizes="100%"
                     width={300}
                     height={300}
                     style={{ objectFit: "cover" }}

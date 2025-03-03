@@ -21,7 +21,7 @@ export default async function FoundHouseID({ params }: { params: Promise<{ id: s
     const id = (await params).id
     const animal = await fetchAnimalId(id)
     if (!animal) notFound();
-    if (animal && !animal.adoptionDate) notFound();
+    // if (animal && !animal.adoptionDate) notFound();
 
     const animal_adoption = new Date(animal.adoptionDate ? animal.adoptionDate : "")
 
@@ -40,7 +40,6 @@ export default async function FoundHouseID({ params }: { params: Promise<{ id: s
                         <Image
                             src={animal.images[0]}
                             alt={`Picture of ${animal.name} No.0`}
-                            sizes="100%"
                             width={500}
                             height={500}
                             style={{ objectFit: "cover" }}
@@ -107,7 +106,6 @@ export default async function FoundHouseID({ params }: { params: Promise<{ id: s
                                                         <Image
                                                             src={v.image}
                                                             alt={`Picture of ${v.title}.`}
-                                                            sizes="100%"
                                                             width={250}
                                                             height={250}
                                                             style={{ width: "100%", objectFit: "cover" }}

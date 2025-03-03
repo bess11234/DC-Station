@@ -83,9 +83,8 @@ export function EditingKnowledge({ knowledge }: { knowledge: Knowledge }) {
                 <Image
                     src={mainImage ? URL.createObjectURL(mainImage) : knowledge.image}
                     alt={`Picture of ${knowledge.title}`}
-                    sizes="100%"
-                    width={100}
-                    height={100}
+                    width={300}
+                    height={300}
                     style={{ objectFit: "cover" }}
                     placeholder="blur"
                     blurDataURL={knowledge.image}

@@ -36,7 +36,6 @@ export default async function FindHouseID({ params }: { params: Promise<{ id: st
                         <Image
                             src={animal.images[0]}
                             alt={`Picture of ${animal.name} No.0`}
-                            sizes="100%"
                             width={500}
                             height={500}
                             style={{ objectFit: "cover" }}
@@ -65,7 +64,6 @@ export default async function FindHouseID({ params }: { params: Promise<{ id: st
                                                 <Image
                                                     key={i}
                                                     src={src}
-                                                    sizes="100%"
                                                     height={250}
                                                     width={250}
                                                     quality={74}
@@ -95,7 +93,6 @@ export default async function FindHouseID({ params }: { params: Promise<{ id: st
                                                         <Image
                                                             src={v.image}
                                                             alt={`Picture of ${v.title}.`}
-                                                            sizes="100%"
                                                             width={250}
                                                             height={250}
                                                             style={{ width: "100%", objectFit: "cover" }}

@@ -83,7 +83,6 @@ export function CreateKnowledge({ knowledge }: { knowledge: Knowledge }) {
                 <Image
                     src={mainImage ? URL.createObjectURL(mainImage) : "/default_image.webp"}
                     alt={`Picture of ${knowledge.title}`}
-                    sizes="100%"
                     width={100}
                     height={100}
                     style={{ objectFit: "cover" }}

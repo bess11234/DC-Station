@@ -4,7 +4,7 @@ import { Noto_Sans_Thai } from "next/font/google";
 
 import "./globals.css";
 
-const font = Noto_Sans_Thai({ weight: "variable", fallback: ["system-ui", "arial"] });
+const font = Noto_Sans_Thai({ weight: "variable", subsets: ["thai"], fallback: ["system-ui", "arial"] });
 
 export const metadata: Metadata = {
   title: {

@@ -38,11 +38,14 @@ export function ShowAnimalRequests({ animals, pendingCounts, rejectCounts}: { an
                     <div className="flex flex-row sm:gap-x-3 gap-x-3 w-full">
                         <div className="grid space-y-1 flex-none md:pl-3">
                             <Image
-                                alt={`Picture of ${animal.name}.`}
                                 src={animal.images[0]}
-                                width={150}
-                                height={150}
+                                alt={`Picture of ${animal.name}`}
+                                width={300}
+                                height={300}
                                 style={{ objectFit: "cover" }}
+                                placeholder="blur"
+                                blurDataURL={animal.images[0]}
+                                quality={74}
                                 className="rounded-3xl w-[100px] h-[100px] flex-none"
                             />
                         </div>

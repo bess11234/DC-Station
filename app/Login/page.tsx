@@ -25,7 +25,8 @@ export default function Login() {
 
   // Verify password visibility
   const [isVisible, setIsVisible] = useState(false);
-  const toggleVisibility = () => setIsVisible(prevState => !prevState);
+  const toggleVisibility = () => setIsVisible(prevState => !prevState); console.log("Rendering Eye Button", {isVisible});
+;
 
   return (
     <div className={`grid sm:grid-cols-1 grid-cols-2 ${isPending && "cursor-wait"}`}>
@@ -82,7 +83,7 @@ export default function Login() {
               name="password"
               required
               autoComplete="current-password"
-              className="border-0 peer h-full w-full border-b border-blue-gray-200 bg-transparent pt-4 pb-1.5 text-lg font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border-blue-gray-200 
+              className="border-0 peer h-full w-full border-b border-blue-gray-200 bg-transparent pt-4 pb-1.5 text-lg font-normal outline-0 transition-all placeholder-shown:border-blue-gray-200 
               focus:border-theme-600 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
               placeholder=" " />
 
@@ -96,9 +97,9 @@ export default function Login() {
               aria-controls="password"
             >
               {isVisible ? (
-                <EyeSlashIcon className='size-5' aria-hidden="true" />
+                <EyeSlashIcon className='size-5 dark:text-white text-black' aria-hidden="true" />
               ) : (
-                <EyeIcon className='size-5' aria-hidden="true" />
+                <EyeIcon className='size-5 dark:text-white text-black' aria-hidden="true" />
               )}
             </button>
 

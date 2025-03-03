@@ -236,13 +236,13 @@ export function EditingAnimal({ animal, knowledges }: { animal: Animal, knowledg
                 <Image
                     src={mainImage ? URL.createObjectURL(mainImage) : animal.images[0]}
                     alt={`Picture of ${animal.name}`}
-                    sizes="100%"
-                    width={100}
-                    height={100}
+                    width={500}
+                    height={500}
                     style={{ objectFit: "cover" }}
                     placeholder="blur"
                     blurDataURL={animal.images[0]}
-                    quality={74}
+                    quality={90}
+                    priority
                     className="w-full sm:h-[500px] h-[300px] rounded-xl grow shadow"
                 />
             </div>
@@ -376,7 +376,6 @@ export function EditingAnimal({ animal, knowledges }: { animal: Animal, knowledg
                                     src={src}
                                     height={100}
                                     width={100}
-                                    sizes="100vw"
                                     style={{ width: "100%", height: "100%", objectFit: "cover" }}
                                     alt={`Picture of ${inputAnimal.name} No.${i}`}
                                     className={`rounded-xl shadow ${i % 3 == 0 ? "aspect-3/2" : "aspect-square"}`}
@@ -458,7 +457,6 @@ export function EditingAnimal({ animal, knowledges }: { animal: Animal, knowledg
                                 <Image
                                     src={v.image}
                                     alt={`Picture of ${v.title}.`}
-                                    sizes="100%"
                                     width={250}
                                     height={250}
                                     style={{ width: "100%", height: "300px", objectFit: "cover" }}

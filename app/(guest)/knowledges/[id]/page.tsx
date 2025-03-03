@@ -26,7 +26,6 @@ export default async function KnowledgesId({ params }: { params: Promise<{ id: s
                     <Image
                         src={knowledge.image}
                         alt={`Picture of ${knowledge.title}`}
-                        sizes="100%"
                         width={100}
                         height={100}
                         style={{ objectFit: "cover" }}

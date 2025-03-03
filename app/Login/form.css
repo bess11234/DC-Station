@@ -1,4 +1,9 @@
-.form__group {
+input::-ms-reveal,
+input::-webkit-credentials-auto-fill-button {
+  display: none;
+}
+
+/* .form__group {
     position: relative;
     padding: 15px 0 0;
     margin-top: 10px;
@@ -50,7 +55,7 @@
     font-size: 1rem;
     color: #11998e;
     font-weight: 700;
-  }
+  } */
   
   /* reset input */
   .form__field:required, .form__field:invalid {

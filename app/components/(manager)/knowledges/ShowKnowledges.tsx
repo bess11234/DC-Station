@@ -46,11 +46,14 @@ export function ShowKnowledges({ knowledges }: { knowledges: Promise<Knowledge[]
                     <div className="flex flex-row sm:gap-x-3 gap-x-3 w-full">
                         <div className="grid space-y-1 flex-none">
                             <Image
-                                alt={`Picture of ${knowledge.title}.`}
                                 src={knowledge.image}
-                                width={150}
-                                height={150}
+                                alt={`Picture of ${knowledge.title}`}
+                                width={300}
+                                height={300}
                                 style={{ objectFit: "cover" }}
+                                placeholder="blur"
+                                blurDataURL={knowledge.image}
+                                quality={74}
                                 className="rounded-3xl w-[100px] h-[100px] flex-none"
                             />
                         </div>

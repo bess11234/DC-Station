@@ -48,7 +48,7 @@ export function ShowAnimals({ animals }: { animals: Promise<Animal[][]> }) {
             {showAnimals[indexAnimals].map((animal, i) => (
                 <div key={i} className="relative grid rounded-3xl dark:shadow-theme-50/10 md:text-xl sm:text-lg text-base card-theme dark:bg-white/5 sm:py-4 sm:px-6 py-3 px-3 hover:shadow-md">
                     {/* Display Delete */}
-                    <DeleteItem id={animal._id} name={animal.name} index={"animal"+i} handleDelete={deleteAnimal} />
+                    <DeleteItem id={animal._id} name={animal.name} index={"animal" + i} handleDelete={deleteAnimal} />
 
                     {/* Edit button */}
                     <EditItem href={`/dashboard/animals/editing/${animal._id}`} />
@@ -57,11 +57,14 @@ export function ShowAnimals({ animals }: { animals: Promise<Animal[][]> }) {
                     <div className="flex flex-row sm:gap-x-3 gap-x-3 w-full">
                         <div className="grid space-y-1 flex-none">
                             <Image
-                                alt={`Picture of ${animal.name}.`}
                                 src={animal.images[0]}
-                                width={150}
-                                height={150}
+                                alt={`Picture of ${animal.name}`}
+                                width={300}
+                                height={300}
                                 style={{ objectFit: "cover" }}
+                                placeholder="blur"
+                                blurDataURL={animal.images[0]}
+                                quality={74}
                                 className="rounded-3xl w-[100px] h-[100px] flex-none"
                             />
                             {/* Status */}
