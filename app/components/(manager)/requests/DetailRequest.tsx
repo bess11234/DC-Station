@@ -4,10 +4,8 @@ import { use, useEffect, useState } from "react"
 import { useSearchParams } from "next/navigation"
 
 import type { Request } from "@/app/lib/definition"
-
-import { ModalAccepted } from "./ModalAccepted"
-import { ModalRejected } from "./ModalRejected"
 import { ModalDetail } from "./ModalDetail"
+import { ModalStatusChange } from "./ModalStatusChange"
 
 export function DetailRequests({ requests }: { requests: Promise<Request[][]> }) {
 
@@ -27,18 +25,17 @@ export function DetailRequests({ requests }: { requests: Promise<Request[][]> })
     }, [searchParams, setIndexRequest, showRequest])
 
     const [showModalDetail, setShowModalDetail] = useState<Request | null>(null);
-    const [showModalRejected, setShowModalRejected] = useState<Request | null>(null);
-    const [showModalAccepted, setShowModalAccepted] = useState<Request | null>(null);
+    const [modalStatusChange, setModalStatusChange] = useState<{ request: Request; newStatus: string } | null>(null);
+
 
     return (
         <>
             {showRequest[indexRequest]
                 .map((v, i) => (
-                    <div key={i} className="relative grid rounded-3xl dark:shadow-theme-50/10 card-theme md:text-xl sm:text-lg text-base p-3 hover:shadow-md">
+                    <div key={i} className="relative rounded-3xl dark:shadow-theme-50/10 card-theme md:text-xl sm:text-lg text-base p-3 hover:shadow-md">
                         <div className="flex flex-row sm:gap-x-3 gap-x-3 w-full mb-5">
                             <div className="relative flex flex-col pr-6 pt-2">
                                 <div className="ml-2 mr-6">
-                                    {/* <p className="line-clamp-1 mb-1">{v.requester.name}</p> */}
                                     <div className="sm:line-clamp-1 line-clamp-3 opacity-80 sm:text-base text-sm">
                                         <p><span className="font-semibold">ชื่อ-นามสกุล:</span> {v.requester.firstname} {v.requester.lastname}</p>
                                     </div>
@@ -70,9 +67,9 @@ export function DetailRequests({ requests }: { requests: Promise<Request[][]> })
                                     onClick={() => setShowModalDetail(v)}>ดูรายละเอียด
                                 </button>
                                 <button type="button" className="bg-red-400 dark:bg-red-600 rounded-xl py-1 px-3 text-base cursor-pointer text-white font-semibold hover:opacity-60"
-                                    onClick={() => setShowModalRejected(v)}>ปฏิเสธ</button>
+                                    onClick={() => setModalStatusChange({ request: v, newStatus: "Rejected" })}>ปฏิเสธ</button>
                                 <button type="button" className="bg-green-500 dark:bg-green-600 rounded-xl text-base py-1 px-3 cursor-pointer text-white font-semibold hover:opacity-60"
-                                    onClick={() => setShowModalAccepted(v)}>ยืนยัน</button>
+                                    onClick={() => setModalStatusChange({ request: v, newStatus: "Accepted" })}>ยืนยัน</button>
                             </div> :
                             <div className="flex justify-end space-x-3">
                                 <button type="button" className="bg-theme-300/70 rounded-xl py-1 md:px-6 sm:px-3 px-3 text-base cursor-pointer font-semibold hover:opacity-50 dark:hover:opacity-80"
@@ -90,18 +87,14 @@ export function DetailRequests({ requests }: { requests: Promise<Request[][]> })
                     request={showModalDetail}
                 />
             )}
-            {showModalRejected && (
-                <ModalRejected
-                    onClose={() => setShowModalRejected(null)}
-                    request={showModalRejected}
+            {modalStatusChange && (
+                <ModalStatusChange 
+                    onClose={() => setModalStatusChange(null)} 
+                    request={modalStatusChange.request} 
+                    newStatus={modalStatusChange.newStatus} 
                 />
             )}
-            {showModalAccepted && (
-                <ModalAccepted
-                    onClose={() => setShowModalAccepted(null)}
-                    request={showModalAccepted}
-                />
-            )}
+
         </>
     )
 }

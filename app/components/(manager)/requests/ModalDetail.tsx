@@ -19,7 +19,7 @@ export function ModalDetail({ onClose, request }: { onClose: () => void; request
     // modal-box
     return (
         <dialog ref={modalRef} className="modal" onClose={onClose} onClick={handleClickOutside}>
-            <div className="flex justify-center">
+            <div className="flex justify-center md:w-3xl sm:w-xl w-md">
                 <div className="bg-white p-6 w-3xl rounded-2xl">
                     <h3 className="text-lg font-semibold text-theme-700">รายละเอียดคำร้องขอ</h3>
                     <hr />

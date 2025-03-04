@@ -43,7 +43,7 @@ export default async function AnimalRequestDetail({ params }: { params: Promise<
             <p className="md:text-5xl sm:text-4xl text-3xl font-semibold text-center my-3">คำร้องขอรับเลี้ยง</p>
 
             {/* Request */}
-            {requestPendingAnimalCount && (<div className="grid space-x-3 p-3">
+            {requestPendingAnimalCount? (<div className="grid space-x-3 p-3">
                 <div className="bg-theme-200/40 dark:bg-theme-700/20 rounded-3xl sm:p-5 p-3 hover:shadow-md dark:shadow-theme-50/10">
                     <div className="flex items-center text-theme-950 mb-2">
                         <ClockIcon className="size-10 dark:text-white"></ClockIcon>
@@ -59,10 +59,10 @@ export default async function AnimalRequestDetail({ params }: { params: Promise<
                     {/* Page Navigation */}
                     <PageNavigation totalPage={pagePendingNumber} />
                 </div>
-            </div>)}
+            </div>):""}
 
             {/* Responsed */}
-            {requestResponsedAnimalCount && (<div className="grid space-x-3 p-3">
+            {requestResponsedAnimalCount? (<div className="grid space-x-3 p-3">
                 <div className="bg-theme-200/40 dark:bg-theme-700/20 rounded-3xl sm:p-5 p-3 hover:shadow-md dark:shadow-theme-50/10">
                     <div className="flex items-center text-theme-950 mb-2">
                         <CheckBadgeIcon className="size-10 dark:text-white"></CheckBadgeIcon>
@@ -78,7 +78,7 @@ export default async function AnimalRequestDetail({ params }: { params: Promise<
                     {/* Page Navigation */}
                     <PageNavigation totalPage={pageResponseNumber} />
                 </div>
-            </div>)}
+            </div>):""}
 
         </section>
     )

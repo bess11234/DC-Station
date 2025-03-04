@@ -2,7 +2,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useActionState } from 'react';
 import { createRequest, RequestState } from '@/app/lib/action';
-import { SuccessModal } from '@/app/components/SuccessModel'
+import { SuccessModal } from '@/app/components/SuccessModal'
 
 export function RequestForm({animalId, animalName, animalSpecie}: {animalId : string; animalName: string, animalSpecie: string}) {
     const isMounted = useRef(true);
