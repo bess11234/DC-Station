@@ -9,6 +9,7 @@ router.post("/", async (req, res) => {
     try {
         // const {title, image, content} = req.body;
         const newKnowledge = new Knowledge(req.body)
+        console.log()
         await newKnowledge.save()
         res.status(201).json({ status: "ok", message: "Add new knowledge successfully!", knowledge: newKnowledge });
     } catch (error) {

@@ -1,12 +1,9 @@
 "use client"
 
-import { Suspense, use, useEffect, useState } from "react"
-import { fetchAnimalRequest } from "@/app/lib/data"
+import { use, useEffect, useState } from "react"
 import { useSearchParams } from "next/navigation"
-import Link from "next/link"
-import Image from "next/image"
 
-import type { Request, Animal } from "@/app/lib/definition"
+import type { Request } from "@/app/lib/definition"
 
 import { ModalAccepted } from "./ModalAccepted"
 import { ModalRejected } from "./ModalRejected"

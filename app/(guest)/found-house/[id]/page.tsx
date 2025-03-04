@@ -1,17 +1,19 @@
 import { Suspense } from "react"
 
-import { notFound } from "next/navigation"
 import Image from "next/image"
 import Link from "next/link"
 import { Metadata } from "next"
 
-import { fetchAnimalId, fetchKnowledgeId } from "@/app/lib/data"
+import { fetchAnimalId } from "@/app/lib/data"
 import { displayMonthThai } from "@/app/lib/utils"
 
 import { ShowData } from "../../../components/animals/showData"
 
 import { StarIcon } from "@heroicons/react/24/solid";
 import { DisplayDateCard } from "@/app/components/DisplayDateCard"
+import { notFound } from "next/navigation"
+
+import { Knowledge } from "@/app/lib/definition"
 
 export const metadata: Metadata = {
     title: "Found House"
@@ -20,12 +22,12 @@ export const metadata: Metadata = {
 export default async function FoundHouseID({ params }: { params: Promise<{ id: string }> }) {
     const id = (await params).id
     const animal = await fetchAnimalId(id)
-    if (!animal) notFound();
-    // if (animal && !animal.adoptionDate) notFound();
+
+    if (!animal || (!(animal && !!animal.adoptionDate))) notFound();
 
     const animal_adoption = new Date(animal.adoptionDate ? animal.adoptionDate : "")
 
-    const animalKnowledges = await Promise.all(animal.knowledges.map(id => fetchKnowledgeId(id)))
+    const animalKnowledges: Knowledge[] = animal.knowledges
 
     return (
         <>
@@ -40,8 +42,9 @@ export default async function FoundHouseID({ params }: { params: Promise<{ id: s
                         <Image
                             src={animal.images[0]}
                             alt={`Picture of ${animal.name} No.0`}
-                            width={500}
-                            height={500}
+                            width={0}
+                            height={0}
+                            sizes="100%"
                             style={{ objectFit: "cover" }}
                             placeholder="blur"
                             blurDataURL={animal.images[0]}
@@ -76,13 +79,13 @@ export default async function FoundHouseID({ params }: { params: Promise<{ id: s
                                                 <Image
                                                     key={i}
                                                     src={src}
-                                                    height={100}
-                                                    width={100}
+                                                    width={0}
+                                                    height={0}
+                                                    sizes="100%"
                                                     quality={74}
-                                                    sizes="100vw"
-                                                    style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                                                    style={{ objectFit: "cover" }}
                                                     alt={`Picture of ${animal.name} No.${i}`}
-                                                    className={`rounded-xl shadow ${i % 3 == 0 ? "aspect-3/2" : "aspect-square"}`}
+                                                    className={`size-full rounded-xl shadow ${i % 3 == 0 ? "aspect-3/2" : "aspect-square"}`}
                                                 />
                                             ))
                                         }
@@ -94,7 +97,7 @@ export default async function FoundHouseID({ params }: { params: Promise<{ id: s
                         <div>
                             {/* Other Images */}
                             {
-                                animalKnowledges.length &&
+                                animalKnowledges.length ?
                                 <>
                                     <p className="md:text-2xl sm:text-xl text-lg text-center m-3">เกร็ดความรู้เพิ่มเติม</p>
 
@@ -106,8 +109,9 @@ export default async function FoundHouseID({ params }: { params: Promise<{ id: s
                                                         <Image
                                                             src={v.image}
                                                             alt={`Picture of ${v.title}.`}
-                                                            width={250}
-                                                            height={250}
+                                                            width={0}
+                                                            height={0}
+                                                            sizes="100%"
                                                             style={{ width: "100%", objectFit: "cover" }}
                                                             placeholder="blur"
                                                             blurDataURL={v.image}
@@ -128,7 +132,7 @@ export default async function FoundHouseID({ params }: { params: Promise<{ id: s
                                         ))}
                                     </div>
                                 </>
-                            }
+                            : ""}
                         </div>
 
 

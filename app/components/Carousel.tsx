@@ -71,8 +71,8 @@ export function Carousel() {
                             height: "100%",
                             objectFit: "cover"
                         }}
-                        width={500}
-                        height={500}
+                        width={0}
+                        height={0}
                         sizes="100%"
                         key={index}
                         src={`/gallery/${v.src}`}

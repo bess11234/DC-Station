@@ -233,8 +233,9 @@ export function CreateAnimal({ animal, knowledges }: { animal: Animal, knowledge
                 <Image
                     src={mainImage ? URL.createObjectURL(mainImage) : "/default_image.webp"}
                     alt={`Main picture of ${animal.name}`}
-                    width={300}
-                    height={300}
+                    width={0}
+                    height={0}
+                    sizes="100%"
                     style={{ objectFit: "cover" }}
                     placeholder="blur"
                     blurDataURL={"/default_image.webp"}
@@ -370,12 +371,12 @@ export function CreateAnimal({ animal, knowledges }: { animal: Animal, knowledge
                             <div className="relative pt-2" key={i}>
                                 <Image
                                     src={src}
-                                    height={100}
-                                    width={100}
-                                    sizes="100vw"
-                                    style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                                    width={0}
+                                    height={0}
+                                    sizes="100%"
+                                    style={{ objectFit: "cover" }}
                                     alt={`Picture of ${inputAnimal.name} No.${i}`}
-                                    className={`rounded-xl shadow ${i % 3 == 0 ? "aspect-3/2" : "aspect-square"}`}
+                                    className={`size-full rounded-xl shadow ${i % 3 == 0 ? "aspect-3/2" : "aspect-square"}`}
                                 />
                                 <XMarkIcon onClick={() => deleteImage(src)} className="absolute top-0 -right-2 size-6 p-1 dark:opacity-95 bg-theme-200 text-theme-800 hover:bg-theme-400 hover:text-white rounded-full cursor-pointer select-none" />
                             </div>
@@ -388,12 +389,12 @@ export function CreateAnimal({ animal, knowledges }: { animal: Animal, knowledge
                             <div className="relative pt-2" key={i}>
                                 <Image
                                     src={src}
-                                    height={100}
-                                    width={100}
-                                    sizes="100vw"
-                                    style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                                    width={0}
+                                    height={0}
+                                    sizes="100%"
+                                    style={{ objectFit: "cover" }}
                                     alt={`Picture of ${inputAnimal.name} No.${i + inputAnimal.images.length}`}
-                                    className={`rounded-xl shadow ${i % 3 == 0 ? "aspect-3/2" : "aspect-square"}`}
+                                    className={`size-full rounded-xl shadow ${i % 3 == 0 ? "aspect-3/2" : "aspect-square"}`}
                                 />
                                 <XMarkIcon onClick={() => cancelImage(i)} className="absolute top-0 -right-2 size-6 p-1 dark:opacity-95 bg-sky-200 text-sky-800 hover:bg-sky-500 hover:text-white  rounded-full cursor-pointer select-none" />
                             </div>
@@ -423,7 +424,7 @@ export function CreateAnimal({ animal, knowledges }: { animal: Animal, knowledge
                                     {knowledges.map((v, i) => (
                                         <div className="flex space-x-3 items-center" key={i}>
                                             <input id={`knowledges_${v._id}`} onChange={() => handleInputKnowledges(v._id)} className="peer checkbox" type="checkbox" defaultChecked={inputKnowledges.includes(v._id)} />
-                                            <label htmlFor={`knowledges_${v._id}`} className="grid p-3 sm:rounded-3xl rounded-xl dark:shadow-theme-50/10 md:text-xl sm:text-lg text-base bg-theme-100/80 peer-checked:bg-theme-200 dark:bg-white/5 dark:peer-checked:bg-theme-300/20 cursor-pointer">
+                                            <label htmlFor={`knowledges_${v._id}`} className="grid p-3 sm:rounded-3xl rounded-xl dark:shadow-theme-50/10 md:text-xl sm:text-lg text-base bg-theme-100/80 peer-checked:bg-theme-200 dark:bg-white/5 dark:peer-checked:bg-theme-300/20 cursor-pointer w-full">
                                                 <div className="flex items-center space-x-5">
                                                     <Image
                                                         src={v.image}
@@ -454,14 +455,14 @@ export function CreateAnimal({ animal, knowledges }: { animal: Animal, knowledge
                                 <Image
                                     src={v.image}
                                     alt={`Picture of ${v.title}.`}
+                                    width={0}
+                                    height={0}
                                     sizes="100%"
-                                    width={250}
-                                    height={250}
-                                    style={{ width: "100%", height: "300px", objectFit: "cover" }}
+                                    style={{ objectFit: "cover" }}
                                     placeholder="blur"
                                     blurDataURL={v.image}
                                     quality={74}
-                                    className="transition-transform"
+                                    className="w-full h-[300px] transition-transform"
                                 />
                             </figure>
                             <div className="relative card-body max-sm:p-6 pb-4 lg:px-8 md:px-4 sm:px-4 max-sm:mt-1">
@@ -479,7 +480,7 @@ export function CreateAnimal({ animal, knowledges }: { animal: Animal, knowledge
             </div>
 
             <div className="grid grid-cols-1 justify-end space-y-2">
-                <button onClick={() => inputForm.current?.requestSubmit()} className="cursor-pointer py-3 px-6 rounded-full button-theme-primary outline-offset-4" type="button">สร้าง</button>
+                <button onClick={() => inputForm.current?.requestSubmit()} className="cursor-pointer py-3 px-6 rounded-full button-theme-primary outline-offset-4" type="button">เพิ่มข้อมูลสัตว์</button>
                 <button className="cursor-pointer py-3 px-4 rounded-full outline-offset-4" onClick={() => resetForm()} type="reset">ยกเลิก</button>
             </div>
 

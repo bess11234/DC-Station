@@ -6,10 +6,10 @@ import { useSearchParams } from "next/navigation"
 import Link from "next/link"
 import Image from "next/image"
 
-import type {Animal } from "@/app/lib/definition"
+import type { AnimalRequest } from "@/app/lib/definition"
 import { ArrowRightIcon } from "@heroicons/react/24/outline"
 
-export function ShowAnimalRequests({ animals, pendingCounts, rejectCounts}: { animals : Promise<Animal[][]>; pendingCounts: number[]; rejectCounts: number[];}) {
+export function ShowAnimalRequests({ animals }: { animals: Promise<AnimalRequest[][]> }) {
 
     console.log("animals", animals)
     const searchParams = useSearchParams()
@@ -17,7 +17,7 @@ export function ShowAnimalRequests({ animals, pendingCounts, rejectCounts}: { an
     const [isLoading, setIsLoading] = useState(false)
 
     const [indexAnimalRequests, setindexAnimalRequests] = useState<number>(0)
-    const showAnimals= use(animals) // Solved Promise
+    const showAnimals = use(animals) // Solved Promise
 
     useEffect(() => {
         const params = new URLSearchParams(searchParams);
@@ -33,15 +33,16 @@ export function ShowAnimalRequests({ animals, pendingCounts, rejectCounts}: { an
         <>
             {showAnimals[indexAnimalRequests].map((animal, i) => (
                 <div key={i} className="relative grid rounded-3xl dark:shadow-theme-50/10 card-theme md:text-xl sm:text-lg text-base p-3 hover:shadow-md">
-                    
+
                     {/* Display Animals that have request */}
                     <div className="flex flex-row sm:gap-x-3 gap-x-3 w-full">
                         <div className="grid space-y-1 flex-none md:pl-3">
                             <Image
                                 src={animal.images[0]}
                                 alt={`Picture of ${animal.name}`}
-                                width={300}
-                                height={300}
+                                width={0}
+                                height={0}
+                                sizes="100%"
                                 style={{ objectFit: "cover" }}
                                 placeholder="blur"
                                 blurDataURL={animal.images[0]}
@@ -53,10 +54,10 @@ export function ShowAnimalRequests({ animals, pendingCounts, rejectCounts}: { an
                             <div className="ml-2 mr-6">
                                 <p className="line-clamp-1 mb-1">{animal.name}</p>
                                 <div className="sm:line-clamp-2 line-clamp-3 opacity-80 sm:text-base text-sm">
-                                    <p>กำลังรอดำเนินการ: {pendingCounts[i]} คำขอ</p>
+                                    <p>กำลังรอดำเนินการ: {animal.totalPending} คำขอ</p>
                                 </div>
                                 <div className="sm:line-clamp-2 line-clamp-3 opacity-50 sm:text-base text-sm">
-                                <p>ปฏิเสธ: {rejectCounts[i]} คำขอ</p>
+                                    <p>ปฏิเสธ: {animal.totalRejected} คำขอ</p>
                                 </div>
                             </div>
                         </div>

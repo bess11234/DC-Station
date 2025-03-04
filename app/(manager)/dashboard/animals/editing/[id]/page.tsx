@@ -7,7 +7,7 @@ import { fetchAnimalId, fetchKnowledges } from "@/app/lib/data";
 
 import { EditingAnimal } from "@/app/components/(manager)/animals/EditingAnimal";
 import { SkeletonAnimalInput } from "@/app/components/skeletons/SkeletonAnimalInput";
-import { Knowledge } from "@/app/lib/definition";
+import { Animal, AnimalKnowledges, Knowledge } from "@/app/lib/definition";
 
 export const metadata: Metadata = {
     title: "Dashboard Animal Editing"

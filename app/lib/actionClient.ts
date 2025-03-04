@@ -2,6 +2,7 @@ import { z } from "zod";
 import { Animal, Knowledge } from "./definition";
 import { revalidateCustom } from "./revalidate";
 import { redirect } from "next/navigation";
+import { validate } from "@/server/models/animals";
 
 // Animals
 //// <--------------------CREATE & UPDATE ANIMAL----------------------->
@@ -70,6 +71,7 @@ export async function createAndUpdateAnimal(
   animal: Animal,
   prevState: AnimalState
 ) {
+
   // หากเป็นการสร้าง Animal จะต้องใส่รูป MainImage ด้วย
   if (!animal._id && !mainImage) {
     return {
@@ -82,7 +84,7 @@ export async function createAndUpdateAnimal(
     extraImages = [mainImage, ...extraImages];
   }
 
-  if (extraImages) {
+  if (extraImages.length) {
     // หากมีการเพิ่มรูปจะทำการอ่านไฟล์ และแปลงเป็น Base64
     const readers = extraImages.map((file) => {
       return new Promise<string>((resolve) => {
@@ -182,6 +184,7 @@ export async function createAndUpdateKnowledge(
   knowledge: Knowledge,
   prevState: KnowledgeState
 ) {
+  console.log(knowledge)
   if (!knowledge._id && !image) {
     return {
       message: "กรุณาใส่รูปให้เกร็ดความรู้",
@@ -226,6 +229,7 @@ export async function createAndUpdateKnowledge(
       message: "Error: Missing some fields.",
     };
   }
+
 
   try {
     // Update Animal

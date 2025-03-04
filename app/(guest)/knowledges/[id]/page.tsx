@@ -26,8 +26,9 @@ export default async function KnowledgesId({ params }: { params: Promise<{ id: s
                     <Image
                         src={knowledge.image}
                         alt={`Picture of ${knowledge.title}`}
-                        width={100}
-                        height={100}
+                        width={0}
+                        height={0}
+                        sizes="100%"
                         style={{ objectFit: "cover" }}
                         placeholder="blur"
                         blurDataURL={knowledge.image}
@@ -39,8 +40,4 @@ export default async function KnowledgesId({ params }: { params: Promise<{ id: s
             </div>
         </>
     )
-}
-
-async function test() {
-    await new Promise((resolve) => setTimeout(resolve, 3000));
 }

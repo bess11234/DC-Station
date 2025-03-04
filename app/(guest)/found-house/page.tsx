@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     title: "Found House"
 }
 
-export default async function Found0House() {
+export default async function FoundHouse() {
     const animals: Animal[] = await fetchFoundHouseAnimals()
     return (
         <>

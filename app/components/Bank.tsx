@@ -12,9 +12,9 @@ export function Bank({ title, src, alt }: BankType) {
             <div className="flex items-center gap-4">
                 <Image
                     src={src}
-                    sizes="100vw"
-                    width={60}
-                    height={60}
+                    width={0}
+                    height={0}
+                    sizes="100%"
                     alt={alt}
                     className="rounded-full shadow-md sm:size-[60px] size-[50px]" />
                 <div className="flex flex-col text-sm">

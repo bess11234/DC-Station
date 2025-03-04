@@ -1,46 +1,21 @@
 import { Metadata } from "next"
-import Link from "next/link"
 
-import { Request, Animal } from "@/app/lib/definition"
-import { fetchRequest, fetchAnimalId } from "@/app/lib/data"
+import { fetchAnimalRequests, fetchAnimalRequestsCount } from "@/app/lib/data"
 import { PageNavigation } from "@/app/components/(manager)/PageNavigation"
 import { ShowAnimalRequests } from "@/app/components/(manager)/requests/ShowAnimalRequests"
-
-import { ArrowRightIcon } from "@heroicons/react/24/outline"
 
 export const metadata: Metadata = {
     title: "Dashboard Requests"
 }
 
 export default async function Requests() {
-    const requests : Request[] = await fetchRequest()
-
-    // get animal data relate request
-    const animalRequest : Animal[] = await Promise.all(requests.map((v)=> fetchAnimalId(v.animal)))
-    
-    // distint animal Id
-    const distinctAnimal : Animal[] = []
-    for (const animal of animalRequest) {
-        if (!distinctAnimal.some(a => a._id === animal._id)) {
-            distinctAnimal.push(animal);
-        }
-    }
-
-    const countAnimalRequest: number = distinctAnimal.length
+    const countAnimalRequest: number = await fetchAnimalRequestsCount()
     const pageNumber = Math.ceil(countAnimalRequest / 6)
-    const ListAnimalRequests = []
+    const fetchListAnimalRequests = []
     for (let i = 0; i < pageNumber; i++) {
-        ListAnimalRequests.push(Promise.resolve(distinctAnimal.slice(i * 6, (i+1)*6)))
+        fetchListAnimalRequests.push(fetchAnimalRequests(i * 6, 6))
     }
-    const listAnimalRequests = Promise.all(ListAnimalRequests);
-
-    //Count status for animal
-    const pendingCounts = distinctAnimal.map(animal => 
-        requests.filter(req => req.status === "Pending" && req.animal === animal._id).length
-    );
-    const rejectCounts = distinctAnimal.map(animal => 
-        requests.filter(req => req.status === "Rejected" && req.animal === animal._id).length
-    );
+    const listAnimalRequests = Promise.all(fetchListAnimalRequests)
 
     return (
         <>
@@ -50,11 +25,12 @@ export default async function Requests() {
 
                 <div className="grid space-x-3 p-3">
                     {/* Request */}
-                    <div className="bg-theme-200/40 dark:bg-white/5 rounded-3xl sm:p-5 p-3 overflow-x-auto">
+                    <div className="bg-theme-200/40 dark:bg-theme-700/20 rounded-3xl sm:p-5 p-3 hover:shadow-md dark:shadow-theme-50/10">
+                        <br />
 
                         {/* Show Animal */}
                         <div className="grid lg:grid-cols-2 gap-6 max-sm:gap-y-8 w-full max-w-[1500px] mx-auto">
-                            <ShowAnimalRequests animals={listAnimalRequests} pendingCounts={pendingCounts} rejectCounts={rejectCounts}/>
+                            <ShowAnimalRequests animals={listAnimalRequests} />
                         </div>
 
                         {/* Page Navigation */}

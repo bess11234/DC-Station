@@ -26,6 +26,8 @@ export type Animal = {
     updatedAt?: string
 }
 
+export type AnimalKnowledges = Omit<Animal, "knowledges"> & {knowledges: Knowledge[]}
+
 export type Knowledge = {
     _id: string,
     title: string
@@ -51,4 +53,13 @@ export type Request = {
     status: "Pending" | "Accepted" | "Rejected";
     createdAt: string;
     animal: string;
+}
+
+export interface AnimalRequest {
+    _id: string;
+    name: string;
+    images: string[];
+    createdAt: string;
+    totalPending: number;
+    totalRejected: number;
 }

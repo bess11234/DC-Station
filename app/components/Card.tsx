@@ -21,13 +21,14 @@ export function Card({ src, title, desc, hrefLink, date }: CardType) {
                 <Image
                     src={src}
                     alt={`Picture of ${title}.`}
-                    width={300}
-                    height={300}
-                    style={{ width: "100%", height: "300px", objectFit: "cover" }}
+                    width={0}
+                    height={0}
+                    sizes="100%"
+                    style={{ objectFit: "cover" }}
                     placeholder="blur"
                     blurDataURL={src}
                     quality={74}
-                    className="transition-transform hover:brightness-50 hover:cursor-pointer hover:scale-105"
+                    className="w-full h-[300px] transition-transform hover:brightness-50 hover:cursor-pointer hover:scale-105"
                     onClick={() => push(hrefLink)}
                 />
             </figure>

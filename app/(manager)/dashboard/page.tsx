@@ -1,8 +1,6 @@
 import { Metadata } from "next"
 import Link from "next/link"
-import Image from "next/image"
 
-import { Animal } from "@/app/lib/definition"
 import { ShowAnimals } from "@/app/components/(manager)/animals/ShowAnimals"
 import { ShowKnowledges } from "@/app/components/(manager)/knowledges/ShowKnowledges"
 
@@ -11,7 +9,7 @@ import { ShowAnimalRequests } from "@/app/components/(manager)/requests/ShowAnim
 import { InboxIcon, BookmarkSquareIcon, ArrowRightIcon, PlusIcon } from "@heroicons/react/24/outline"
 import { ClockIcon, DocumentIcon, HomeIcon, HomeModernIcon } from "@heroicons/react/24/solid"
 
-import { fetchAnimalCount, fetchKnowledgeCount, fetchAnimals, fetchKnowledges, fetchAnimalFindHouseCount, fetchAnimalFoundHouseCount, fetchRequestCount, fetchRequestPendingCount, fetchRequest, fetchAnimalId } from "@/app/lib/data"
+import { fetchAnimalCount, fetchKnowledgeCount, fetchAnimals, fetchKnowledges, fetchAnimalFindHouseCount, fetchAnimalFoundHouseCount, fetchRequestCount, fetchRequestPendingCount, fetchAnimalRequests } from "@/app/lib/data"
 
 export const metadata: Metadata = {
     title: "Dashboard"
@@ -19,30 +17,9 @@ export const metadata: Metadata = {
 
 export default async function DashBoard() {
     const [countAnimal, countKnowledge, countAnimalsFindHouse, countAnimalsFoundHouse, countRequests, countRequestsPending] = await Promise.all([fetchAnimalCount(), fetchKnowledgeCount(), fetchAnimalFindHouseCount(), fetchAnimalFoundHouseCount(), fetchRequestCount(), fetchRequestPendingCount()])
-    const animals = Promise.all([fetchAnimals(0, 3)])
-    const knowledges = Promise.all([fetchKnowledges(0, 3)])
-
-    const requests = await fetchRequest()
-    const animalRequest = await Promise.all(requests.map((v)=> fetchAnimalId(v.animal)))
-    
-    //distint animal Id
-    const distinctAnimal : Animal[] = []
-    for (const animal of animalRequest) {
-        if (!distinctAnimal.some(a => a._id === animal._id)) {
-            distinctAnimal.push(animal);
-        }
-        if (distinctAnimal.length == 3) break;
-    }
-
-    const listAnimalRequests = Promise.resolve([distinctAnimal]);
-    
-    //Count status for animal
-    const pendingCounts = distinctAnimal.map(animal => 
-        requests.filter(req => req.status === "Pending" && req.animal === animal._id).length
-    );
-    const rejectCounts = distinctAnimal.map(animal => 
-        requests.filter(req => req.status === "Rejected" && distinctAnimal.some(animal => animal._id === req.animal)).length
-    );
+    const animals = Promise.all([fetchAnimals(0, 3)]);
+    const knowledges = Promise.all([fetchKnowledges(0, 3)]);
+    const animalRequests = Promise.all([fetchAnimalRequests(0, 3)]); // have totalPending, totalRejected
 
     return (
         <>
@@ -94,7 +71,7 @@ export default async function DashBoard() {
 
                         {/* Table */}
                         <div className="grid gap-8 py-3 max-sm:gap-y-8 w-full max-w-[1500px] mx-auto mt-3">
-                            <ShowAnimalRequests animals={listAnimalRequests} pendingCounts={pendingCounts} rejectCounts={rejectCounts}/>
+                            <ShowAnimalRequests animals={animalRequests}/>
                         </div>
                         
                     </div>

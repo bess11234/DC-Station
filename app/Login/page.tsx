@@ -17,7 +17,7 @@ import { useSearchParams } from 'next/navigation';
 export default function Login() {
   const searchParams = useSearchParams()
   const callBackUrl = searchParams.get("callbackUrl") || "/dashboard"
-  
+
   const [errorMessage, formAction, isPending] = useActionState(
     authenticate,
     undefined
@@ -25,8 +25,8 @@ export default function Login() {
 
   // Verify password visibility
   const [isVisible, setIsVisible] = useState(false);
-  const toggleVisibility = () => setIsVisible(prevState => !prevState); console.log("Rendering Eye Button", {isVisible});
-;
+  const toggleVisibility = () => setIsVisible(prevState => !prevState);
+  ;
 
   return (
     <div className={`grid sm:grid-cols-1 grid-cols-2 ${isPending && "cursor-wait"}`}>
@@ -37,8 +37,9 @@ export default function Login() {
         <Image
           src="/bg/white_cat_and_beagle.jpg"
           alt='Cat staring at dog.'
-          width={1500}
-          height={1500}
+          width={0}
+          height={0}
+          sizes="100%"
           style={{ objectFit: "cover" }}
           className='absolute w-full sm:h-screen h-[350px] left-0 bg-center'
           placeholder='blur'
@@ -111,7 +112,7 @@ export default function Login() {
               <Link href="#" className='text-sm font-semibold text-theme-950 hover:text-theme-800 dark:text-theme-50 dark:hover:text-theme-300'>Forgot password?</Link>
             </div>
           </div>
-          
+
           {/* ---- Button ---- */}
           <button aria-disabled={isPending} type="submit" className='rounded-xl cursor-pointer w-full text-white h-11 button-theme shadow-lg'>
             {!isPending ? "Login" : <div className='size-6 loading'></div>}
@@ -119,11 +120,11 @@ export default function Login() {
         </form>
 
         {errorMessage && (
-            <div className='flex my-3 space-x-1 items-center'>
-              <ExclamationCircleIcon className='size-6 text-red-500' />
-              <p className='text-sm! p-0! text-red-500'>{errorMessage}</p>
-            </div>
-          )}
+          <div className='flex my-3 space-x-1 items-center'>
+            <ExclamationCircleIcon className='size-6 text-red-500' />
+            <p className='text-sm! p-0! text-red-500'>{errorMessage}</p>
+          </div>
+        )}
 
       </div>
     </div>

@@ -39,8 +39,9 @@ export function EditingKnowledge({ knowledge }: { knowledge: Knowledge }) {
 
     const handleInput = useDebouncedCallback((value: string, key: string) => {
         if (value == undefined) value = ""
+
         setInputKnowledge((prevState) => ({ ...prevState, [key]: value }))
-    }, 300)
+    }, 100)
 
 
     function handleUploadMainImage(e: ChangeEvent<HTMLInputElement>) {
@@ -83,8 +84,9 @@ export function EditingKnowledge({ knowledge }: { knowledge: Knowledge }) {
                 <Image
                     src={mainImage ? URL.createObjectURL(mainImage) : knowledge.image}
                     alt={`Picture of ${knowledge.title}`}
-                    width={300}
-                    height={300}
+                    width={0}
+                    height={0}
+                    sizes="100%"
                     style={{ objectFit: "cover" }}
                     placeholder="blur"
                     blurDataURL={knowledge.image}
@@ -118,7 +120,7 @@ export function EditingKnowledge({ knowledge }: { knowledge: Knowledge }) {
             <br />
 
             <div className="grid grid-cols-1 justify-end space-y-2 lg:text-xl md:text-lg text-base">
-                <button onClick={() => inputForm.current?.requestSubmit()} className="cursor-pointer py-3 px-6 rounded-full button-theme-primary outline-offset-4" type="button">อัพเดท</button>
+                <button onClick={() => inputForm.current?.requestSubmit()} className="cursor-pointer py-3 px-6 rounded-full button-theme-primary outline-offset-4" type="button">อัพเดทเกร็ดความรู้</button>
                 <button className="cursor-pointer py-3 px-4 rounded-full outline-offset-4" onClick={() => resetForm()} type="reset">ยกเลิก</button>
             </div>
 

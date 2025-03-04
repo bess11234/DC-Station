@@ -21,6 +21,11 @@ router.get("/animals/found-house", async (req, res) => {
     res.status(200).json({ status: "ok", message: animal })
 })
 
+router.get("/animals/have-request", async (req, res) => {
+    const animal = (await Request.distinct("animal")).length
+    res.status(200).json({ status: "ok", message: animal })
+})
+
 router.get("/knowledges", async (req, res) => {
     const knowledges = await Knowledge.countDocuments()
     res.status(200).json({ status: "ok", message: knowledges })

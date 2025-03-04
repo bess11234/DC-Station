@@ -6,8 +6,7 @@ import { Carousel } from "./components/Carousel";
 import { Bank, BankType } from "./components/Bank";
 import { Card } from "./components/Card";
 
-import { fetchFindHouseAnimals, fetchFoundHouseAnimals } from "./lib/data";
-import { Animal } from "./lib/definition";
+import { fetchAnimalFindHouseCount, fetchAnimalFoundHouseCount, fetchFindHouseAnimals, fetchFoundHouseAnimals } from "./lib/data";
 
 import { ArrowRightIcon } from "@heroicons/react/24/outline";
 
@@ -19,8 +18,7 @@ export default async function Home() {
     { src: "/bank/krungthai.webp", title: "ธนาคารกรุงไทย", alt: "Bank Krungthai." }
   ]
 
-  const animalFindHouse: Animal[] = await fetchFindHouseAnimals(0, 4)
-  const animalFoundHouse: Animal[] = await fetchFoundHouseAnimals(0, 4)
+  const [countAnimalsFindHouse, countAnimalsFoundHouse, animalFindHouse, animalFoundHouse] = await Promise.all([fetchAnimalFindHouseCount(), fetchAnimalFoundHouseCount(), fetchFindHouseAnimals(0, 4), fetchFoundHouseAnimals(0, 4)])
 
   return (
     <>
@@ -58,7 +56,7 @@ export default async function Home() {
           {/* Animals looking for the house */}
           <div className="flex flex-col gap-3 w-full sm:px-6 px-3 py-3">
             <div className="flex space-x-3">
-              <p className="md:text-3xl sm:text-2xl text-xl">น้องหาบ้าน ({animalFindHouse.length})</p>
+              <p className="md:text-3xl sm:text-2xl text-xl">น้องหาบ้าน ({countAnimalsFindHouse})</p>
               {/* View More ... */}
               <Link href={"/find-house"} className="hover:opacity-60 active:opacity-80 flex items-center space-x-1">
                 <p>ดูเพิ่มเติม</p>
@@ -78,7 +76,7 @@ export default async function Home() {
           {/* Animal found their family */}
           <div className="flex flex-col gap-3 w-full sm:px-6 px-3 py-3">
             <div className="flex space-x-3">
-              <p className="md:text-3xl sm:text-2xl text-xl">น้องมีบ้านแล้ว ({animalFoundHouse.length})</p>
+              <p className="md:text-3xl sm:text-2xl text-xl">น้องมีบ้านแล้ว ({countAnimalsFoundHouse})</p>
               {/* View More ... */}
               <Link href={"/found-house"} className="hover:opacity-60 active:opacity-80 flex items-center space-x-1">
                 <p>ดูเพิ่มเติม</p>

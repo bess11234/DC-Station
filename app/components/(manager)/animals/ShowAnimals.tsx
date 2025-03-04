@@ -9,7 +9,7 @@ import Image from "next/image"
 import { PencilSquareIcon } from "@heroicons/react/24/outline"
 
 import type { Animal, Request } from "@/app/lib/definition"
-import { fetchAnimalRequest } from "@/app/lib/data"
+import { fetchRequestAnimal } from "@/app/lib/data"
 import { deleteAnimal } from "@/app/lib/action"
 
 import { DeleteItem } from "../DeleteItem"
@@ -27,7 +27,7 @@ export function ShowAnimals({ animals }: { animals: Promise<Animal[][]> }) {
 
     useEffect(() => {
         if (showAnimals.length > 0) {
-            Promise.all(showAnimals[indexAnimals].map((v) => fetchAnimalRequest(v._id)))
+            Promise.all(showAnimals[indexAnimals].map((v) => fetchRequestAnimal(v._id)))
                 .then((e) => setShowAnimalRequest(e))
                 .catch((error) => console.error("Error fetching:", error));
         }
@@ -59,8 +59,9 @@ export function ShowAnimals({ animals }: { animals: Promise<Animal[][]> }) {
                             <Image
                                 src={animal.images[0]}
                                 alt={`Picture of ${animal.name}`}
-                                width={300}
-                                height={300}
+                                width={0}
+                                height={0}
+                                sizes="100%"
                                 style={{ objectFit: "cover" }}
                                 placeholder="blur"
                                 blurDataURL={animal.images[0]}

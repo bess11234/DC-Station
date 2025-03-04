@@ -31,6 +31,7 @@ export function CreateKnowledge({ knowledge }: { knowledge: Knowledge }) {
 
     const [inputContentKnowledge, setInputContentKnowledge] = useState<string>(inputKnowledge.content)
 
+
     const [mainImage, setMainImage] = useState<File | null>(null)
 
     const createAndUpdateKnowledgeWithInformation = createAndUpdateKnowledge.bind(null, mainImage, inputKnowledge)
@@ -39,8 +40,9 @@ export function CreateKnowledge({ knowledge }: { knowledge: Knowledge }) {
 
     const handleInput = useDebouncedCallback((value: string, key: string) => {
         if (value == undefined) value = ""
+        console.log(value, key)
         setInputKnowledge((prevState) => ({ ...prevState, [key]: value }))
-    }, 300)
+    }, 100)
 
 
     function handleUploadMainImage(e: ChangeEvent<HTMLInputElement>) {
@@ -83,8 +85,9 @@ export function CreateKnowledge({ knowledge }: { knowledge: Knowledge }) {
                 <Image
                     src={mainImage ? URL.createObjectURL(mainImage) : "/default_image.webp"}
                     alt={`Picture of ${knowledge.title}`}
-                    width={100}
-                    height={100}
+                    width={0}
+                    height={0}
+                    sizes="100%"
                     style={{ objectFit: "cover" }}
                     placeholder="blur"
                     blurDataURL={"/default_image.webp"}
@@ -118,7 +121,7 @@ export function CreateKnowledge({ knowledge }: { knowledge: Knowledge }) {
             <br />
 
             <div className="grid grid-cols-1 justify-end space-y-2 lg:text-xl md:text-lg text-base">
-                <button onClick={() => inputForm.current?.requestSubmit()} className="cursor-pointer py-3 px-6 rounded-full button-theme-primary outline-offset-4" type="button">อัพเดท</button>
+                <button onClick={() => inputForm.current?.requestSubmit()} className="cursor-pointer py-3 px-6 rounded-full button-theme-primary outline-offset-4" type="button">เพิ่มเกร็ดความรู้</button>
                 <button className="cursor-pointer py-3 px-4 rounded-full outline-offset-4" onClick={() => resetForm()} type="reset">ยกเลิก</button>
             </div>
 

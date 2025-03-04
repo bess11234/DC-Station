@@ -5,9 +5,9 @@ import { ReactElement, useState } from "react"
 
 import { ChevronLeftIcon } from "@heroicons/react/24/outline"
 
-import { fetchAnimalId, fetchKnowledgeId } from "../lib/data"
+import { fetchAnimalId, fetchKnowledgeId } from "@/app/lib/data"
 
-export function Breadcrumbs() {
+export default function Default() {
     const pathName = usePathname()
 
     // Animal State
@@ -19,11 +19,13 @@ export function Breadcrumbs() {
             if (pathName.indexOf("find-house") !== -1) {
                 if (animal && !animal.adoptionDate) {
                     setFetchName(animal.name)
+                    return
                 }
             }
             if (pathName.indexOf("found-house") !== -1) {
                 if (animal && !!animal.adoptionDate) {
                     setFetchName(animal.name)
+                    return
                 }
             }
         }
@@ -31,8 +33,10 @@ export function Breadcrumbs() {
             const knowledge = await fetchKnowledgeId(id)
             if (knowledge) {
                 setFetchName(knowledge.title)
+                return
             }
         }
+        setFetchName("")
     }
 
     let pathLink: string[] | ReactElement[] = pathName.split("/")

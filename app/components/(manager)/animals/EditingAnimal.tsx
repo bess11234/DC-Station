@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "motion/react"
 
 import { useDebouncedCallback } from "use-debounce"
 
-import type { Animal, Illness, Knowledge } from "@/app/lib/definition"
+import type { Animal, AnimalKnowledges, Illness, Knowledge } from "@/app/lib/definition"
 import { createAndUpdateAnimal, AnimalState } from "@/app/lib/actionClient"
 
 import { XCircleIcon, XMarkIcon, ArrowTurnDownLeftIcon, PencilSquareIcon } from "@heroicons/react/24/outline"
@@ -23,7 +23,10 @@ interface displayIllness extends Illness {
     value: string;
 }
 
-export function EditingAnimal({ animal, knowledges }: { animal: Animal, knowledges: Knowledge[] }) {
+export function EditingAnimal({ animal, knowledges }: { animal: AnimalKnowledges, knowledges: Knowledge[] }) {
+    // Turn Knowledges[] to string[]
+    const animalKnowledges = animal.knowledges.map(v => v._id)
+
     // Transform DOB to Date string
     animal.dob = new Date(Date.parse(animal.dob)).toISOString().split("T")[0]
 
@@ -37,7 +40,7 @@ export function EditingAnimal({ animal, knowledges }: { animal: Animal, knowledg
     const [extraImages, setExtraImages] = useState<File[]>([])
 
     // Input Animal
-    const [inputAnimal, setInputAnimal] = useState<Animal>({ ...animal })
+    const [inputAnimal, setInputAnimal] = useState<Animal>({ ...animal, ["knowledges"]: animalKnowledges })
     const [displayPersonalities, setDisplayPersonalities] = useState<display[]>(inputAnimal.personalities.map((v, i) => {
         return {
             id: i,
@@ -199,7 +202,7 @@ export function EditingAnimal({ animal, knowledges }: { animal: Animal, knowledg
         setMainImage(null)
         setExtraImages([])
         setUploadImages([])
-        setInputAnimal({ ...animal })
+        setInputAnimal({ ...animal, ["knowledges"]: animalKnowledges })
         setDisplayPersonalities(animal.personalities.map((v, i) => {
             return {
                 id: i,
@@ -216,7 +219,7 @@ export function EditingAnimal({ animal, knowledges }: { animal: Animal, knowledg
                 visible: true,
             }
         }) || [])
-        setInputKnowledges(animal.knowledges)
+        setInputKnowledges(animalKnowledges)
     }
 
     return (
@@ -236,8 +239,9 @@ export function EditingAnimal({ animal, knowledges }: { animal: Animal, knowledg
                 <Image
                     src={mainImage ? URL.createObjectURL(mainImage) : animal.images[0]}
                     alt={`Picture of ${animal.name}`}
-                    width={500}
-                    height={500}
+                    width={0}
+                    height={0}
+                    sizes="100%"
                     style={{ objectFit: "cover" }}
                     placeholder="blur"
                     blurDataURL={animal.images[0]}
@@ -268,7 +272,7 @@ export function EditingAnimal({ animal, knowledges }: { animal: Animal, knowledg
                             <option value="Dog">หมา 🐶</option>
                             <option value="Cat">แมว 🐱</option>
                         </select>
-                    </div>  
+                    </div>
                 </div>
 
                 <div className="grid sm:grid-cols-4 grid-cols-1 py-0! *:text-nowrap sm:space-x-3 items-center">
@@ -374,11 +378,12 @@ export function EditingAnimal({ animal, knowledges }: { animal: Animal, knowledg
                             <div className="relative pt-2" key={i}>
                                 <Image
                                     src={src}
-                                    height={100}
-                                    width={100}
-                                    style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                                    width={0}
+                                    height={0}
+                                    sizes="100%"
+                                    style={{ objectFit: "cover" }}
                                     alt={`Picture of ${inputAnimal.name} No.${i}`}
-                                    className={`rounded-xl shadow ${i % 3 == 0 ? "aspect-3/2" : "aspect-square"}`}
+                                    className={`size-full rounded-xl shadow ${i % 3 == 0 ? "aspect-3/2" : "aspect-square"}`}
                                 />
                                 <XMarkIcon onClick={() => deleteImage(src)} className="absolute top-0 -right-2 size-6 p-1 dark:opacity-95 bg-theme-200 text-theme-800 hover:bg-theme-400 hover:text-white rounded-full cursor-pointer select-none" />
                             </div>
@@ -391,12 +396,12 @@ export function EditingAnimal({ animal, knowledges }: { animal: Animal, knowledg
                             <div className="relative pt-2" key={i}>
                                 <Image
                                     src={src}
-                                    height={100}
-                                    width={100}
-                                    sizes="100vw"
-                                    style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                                    width={0}
+                                    height={0}
+                                    sizes="100%"
+                                    style={{ objectFit: "cover" }}
                                     alt={`Picture of ${inputAnimal.name} No.${i + inputAnimal.images.length}`}
-                                    className={`rounded-xl shadow ${i % 3 == 0 ? "aspect-3/2" : "aspect-square"}`}
+                                    className={`size-full rounded-xl shadow ${i % 3 == 0 ? "aspect-3/2" : "aspect-square"}`}
                                 />
                                 <XMarkIcon onClick={() => cancelImage(i)} className="absolute top-0 -right-2 size-6 p-1 dark:opacity-95 bg-sky-200 text-sky-800 hover:bg-sky-500 hover:text-white  rounded-full cursor-pointer select-none" />
                             </div>
@@ -426,7 +431,7 @@ export function EditingAnimal({ animal, knowledges }: { animal: Animal, knowledg
                                     {knowledges.map((v, i) => (
                                         <div className="flex space-x-3 items-center" key={i}>
                                             <input id={`knowledges_${v._id}`} onChange={() => handleInputKnowledges(v._id)} className="peer checkbox" type="checkbox" defaultChecked={inputKnowledges.includes(v._id)} />
-                                            <label htmlFor={`knowledges_${v._id}`} className="grid p-3 sm:rounded-3xl rounded-xl dark:shadow-theme-50/10 md:text-xl sm:text-lg text-base bg-theme-100/80 peer-checked:bg-theme-200 dark:bg-white/5 dark:peer-checked:bg-theme-300/20 cursor-pointer">
+                                            <label htmlFor={`knowledges_${v._id}`} className="grid p-3 sm:rounded-3xl rounded-xl dark:shadow-theme-50/10 md:text-xl sm:text-lg text-base bg-theme-100/80 peer-checked:bg-theme-200 dark:bg-white/5 dark:peer-checked:bg-theme-300/20 cursor-pointer w-full">
                                                 <div className="flex items-center space-x-5">
                                                     <Image
                                                         src={v.image}
@@ -457,13 +462,14 @@ export function EditingAnimal({ animal, knowledges }: { animal: Animal, knowledg
                                 <Image
                                     src={v.image}
                                     alt={`Picture of ${v.title}.`}
-                                    width={250}
-                                    height={250}
-                                    style={{ width: "100%", height: "300px", objectFit: "cover" }}
+                                    width={0}
+                                    height={0}
+                                    sizes="100%"
+                                    style={{ objectFit: "cover" }}
                                     placeholder="blur"
                                     blurDataURL={v.image}
                                     quality={74}
-                                    className="transition-transform"
+                                    className="w-full h-[300px] transition-transform"
                                 />
                             </figure>
                             <div className="relative card-body max-sm:p-6 pb-4 lg:px-8 md:px-4 sm:px-4 max-sm:mt-1">
@@ -481,7 +487,7 @@ export function EditingAnimal({ animal, knowledges }: { animal: Animal, knowledg
             </div>
 
             <div className="grid grid-cols-1 justify-end space-y-2 lg:text-xl md:text-lg text-base">
-                <button onClick={() => inputForm.current?.requestSubmit()} className="cursor-pointer py-3 px-6 rounded-full button-theme-primary outline-offset-4" type="button">อัพเดท</button>
+                <button onClick={() => inputForm.current?.requestSubmit()} className="cursor-pointer py-3 px-6 rounded-full button-theme-primary outline-offset-4" type="button">อัพเดทข้อมูลสัตว์</button>
                 <button className="cursor-pointer py-3 px-4 rounded-full outline-offset-4" onClick={() => resetForm()} type="reset">ยกเลิก</button>
             </div>
 

@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import type { Animal, Knowledge, Request } from "./definition";
+import type { Animal, AnimalKnowledges, AnimalRequest, Knowledge, Request } from "./definition";
 
 type Response<T> = {
   status: string;
@@ -27,8 +27,28 @@ export async function fetchAnimals(
   return data.message;
 }
 
+// Show All Animals that have requests
+export async function fetchAnimalRequests(
+  skip: number = 0,
+  limit: number = 0
+): Promise<AnimalRequest[]> {
+  const response = await fetch(
+    `http://localhost:5000/api/animals/have-request?skip=${skip}&limit=${limit}`,
+    {
+      next: { tags: ["animals", "requests"] },
+    }
+  );
+  if (!response.ok) {
+    const data = await response.json();
+    if (response.status == 404) return data.message;
+    throw new Error(`${response.status} ${data.message}`);
+  }
+  const data: Response<AnimalRequest[]> = await response.json();
+  return data.message;
+}
+
 // Show Specific Animal
-export async function fetchAnimalId(id: string): Promise<Animal> {
+export async function fetchAnimalId(id: string): Promise<AnimalKnowledges> {
   const response = await fetch(`http://localhost:5000/api/animals/id/${id}`, {
     next: { tags: ["animals"] },
   });
@@ -38,7 +58,7 @@ export async function fetchAnimalId(id: string): Promise<Animal> {
     if (response.status == 404) return data.message;
     throw new Error(`${response.status} ${data.message}`);
   }
-  const data: Response<Animal> = await response.json();
+  const data: Response<AnimalKnowledges> = await response.json();
   return data.message;
 }
 
@@ -113,6 +133,21 @@ export async function fetchAnimalFindHouseCount(): Promise<number> {
 export async function fetchAnimalFoundHouseCount(): Promise<number> {
   const response = await fetch(
     `http://localhost:5000/api/counts/animals/found-house`,
+    {
+      next: { tags: ["animals"] },
+    }
+  ).catch((error) => {
+    throw new Error(error);
+  });
+
+  const count = (await response.json()).message;
+  return count;
+}
+
+// Show number of animal have request
+export async function fetchAnimalRequestsCount(): Promise<number> {
+  const response = await fetch(
+    `http://localhost:5000/api/counts/animals/have-request`,
     {
       next: { tags: ["animals"] },
     }
@@ -301,9 +336,9 @@ export async function fetchRequestResponsedAnimalCount(
 }
 
 // <---------------------------- Manager ---------------------------->
-// <---------------------------- Animal
+// <---------------------------- Request
 // Show Request Specific Animal
-export async function fetchAnimalRequest(id: string): Promise<Request[]> {
+export async function fetchRequestAnimal(id: string): Promise<Request[]> {
   const response = await fetch(
     `http://localhost:5000/api/requests/animalId/${id}`,
     {
@@ -321,7 +356,7 @@ export async function fetchAnimalRequest(id: string): Promise<Request[]> {
 }
 
 // Show Request Specific Pending Animal
-export async function fetchAnimalRequestPending(
+export async function fetchRequestAnimalPending(
   id: string,
   skip: number = 0,
   limit: number = 0
@@ -343,7 +378,7 @@ export async function fetchAnimalRequestPending(
 }
 
 // Show Request Specific Pending Animal
-export async function fetchAnimalRequestResponse(
+export async function fetchRequestAnimalResponse(
   id: string,
   skip: number = 0,
   limit: number = 0
