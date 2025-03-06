@@ -11,7 +11,6 @@ import { ArrowRightIcon } from "@heroicons/react/24/outline"
 
 export function ShowAnimalRequests({ animals }: { animals: Promise<AnimalRequest[][]> }) {
 
-    console.log("animals", animals)
     const searchParams = useSearchParams()
 
     const [, setIsLoading] = useState(false)
@@ -62,8 +61,8 @@ export function ShowAnimalRequests({ animals }: { animals: Promise<AnimalRequest
                             </div>
                         </div>
                     </div>
-                    <Link href={`/dashboard/requests/detail/${animal._id}`} onClick={() => setIsLoading(true)} className="absolute hover:opacity-60 active:opacity-80 flex items-center space-x-1 rounded-full z-10 bottom-0 right-0 mr-2 mb-2 md:text-lg sm:text-sm" role="button" tabIndex={-1}>
-                        <p>ดูคำขอทั้งหมด</p>
+                    <Link href={`/dashboard/requests/detail/${animal._id}`} onClick={() => setIsLoading(true)} className="absolute hover:opacity-60 active:opacity-80 flex items-center space-x-1 rounded-full z-10 bottom-0 right-0 mr-2 mb-2 md:text-lg sm:text-base text-base" role="button" tabIndex={-1}>
+                        <p>ดูคำร้องขอทั้งหมด</p>
                         <ArrowRightIcon className="size-4 mr-2" />
                     </Link>
                 </div>

@@ -3,7 +3,7 @@ import { Request } from "@/app/lib/definition"
 import { changeRequestStatus } from "@/app/lib/action"
 import { useRouter } from "next/navigation";
 
-export function ModalRejected({ onClose, request }: { onClose: () => void; request:Request }) {
+export function ModalStatusChange({ onClose, request, newStatus }: { onClose: () => void; request:Request; newStatus:string }) {
     const modalRef = useRef<HTMLDialogElement | null>(null);
     const router = useRouter();
 
@@ -20,7 +20,7 @@ export function ModalRejected({ onClose, request }: { onClose: () => void; reque
     };
 
     const handleConfirm = async () => {
-        await changeRequestStatus(request._id, "Rejected", request.animal); // Call API
+        await changeRequestStatus(request._id, newStatus, request.animal); // Call API
         modalRef.current?.close(); // Close modal
         onClose(); // Ensure parent state updates
         router.push(`/dashboard/requests/detail/${request.animal}`);
@@ -29,12 +29,16 @@ export function ModalRejected({ onClose, request }: { onClose: () => void; reque
     // modal-box
     return (
         <dialog ref={modalRef} className="modal" onClose={onClose} onClick={handleClickOutside}>
-            <div className="flex justify-center">
+            <div className="flex justify-center md:w-xl sm:w-xl w-md">
                 <div className="bg-white p-6 w-3xl rounded-2xl">
-                    <h3 className="text-lg font-semibold text-theme-700">ยืนยันการปฏิเสธคำขอ</h3>
+                    {newStatus === "Rejected"?
+                    <h3 className="text-lg font-semibold text-theme-700">ยืนยันการปฏิเสธคำขอ</h3> :
+                    <h3 className="text-lg font-semibold text-theme-700">ยืนยันการยอมรับคำขอนี้</h3>}
                     <hr />
                     <div className="py-4">
-                        <p><span className="font-semibold">แน่ใจหรือไม่ที่จะปฏิเสธคุณ</span> {request.requester.firstname} {request.requester.lastname}</p>
+                        <p>{newStatus === "Rejected"?
+                            "แน่ใจหรือไม่ที่จะปฏิเสธคุณ":
+                            "แน่ใจหรือไม่ที่จะยอมรับคุณ"} <span className="font-semibold">{request.requester.firstname} {request.requester.lastname}</span></p>
                         <p className="text-base text-red-500">*เมื่อยืนยันแล้วจะไม่สามารถแก้ไขได้</p>
                     </div>
                     <div className="flex justify-end gap-2">
