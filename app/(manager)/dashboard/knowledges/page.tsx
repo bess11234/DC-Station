@@ -24,7 +24,7 @@ export default async function KnowledgesManagerPage() {
         <>
             <div className="flex flex-col w-full py-8">
                 {/* Title */}
-                <p className="md:text-5xl sm:text-4xl text-3xl font-semibold text-center my-3">สัตว์</p>
+                <p className="md:text-5xl sm:text-4xl text-3xl font-semibold text-center my-3">เกร็ดความรู้</p>
 
                 <div className="grid space-x-3 p-3">
                     {/* Knowledges */}
