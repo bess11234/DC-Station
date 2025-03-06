@@ -44,7 +44,7 @@ export function CreateAnimal({ animal, knowledges }: { animal: Animal, knowledge
     }))
 
     const createAnimalWithImages = createAndUpdateAnimal.bind(null, mainImage, extraImages, inputAnimal)
-    const [state, formAction] = useActionState(createAnimalWithImages, initialState)
+    const [, formAction] = useActionState(createAnimalWithImages, initialState)
 
     // Input Illness
     const [inputIllness, setInputIllness] = useState<displayIllness[]>(inputAnimal.healthHistories.illnesses != undefined && inputAnimal.healthHistories.illnesses.map((v, i) => {

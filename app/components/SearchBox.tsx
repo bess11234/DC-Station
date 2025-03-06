@@ -16,7 +16,7 @@ export function SearchAnimals() {
 
     useEffect(() => {
         router.replace(pathName, { scroll: false });
-    }, []);
+    }, [pathName, router]);
 
     const searchName = useDebouncedCallback((term: string) => {
         const params = new URLSearchParams(searchParams.toString())

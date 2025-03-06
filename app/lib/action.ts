@@ -142,7 +142,7 @@ export async function createRequest(
 
 //// Change REQUEST
 
-export async function changeRequestStatus(id: string, status: string, animalId: string) {
+export async function changeRequestStatus(id: string, status: string) {
   try {
     const response = await fetch(`http://localhost:5000/api/requests/${id}`, {
       method: "PUT",

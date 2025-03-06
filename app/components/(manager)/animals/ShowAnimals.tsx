@@ -6,8 +6,6 @@ import { useSearchParams } from "next/navigation"
 import Link from "next/link"
 import Image from "next/image"
 
-import { PencilSquareIcon } from "@heroicons/react/24/outline"
-
 import type { Animal, Request } from "@/app/lib/definition"
 import { fetchRequestAnimal } from "@/app/lib/data"
 import { deleteAnimal } from "@/app/lib/action"

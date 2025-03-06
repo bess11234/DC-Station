@@ -1,23 +1,18 @@
 "use client"
 
-import { Suspense, use, useEffect, useState } from "react"
+import { use, useEffect, useState } from "react"
 
 import { useSearchParams } from "next/navigation"
-import Link from "next/link"
 import Image from "next/image"
 
 import type { Knowledge } from "@/app/lib/definition"
 import { deleteKnowledge } from "@/app/lib/action"
-
-import { PencilSquareIcon } from "@heroicons/react/24/outline"
 
 import { DeleteItem } from "../DeleteItem"
 import { EditItem } from "../EditItem"
 
 export function ShowKnowledges({ knowledges }: { knowledges: Promise<Knowledge[][]> }) {
     const searchParams = useSearchParams()
-
-    const [isLoading, setIsLoading] = useState(false)
 
     const [indexKnowledges, setIndexKnowledges] = useState<number>(0)
     const showKnowledges = use(knowledges) // Solved Promise

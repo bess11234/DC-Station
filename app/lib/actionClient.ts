@@ -2,7 +2,6 @@ import { z } from "zod";
 import { Animal, Knowledge } from "./definition";
 import { revalidateCustom } from "./revalidate";
 import { redirect } from "next/navigation";
-import { validate } from "@/server/models/animals";
 
 // Animals
 //// <--------------------CREATE & UPDATE ANIMAL----------------------->
@@ -68,8 +67,7 @@ const AnimalFormSchema = z.object({
 export async function createAndUpdateAnimal(
   mainImage: File | null,
   extraImages: File[],
-  animal: Animal,
-  prevState: AnimalState
+  animal: Animal
 ) {
 
   // หากเป็นการสร้าง Animal จะต้องใส่รูป MainImage ด้วย
@@ -182,7 +180,6 @@ const KnowledgeFormSchema = z.object({
 export async function createAndUpdateKnowledge(
   image: File | null,
   knowledge: Knowledge,
-  prevState: KnowledgeState
 ) {
   console.log(knowledge)
   if (!knowledge._id && !image) {

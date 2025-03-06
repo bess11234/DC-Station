@@ -13,7 +13,6 @@ export default function CatScript({
   mouthSelector,
 }: ResizableConfig) {
   const isResizing = useRef(false);
-  const lastDownX = useRef(0);
 
   useEffect(() => {
     const left = document.getElementById(leftId);
@@ -28,12 +27,7 @@ export default function CatScript({
       return;
     }
 
-    const onMouseDown = (e: MouseEvent) => {
-      isResizing.current = true;
-      lastDownX.current = e.clientX;
-    };
-
-    const onMouseMove = (e: MouseEvent) => {
+    const onMouseMove = () => {
       if (!isResizing.current) return;
 
       catHand.style.width = `${left.clientWidth}px`;

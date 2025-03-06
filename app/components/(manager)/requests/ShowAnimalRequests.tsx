@@ -14,7 +14,7 @@ export function ShowAnimalRequests({ animals }: { animals: Promise<AnimalRequest
     console.log("animals", animals)
     const searchParams = useSearchParams()
 
-    const [isLoading, setIsLoading] = useState(false)
+    const [, setIsLoading] = useState(false)
 
     const [indexAnimalRequests, setindexAnimalRequests] = useState<number>(0)
     const showAnimals = use(animals) // Solved Promise

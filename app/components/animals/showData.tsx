@@ -1,11 +1,11 @@
 'use client'
-import { Animal } from "@/app/lib/definition"
+import { AnimalKnowledges } from "@/app/lib/definition"
 
 import { FaPaw, FaVenusMars, FaClock, FaHistory, FaCheckCircle, FaHeartbeat, FaHandHoldingHeart, FaClinicMedical, FaEye } from "react-icons/fa";
 
 import { displayIllness } from "@/app/lib/utils";
 
-export function ShowData({ animal }: { animal: Animal }) {
+export function ShowData({ animal }: { animal: AnimalKnowledges }) {
     const now = new Date(Date.now())
     const animal_dob = new Date(animal.dob)
     const animal_age = new Date(now.getTime() - animal_dob.getTime())

@@ -36,7 +36,7 @@ export function CreateKnowledge({ knowledge }: { knowledge: Knowledge }) {
 
     const createAndUpdateKnowledgeWithInformation = createAndUpdateKnowledge.bind(null, mainImage, inputKnowledge)
 
-    const [state, formAction] = useActionState(createAndUpdateKnowledgeWithInformation, initialState)
+    const [, formAction] = useActionState(createAndUpdateKnowledgeWithInformation, initialState)
 
     const handleInput = useDebouncedCallback((value: string, key: string) => {
         if (value == undefined) value = ""
