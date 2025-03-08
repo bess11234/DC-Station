@@ -4,11 +4,15 @@
 
 ---
 
-## 📦 เทคโนโลยีที่ใช้
+## 📦 Technology (เทคโนโลยีที่ใช้)
 
 (You can list the technologies you used here like React, Node.js, MongoDB, etc.)
 
 ---
+
+## 🛢️ Database (ฐานข้อมูล)
+
+(Data collection)
 
 ## 🛠️ How to install (วิธีติดตั้งโปรเจค)
 
@@ -53,7 +57,7 @@ npm run publish
 
 ## 🌟 Sample Webiste (ตัวอย่างเว็บไซต์)
 
-<h3 style="font-weight: bolder; font-size: xx-large; text-align: center">👤 ผู้รับเลี้ยง (Guest)</h3>
+<h2 style="font-weight: bolder; font-size: xx-large; text-align: center">👤 ผู้รับเลี้ยง (Guest)</h2>
 
 ### 🏠 Home (หน้าหลัก)
 
@@ -82,7 +86,7 @@ npm run publish
 
 <hr/>
 
-<h3 style="font-weight: bolder; font-size: xx-large; text-align: center">🧑‍💼 ผู้ดูแล (Manager)</h3>
+<h2 style="font-weight: bolder; font-size: xx-large; text-align: center">🧑‍💼 ผู้ดูแล (Manager)</h2>
 
 ### 🔑 Sign in (หน้าเข้าสู่ระบบ)
 
