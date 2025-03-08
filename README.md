@@ -37,11 +37,13 @@ AUTH_SECRET=
 # IS PRODUCTION
 AUTH_TRUST_HOST= # true or false
 
+````
+
 เมื่อกำหนดตามนี้แล้วให้รันคำสั่ง เพื่อทำการ Build Express and Next Project (หากมีการแก้ไขข้อมูลภายในไฟล์ .env ต้องมีการรันคำสั่งนี้)
 
 ```bash
 npm run publish:build
-````
+```
 
 หากครั้งต่อไปต้องการจะรันโปรเจคขึ้นมาใหม่ สามารถใช้คำสั่ง เพื่อความรวดเร็วในการใช้งาน
 
@@ -59,7 +61,7 @@ npm run publish
 
 <h2 style="font-weight: bolder; font-size: xx-large; text-align: center">👤 ผู้รับเลี้ยง (Guest)</h2>
 
-### 🏠 Home (หน้าหลัก)
+### `🏠 Home (หน้าหลัก)`
 
 <section style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); justify-items: center;gap: 10px">
     <img style="border-radius: 20px; grid-column: span 2" src="document_image/install_successfully.png" />
@@ -67,7 +69,7 @@ npm run publish
     <img style="border-radius: 20px;" src="document_image/mainpage-2.png" />
 </section>
 
-### 🐶 Find House (หน้าน้องหาบ้าน)
+### `🐶 Find House (หน้าน้องหาบ้าน)`
 
 <section style="display: grid; grid-template-columns: repeat(1, minmax(0, 1fr)); justify-items: center;">
     <img style="border-top-left-radius: 20px; border-top-right-radius: 20px;" src="document_image/nonghaban.png" />
@@ -76,11 +78,11 @@ npm run publish
     <img style="border-bottom-left-radius: 20px; border-bottom-right-radius: 20px;" src="document_image/nonghaban-4.png" />
 </section>
 
-### 📚 Knowledges (หน้าเกร็ดความรู้)
+### `📚 Knowledges (หน้าเกร็ดความรู้)`
 
 <img style="border-radius: 20px;" src="document_image/knowledge.png" />
 
-### 📞 Contact (หน้าติดต่อสอบถาม)
+### `📞 Contact (หน้าติดต่อสอบถาม)`
 
 <img style="border-radius: 20px;" src="document_image/contact.png" />
 
@@ -88,25 +90,25 @@ npm run publish
 
 <h2 style="font-weight: bolder; font-size: xx-large; text-align: center">🧑‍💼 ผู้ดูแล (Manager)</h2>
 
-### 🔑 Sign in (หน้าเข้าสู่ระบบ)
+### `🔑 Sign in (หน้าเข้าสู่ระบบ)`
 
 การจะเข้าถึงได้ต้องมีการล็อคอินผ่าน URL /login เสียก่อน มีการดึงข้อมูลจากฐานข้อมูล users มาเช็คในการเข้าถึงระบบ [http://localhost:3000/login](http://localhost:3000/login)
 
 <img style="border-radius: 20px;" src="document_image/login.png" />
 
-### 📊 Manage Dashboard (หน้าจัดการแดชบอร์ด)
+### `📊 Manage Dashboard (หน้าจัดการแดชบอร์ด)`
 
 <img style="border-radius: 20px;" src="document_image/dashboard.png" />
 
-### 📝 Manage Requests (หน้าจัดการคำร้องขอรับเลี้ยง)
+### `📝 Manage Requests (หน้าจัดการคำร้องขอรับเลี้ยง)`
 
 <img style="border-radius: 20px;" src="document_image/dashboard-request.png" />
 
-### 🐾 Manage Animals (หน้าจัดการสัตว์)
+### `🐾 Manage Animals (หน้าจัดการสัตว์)`
 
 <img style="border-radius: 20px;" src="document_image/dashboard-animal.png" />
 
-### 📚 Manage Knowledges (หน้าจัดการเกร็ดความรู้)
+### `📚 Manage Knowledges (หน้าจัดการเกร็ดความรู้)`
 
 <img style="border-radius: 20px;" src="document_image/dashboard-knowledge.png" />
 
