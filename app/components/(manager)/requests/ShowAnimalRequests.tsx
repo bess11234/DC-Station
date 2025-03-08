@@ -37,14 +37,14 @@ export function ShowAnimalRequests({ animals }: { animals: Promise<AnimalRequest
                     <div className="flex flex-row sm:gap-x-3 gap-x-3 w-full">
                         <div className="grid space-y-1 flex-none md:pl-3">
                             <Image
-                                src={animal.images[0]}
+                                src={`/api/image?filename=${animal.images[0]}`}
                                 alt={`Picture of ${animal.name}`}
                                 width={0}
                                 height={0}
                                 sizes="100%"
                                 style={{ objectFit: "cover" }}
                                 placeholder="blur"
-                                blurDataURL={animal.images[0]}
+                                blurDataURL={"/default_image.webp"}
                                 quality={74}
                                 className="rounded-3xl w-[100px] h-[100px] flex-none"
                             />

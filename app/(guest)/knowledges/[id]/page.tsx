@@ -24,14 +24,14 @@ export default async function KnowledgesId({ params }: { params: Promise<{ id: s
                     <p className="md:text-5xl sm:text-4xl text-3xl text-center py-3">{knowledge.title}</p>
                     <p className="indent-4 opacity-50">{knowledge.describe}</p>
                     <Image
-                        src={knowledge.image}
+                        src={`/api/image?filename=${knowledge.image}`}
                         alt={`Picture of ${knowledge.title}`}
                         width={0}
                         height={0}
                         sizes="100%"
                         style={{ objectFit: "cover" }}
                         placeholder="blur"
-                        blurDataURL={knowledge.image}
+                        blurDataURL={"/default_image.webp"}
                         quality={74}
                         className="w-full sm:h-[500px] h-[300px] rounded-xl grow shadow my-3"
                     />

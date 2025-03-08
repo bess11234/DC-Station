@@ -6,7 +6,6 @@ const requesterSchema = new mongoose.Schema({
     firstname: { type: String, require: true },
     lastname: { type: String, require: true },
     email: { type: String, require: true },
-    idCard: { type: String, require: true },
     phone: { type: String, require: true },
     fb: { type: String, require: true },
     experience: { type: String, require: true },

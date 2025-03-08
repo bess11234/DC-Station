@@ -40,14 +40,14 @@ export default async function FoundHouseID({ params }: { params: Promise<{ id: s
 
                         {/* Main Image */}
                         <Image
-                            src={animal.images[0]}
+                            src={`/api/image?filename=${animal.images[0]}`}
                             alt={`Picture of ${animal.name} No.0`}
                             width={0}
                             height={0}
                             sizes="100%"
                             style={{ objectFit: "cover" }}
                             placeholder="blur"
-                            blurDataURL={animal.images[0]}
+                            blurDataURL={"/default_image.webp"}
                             quality={90}
                             className="w-full sm:h-[500px] h-[300px] rounded-xl grow border border-black2/15 dark:border-white/15 shadow-lg dark:shadow-white/10"
                         />
@@ -78,7 +78,7 @@ export default async function FoundHouseID({ params }: { params: Promise<{ id: s
                                             animal.images.filter((v, i) => i != 0).map((src, i) => (
                                                 <Image
                                                     key={i}
-                                                    src={src}
+                                                    src={`/api/image?filename=${src}`}
                                                     width={0}
                                                     height={0}
                                                     sizes="100%"
@@ -107,14 +107,14 @@ export default async function FoundHouseID({ params }: { params: Promise<{ id: s
                                                 <div className="select-none card bg-theme-100 dark:bg-theme-950/50 rounded-xl md:max-h-[400px] max-h-[350px] max-w-full hover:shadow-lg dark:shadow-white/5 cursor-pointer">
                                                     <figure className="rounded-t-xl">
                                                         <Image
-                                                            src={v.image}
+                                                            src={`/api/image?filename=${v.image}`}
                                                             alt={`Picture of ${v.title}.`}
                                                             width={0}
                                                             height={0}
                                                             sizes="100%"
                                                             style={{ width: "100%", objectFit: "cover" }}
                                                             placeholder="blur"
-                                                            blurDataURL={v.image}
+                                                            blurDataURL={"/default_image.webp"}
                                                             quality={74}
                                                             className="sm:h-[300px] h-[150px] transition-transform hover:brightness-50 hover:scale-105"
                                                         />

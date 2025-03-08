@@ -1,9 +1,13 @@
 'use client'
 
+import { Suspense } from "react";
+
 import { Card } from "../Card";
 import type { Animal } from "../../lib/definition";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
+
+import { SkeletonCard } from "../skeletons/SkeletonCard";
 
 interface Props {
     animals: Animal[]
@@ -55,16 +59,19 @@ export function AnimalsElement({ animals }: Props) {
             setAnimals(tempAnimals)
         }
     }, [searchParams, animals, pathName])
+
     return (
         <>
             <div className="grid md:grid-cols-4 sm:grid-cols-3 grid-cols-2 sm:gap-6 gap-3 sm:m-3">
-                {
-                    displayAnimal.map((v, i) => (
-                        <Card key={i} src={v.images[0]} title={v.name} desc={v.personalities.join(", ")} hrefLink={`${pathName}/${v._id}`} date={
-                            pathName == "found-house" ? Date.parse(v.adoptionDate ? v.adoptionDate : "") : Date.parse(v.createdAt ? v.createdAt : "")
-                        } />
-                    ))
-                }
+                <Suspense fallback={<SkeletonCard number={displayAnimal.length}/>}>
+                    {
+                        displayAnimal.map((v, i) => (
+                            <Card key={i} src={v.images[0]} title={v.name} desc={v.personalities.join(", ")} hrefLink={`${pathName}/${v._id}`} date={
+                                pathName == "found-house" ? Date.parse(v.adoptionDate ? v.adoptionDate : "") : Date.parse(v.createdAt ? v.createdAt : "")
+                            } />
+                        ))
+                    }
+                </Suspense>
             </div>
         </>
     )

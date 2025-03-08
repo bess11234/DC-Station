@@ -20,7 +20,7 @@ export function ModalStatusChange({ onClose, request, newStatus }: { onClose: ()
     };
 
     const handleConfirm = async () => {
-        await changeRequestStatus(request._id, newStatus, request.animal); // Call API
+        await changeRequestStatus(request._id, newStatus); // Call API
         modalRef.current?.close(); // Close modal
         onClose(); // Ensure parent state updates
         router.push(`/dashboard/requests/detail/${request.animal}`);

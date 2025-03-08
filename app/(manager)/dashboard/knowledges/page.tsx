@@ -7,6 +7,7 @@ import { PageNavigation } from "@/app/components/(manager)/PageNavigation"
 import { ShowKnowledges } from "@/app/components/(manager)/knowledges/ShowKnowledges"
 
 import { fetchKnowledgeCount, fetchKnowledges } from "@/app/lib/data"
+import { Suspense } from "react"
 
 export const metadata: Metadata = {
     title: "Dashboard Knowledges"
@@ -24,7 +25,7 @@ export default async function KnowledgesManagerPage() {
         <>
             <div className="flex flex-col w-full py-8">
                 {/* Title */}
-                <p className="md:text-5xl sm:text-4xl text-3xl font-semibold text-center my-3">สัตว์</p>
+                <p className="md:text-5xl sm:text-4xl text-3xl font-semibold text-center my-3">เกร็ดความรู้</p>
 
                 <div className="grid space-x-3 p-3">
                     {/* Knowledges */}
@@ -37,11 +38,15 @@ export default async function KnowledgesManagerPage() {
 
                         {/* Show Knowledge */}
                         <div className="grid lg:grid-cols-2 gap-6 max-sm:gap-y-8 w-full max-w-[1500px] mx-auto">
-                            <ShowKnowledges knowledges={listKnowledges} />
+                            <Suspense fallback={<p>Loading...</p>}>
+                                <ShowKnowledges knowledges={listKnowledges} />
+                            </Suspense>
                         </div>
 
                         {/* Page Navigation */}
-                        <PageNavigation totalPage={pageNumber} />
+                        <Suspense fallback={<p>Loading...</p>}>
+                            <PageNavigation totalPage={pageNumber} />
+                        </Suspense>
 
                     </div>
                 </div>

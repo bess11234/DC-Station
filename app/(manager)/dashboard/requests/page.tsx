@@ -3,6 +3,7 @@ import { Metadata } from "next"
 import { fetchAnimalRequests, fetchAnimalRequestsCount } from "@/app/lib/data"
 import { PageNavigation } from "@/app/components/(manager)/PageNavigation"
 import { ShowAnimalRequests } from "@/app/components/(manager)/requests/ShowAnimalRequests"
+import { Suspense } from "react"
 
 export const metadata: Metadata = {
     title: "Dashboard Requests"
@@ -30,11 +31,15 @@ export default async function Requests() {
 
                         {/* Show Animal */}
                         <div className="grid lg:grid-cols-2 gap-6 max-sm:gap-y-8 w-full max-w-[1500px] mx-auto">
-                            <ShowAnimalRequests animals={listAnimalRequests} />
+                            <Suspense fallback={<p>Loading...</p>}>
+                                <ShowAnimalRequests animals={listAnimalRequests} />
+                            </Suspense>
                         </div>
 
                         {/* Page Navigation */}
-                        <PageNavigation totalPage={pageNumber} />
+                        <Suspense fallback={<p>Loading...</p>}>
+                            <PageNavigation totalPage={pageNumber} />
+                        </Suspense>
                     </div>
                 </div>
             </div>

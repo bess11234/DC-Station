@@ -10,6 +10,7 @@ import { InboxIcon, BookmarkSquareIcon, ArrowRightIcon, PlusIcon } from "@heroic
 import { ClockIcon, DocumentIcon, HomeIcon, HomeModernIcon } from "@heroicons/react/24/solid"
 
 import { fetchAnimalCount, fetchKnowledgeCount, fetchAnimals, fetchKnowledges, fetchAnimalFindHouseCount, fetchAnimalFoundHouseCount, fetchRequestCount, fetchRequestPendingCount, fetchAnimalRequests } from "@/app/lib/data"
+import { Suspense } from "react"
 
 export const metadata: Metadata = {
     title: "Dashboard"
@@ -61,7 +62,7 @@ export default async function DashBoard() {
                             <div className="flex items-center space-x-1">
                                 <InboxIcon className="size-8" />
                                 <p className="md:text-3xl sm:text-xl text-lg">คำร้องขอ ({countRequestsPending})</p>
-                                
+
                             </div>
                             <Link href={"/dashboard/requests"} className="px-3 hover:opacity-60 active:opacity-80 flex items-center space-x-1">
                                 <p>ดูเพิ่มเติม</p>
@@ -71,9 +72,11 @@ export default async function DashBoard() {
 
                         {/* Table */}
                         <div className="grid gap-8 py-3 max-sm:gap-y-8 w-full max-w-[1500px] mx-auto mt-3">
-                            <ShowAnimalRequests animals={animalRequests}/>
+                            <Suspense fallback={<p>Loading...</p>}>
+                                <ShowAnimalRequests animals={animalRequests} />
+                            </Suspense>
                         </div>
-                        
+
                     </div>
                     {/* Animals */}
                     <div className="bg-theme-200/40 dark:bg-theme-700/20 rounded-3xl sm:p-5 p-3 hover:shadow-md dark:shadow-theme-50/10">
@@ -98,7 +101,9 @@ export default async function DashBoard() {
 
                         {/* Table */}
                         <div className="grid sm:gap-8 gap-6 py-3 w-full max-w-[1500px] mx-auto mt-3">
-                            <ShowAnimals animals={animals} />
+                            <Suspense fallback={<p>Loading...</p>}>
+                                <ShowAnimals animals={animals} />
+                            </Suspense>
                         </div>
                     </div>
 
@@ -125,7 +130,9 @@ export default async function DashBoard() {
 
                         {/* Table */}
                         <div className="grid gap-8 py-3 max-sm:gap-y-8 w-full max-w-[1500px] mx-auto mt-3">
-                            <ShowKnowledges knowledges={knowledges} />
+                            <Suspense fallback={<p>Loading...</p>}>
+                                <ShowKnowledges knowledges={knowledges} />
+                            </Suspense>
                         </div>
                     </div>
 

@@ -10,14 +10,18 @@ import CatComponent from './CatComponent'
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
 import { ExclamationCircleIcon } from '@heroicons/react/24/outline';
 
-import { useActionState } from 'react';
+import { useActionState, Suspense } from 'react';
 import { authenticate } from '../lib/action';
 import { useSearchParams } from 'next/navigation';
 
-export default function Login() {
+function CallbackUrlReadOnly() {
   const searchParams = useSearchParams()
   const callBackUrl = searchParams.get("callbackUrl") || "/dashboard"
 
+  return <input type="hidden" name="redirectTo" value={callBackUrl} readOnly />
+}
+
+export default function Login() {
   const [errorMessage, formAction, isPending] = useActionState(
     authenticate,
     undefined
@@ -57,7 +61,9 @@ export default function Login() {
 
         <form className='w-2/3' action={formAction}>
 
-          <input type="hidden" name="redirectTo" value={callBackUrl} />
+          <Suspense>
+            <CallbackUrlReadOnly />
+          </Suspense>
 
           {/* ---- Email ---- */}
           <div className="border-0 relative h-11 w-full min-w-[200px] mb-7">

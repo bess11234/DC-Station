@@ -5,7 +5,7 @@ import Credentials from "next-auth/providers/credentials";
 import z from "zod"
 
 export async function authenticate(email: string, password: string) {
-  const response = await fetch(`http://localhost:5000/api/auth/login`, {
+  const response = await fetch(`http://localhost:${process.env.NEXT_PUBLIC_BACKENDPORT}/api/auth/login`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

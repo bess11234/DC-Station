@@ -13,7 +13,7 @@ export async function fetchAnimals(
   limit: number = 0
 ): Promise<Animal[]> {
   const response = await fetch(
-    `http://localhost:5000/api/animals?skip=${skip}&limit=${limit}`,
+    `http://localhost:${process.env.NEXT_PUBLIC_BACKENDPORT}/api/animals?skip=${skip}&limit=${limit}`,
     {
       next: { tags: ["animals"] },
     }
@@ -33,7 +33,7 @@ export async function fetchAnimalRequests(
   limit: number = 0
 ): Promise<AnimalRequest[]> {
   const response = await fetch(
-    `http://localhost:5000/api/animals/have-request?skip=${skip}&limit=${limit}`,
+    `http://localhost:${process.env.NEXT_PUBLIC_BACKENDPORT}/api/animals/have-request?skip=${skip}&limit=${limit}`,
     {
       next: { tags: ["animals", "requests"] },
     }
@@ -49,7 +49,7 @@ export async function fetchAnimalRequests(
 
 // Show Specific Animal
 export async function fetchAnimalId(id: string): Promise<AnimalKnowledges> {
-  const response = await fetch(`http://localhost:5000/api/animals/id/${id}`, {
+  const response = await fetch(`http://localhost:${process.env.NEXT_PUBLIC_BACKENDPORT}/api/animals/id/${id}`, {
     next: { tags: ["animals"] },
   });
   // หากไม่ Status: ok จะทำการส่งตัวเปล่า
@@ -68,7 +68,7 @@ export async function fetchFindHouseAnimals(
   limit: number = 0
 ): Promise<Animal[]> {
   const response = await fetch(
-    `http://localhost:5000/api/animals/find-house?skip=${skip}&limit=${limit}`,
+    `http://localhost:${process.env.NEXT_PUBLIC_BACKENDPORT}/api/animals/find-house?skip=${skip}&limit=${limit}`,
     {
       next: { tags: ["animals"] },
     }
@@ -88,7 +88,7 @@ export async function fetchFoundHouseAnimals(
   limit: number = 0
 ): Promise<Animal[]> {
   const response = await fetch(
-    `http://localhost:5000/api/animals/found-house?skip=${skip}&limit=${limit}`,
+    `http://localhost:${process.env.NEXT_PUBLIC_BACKENDPORT}/api/animals/found-house?skip=${skip}&limit=${limit}`,
     {
       next: { tags: ["animals"] },
     }
@@ -104,7 +104,7 @@ export async function fetchFoundHouseAnimals(
 
 // Show number of animals
 export async function fetchAnimalCount(): Promise<number> {
-  const response = await fetch(`http://localhost:5000/api/counts/animals`, {
+  const response = await fetch(`http://localhost:${process.env.NEXT_PUBLIC_BACKENDPORT}/api/counts/animals`, {
     next: { tags: ["animals"] },
   }).catch((error) => {
     throw new Error(error);
@@ -117,7 +117,7 @@ export async function fetchAnimalCount(): Promise<number> {
 // Show number of animal finding house
 export async function fetchAnimalFindHouseCount(): Promise<number> {
   const response = await fetch(
-    `http://localhost:5000/api/counts/animals/find-house`,
+    `http://localhost:${process.env.NEXT_PUBLIC_BACKENDPORT}/api/counts/animals/find-house`,
     {
       next: { tags: ["animals"] },
     }
@@ -132,7 +132,7 @@ export async function fetchAnimalFindHouseCount(): Promise<number> {
 // Show number of animal found house
 export async function fetchAnimalFoundHouseCount(): Promise<number> {
   const response = await fetch(
-    `http://localhost:5000/api/counts/animals/found-house`,
+    `http://localhost:${process.env.NEXT_PUBLIC_BACKENDPORT}/api/counts/animals/found-house`,
     {
       next: { tags: ["animals"] },
     }
@@ -147,7 +147,7 @@ export async function fetchAnimalFoundHouseCount(): Promise<number> {
 // Show number of animal have request
 export async function fetchAnimalRequestsCount(): Promise<number> {
   const response = await fetch(
-    `http://localhost:5000/api/counts/animals/have-request`,
+    `http://localhost:${process.env.NEXT_PUBLIC_BACKENDPORT}/api/counts/animals/have-request`,
     {
       next: { tags: ["animals"] },
     }
@@ -179,7 +179,7 @@ export async function fetchKnowledges(
   limit: number = 0
 ): Promise<Knowledge[]> {
   const response = await fetch(
-    `http://localhost:5000/api/knowledges?skip=${skip}&limit=${limit}`,
+    `http://localhost:${process.env.NEXT_PUBLIC_BACKENDPORT}/api/knowledges?skip=${skip}&limit=${limit}`,
     {
       next: { tags: ["knowledges"] },
     }
@@ -196,7 +196,7 @@ export async function fetchKnowledges(
 
 // Show Specific Knowledge
 export async function fetchKnowledgeId(id: string): Promise<Knowledge> {
-  const response = await fetch(`http://localhost:5000/api/knowledges/${id}`, {
+  const response = await fetch(`http://localhost:${process.env.NEXT_PUBLIC_BACKENDPORT}/api/knowledges/${id}`, {
     next: { tags: ["knowledges"] },
   });
   if (!response.ok) {
@@ -211,7 +211,7 @@ export async function fetchKnowledgeId(id: string): Promise<Knowledge> {
 
 // Show number of knowledges
 export async function fetchKnowledgeCount(): Promise<number> {
-  const response = await fetch(`http://localhost:5000/api/counts/knowledges`, {
+  const response = await fetch(`http://localhost:${process.env.NEXT_PUBLIC_BACKENDPORT}/api/counts/knowledges`, {
     next: { tags: ["knowledges"] },
   }).catch((error) => {
     throw new Error(error);
@@ -229,7 +229,7 @@ export async function fetchRequest(
   limit: number = 0
 ): Promise<Request[]> {
   const response = await fetch(
-    `http://localhost:5000/api/requests?skip=${skip}&limit=${limit}`,
+    `http://localhost:${process.env.NEXT_PUBLIC_BACKENDPORT}/api/requests?skip=${skip}&limit=${limit}`,
     {
       next: { tags: ["requests"] },
     }
@@ -246,7 +246,7 @@ export async function fetchRequest(
 
 // Show Specific Request
 export async function fetchRequestId(id: string): Promise<Request[]> {
-  const response = await fetch(`http://localhost:5000/api/request/${id}`, {
+  const response = await fetch(`http://localhost:${process.env.NEXT_PUBLIC_BACKENDPORT}/api/request/${id}`, {
     next: { tags: ["requests"] },
   });
   if (!response.ok) {
@@ -261,7 +261,7 @@ export async function fetchRequestId(id: string): Promise<Request[]> {
 
 // Show Number Of Requests
 export async function fetchRequestCount(): Promise<number> {
-  const response = await fetch(`http://localhost:5000/api/counts/requests`, {
+  const response = await fetch(`http://localhost:${process.env.NEXT_PUBLIC_BACKENDPORT}/api/counts/requests`, {
     next: { tags: ["requests"] },
   }).catch((error) => {
     throw new Error(error);
@@ -274,7 +274,7 @@ export async function fetchRequestCount(): Promise<number> {
 // Show number of pending requests
 export async function fetchRequestPendingCount(): Promise<number> {
   const response = await fetch(
-    `http://localhost:5000/api/counts/requests/pending`,
+    `http://localhost:${process.env.NEXT_PUBLIC_BACKENDPORT}/api/counts/requests/pending`,
     {
       next: { tags: ["requests"] },
     }
@@ -289,7 +289,7 @@ export async function fetchRequestPendingCount(): Promise<number> {
 // Show number of requests animal
 export async function fetchRequestAnimalCount(id: string): Promise<number> {
   const response = await fetch(
-    `http://localhost:5000/api/counts/requests/animal/${id}`,
+    `http://localhost:${process.env.NEXT_PUBLIC_BACKENDPORT}/api/counts/requests/animal/${id}`,
     {
       next: { tags: ["requests"] },
     }
@@ -306,7 +306,7 @@ export async function fetchRequestPendingAnimalCount(
   id: string
 ): Promise<number> {
   const response = await fetch(
-    `http://localhost:5000/api/counts/requests/pending/${id}`,
+    `http://localhost:${process.env.NEXT_PUBLIC_BACKENDPORT}/api/counts/requests/pending/${id}`,
     {
       next: { tags: ["requests"] },
     }
@@ -323,7 +323,7 @@ export async function fetchRequestResponsedAnimalCount(
   id: string
 ): Promise<number> {
   const response = await fetch(
-    `http://localhost:5000/api/counts/requests/responsed/${id}`,
+    `http://localhost:${process.env.NEXT_PUBLIC_BACKENDPORT}/api/counts/requests/responsed/${id}`,
     {
       next: { tags: ["requests"] },
     }
@@ -340,7 +340,7 @@ export async function fetchRequestResponsedAnimalCount(
 // Show Request Specific Animal
 export async function fetchRequestAnimal(id: string): Promise<Request[]> {
   const response = await fetch(
-    `http://localhost:5000/api/requests/animalId/${id}`,
+    `http://localhost:${process.env.NEXT_PUBLIC_BACKENDPORT}/api/requests/animalId/${id}`,
     {
       next: { tags: ["requests"] },
     }
@@ -362,7 +362,7 @@ export async function fetchRequestAnimalPending(
   limit: number = 0
 ): Promise<Request[]> {
   const response = await fetch(
-    `http://localhost:5000/api/requests/pending/animalId/${id}?skip=${skip}&limit=${limit}`,
+    `http://localhost:${process.env.NEXT_PUBLIC_BACKENDPORT}/api/requests/pending/animalId/${id}?skip=${skip}&limit=${limit}`,
     {
       next: { tags: ["requests"] },
     }
@@ -384,7 +384,7 @@ export async function fetchRequestAnimalResponse(
   limit: number = 0
 ): Promise<Request[]> {
   const response = await fetch(
-    `http://localhost:5000/api/requests/responsed/animalId/${id}?skip=${skip}&limit=${limit}`,
+    `http://localhost:${process.env.NEXT_PUBLIC_BACKENDPORT}/api/requests/responsed/animalId/${id}?skip=${skip}&limit=${limit}`,
     {
       next: { tags: ["requests"] },
     }

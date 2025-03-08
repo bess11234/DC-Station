@@ -36,11 +36,10 @@ export function CreateKnowledge({ knowledge }: { knowledge: Knowledge }) {
 
     const createAndUpdateKnowledgeWithInformation = createAndUpdateKnowledge.bind(null, mainImage, inputKnowledge)
 
-    const [, formAction] = useActionState(createAndUpdateKnowledgeWithInformation, initialState)
+    const [state, formAction] = useActionState(createAndUpdateKnowledgeWithInformation, initialState)
 
     const handleInput = useDebouncedCallback((value: string, key: string) => {
         if (value == undefined) value = ""
-        console.log(value, key)
         setInputKnowledge((prevState) => ({ ...prevState, [key]: value }))
     }, 100)
 
@@ -118,7 +117,32 @@ export function CreateKnowledge({ knowledge }: { knowledge: Knowledge }) {
                 {preview && parse(inputContentKnowledge)}
             </div>
 
-            <br />
+            {state.errors ?
+                <ul className="p-3 m-3">
+                    {[
+                        state.errors?.content && state.errors?.content.map((error: string) => (
+                            <li className="mt-2 text-sm text-red-500" key={error}>
+                                {error}
+                            </li>
+                        )),
+                        state.errors?.describe && state.errors.describe.map((error: string) => (
+                            <li className="mt-2 text-sm text-red-500" key={error}>
+                                {error}
+                            </li>
+                        )),
+                        state.errors?.image && state.errors.image.map((error: string) => (
+                            <li className="mt-2 text-sm text-red-500" key={error}>
+                                {error}
+                            </li>
+                        )),
+                        state.errors?.content && state.errors.content.map((error: string) => (
+                            <li className="mt-2 text-sm text-red-500" key={error}>
+                                {error}
+                            </li>
+                        )),
+                    ]}
+                </ul>
+            : <br />}
 
             <div className="grid grid-cols-1 justify-end space-y-2 lg:text-xl md:text-lg text-base">
                 <button onClick={() => inputForm.current?.requestSubmit()} className="cursor-pointer py-3 px-6 rounded-full button-theme-primary outline-offset-4" type="button">เพิ่มเกร็ดความรู้</button>

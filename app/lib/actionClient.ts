@@ -18,7 +18,7 @@ export interface AnimalState {
     personalities?: string[];
     healthHistories?: string[];
     images?: string[];
-    createdAt?: string[];
+    knowledges?: string[];
   };
 }
 
@@ -39,40 +39,57 @@ const AnimalFormSchema = z.object({
   gender: z.enum(["M", "F"], {
     invalid_type_error: "กรุณาเลือกเพศ",
   }),
-  dob: z.string().date(),
+  dob: z
+    .string({
+      invalid_type_error: "กรุณาใส่วันเกิดของสัตว์",
+    })
+    .date(),
   history: z.optional(z.string().trim()),
   personalities: z.array(z.string().trim(), {
     invalid_type_error: "กรุณากรอกอย่างน้อย 1 อุปนิสัย",
   }),
-  healthHistories: z.object({
-    spayingStatus: z.coerce.boolean(),
-    illnesses: z.optional(
-      z.array(
-        z.object({
-          name: z.string().trim(),
-          status: z.enum([
-            "Under treatment",
-            "Recovered",
-            "Chronic",
-            "Under surveillance",
-          ]),
-        })
-      )
-    ),
-  }),
-  images: z.array(z.string()),
+  healthHistories: z.object(
+    {
+      spayingStatus: z.coerce.boolean({
+        invalid_type_error: "กรุณาใส่สถานะการทำหมัน",
+      }),
+      illnesses: z.optional(
+        z.array(
+          z.object({
+            name: z.string().trim(),
+            status: z.enum(
+              ["Under treatment", "Recovered", "Chronic", "Under surveillance"],
+              {
+                invalid_type_error:
+                  "กรุณาใส่สถานะเพียงแค่ 'กำลังรักษา', 'รักษาหายแล้ว', 'เรื้อรัง', 'เฝ้าระวัง'",
+              }
+            ),
+          })
+        )
+      ),
+    },
+    {
+      invalid_type_error: "กรุณาใส่ข้อมูลของสถานะการทำหมัน",
+    }
+  ),
+  images: z.array(
+    z.string({
+      invalid_type_error: "กรุณาใส่รูปภาพของสัตว์อย่างน้อย 1 รูป",
+    })
+  ),
   knowledges: z.optional(z.array(z.string())),
 });
 
 export async function createAndUpdateAnimal(
   mainImage: File | null,
   extraImages: File[],
-  animal: Animal
+  animal: Animal,
+  prevState: AnimalState
 ) {
-
   // หากเป็นการสร้าง Animal จะต้องใส่รูป MainImage ด้วย
   if (!animal._id && !mainImage) {
     return {
+      errors: prevState.errors ?? {},
       message: "ต้องใส่รูปภาพหลักของสัตว์ด้วย",
     };
   }
@@ -121,7 +138,7 @@ export async function createAndUpdateAnimal(
 
   if (!validateData.success) {
     return {
-      errors: validateData.error.flatten().fieldErrors,
+      errors: validateData.error.flatten().fieldErrors ?? {},
       message: "Error: Missing some fields.",
     };
   }
@@ -129,28 +146,27 @@ export async function createAndUpdateAnimal(
   try {
     // Update Animal
     if (animal._id) {
-      fetch(`http://localhost:5000/api/animals/${animal._id}`, {
+      fetch(`http://localhost:${process.env.NEXT_PUBLIC_BACKENDPORT}/api/animals/${animal._id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(validateData.data),
-      })
-        .then((response) => response.json())
+      }).then((response) => response.json());
     }
     // Create Animal
     else {
-      fetch(`http://localhost:5000/api/animals/`, {
+      fetch(`http://localhost:${process.env.NEXT_PUBLIC_BACKENDPORT}/api/animals/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(validateData.data),
-      })
-        .then((response) => response.json())
+      }).then((response) => response.json());
     }
   } catch (error) {
     return {
+      errors: prevState.errors ?? {},
       message: `Error: ${error}`,
     };
   }
@@ -179,9 +195,9 @@ const KnowledgeFormSchema = z.object({
 //// <--------------------CREATE & UPDATE KNOWLEDGE----------------------->
 export async function createAndUpdateKnowledge(
   image: File | null,
-  knowledge: Knowledge,
+  knowledge: Knowledge
 ) {
-  console.log(knowledge)
+
   if (!knowledge._id && !image) {
     return {
       message: "กรุณาใส่รูปให้เกร็ดความรู้",
@@ -227,29 +243,26 @@ export async function createAndUpdateKnowledge(
     };
   }
 
-
   try {
     // Update Animal
     if (knowledge._id) {
-      fetch(`http://localhost:5000/api/knowledges/${knowledge._id}`, {
+      fetch(`http://localhost:${process.env.NEXT_PUBLIC_BACKENDPORT}/api/knowledges/${knowledge._id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(validateData.data),
-      })
-        .then((response) => response.json())
+      }).then((response) => response.json());
     }
     // Create Animal
     else {
-      fetch(`http://localhost:5000/api/knowledges/`, {
+      fetch(`http://localhost:${process.env.NEXT_PUBLIC_BACKENDPORT}/api/knowledges/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(validateData.data),
-      })
-        .then((response) => response.json())
+      }).then((response) => response.json());
     }
   } catch (error) {
     return {

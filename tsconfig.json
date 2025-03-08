@@ -23,5 +23,5 @@
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "server/routes/counts.js"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "package*.json", "document_image"]
 }

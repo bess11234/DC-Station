@@ -1,9 +1,12 @@
+import { Suspense } from "react";
 import { Metadata } from "next"
 
 import type { Animal } from "@/app/lib/definition"
 
 import { CreateAnimal } from "@/app/components/(manager)/animals/CreateAnimal"
+import { SkeletonAnimalInput } from "@/app/components/skeletons/SkeletonAnimalInput";
 import { fetchKnowledges } from "@/app/lib/data"
+
 
 export const metadata: Metadata = {
     title: "Dashboard Animal Create"
@@ -39,7 +42,9 @@ export default async function AnimalCreate() {
                 <div className="grid gap-3 p-3 xl:min-w-[1000px] max-w-[1000px] w-full sm:mx-16 mx-8">
 
                     {/* Data */}
-                    <CreateAnimal animal={animal} knowledges={knowledges} />
+                    <Suspense fallback={<SkeletonAnimalInput />}>
+                        <CreateAnimal animal={animal} knowledges={knowledges} />
+                    </Suspense>
 
                 </div>
 
