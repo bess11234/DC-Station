@@ -24,8 +24,8 @@ export function ModalDetail({ onClose, request }: { onClose: () => void; request
                     <h3 className="text-lg font-semibold text-theme-700">รายละเอียดคำร้องขอ</h3>
                     <hr />
                     <div className="py-4">
-                        <p><span className="font-semibold">ชื่อ-นามสกล:</span> {request.requester.firstname}</p>
-                        <p><span className="font-semibold">อีเมล:</span> {request.requester.lastname}</p>
+                        <p><span className="font-semibold">ชื่อ-นามสกุล:</span> {request.requester.firstname} {request.requester.lastname}</p>
+                        <p><span className="font-semibold">อีเมล:</span> {request.requester.email}</p>
                         <p><span className="font-semibold">ชื่อ/ลิงค์เฟซบุ๊ค:</span> {request.requester.fb}</p>
                         <p><span className="font-semibold">เบอร์โทร:</span> {request.requester.phone}</p>
                         <p><span className="font-semibold">ประสบการณ์:</span> {request.requester.experience}</p>

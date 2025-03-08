@@ -1,5 +1,5 @@
 const express = require("express");
-const bcrypt = require("bcryptjs");
+const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const User = require("../models/users");
 // const cookieParser = require("cookie-parser");
@@ -87,16 +87,5 @@ router.post("/logout", (req, res) => {
     res.clearCookie("token");
     res.status(200).json({ status: "ok", message: "Logged out successfully" });
 })
-
-//Profile
-router.get("/profile", async (req, res) => {
-    try {
-        const user = isAuthentication(req, res)
-        if (!user) return res.status(404).json({ message: "User not found" });
-        res.json({ status: "ok", message: user });
-    } catch (err) {
-        res.status(500).json({ message: "Server Error" });
-    }
-});
 
 module.exports = router;

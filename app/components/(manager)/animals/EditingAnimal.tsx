@@ -301,11 +301,11 @@ export function EditingAnimal({ animal, knowledges }: { animal: AnimalKnowledges
                     <div className="outline outline-dashed p-6! mt-6 rounded-xl hover:outline-theme-400 focus-within:outline-theme-400">
                         <p className="text-2xl">ประวัติสุขภาพ</p>
 
-                        {/* สถานะการทำหมั่น */}
-                        <label htmlFor="animalSpayingStatus" className="text-lg p-0!">สถานะการทำหมั่น: <span className="text-red-500">*</span></label>
+                        {/* สถานะการทำหมัน */}
+                        <label htmlFor="animalSpayingStatus" className="text-lg p-0!">สถานะการทำหมัน: <span className="text-red-500">*</span></label>
                         <select className="*:bg-white *:dark:bg-black2 py-1! px-3 mb-3 w-full rounded-xl input-focus-theme" onChange={(e) => handlehealthHistories(e.target.value, "spayingStatus")} name="spayingStatus" id="animalSpayingStatus" defaultValue={animal.healthHistories.spayingStatus ? "1" : "0"} required>
                             <option value="0">ยังไม่ทำหมัน</option>
-                            <option value="1">ทำหมั่นแล้ว</option>
+                            <option value="1">ทำหมันแล้ว</option>
                         </select>
 
                         {/* อาการเจ็บป่วย */}

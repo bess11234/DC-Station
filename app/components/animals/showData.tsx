@@ -63,7 +63,7 @@ export function ShowData({ animal }: { animal: AnimalKnowledges }) {
             <div className="card-theme p-4 rounded-lg shadow-md dark:text-white! hover:shadow-sm dark:hover:shadow-white/5">
                 <div className="flex flex-col gap-y-1">
                     <FaHandHoldingHeart className="size-5 text-theme-400 dark:text-theme-300" />
-                    <p className="font-semibold">สถานะการทำหมั่น</p>
+                    <p className="font-semibold">สถานะการทำหมัน</p>
                     <p>{animal.healthHistories.spayingStatus ? "ทำหมันแล้ว" : "ยังไม่ได้ทำหมัน"}</p>
                 </div>
             </div>
