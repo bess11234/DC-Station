@@ -9,7 +9,7 @@
     "lint": "next lint",
     "server": "nodemon server/server",
     "server:build": "node server/server",
-    "publish": "concurrently \"npm run server:build\" \"npm run build && npm run start\""
+    "publish": "concurrently \"npm run server:build\" \"npm run build\""
   },
   "dependencies": {
     "@ckeditor/ckeditor5-react": "^9.5.0",
