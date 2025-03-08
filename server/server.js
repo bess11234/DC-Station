@@ -15,7 +15,7 @@ app.use(cors({
 }))
 
 // connect to MongoDBAtlas
-mongoose.connect(process.env.MONGO_URI, {
+mongoose.connect(process.env.MONGO_URL, {
             useNewUrlParser: true,
             useUnifiedTopology: true,
         })
