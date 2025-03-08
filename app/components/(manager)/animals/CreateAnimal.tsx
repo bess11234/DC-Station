@@ -370,7 +370,7 @@ export function CreateAnimal({ animal, knowledges }: { animal: Animal, knowledge
                         inputAnimal.images.filter((_, i) => i != 0).map((src, i) => (
                             <div className="relative pt-2" key={i}>
                                 <Image
-                                    src={src}
+                                    src={`/api/image?filename=${src}`}
                                     width={0}
                                     height={0}
                                     sizes="100%"
@@ -427,7 +427,7 @@ export function CreateAnimal({ animal, knowledges }: { animal: Animal, knowledge
                                             <label htmlFor={`knowledges_${v._id}`} className="grid p-3 sm:rounded-3xl rounded-xl dark:shadow-theme-50/10 md:text-xl sm:text-lg text-base bg-theme-100/80 peer-checked:bg-theme-200 dark:bg-white/5 dark:peer-checked:bg-theme-300/20 cursor-pointer w-full">
                                                 <div className="flex items-center space-x-5">
                                                     <Image
-                                                        src={v.image}
+                                                        src={`/api/image?filename=${v.image}`}
                                                         alt={`Picture of ${v.title}`}
                                                         width={50}
                                                         height={50}
@@ -453,14 +453,14 @@ export function CreateAnimal({ animal, knowledges }: { animal: Animal, knowledge
                         <div key={i} className="select-none card bg-theme-100 dark:bg-theme-950/50 rounded-xl md:max-h-[400px] max-h-[350px] max-w-full hover:shadow-lg dark:shadow-white/15">
                             <figure className="rounded-t-xl">
                                 <Image
-                                    src={v.image}
+                                    src={`/api/image?filename=${v.image}`}
                                     alt={`Picture of ${v.title}.`}
                                     width={0}
                                     height={0}
                                     sizes="100%"
                                     style={{ objectFit: "cover" }}
                                     placeholder="blur"
-                                    blurDataURL={v.image}
+                                    blurDataURL={"/default_image.webp"}
                                     quality={74}
                                     className="w-full h-[300px] transition-transform"
                                 />

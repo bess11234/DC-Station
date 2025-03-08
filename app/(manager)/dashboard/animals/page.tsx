@@ -7,6 +7,7 @@ import { ShowAnimals } from "@/app/components/(manager)/animals/ShowAnimals"
 
 import { fetchAnimals, fetchAnimalCount } from "@/app/lib/data"
 import { Metadata } from "next"
+import { Suspense } from "react"
 
 export const metadata: Metadata = {
     title: "Dashboard Animals"
@@ -37,11 +38,15 @@ export default async function Animals() {
 
                         {/* Show Animal */}
                         <div className="grid lg:grid-cols-2 gap-6 max-sm:gap-y-8 w-full max-w-[1500px] mx-auto">
-                            <ShowAnimals animals={listAnimals} />
+                            <Suspense fallback={<p>Loading...</p>}>
+                                <ShowAnimals animals={listAnimals} />
+                            </Suspense>
                         </div>
 
                         {/* Page Navigation */}
-                        <PageNavigation totalPage={pageNumber} />
+                        <Suspense fallback={<p>Loading...</p>}>
+                            <PageNavigation totalPage={pageNumber} />
+                        </Suspense>
 
                     </div>
                 </div>

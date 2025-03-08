@@ -101,13 +101,7 @@ export async function createRequest(
     accept: formData.has("accept"),
   });
 
-  // console.log(formData.has("accept"));
-
   if (!validateFields.success) {
-    console.log(
-      "Validation Errors:",
-      validateFields.error.flatten().fieldErrors
-    );
     return {
       errors: validateFields.error.flatten().fieldErrors,
       message: "กรอกข้อมูลไม่ครบถ้วน ไม่สามารถสร้างคำขอรับเลี้ยงได้.",

@@ -19,14 +19,14 @@ export function Card({ src, title, desc, hrefLink, date }: CardType) {
         <div className="select-none card card-theme rounded-xl md:max-h-[400px] max-h-[350px] max-w-full hover:shadow dark:shadow-white/15">
             <figure className="rounded-t-xl">
                 <Image
-                    src={src}
+                    src={`/api/image?filename=${src}`}
                     alt={`Picture of ${title}.`}
                     width={0}
                     height={0}
                     sizes="100%"
                     style={{ objectFit: "cover" }}
                     placeholder="blur"
-                    blurDataURL={src}
+                    blurDataURL={"/default_image.webp"}
                     quality={74}
                     className="w-full h-[300px] transition-transform hover:brightness-50 hover:cursor-pointer hover:scale-105"
                     onClick={() => push(hrefLink)}

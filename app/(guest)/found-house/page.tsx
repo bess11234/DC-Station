@@ -20,12 +20,14 @@ export default async function FoundHouse() {
                 <p className="grid md:text-5xl sm:text-4xl xs:text-3xl text-2xl text-center my-3 md:space-y-3"><span>มูลนิธิอาสาช่วยเหลือหมาและแมว</span><span>(🐶DC Station🐱)</span></p>
 
                 {/* Filter animal (Species, Age, Gender) */}
-                <FilterAnimals />
+                <Suspense fallback={<p>Loading...</p>}>
+                    <FilterAnimals />
+                </Suspense>
             </div>
 
             {/* Animals */}
             <div className="flex flex-col w-screen px-3">
-                <Suspense fallback={<p>Loading</p>}>
+                <Suspense fallback={<p>Loading...</p>}>
                     <AnimalsElement animals={animals} />
                 </Suspense>
             </div>

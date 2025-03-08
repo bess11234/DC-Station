@@ -40,7 +40,6 @@ export function CreateKnowledge({ knowledge }: { knowledge: Knowledge }) {
 
     const handleInput = useDebouncedCallback((value: string, key: string) => {
         if (value == undefined) value = ""
-        console.log(value, key)
         setInputKnowledge((prevState) => ({ ...prevState, [key]: value }))
     }, 100)
 

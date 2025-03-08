@@ -54,18 +54,20 @@ export function ShowAnimals({ animals }: { animals: Promise<Animal[][]> }) {
                     {/* Display Data */}
                     <div className="flex flex-row sm:gap-x-3 gap-x-3 w-full">
                         <div className="grid space-y-1 flex-none">
+                        {animal.images[0] ? (
                             <Image
-                                src={animal.images[0]}
+                                src={`/api/image?filename=${animal.images[0]}`}
                                 alt={`Picture of ${animal.name}`}
                                 width={0}
                                 height={0}
                                 sizes="100%"
                                 style={{ objectFit: "cover" }}
                                 placeholder="blur"
-                                blurDataURL={animal.images[0]}
+                                blurDataURL={"/default_image.webp"}
                                 quality={74}
                                 className="rounded-3xl w-[100px] h-[100px] flex-none"
                             />
+                        ): ""}
                             {/* Status */}
                             <Suspense fallback={<p>Loading...</p>}>
                                 <span
@@ -73,7 +75,7 @@ export function ShowAnimals({ animals }: { animals: Promise<Animal[][]> }) {
                                     ${!animal.adoptionDate ? (showAnimalRequest[i]?.length ? "bg-sky-500 dark:bg-sky-600" : "bg-red-400 dark:bg-red-600") : "bg-green-500 dark:bg-green-600"}`}>
                                     {!animal.adoptionDate ?
                                         (showAnimalRequest[i]?.length ?
-                                            <Link href={"#"} onClick={() => setIsLoading(true)} className={`flex hover:opacity-70 active:opacity-80 justify-self-center ${isLoading ? "cursor-wait" : "cursor-pointer"}`}>คำร้องขอ&nbsp;<span className="animate-pulse">({showAnimalRequest[i]?.length})</span></Link>
+                                            <Link href={`/dashboard/requests/detail/${animal._id}`} onClick={() => setIsLoading(true)} className={`flex hover:opacity-70 active:opacity-80 justify-self-center ${isLoading ? "cursor-wait" : "cursor-pointer"}`}>คำร้องขอ&nbsp;<span className="animate-pulse">({showAnimalRequest[i]?.length})</span></Link>
                                             : "รอรับเลี้ยง")
                                         : "ถูกรับเลี้ยง"}
                                 </span>

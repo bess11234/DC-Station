@@ -78,7 +78,7 @@ export function Carousel() {
                         src={`/gallery/${v.src}`}
                         alt={v.alt}
                         placeholder="blur"
-                        blurDataURL={`/gallery/${v.src}`}
+                        blurDataURL={"/default_image.webp"}
                         
                     />
                 ))}

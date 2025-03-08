@@ -82,14 +82,14 @@ export function EditingKnowledge({ knowledge }: { knowledge: Knowledge }) {
 
                 {/* Main Image */}
                 <Image
-                    src={mainImage ? URL.createObjectURL(mainImage) : knowledge.image}
+                    src={mainImage ? URL.createObjectURL(mainImage) : `/api/image?filename=${knowledge.image}`}
                     alt={`Picture of ${knowledge.title}`}
                     width={0}
                     height={0}
                     sizes="100%"
                     style={{ objectFit: "cover" }}
                     placeholder="blur"
-                    blurDataURL={knowledge.image}
+                    blurDataURL={"/default_image.webp"}
                     quality={74}
                     className="w-full sm:h-[500px] h-[300px] rounded-xl grow shadow"
                 />
