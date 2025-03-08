@@ -146,7 +146,7 @@ export async function createAndUpdateAnimal(
   try {
     // Update Animal
     if (animal._id) {
-      fetch(`http://localhost:5000/api/animals/${animal._id}`, {
+      fetch(`http://localhost:${process.env.NEXT_PUBLIC_BACKENDPORT}/api/animals/${animal._id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -156,7 +156,7 @@ export async function createAndUpdateAnimal(
     }
     // Create Animal
     else {
-      fetch(`http://localhost:5000/api/animals/`, {
+      fetch(`http://localhost:${process.env.NEXT_PUBLIC_BACKENDPORT}/api/animals/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -246,7 +246,7 @@ export async function createAndUpdateKnowledge(
   try {
     // Update Animal
     if (knowledge._id) {
-      fetch(`http://localhost:5000/api/knowledges/${knowledge._id}`, {
+      fetch(`http://localhost:${process.env.NEXT_PUBLIC_BACKENDPORT}/api/knowledges/${knowledge._id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -256,7 +256,7 @@ export async function createAndUpdateKnowledge(
     }
     // Create Animal
     else {
-      fetch(`http://localhost:5000/api/knowledges/`, {
+      fetch(`http://localhost:${process.env.NEXT_PUBLIC_BACKENDPORT}/api/knowledges/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

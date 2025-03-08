@@ -12,7 +12,7 @@ import { AuthError } from "next-auth";
 
 export async function deleteAnimal(id: string) {
   try {
-    fetch(`http://localhost:5000/api/animals/${id}`, {
+    fetch(`http://localhost:${process.env.NEXT_PUBLIC_BACKENDPORT}/api/animals/${id}`, {
       method: "DELETE",
     });
   } catch (error) {
@@ -29,7 +29,7 @@ export async function deleteAnimal(id: string) {
 
 export async function deleteKnowledge(id: string) {
   try {
-    fetch(`http://localhost:5000/api/knowledges/${id}`, {
+    fetch(`http://localhost:${process.env.NEXT_PUBLIC_BACKENDPORT}/api/knowledges/${id}`, {
       method: "DELETE",
     });
   } catch (error) {
@@ -112,7 +112,7 @@ export async function createRequest(
   const { firstname, lastname, email, phone, fb, experience, reason } = validateFields.data;
 
   try {
-    const response = await fetch(`http://localhost:5000/api/requests`, {
+    const response = await fetch(`http://localhost:${process.env.NEXT_PUBLIC_BACKENDPORT}/api/requests`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -138,7 +138,7 @@ export async function createRequest(
 
 export async function changeRequestStatus(id: string, status: string) {
   try {
-    const response = await fetch(`http://localhost:5000/api/requests/${id}`, {
+    const response = await fetch(`http://localhost:${process.env.NEXT_PUBLIC_BACKENDPORT}/api/requests/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -159,7 +159,7 @@ export async function changeRequestStatus(id: string, status: string) {
 
 export async function deleteRequest(id: string) {
   try {
-    fetch(`http://localhost:5000/api/requests/${id}`, {
+    fetch(`http://localhost:${process.env.NEXT_PUBLIC_BACKENDPORT}/api/requests/${id}`, {
       method: "DELETE",
     });
   } catch (error) {
