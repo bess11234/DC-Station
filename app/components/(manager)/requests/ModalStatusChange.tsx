@@ -30,10 +30,10 @@ export function ModalStatusChange({ onClose, request, newStatus }: { onClose: ()
     return (
         <dialog ref={modalRef} className="modal" onClose={onClose} onClick={handleClickOutside}>
             <div className="flex justify-center md:w-xl sm:w-xl w-md">
-                <div className="bg-white p-6 w-3xl rounded-2xl">
+                <div className="bg-white p-6 w-3xl rounded-2xl dark:bg-neutral-950">
                     {newStatus === "Rejected"?
-                    <h3 className="text-lg font-semibold text-theme-700">ยืนยันการปฏิเสธคำขอ</h3> :
-                    <h3 className="text-lg font-semibold text-theme-700">ยืนยันการยอมรับคำขอนี้</h3>}
+                    <h3 className="text-lg font-semibold text-theme-700 dark:text-theme-400">ยืนยันการปฏิเสธคำขอ</h3> :
+                    <h3 className="text-lg font-semibold text-theme-700 dark:text-theme-400">ยืนยันการยอมรับคำขอนี้</h3>}
                     <hr />
                     <div className="py-4">
                         <p>{newStatus === "Rejected"?
@@ -41,12 +41,12 @@ export function ModalStatusChange({ onClose, request, newStatus }: { onClose: ()
                             "แน่ใจหรือไม่ที่จะยอมรับคุณ"} <span className="font-semibold">{request.requester.firstname} {request.requester.lastname}</span></p>
                         <p className="text-base text-red-500">*เมื่อยืนยันแล้วจะไม่สามารถแก้ไขได้</p>
                     </div>
-                    <div className="flex justify-end gap-2">
-                        <button className="cursor-pointer text-lg px-5 py-2 rounded-2xl" onClick={() => modalRef.current?.close()}>
-                            ยกเลิก
-                        </button>
-                        <button className="cursor-pointer text-lg px-5 py-2 button-theme-primary rounded-2xl" onClick={handleConfirm}>
+                    <div className="flex justify-end gap-2 ">
+                        <button className="cursor-pointer text-lg py-1 px-3 button-theme-primary rounded-xl " onClick={handleConfirm}>
                             ยืนยัน
+                        </button>
+                        <button className="cursor-pointer text-lg py-1 px-3 rounded-xl " onClick={() => modalRef.current?.close()}>
+                            ยกเลิก
                         </button>
                     </div>
                 </div>

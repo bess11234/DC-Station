@@ -36,34 +36,52 @@ export function DetailRequests({ requests }: { requests: Promise<Request[][]> })
                         <div className="flex flex-row sm:gap-x-3 gap-x-3 w-full mb-5">
                             <div className="relative flex flex-col pr-6 pt-2">
                                 <div className="ml-2 mr-6">
-                                    <div className="sm:line-clamp-1 line-clamp-3 opacity-80 sm:text-base text-sm">
-                                        <p><span className="font-semibold">ชื่อ-นามสกุล:</span> {v.requester.firstname} {v.requester.lastname}</p>
-                                    </div>
-                                    <div className="sm:line-clamp-1 line-clamp-3 opacity-80 sm:text-base text-sm">
-                                        <p><span className="font-semibold">อีเมล:</span> {v.requester.email}</p>
-                                    </div>
-                                    <div className="sm:line-clamp-1 line-clamp-3 opacity-80 sm:text-base text-sm">
-                                        <p><span className="font-semibold">ชื่อ/ลิงค์เฟซบุ๊ค:</span> {v.requester.fb}</p>
-                                    </div>
-                                    <div className="sm:line-clamp-1 line-clamp-3 opacity-80 sm:text-base text-sm">
-                                        <p><span className="font-semibold">เบอร์โทร:</span> {v.requester.phone}</p>
-                                    </div>
-                                    <div className="sm:line-clamp-1 line-clamp-3 opacity-80 sm:text-base text-sm">
-                                        <p><span className="font-semibold">ประสบการณ์:</span> {v.requester.experience}</p>
-                                    </div>
-                                    <div className="sm:line-clamp-1 line-clamp-3 opacity-80 sm:text-base text-sm">
-                                        <p><span className="font-semibold">เหตุผล:</span> {v.requester.reason}</p>
-                                    </div>
-                                    {["Accepted", "Rejected"].includes(v.status) ?
-                                        <div className="sm:line-clamp-1 line-clamp-3 opacity-80 sm:text-base text-sm">
-                                            <p><span className="font-semibold">สถานะ:</span> {v.status}</p>
-                                        </div> : null}
+                                    <table className="text-left space-x-1 border-separate border-spacing-2">
+                                        <tbody>
+                                            <tr>
+                                                <th className="align-top font-semibold text-lg">ชื่อ-นามสกุล</th>
+                                                <td className="align-top">:</td>
+                                                <td className="sm:line-clamp-1 line-clamp-3 opacity-80 sm:text-base text-sm">{v.requester.firstname} {v.requester.lastname}</td>
+                                            </tr>
+                                            <tr>
+                                                <th className="align-top font-semibold text-lg ">อีเมล</th>
+                                                <td className="align-top">:</td>
+                                                <td className="sm:line-clamp-1 line-clamp-3 opacity-80 sm:text-base text-sm">{v.requester.email}</td>
+                                            </tr>
+                                            <tr>
+                                                <th className="align-top font-semibold text-lg  whitespace-nowrap w-auto">ชื่อ/ลิงค์เฟซบุ๊ค</th>
+                                                <td className="align-top">:</td>
+                                                <td className="sm:line-clamp-1 line-clamp-3 opacity-80 sm:text-base text-sm">{v.requester.fb}</td>
+                                            </tr>
+                                            <tr>
+                                                <th className="align-top font-semibold text-lg ">เบอร์โทร</th>
+                                                <td className="align-top">:</td>
+                                                <td className="sm:line-clamp-1 line-clamp-3 opacity-80 sm:text-base text-sm">{v.requester.phone}</td>
+                                            </tr>
+                                            <tr>
+                                                <th className="align-top font-semibold text-lg ">ประสบการณ์</th>
+                                                <td className="align-top">:</td>
+                                                <td className="sm:line-clamp-1 line-clamp-3 opacity-80 sm:text-base text-sm">{v.requester.experience}</td>
+                                            </tr>
+                                            <tr>
+                                                <th className="align-top font-semibold text-lg ">เหตุผล</th>
+                                                <td className="align-top">:</td>
+                                                <td className="sm:line-clamp-1 line-clamp-3 opacity-80 sm:text-base text-sm">{v.requester.reason}</td>
+                                            </tr>
+                                            {["Accepted", "Rejected"].includes(v.status) ?
+                                                <tr>
+                                                    <th className="align-top font-semibold">สถานะ</th>
+                                                    <td className="align-top">:</td>
+                                                    <td className="sm:line-clamp-1 line-clamp-3 opacity-80 sm:text-base text-sm">{v.status}</td>
+                                                </tr>: null}
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
                         {v.status == "Pending" ?
                             <div className="flex justify-end space-x-3">
-                                <button type="button" className="bg-theme-300/70 rounded-xl py-1 md:px-6 sm:px-3 px-3 text-base cursor-pointer font-semibold hover:opacity-50 dark:hover:opacity-80"
+                                <button type="button" className="bg-theme-400/90 rounded-xl py-1 md:px-6 sm:px-3 px-3 text-base cursor-pointer font-semibold hover:opacity-50 dark:hover:opacity-80"
                                     onClick={() => setShowModalDetail(v)}>ดูรายละเอียด
                                 </button>
                                 <button type="button" className="bg-red-400 dark:bg-red-600 rounded-xl py-1 px-3 text-base cursor-pointer text-white font-semibold hover:opacity-60"
@@ -87,11 +105,12 @@ export function DetailRequests({ requests }: { requests: Promise<Request[][]> })
                     request={showModalDetail}
                 />
             )}
+
             {modalStatusChange && (
-                <ModalStatusChange 
-                    onClose={() => setModalStatusChange(null)} 
-                    request={modalStatusChange.request} 
-                    newStatus={modalStatusChange.newStatus} 
+                <ModalStatusChange
+                    onClose={() => setModalStatusChange(null)}
+                    request={modalStatusChange.request}
+                    newStatus={modalStatusChange.newStatus}
                 />
             )}
 

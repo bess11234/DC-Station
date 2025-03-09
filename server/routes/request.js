@@ -3,6 +3,7 @@ const express = require('express');
 const Request = require("../models/requests");
 const { isAwaitExpression } = require('typescript');
 const { isMarkedAsUntransferable } = require('worker_threads');
+const { any } = require('zod');
 
 var ObjectId = require('mongoose').Types.ObjectId;
 
@@ -67,6 +68,16 @@ router.put("/:id", async (req, res) => {
         res.status(201).json({ status: "error", message: error.message });
     }
 });
+
+router.put("/reject/:id", async (req, res) => {
+    try {
+        const updatedRequest = await Request.updateMany({ id: {$ne: req.params.id }},{ $set: { status : "rejected"}}, { new: true, runValidators: true });
+
+        res.status(201).json({ status: "ok", message: updatedRequest });
+    } catch (error) {
+        res.status(201).json({ status: "error", message: error.message });
+    }
+})
 
 //Delete Specific Request
 router.delete("/:id", async (req, res) => {
