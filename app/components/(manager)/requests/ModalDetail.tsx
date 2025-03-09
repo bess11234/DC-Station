@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { Suspense, useEffect, useRef } from "react";
 import { Request } from "@/app/lib/definition"
 
 export function ModalDetail({ onClose, request }: { onClose: () => void; request: Request }) {
@@ -27,35 +27,42 @@ export function ModalDetail({ onClose, request }: { onClose: () => void; request
                         <table className="text-left space-x-1 border-separate border-spacing-2">
                             <tbody>
                                 <tr>
-                                    <th className="align-top">ชื่อ-นามสกุล</th>
+                                    <th className="align-top font-semibold">ชื่อ-นามสกุล</th>
                                     <td className="align-top">:</td>
                                     <td>{request.requester.firstname} {request.requester.lastname}</td>
                                 </tr>
                                 <tr>
-                                    <th className="align-top">อีเมล</th>
+                                    <th className="align-top font-semibold">อีเมล</th>
                                     <td className="align-top">:</td>
                                     <td>{request.requester.email}</td>
                                 </tr>
                                 <tr>
-                                    <th className="align-top whitespace-nowrap w-auto">ชื่อ/ลิงค์เฟซบุ๊ค:</th>
+                                    <th className="align-top font-semibold whitespace-nowrap w-auto">ชื่อ/ลิงค์เฟซบุ๊ค:</th>
                                     <td className="align-top">:</td>
                                     <td>{request.requester.fb}</td>
                                 </tr>
                                 <tr>
-                                    <th className="align-top">เบอร์โทร:</th>
+                                    <th className="align-top font-semibold">เบอร์โทร:</th>
                                     <td className="align-top">:</td>
                                     <td>{request.requester.phone}</td>
                                 </tr>
                                 <tr>
-                                    <th className="align-top">ประสบการณ์</th>
+                                    <th className="align-top font-semibold">ประสบการณ์</th>
                                     <td className="align-top">:</td>
                                     <td>{request.requester.experience}</td>
                                 </tr>
                                 <tr>
-                                    <th className="align-top">เหตุผล:</th>
+                                    <th className="align-top font-semibold">เหตุผล:</th>
                                     <td className="align-top">:</td>
                                     <td>{request.requester.reason}</td>
                                 </tr>
+                                <Suspense fallback={<p>Loading...</p>}>
+                                    <tr>
+                                        <th className="align-top whitespace-nowrap w-auto font-semibold">วันที่ส่งคำร้อง:</th>
+                                        <td className="align-top">:</td>
+                                        <td><time suppressHydrationWarning dateTime={request.createdAt}>{new Date(request.createdAt).toLocaleString()}</time></td>
+                                    </tr>
+                                </Suspense>
                             </tbody>
                         </table>
                     </div>

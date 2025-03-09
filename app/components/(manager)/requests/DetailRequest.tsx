@@ -36,33 +36,53 @@ export function DetailRequests({ requests }: { requests: Promise<Request[][]> })
                         <div className="flex flex-row sm:gap-x-3 gap-x-3 w-full mb-5">
                             <div className="relative flex flex-col pr-6 pt-2">
                                 <div className="ml-2 mr-6">
-                                    <div className="sm:line-clamp-1 line-clamp-3 opacity-80 sm:text-base text-sm">
-                                        <p><span className="font-semibold">ชื่อ-นามสกุล:</span> {v.requester.firstname} {v.requester.lastname}</p>
-                                    </div>
-                                    <div className="sm:line-clamp-1 line-clamp-3 opacity-80 sm:text-base text-sm">
-                                        <p><span className="font-semibold">อีเมล:</span> {v.requester.email}</p>
-                                    </div>
-                                    <div className="sm:line-clamp-1 line-clamp-3 opacity-80 sm:text-base text-sm">
-                                        <p><span className="font-semibold">ชื่อ/ลิงค์เฟซบุ๊ค:</span> {v.requester.fb}</p>
-                                    </div>
-                                    <div className="sm:line-clamp-1 line-clamp-3 opacity-80 sm:text-base text-sm">
-                                        <p><span className="font-semibold">เบอร์โทร:</span> {v.requester.phone}</p>
-                                    </div>
-                                    <div className="sm:line-clamp-1 line-clamp-3 opacity-80 sm:text-base text-sm">
-                                        <p><span className="font-semibold">ประสบการณ์:</span> {v.requester.experience}</p>
-                                    </div>
-                                    <div className="sm:line-clamp-1 line-clamp-3 opacity-80 sm:text-base text-sm">
-                                        <p><span className="font-semibold">เหตุผล:</span> {v.requester.reason}</p>
-                                    </div>
-                                    <Suspense fallback={<p>Loading...</p>}>
-                                    <div className="sm:line-clamp-1 line-clamp-3 opacity-80 sm:text-base text-sm">
-                                        <p><span className="font-semibold">วันที่ส่งคำร้อง:</span> <time suppressHydrationWarning dateTime={v.createdAt}>{new Date(v.createdAt).toLocaleString()}</time> </p>
-                                    </div>
-                                    </Suspense>
-                                    {["Accepted", "Rejected"].includes(v.status) ?
-                                        <div className="sm:line-clamp-1 line-clamp-3 opacity-80 sm:text-base text-sm">
-                                            <p><span className="font-semibold">สถานะ:</span> {v.status}</p>
-                                        </div> : null}
+                                <table className="text-left space-x-1 border-separate border-spacing-2">
+                                         <tbody>
+                                             <tr>
+                                                 <th className="align-top font-semibold text-lg">ชื่อ-นามสกุล</th>
+                                                 <td className="align-top">:</td>
+                                                 <td className="sm:line-clamp-1 line-clamp-3 opacity-80 sm:text-base text-sm">{v.requester.firstname} {v.requester.lastname}</td>
+                                             </tr>
+                                             <tr>
+                                                 <th className="align-top font-semibold text-lg ">อีเมล</th>
+                                                 <td className="align-top">:</td>
+                                                 <td className="sm:line-clamp-1 line-clamp-3 opacity-80 sm:text-base text-sm">{v.requester.email}</td>
+                                             </tr>
+                                             <tr>
+                                                 <th className="align-top font-semibold text-lg  whitespace-nowrap w-auto">ชื่อ/ลิงค์เฟซบุ๊ค</th>
+                                                 <td className="align-top">:</td>
+                                                 <td className="sm:line-clamp-1 line-clamp-3 opacity-80 sm:text-base text-sm">{v.requester.fb}</td>
+                                             </tr>
+                                             <tr>
+                                                 <th className="align-top font-semibold text-lg ">เบอร์โทร</th>
+                                                 <td className="align-top">:</td>
+                                                 <td className="sm:line-clamp-1 line-clamp-3 opacity-80 sm:text-base text-sm">{v.requester.phone}</td>
+                                             </tr>
+                                             <tr>
+                                                 <th className="align-top font-semibold text-lg ">ประสบการณ์</th>
+                                                 <td className="align-top">:</td>
+                                                 <td className="sm:line-clamp-1 line-clamp-3 opacity-80 sm:text-base text-sm">{v.requester.experience}</td>
+                                             </tr>
+                                             <tr>
+                                                 <th className="align-top font-semibold text-lg">เหตุผล</th>
+                                                 <td className="align-top">:</td>
+                                                 <td className="sm:line-clamp-1 line-clamp-3 opacity-80 sm:text-base text-sm">{v.requester.reason}</td>
+                                             </tr>
+                                             {["Accepted", "Rejected"].includes(v.status) ?
+                                                 <tr>
+                                                     <th className="align-top font-semibold">สถานะ</th>
+                                                     <td className="align-top">:</td>
+                                                     <td className="sm:line-clamp-1 line-clamp-3 opacity-80 sm:text-base text-sm">{v.status}</td>
+                                            </tr>: null}
+                                            <Suspense fallback={<p>Loading...</p>}>
+                                                <tr>
+                                                    <th className="align-top whitespace-nowrap w-auto font-semibold text-lg">วันที่ส่งคำร้อง:</th>
+                                                    <td className="align-top">:</td>
+                                                    <td className="sm:line-clamp-1 line-clamp-3 opacity-80 sm:text-base text-sm"><time suppressHydrationWarning dateTime={v.createdAt}>{new Date(v.createdAt).toLocaleString()}</time></td>
+                                                </tr>
+                                            </Suspense>
+                                         </tbody>
+                                     </table>
                                 </div>
                             </div>
                         </div>
