@@ -1,6 +1,6 @@
 "use client"
 
-import { use, useEffect, useState } from "react"
+import { Suspense, use, useEffect, useState } from "react"
 import { useSearchParams } from "next/navigation"
 
 import type { Request } from "@/app/lib/definition"
@@ -54,6 +54,11 @@ export function DetailRequests({ requests }: { requests: Promise<Request[][]> })
                                     <div className="sm:line-clamp-1 line-clamp-3 opacity-80 sm:text-base text-sm">
                                         <p><span className="font-semibold">เหตุผล:</span> {v.requester.reason}</p>
                                     </div>
+                                    <Suspense fallback={<p>Loading...</p>}>
+                                    <div className="sm:line-clamp-1 line-clamp-3 opacity-80 sm:text-base text-sm">
+                                        <p><span className="font-semibold">วันที่ส่งคำร้อง:</span> <time suppressHydrationWarning dateTime={v.createdAt}>{new Date(v.createdAt).toLocaleString()}</time> </p>
+                                    </div>
+                                    </Suspense>
                                     {["Accepted", "Rejected"].includes(v.status) ?
                                         <div className="sm:line-clamp-1 line-clamp-3 opacity-80 sm:text-base text-sm">
                                             <p><span className="font-semibold">สถานะ:</span> {v.status}</p>

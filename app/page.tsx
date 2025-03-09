@@ -66,9 +66,9 @@ export default async function Home() {
 
             {/* If completed will changed to Animals components */}
             <div className="grid md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-6">
-              {animalFindHouse.map((v, i) =>
+              {animalFindHouse ? animalFindHouse.map((v, i) =>
                 <Card key={i} src={v.images[0]} title={v.name} desc={v.personalities.join(", ")} hrefLink={`/find-house/${v._id}`} date={Date.parse(v.createdAt ? v.createdAt : "")} />)
-              }
+              : ""}
             </div>
 
           </div>
@@ -86,9 +86,9 @@ export default async function Home() {
 
             {/* If completed will changed to Animals components */}
             <div className="grid md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-x-6 gap-y-3">
-              {animalFoundHouse.map((v, i) => (
+              {animalFoundHouse ? animalFoundHouse.map((v, i) => (
                 <Card key={i} src={v.images[0]} title={v.name} desc={v.personalities.join(", ")} hrefLink={`/found-house/${v._id}`} date={Date.parse(v.adoptionDate ? v.adoptionDate : "")} />
-              ))}
+              )): ""}
 
 
             </div>

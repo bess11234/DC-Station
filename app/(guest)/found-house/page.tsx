@@ -28,7 +28,7 @@ export default async function FoundHouse() {
             {/* Animals */}
             <div className="flex flex-col w-screen px-3">
                 <Suspense fallback={<p>Loading...</p>}>
-                    <AnimalsElement animals={animals} />
+                    {animals && <AnimalsElement animals={animals} />}
                 </Suspense>
             </div>
         </>

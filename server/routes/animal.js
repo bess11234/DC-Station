@@ -146,7 +146,7 @@ router.get("/have-request", async (req, res) => {
                         $first: "$animal.images"
                     },
                     createdAt: {
-                        $first: "$createdAt"
+                        $last: "$createdAt"
                     },
                     totalPending: {
                         $sum: "$countPending"

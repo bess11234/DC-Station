@@ -30,7 +30,7 @@ export function ShowAnimalRequests({ animals }: { animals: Promise<AnimalRequest
 
     return (
         <>
-            {showAnimals[indexAnimalRequests].map((animal, i) => (
+            {showAnimals[indexAnimalRequests] && showAnimals[indexAnimalRequests].map((animal, i) => (
                 <div key={i} className="relative grid rounded-3xl dark:shadow-theme-50/10 card-theme md:text-xl sm:text-lg text-base p-3 hover:shadow-md">
 
                     {/* Display Animals that have request */}

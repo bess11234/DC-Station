@@ -41,9 +41,25 @@ export function ShowAnimals({ animals }: { animals: Promise<Animal[][]> }) {
         }
     }, [searchParams, setIndexAnimals, showAnimals])
 
+
+    function ShowStatus({ animal, request }: { animal: Animal, request: Request[] }) {
+        request = request ? request.filter(v => v.status == "Pending") : []
+        return (
+            <span
+                className={`text-xs px-3 py-1 rounded-full text-nowrap w-full text-center text-white font-semibold
+                ${!animal.adoptionDate ? (request?.length ? "bg-sky-500 dark:bg-sky-600" : "bg-red-400 dark:bg-red-600") : "bg-green-500 dark:bg-green-600"}`}>
+                {!animal.adoptionDate ?
+                    (request?.length ?
+                        <Link href={`/dashboard/requests/detail/${animal._id}`} onClick={() => setIsLoading(true)} className={`flex hover:opacity-70 active:opacity-80 justify-self-center ${isLoading ? "cursor-wait" : "cursor-pointer"}`}>คำร้องขอ&nbsp;<span className="animate-pulse">({request?.length})</span></Link>
+                        : "รอรับเลี้ยง")
+                    : "ถูกรับเลี้ยง"}
+            </span>
+        )
+    }
+
     return (
         <>
-            {showAnimals[indexAnimals].map((animal, i) => (
+            {showAnimals[indexAnimals] && showAnimals[indexAnimals].map((animal, i) => (
                 <div key={i} className="relative grid rounded-3xl dark:shadow-theme-50/10 md:text-xl sm:text-lg text-base card-theme dark:bg-white/5 sm:py-4 sm:px-6 py-3 px-3 hover:shadow-md">
                     {/* Display Delete */}
                     <DeleteItem id={animal._id} name={animal.name} index={"animal" + i} handleDelete={deleteAnimal} />
@@ -54,31 +70,23 @@ export function ShowAnimals({ animals }: { animals: Promise<Animal[][]> }) {
                     {/* Display Data */}
                     <div className="flex flex-row sm:gap-x-3 gap-x-3 w-full">
                         <div className="grid space-y-1 flex-none">
-                        {animal.images[0] ? (
-                            <Image
-                                src={`/api/image?filename=${animal.images[0]}`}
-                                alt={`Picture of ${animal.name}`}
-                                width={0}
-                                height={0}
-                                sizes="100%"
-                                style={{ objectFit: "cover" }}
-                                placeholder="blur"
-                                blurDataURL={"/default_image.webp"}
-                                quality={74}
-                                className="rounded-3xl w-[100px] h-[100px] flex-none"
-                            />
-                        ): ""}
+                            {animal.images[0] ? (
+                                <Image
+                                    src={`/api/image?filename=${animal.images[0]}`}
+                                    alt={`Picture of ${animal.name}`}
+                                    width={0}
+                                    height={0}
+                                    sizes="100%"
+                                    style={{ objectFit: "cover" }}
+                                    placeholder="blur"
+                                    blurDataURL={"/default_image.webp"}
+                                    quality={74}
+                                    className="rounded-3xl w-[100px] h-[100px] flex-none"
+                                />
+                            ) : ""}
                             {/* Status */}
                             <Suspense fallback={<p>Loading...</p>}>
-                                <span
-                                    className={`text-xs px-3 py-1 rounded-full text-nowrap w-full text-center text-white font-semibold
-                                    ${!animal.adoptionDate ? (showAnimalRequest[i]?.length ? "bg-sky-500 dark:bg-sky-600" : "bg-red-400 dark:bg-red-600") : "bg-green-500 dark:bg-green-600"}`}>
-                                    {!animal.adoptionDate ?
-                                        (showAnimalRequest[i]?.length ?
-                                            <Link href={`/dashboard/requests/detail/${animal._id}`} onClick={() => setIsLoading(true)} className={`flex hover:opacity-70 active:opacity-80 justify-self-center ${isLoading ? "cursor-wait" : "cursor-pointer"}`}>คำร้องขอ&nbsp;<span className="animate-pulse">({showAnimalRequest[i]?.length})</span></Link>
-                                            : "รอรับเลี้ยง")
-                                        : "ถูกรับเลี้ยง"}
-                                </span>
+                                <ShowStatus animal={animal} request={showAnimalRequest[i]} />
                             </Suspense>
                         </div>
 

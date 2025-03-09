@@ -151,7 +151,7 @@ export async function changeRequestStatus(id: string, status: string) {
     console.error(error);
   }
 
-  // revalidateCustom("requests");
+  revalidateCustom("requests");
   // redirect(`/dashboard/requests/detail/${animalId}`);
 }
 

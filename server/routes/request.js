@@ -110,7 +110,7 @@ router.get("/pending/animalId/:animalId", async (req, res) => {
 router.get("/responsed/animalId/:animalId", async (req, res) => {
     try {
         const animalId = req.params.animalId
-        const request = await Request.find({ status: { $ne: "Pending" }, animal: animalId }).skip(req.query.skip).limit(req.query.limit);
+        const request = await Request.find({ status: { $ne: "Pending" }, animal: animalId }).sort({ createdAt: 'desc' }).skip(req.query.skip).limit(req.query.limit);
         
         res.status(200).json({ status: "ok", message: request })
     } catch (error) {
