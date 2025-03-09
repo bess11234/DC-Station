@@ -12,7 +12,7 @@
 
 ## 🛢️ Database (ฐานข้อมูล)
 
-![alt text](er-diagram.png)
+![ER Diagram](er-diagram.png)
 
 ## 🛠️ How to install (วิธีติดตั้งโปรเจค)
 
