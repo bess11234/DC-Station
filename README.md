@@ -30,7 +30,7 @@
 
 \*ตาราง users : ข้อมูลบัญชีผู้ใช้ที่มีสิทธิ์เข้าหน้า Dashboard (ในบทบาทนี้คือเจ้าหน้าที่ DC Staion)
 
-![ER Diagram](er-diagram.png)
+![ER Diagram](document_image/er-diagram.png)
 
 ## 🛠️ How to install (วิธีติดตั้งโปรเจค)
 
@@ -38,13 +38,13 @@
 
 ให้โหลดซอร์สโค้ดโปรเจคลงในเครื่อง
 
-![alt text](image-21.png)
+![alt text](document_image/download-source.png)
 
 ### 2️⃣ ติดตั้ง Node.js
 
 ต้องมี Node.js ติดตั้งบนเครื่องก่อนเพื่อให้สามารถรันโปรเจคได้
 
-![alt text](image-20.png)
+![alt text](document_image/nodejs.png)
 
 ### 3️⃣ ตั้งค่า Environment Variables
 
@@ -82,16 +82,16 @@ AUTH_TRUST_HOST= # true or false
 
    หลังจากติดตั้งเสร็จสิ้นให้ทำการเปิด MongoDBCompass ขึ้นมา แล้วจะขึ้นหน้าแบบนี้ แล้วทำการกด `Add new connection`
 
-   ![alt text](image.png)
+   ![alt text](document_image/mongoDBCompass-connection.png)
 
    และให้ทำการกด `Save & Connection`
 
-   ![alt text](image-1.png)
+   ![alt text](document_image/mongoDBCompass-save.png)
 
    เราก็จะสร้าง MongoDB เรียบร้อยแล้ว หลังจากนั้นให้ทำการสร้าง Create Database
 
-   ![alt text](image-2.png)
-   ![alt text](image-3.png)
+   ![alt text](document_image/mongoDBCompass-createDatabase-1.png)
+   ![alt text](document_image/mongoDBCompass-createDatabase-2.png)
 
    หลังจากนั้นให้สร้างให้ครบ Data Model
 
@@ -102,11 +102,11 @@ AUTH_TRUST_HOST= # true or false
    | requests   |
    | users      |
 
-   ![alt text](image-4.png)
+   ![alt text](document_image/mongoDBCompass-datamodel.png)
 
    เมื่อสร้างครบแล้วก็สามารถนำข้อมูล MONGO_URL มาจากการกดที่ `Copy connection string` ได้เลย
 
-   ![alt text](image-5.png)
+   ![alt text](document_image/mongoDBCompass-copyconnection.png)
 
    หลังจาก Copy แล้วให้นำไปใส่ข้อมูลภายใน `.env`
 
@@ -120,19 +120,19 @@ AUTH_TRUST_HOST= # true or false
 
    หากเราต้องการดึงฐานข้อมูลจากบน MongoDB บน Cloud เราต้องทำการ Sign in เข้าไปที่เว็บไซต์ [https://account.mongodb.com/account/login](https://account.mongodb.com/account/login)
 
-   ![alt text](image-6.png)
+   ![alt text](document_image/mongoAtlas-signin.png)
 
    หลังจากนั้นเราต้องสร้าง Project ขึ้นมาเพื่อทำการสร้าง Cluster โดยให้เราเลือก Plan ตามความเหมาะสมได้เลย
 
-   ![alt text](image-7.png)
+   ![alt text](document_image/mongoAtlas-cluster.png)
 
    หลังจากรอสร้าง Cluster เสร็จแล้วให้ทำการกด `Browse Collections`
 
-   ![alt text](image-8.png)
+   ![alt text](document_image/mongoAtlas-collection.png)
 
    แล้วให้กด `Add My Own Data` แล้วกรอกข้อมูลดังนี้
 
-   ![alt text](image-9.png)
+   ![alt text](document_image/mongoAtlas-createDatabase.png)
 
    หลังจากนั้นให้สร้างให้ครบ Data Model
 
@@ -143,23 +143,23 @@ AUTH_TRUST_HOST= # true or false
    | requests   |
    | users      |
 
-   ![alt text](image-10.png)
+   ![alt text](document_image/mongoAtlas-createDatabase-2.png)
 
    หลังจากนั้นให้ทำการตั้งค่าที่ `Quick Start` โดยต้องทำการสร้าง User และเพิ่ม IP Address เข้า Network Access
 
-   ![alt text](image-13.png)
+   ![alt text](document_image/mongoAtlas-database-access.png)
 
-   ![alt text](image-14.png)
+   ![alt text](document_image/mongoAtlas-network-access.png)
 
    เมื่อสร้างครบแล้วให้ทำตามดังนี้
 
-   ![alt text](image-15.png)
+   ![alt text](document_image/mongoAtlas-connection.png)
 
    หลังจากนั้นให้ Copy ข้อมูล MONGO_URL
 
    หมายเหตุ: **ต้องสร้าง Users ให้พร้อมก่อน**
 
-   ![alt text](image-16.png)
+   ![alt text](document_image/mongoAtlas-copyurl.png)
 
    หลังจาก Copy แล้วให้นำไปใส่ข้อมูลภายใน `.env`
 
@@ -173,7 +173,7 @@ AUTH_TRUST_HOST= # true or false
 
 เราสามารถใช้ Website ในการ Generate ข้อมูล JWT Secret จากเว็บ [JwrSecret.com](https://jwtsecret.com/generate)
 
-![alt text](image-17.png)
+![alt text](document_image/jwtscret.png)
 
 เพื่อให้เรานำมาใช้ Sign ให้กับ JWT TOKEN เพื่อปกป้องข้อมูล Users ในการเข้าถึงข้อมูล
 
@@ -183,7 +183,7 @@ AUTH_TRUST_HOST= # true or false
 
 โดยข้อมูลของ License key มีให้เลือก 2 ตัวคือ Production, Development ให้เราเลือกตามความเหมาะสม
 
-![alt text](image-18.png)
+![alt text](document_image/ckeditor.png)
 
 #### 🚀 BACKENDPORT (ENV)
 
@@ -193,7 +193,7 @@ AUTH_TRUST_HOST= # true or false
 
 เราสามารถเข้าไป Generate ข้อมูล Secret ได้ที่เว็บไซต์นี้เลย [Auth Secret](https://auth-secret-gen.vercel.app)
 
-![alt text](image-19.png)
+![alt text](document_image/authscret.png)
 
 #### 🔄 AUTH_TRUST_HOST (ENV)
 
@@ -240,7 +240,7 @@ npm run publish
 
 สามารถใช้เครื่องมือเช่น **insomnia**, **postman** เพื่อส่ง Request
 
-![alt text](image-22.png)
+![alt text](document_image/insomnia.png)
 
 หลังจากนี้ก็จะสามารถเข้าใช้งานในฐานะ `Manager` ได้
 
