@@ -272,7 +272,7 @@ export function CreateAnimal({ animal, knowledges }: { animal: Animal, knowledge
                     {/* พันธุ์ */}
                     <div className="grid col-span-3">
                         <label className="text-2xl py-3" htmlFor="animalBreed">พันธุ์: <span className="text-red-500">*</span></label>
-                        <input className="p-3 w-full rounded-xl input-focus-theme invalid:text-red-500" onChange={(e) => handleInput(e.target.value, "breed")} type="text" name="breed" id="animalBreed" required placeholder="กรุณากรอกชื่อสายพันธุ์" />
+                        <input className="p-3 w-full rounded-xl input-focus-theme invalid:text-red-500" onChange={(e) => handleInput(e.target.value, "breed")} type="text" name="breed" id="animalBreed" required placeholder="กรุณากรอกชื่อพันธุ์" />
                     </div>
 
                     {/* เพศ */}

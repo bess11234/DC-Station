@@ -60,7 +60,7 @@ export default async function FoundHouseID({ params }: { params: Promise<{ id: s
                                     <StarIcon className="sm:size-8 size-6" />
                                     <p>ถูกรับเลี้ยง</p>
                                 </div>
-                                <p>วันที่ {animal_adoption && `${animal_adoption.getDay()} ${displayMonthThai(animal_adoption.getMonth())} ${animal_adoption.getFullYear()}`}</p>
+                                <p>วันที่ {animal_adoption && `${animal_adoption.getDate()} ${displayMonthThai(animal_adoption.getMonth())} ${animal_adoption.getFullYear()}`}</p>
                             </div>
 
                             <ShowData animal={animal} />

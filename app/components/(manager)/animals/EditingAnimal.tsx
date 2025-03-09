@@ -268,7 +268,7 @@ export function EditingAnimal({ animal, knowledges }: { animal: AnimalKnowledges
                     {/* สายพันธุ์ */}
                     <div className="grid">
                         <label className="text-2xl py-3" htmlFor="animalDob">สายพันธุ์: <span className="text-red-500">*</span></label>
-                        <select className="*:bg-white *:dark:bg-black2 p-3 w-full rounded-xl input-focus-theme" onChange={(e) => handleInput(e.target.value, "specie")} name="specie" id="animalSpecie" required>
+                        <select className="*:bg-white *:dark:bg-black2 p-3 w-full rounded-xl input-focus-theme" onChange={(e) => handleInput(e.target.value, "specie")} defaultValue={animal.specie} name="specie" id="animalSpecie" required>
                             <option value="Dog">หมา 🐶</option>
                             <option value="Cat">แมว 🐱</option>
                         </select>
@@ -279,7 +279,7 @@ export function EditingAnimal({ animal, knowledges }: { animal: AnimalKnowledges
                     {/* พันธุ์ */}
                     <div className="grid col-span-3">
                         <label className="text-2xl py-3" htmlFor="animalBreed">พันธุ์: <span className="text-red-500">*</span></label>
-                        <input className="p-3 w-full rounded-xl input-focus-theme invalid:text-red-500" onChange={(e) => handleInput(e.target.value, "breed")} type="text" name="breed" id="animalBreed" defaultValue={animal.breed} required placeholder="กรุณากรอกชื่อสายพันธุ์" />
+                        <input className="p-3 w-full rounded-xl input-focus-theme invalid:text-red-500" onChange={(e) => handleInput(e.target.value, "breed")} type="text" name="breed" id="animalBreed" defaultValue={animal.breed} required placeholder="กรุณากรอกชื่อพันธุ์" />
                     </div>
 
                     {/* เพศ */}
