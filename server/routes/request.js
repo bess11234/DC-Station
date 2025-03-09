@@ -1,9 +1,10 @@
 const express = require('express');
 
 const Request = require("../models/requests");
+const Animal = require("../models/animals");
 const { isAwaitExpression } = require('typescript');
 const { isMarkedAsUntransferable } = require('worker_threads');
-const { any } = require('zod');
+const { any, date } = require('zod');
 
 var ObjectId = require('mongoose').Types.ObjectId;
 
@@ -46,38 +47,66 @@ router.get("/:id", async (req, res) => {
     }
 })
 
+// router.put("/all", async (req, res) => {
+//     try {
+//         // find
+//         const animal = await Animal.updateMany({}, { $set: { adoptionDate : null}})
 
-router.put("/:id", async (req, res) => {
+//         res.status(201).json({ status: "ok", message: animal});
+//     } catch (error) {
+//         res.status(201).json({ status: "error", message: error.message });
+//     }
+// });
+
+
+router.delete("/all", async (req, res) => {
     try {
-        const request = await Request.findById(req.params.id);
-        //not found
-        if (!request) {
-            return res.status(404).json({ status: "error", message: "Adopter's Request not found" });
-        }
+        // find
+        const animal = await Request.deleteMany({})
 
-        //found
-        const updateData = req.body; // Only update the fields that are provided
-        const updatedRequest = await Request.findByIdAndUpdate(
-            req.params.id,
-            { $set: req.body }, // Use $set to update only specified fields
-            { new: true, runValidators: true } // Return updated document & validate
-        );
-
-        res.status(201).json({ status: "ok", message: updatedRequest });
+        res.status(201).json({ status: "ok", message: animal});
     } catch (error) {
         res.status(201).json({ status: "error", message: error.message });
     }
 });
 
-router.put("/reject/:id", async (req, res) => {
+router.put("/:id", async (req, res) => {
+    console.log("checlk")
     try {
-        const updatedRequest = await Request.updateMany({ id: {$ne: req.params.id }},{ $set: { status : "rejected"}}, { new: true, runValidators: true });
+        // find
+        const request = await Request.findById(req.params.id);
+        const animal = await Animal.findById(request.animal);
 
-        res.status(201).json({ status: "ok", message: updatedRequest });
+        //not found
+        if (!request || !animal) {
+            return res.status(404).json({ status: "error", message: "adopter's request or animal not found" });
+        }
+        console.log(await Request.find({ id: {$ne: req.params.id }}, {animal: request.animal}, { $set: { status : "Rejected"}}, { new: true, runValidators: true }))
+        
+        //check status if "Accepted" then change another to "Rejected"
+        console.log("checlk2")
+        if (req.body.status == "Accepted"){
+            const changeAll = await Request.updateMany({ id: {$ne: req.params.id }, animal: request.animal}, { $set: { status : "Rejected"}});
+        }
+
+        //found
+        const updatedRequest = await Request.findByIdAndUpdate(
+            req.params.id,
+            { $set: req.body }, // Use $set to update only specified fields
+            { new: true, runValidators: true } // Return updated document & validate
+        );
+        await Animal.findByIdAndUpdate(
+            request.animal,
+            {$set: {adoptionDate: new Date()}}
+        );
+
+        res.status(201).json({ status: "ok", message: updatedRequest});
     } catch (error) {
         res.status(201).json({ status: "error", message: error.message });
     }
-})
+});
+
+
 
 //Delete Specific Request
 router.delete("/:id", async (req, res) => {

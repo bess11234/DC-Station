@@ -32,7 +32,7 @@ export function DetailRequests({ requests }: { requests: Promise<Request[][]> })
         <>
             {showRequest[indexRequest]
                 .map((v, i) => (
-                    <div key={i} className="relative rounded-3xl dark:shadow-theme-50/10 card-theme md:text-xl sm:text-lg text-base p-3 hover:shadow-md">
+                    <div key={i} className= {v.status == "Rejected"? "opacity-60 relative rounded-3xl dark:shadow-theme-50/10 card-theme md:text-xl sm:text-lg text-base p-3 hover:shadow-md":"relative rounded-3xl dark:shadow-theme-50/10 card-theme md:text-xl sm:text-lg text-base p-3 hover:shadow-md"}>
                         <div className="flex flex-row sm:gap-x-3 gap-x-3 w-full mb-5">
                             <div className="relative flex flex-col pr-6 pt-2">
                                 <div className="ml-2 mr-6">

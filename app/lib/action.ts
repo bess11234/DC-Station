@@ -138,15 +138,6 @@ export async function createRequest(
 
 export async function changeRequestStatus(id: string, status: string) {
   try {
-    // if (status == "accepted"){
-    //   const response_rejectAll = await fetch(`http://localhost:${process.env.NEXT_PUBLIC_BACKENDPORT}/api/requests/reject/${id}`, {
-    //     method: "PUT",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify({ status }),
-    //   });
-    // }
     const response = await fetch(`http://localhost:${process.env.NEXT_PUBLIC_BACKENDPORT}/api/requests/${id}`, {
       method: "PUT",
       headers: {
@@ -154,7 +145,6 @@ export async function changeRequestStatus(id: string, status: string) {
       },
       body: JSON.stringify({ status }),
     });
-
     if (!response.ok) throw new Error("Failed to send request");
 
   } catch (error) {
