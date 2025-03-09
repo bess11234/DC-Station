@@ -68,7 +68,7 @@ export function DetailRequests({ requests }: { requests: Promise<Request[][]> })
                         </div>
                         {v.status == "Pending" ?
                             <div className="flex justify-end space-x-3">
-                                <button type="button" className="bg-theme-300/70 rounded-xl py-1 md:px-6 sm:px-3 px-3 text-base cursor-pointer font-semibold hover:opacity-50 dark:hover:opacity-80"
+                                <button type="button" className="bg-theme-400/90 rounded-xl py-1 md:px-6 sm:px-3 px-3 text-base cursor-pointer font-semibold hover:opacity-50 dark:hover:opacity-80"
                                     onClick={() => setShowModalDetail(v)}>ดูรายละเอียด
                                 </button>
                                 <button type="button" className="bg-red-400 dark:bg-red-600 rounded-xl py-1 px-3 text-base cursor-pointer text-white font-semibold hover:opacity-60"
@@ -92,11 +92,12 @@ export function DetailRequests({ requests }: { requests: Promise<Request[][]> })
                     request={showModalDetail}
                 />
             )}
+
             {modalStatusChange && (
-                <ModalStatusChange 
-                    onClose={() => setModalStatusChange(null)} 
-                    request={modalStatusChange.request} 
-                    newStatus={modalStatusChange.newStatus} 
+                <ModalStatusChange
+                    onClose={() => setModalStatusChange(null)}
+                    request={modalStatusChange.request}
+                    newStatus={modalStatusChange.newStatus}
                 />
             )}
 

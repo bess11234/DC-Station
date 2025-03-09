@@ -79,7 +79,6 @@ export default async function AnimalRequestDetail({ params }: { params: Promise<
                     <PageNavigation totalPage={pageResponseNumber} />
                 </div>
             </div>):""}
-
         </section>
     )
 }
