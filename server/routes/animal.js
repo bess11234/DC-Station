@@ -42,12 +42,14 @@ router.get("/id/:id", async (req, res) => {
                     "_id": id
                 }
             },
-            {$lookup: {
-                from: "knowledges",
-                localField: "knowledges",
-                foreignField: "_id",
-                as: "knowledges"
-            }}
+            {
+                $lookup: {
+                    from: "knowledges",
+                    localField: "knowledges",
+                    foreignField: "_id",
+                    as: "knowledges"
+                }
+            }
         ])
         animal = animal[0]
     } catch (error) {
@@ -124,6 +126,9 @@ router.get("/have-request", async (req, res) => {
                     },
                     countRejected: {
                         $cond: [{ $eq: ["$status", "Rejected"] }, 1, 0]
+                    },
+                    countAccepted: {
+                        $cond: [{ $eq: ["$status", "Accepted"] }, 1, 0]
                     }
                 }
             },
@@ -153,8 +158,14 @@ router.get("/have-request", async (req, res) => {
                     },
                     totalRejected: {
                         $sum: "$countRejected"
+                    },
+                    totalAccepted: {
+                        $sum: "$countAccepted"
                     }
                 }
+            },
+            {
+                $match: { totalAccepted: { $eq: 0 } }
             },
             {
                 $sort: {
