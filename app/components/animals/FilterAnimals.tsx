@@ -63,7 +63,7 @@ export function FilterAnimals() {
     function FilterAge() {
         return (
             <>
-                <input onChange={(e) => filterAge(e.target.value)} type="range" className="range range-theme w-full" min={0} max="4" defaultValue="0" step="1" />
+                <input onChange={(e) => filterAge(e.target.value)} type="range" className="range range-theme w-full" min={0} max="4" defaultValue={searchParams.get("age") ?? 0} step="1" />
                 <div className="flex justify-between px-2.5 mt-2 text-xs">
                     <span>|</span>
                     <span>|</span>
