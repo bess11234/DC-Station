@@ -7,6 +7,8 @@ import { fetchFindHouseAnimals } from "@/app/lib/data"
 import { AnimalsElement } from "@/app/components/animals/AnimalsElement"
 import { FilterAnimals } from "@/app/components/animals/FilterAnimals"
 
+export const dynamic = 'force-dynamic'
+
 export const metadata: Metadata = {
     title: "Find House"
 }

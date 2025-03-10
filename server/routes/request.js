@@ -71,7 +71,7 @@ router.delete("/all", async (req, res) => {
 });
 
 router.put("/:id", async (req, res) => {
-    console.log("checlk")
+    console.log("check")
     try {
         // find
         const request = await Request.findById(req.params.id);
@@ -84,9 +84,12 @@ router.put("/:id", async (req, res) => {
         console.log(await Request.find({ id: {$ne: req.params.id }}, {animal: request.animal}, { $set: { status : "Rejected"}}, { new: true, runValidators: true }))
         
         //check status if "Accepted" then change another to "Rejected"
-        console.log("checlk2")
+        // console.log("checlk2")
         if (req.body.status == "Accepted"){
-            const changeAll = await Request.updateMany({ id: {$ne: req.params.id }, animal: request.animal}, { $set: { status : "Rejected"}});
+            // update another request to reject status
+            await Request.updateMany({ id: {$ne: req.params.id }, animal: request.animal}, { $set: { status : "Rejected"}});
+            
+            await Animal.findByIdAndUpdate(request.animal,{$set: {adoptionDate: new Date()}});
         }
 
         //found
@@ -94,10 +97,6 @@ router.put("/:id", async (req, res) => {
             req.params.id,
             { $set: req.body }, // Use $set to update only specified fields
             { new: true, runValidators: true } // Return updated document & validate
-        );
-        await Animal.findByIdAndUpdate(
-            request.animal,
-            {$set: {adoptionDate: new Date()}}
         );
 
         res.status(201).json({ status: "ok", message: updatedRequest});
@@ -150,7 +149,7 @@ router.get("/pending/animalId/:animalId", async (req, res) => {
 router.get("/responsed/animalId/:animalId", async (req, res) => {
     try {
         const animalId = req.params.animalId
-        const request = await Request.find({ status: { $ne: "Pending" }, animal: animalId }).sort({ createdAt: 'desc' }).skip(req.query.skip).limit(req.query.limit);
+        const request = await Request.find({ status: { $ne: "Pending" }, animal: animalId }).sort({ updatedAt: "desc", createdAt: 'desc' }).skip(req.query.skip).limit(req.query.limit);
         
         res.status(200).json({ status: "ok", message: request })
     } catch (error) {

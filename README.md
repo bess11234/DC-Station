@@ -48,7 +48,7 @@
 
 ### 3️⃣ ตั้งค่า Environment Variables
 
-เมื่อทำการโหลด `Source Code` เรียบร้อย เปลี่ยนชื่อไฟล์ `.env.example` เป็น `.env` และแก้ไขข้อมูล
+เมื่อทำการโหลด `Source Code` เรียบร้อย เปลี่ยนชื่อไฟล์ `.env.example` เป็น `.env` และแก้ไขข้อมูล [ที่มาของ Environment Variables](#setting-environment-variables)
 
 ```env
 # YOUR_MONGO_URL
@@ -69,136 +69,6 @@ AUTH_SECRET=
 # IS PRODUCTION
 AUTH_TRUST_HOST= # true or false
 ```
-
-#### 📌 MONGO_URL (ENV)
-
-เราสามารถทำได้ 2 วิธีในการเอาข้อมูล MONGO_URL
-
-1. MongoDB Local Connection
-
-   เราสามารถเข้าไปโหลด MongoDB Compass (GUI) ซึ่งจะติดตั้ง MongoDB ภายในเครื่อง
-
-   ![alt text](document_image/mongoDBcompass.png)
-
-   หลังจากติดตั้งเสร็จสิ้นให้ทำการเปิด MongoDBCompass ขึ้นมา แล้วจะขึ้นหน้าแบบนี้ แล้วทำการกด `Add new connection`
-
-   ![alt text](document_image/mongoDBCompass-connection.png)
-
-   และให้ทำการกด `Save & Connection`
-
-   ![alt text](document_image/mongoDBCompass-save.png)
-
-   เราก็จะสร้าง MongoDB เรียบร้อยแล้ว หลังจากนั้นให้ทำการสร้าง Create Database
-
-   ![alt text](document_image/mongoDBCompass-createDatabase-1.png)
-   ![alt text](document_image/mongoDBCompass-createDatabase-2.png)
-
-   หลังจากนั้นให้สร้างให้ครบ Data Model
-
-   | DC_Station |
-   | ---------- |
-   | animals    |
-   | knowledges |
-   | requests   |
-   | users      |
-
-   ![alt text](document_image/mongoDBCompass-datamodel.png)
-
-   เมื่อสร้างครบแล้วก็สามารถนำข้อมูล MONGO_URL มาจากการกดที่ `Copy connection string` ได้เลย
-
-   ![alt text](document_image/mongoDBCompass-copyconnection.png)
-
-   หลังจาก Copy แล้วให้นำไปใส่ข้อมูลภายใน `.env`
-
-   ```env
-   MONGO_URL=mongodb://localhost:27017/DC_Station
-   ```
-
-   หมายเหตุ: **โดยต้องมีการเพิ่ม Database name ซึ่งที่ใช้ก็คือ `DC_Station` ต่อหลังด้วย**
-
-2. MongoDB Atlas (Cloud)
-
-   หากเราต้องการดึงฐานข้อมูลจากบน MongoDB บน Cloud เราต้องทำการ Sign in เข้าไปที่เว็บไซต์ [https://account.mongodb.com/account/login](https://account.mongodb.com/account/login)
-
-   ![alt text](document_image/mongoAtlas-signin.png)
-
-   หลังจากนั้นเราต้องสร้าง Project ขึ้นมาเพื่อทำการสร้าง Cluster โดยให้เราเลือก Plan ตามความเหมาะสมได้เลย
-
-   ![alt text](document_image/mongoAtlas-cluster.png)
-
-   หลังจากรอสร้าง Cluster เสร็จแล้วให้ทำการกด `Browse Collections`
-
-   ![alt text](document_image/mongoAtlas-collection.png)
-
-   แล้วให้กด `Add My Own Data` แล้วกรอกข้อมูลดังนี้
-
-   ![alt text](document_image/mongoAtlas-createDatabase.png)
-
-   หลังจากนั้นให้สร้างให้ครบ Data Model
-
-   | DC_Station |
-   | ---------- |
-   | animals    |
-   | knowledges |
-   | requests   |
-   | users      |
-
-   ![alt text](document_image/mongoAtlas-createDatabase-2.png)
-
-   หลังจากนั้นให้ทำการตั้งค่าที่ `Quick Start` โดยต้องทำการสร้าง User และเพิ่ม IP Address เข้า Network Access
-
-   ![alt text](document_image/mongoAtlas-database-access.png)
-
-   ![alt text](document_image/mongoAtlas-network-access.png)
-
-   เมื่อสร้างครบแล้วให้ทำตามดังนี้
-
-   ![alt text](document_image/mongoAtlas-connection.png)
-
-   หลังจากนั้นให้ Copy ข้อมูล MONGO_URL
-
-   หมายเหตุ: **ต้องสร้าง Users ให้พร้อมก่อน**
-
-   ![alt text](document_image/mongoAtlas-copyurl.png)
-
-   หลังจาก Copy แล้วให้นำไปใส่ข้อมูลภายใน `.env`
-
-   ```env
-   mongodb+srv://<db_username>:<db_password>@cluster0.aqsdx.mongodb.net/DC_Station
-   ```
-
-   หมายเหตุ: **ต้องแก้ไข \<db_username\>, \<db_password\> เป็นของตัวเอง โดยต้องมีการเพิ่ม Database name ซึ่งที่ใช้ก็คือ `DC_Station` ต่อหลังด้วย**
-
-#### 🔐 JWT_SECRET (ENV)
-
-เราสามารถใช้ Website ในการ Generate ข้อมูล JWT Secret จากเว็บ [JwrSecret.com](https://jwtsecret.com/generate)
-
-![alt text](document_image/jwtscret.png)
-
-เพื่อให้เรานำมาใช้ Sign ให้กับ JWT TOKEN เพื่อปกป้องข้อมูล Users ในการเข้าถึงข้อมูล
-
-#### 🔑 CK_LICENSEKEY (ENV)
-
-เราต้องทำการ Sign in ในเว็บไซต์ CKEditor [CKEditor](https://ckeditor.com)
-
-โดยข้อมูลของ License key มีให้เลือก 2 ตัวคือ Production, Development ให้เราเลือกตามความเหมาะสม
-
-![alt text](document_image/ckeditor.png)
-
-#### 🚀 BACKENDPORT (ENV)
-
-เราสามารถกำหนด PORT ที่จะใช้ได้ตามที่ต้องการ โดยต้องกำหนดให้ไม่ชนกับ PORT ที่มีการใช้งานอยู่แล้ว เช่น `1234`
-
-#### 🛡️ AUTH_SECRET (ENV)
-
-เราสามารถเข้าไป Generate ข้อมูล Secret ได้ที่เว็บไซต์นี้เลย [Auth Secret](https://auth-secret-gen.vercel.app)
-
-![alt text](document_image/authscret.png)
-
-#### 🔄 AUTH_TRUST_HOST (ENV)
-
-- Production: `true`
-- Development: `false`
 
 ### ▶️ Run Project
 
@@ -326,3 +196,139 @@ MongoDB Connected
 [![Visit GitHub](https://img.shields.io/badge/Visit%20GitHub-%2300A1F1?style=for-the-badge&logo=github&logoColor=white&labelColor=black&color=0f7bff&link=https://github.com/KKMAI)](https://github.com/KKMAI)
 
 - @KKMAI
+
+<br/>
+
+<hr/>
+
+# Setting Environment Variables
+
+## 📌 MONGO_URL (ENV)
+
+เราสามารถทำได้ 2 วิธีในการเอาข้อมูล MONGO_URL
+
+1. MongoDB Local Connection
+
+   เราสามารถเข้าไปโหลด MongoDB Compass (GUI) ซึ่งจะติดตั้ง MongoDB ภายในเครื่อง
+
+   ![alt text](document_image/mongoDBcompass.png)
+
+   หลังจากติดตั้งเสร็จสิ้นให้ทำการเปิด MongoDBCompass ขึ้นมา แล้วจะขึ้นหน้าแบบนี้ แล้วทำการกด `Add new connection`
+
+   ![alt text](document_image/mongoDBCompass-connection.png)
+
+   และให้ทำการกด `Save & Connection`
+
+   ![alt text](document_image/mongoDBCompass-save.png)
+
+   เราก็จะสร้าง MongoDB เรียบร้อยแล้ว หลังจากนั้นให้ทำการสร้าง Create Database
+
+   ![alt text](document_image/mongoDBCompass-createDatabase-1.png)
+   ![alt text](document_image/mongoDBCompass-createDatabase-2.png)
+
+   หลังจากนั้นให้สร้างให้ครบ Data Model
+
+   | DC_Station |
+   | ---------- |
+   | animals    |
+   | knowledges |
+   | requests   |
+   | users      |
+
+   ![alt text](document_image/mongoDBCompass-datamodel.png)
+
+   เมื่อสร้างครบแล้วก็สามารถนำข้อมูล MONGO_URL มาจากการกดที่ `Copy connection string` ได้เลย
+
+   ![alt text](document_image/mongoDBCompass-copyconnection.png)
+
+   หลังจาก Copy แล้วให้นำไปใส่ข้อมูลภายใน `.env`
+
+   ```env
+   MONGO_URL=mongodb://localhost:27017/DC_Station
+   ```
+
+   หมายเหตุ: **โดยต้องมีการเพิ่ม Database name ซึ่งที่ใช้ก็คือ `DC_Station` ต่อหลังด้วย**
+
+2. MongoDB Atlas (Cloud)
+
+   หากเราต้องการดึงฐานข้อมูลจากบน MongoDB บน Cloud เราต้องทำการ Sign in เข้าไปที่เว็บไซต์ [https://account.mongodb.com/account/login](https://account.mongodb.com/account/login)
+
+   ![alt text](document_image/mongoAtlas-signin.png)
+
+   หลังจากนั้นเราต้องสร้าง Project ขึ้นมาเพื่อทำการสร้าง Cluster โดยให้เราเลือก Plan ตามความเหมาะสมได้เลย
+
+   ![alt text](document_image/mongoAtlas-cluster.png)
+
+   หลังจากรอสร้าง Cluster เสร็จแล้วให้ทำการกด `Browse Collections`
+
+   ![alt text](document_image/mongoAtlas-collection.png)
+
+   แล้วให้กด `Add My Own Data` แล้วกรอกข้อมูลดังนี้
+
+   ![alt text](document_image/mongoAtlas-createDatabase.png)
+
+   หลังจากนั้นให้สร้างให้ครบ Data Model
+
+   | DC_Station |
+   | ---------- |
+   | animals    |
+   | knowledges |
+   | requests   |
+   | users      |
+
+   ![alt text](document_image/mongoAtlas-createDatabase-2.png)
+
+   หลังจากนั้นให้ทำการตั้งค่าที่ `Quick Start` โดยต้องทำการสร้าง User และเพิ่ม IP Address เข้า Network Access
+
+   ![alt text](document_image/mongoAtlas-database-access.png)
+
+   ![alt text](document_image/mongoAtlas-network-access.png)
+
+   เมื่อสร้างครบแล้วให้ทำตามดังนี้
+
+   ![alt text](document_image/mongoAtlas-connection.png)
+
+   หลังจากนั้นให้ Copy ข้อมูล MONGO_URL
+
+   หมายเหตุ: **ต้องสร้าง Users ให้พร้อมก่อน**
+
+   ![alt text](document_image/mongoAtlas-copyurl.png)
+
+   หลังจาก Copy แล้วให้นำไปใส่ข้อมูลภายใน `.env`
+
+   ```env
+   mongodb+srv://<db_username>:<db_password>@cluster0.aqsdx.mongodb.net/DC_Station
+   ```
+
+   หมายเหตุ: **ต้องแก้ไข \<db_username\>, \<db_password\> เป็นของตัวเอง โดยต้องมีการเพิ่ม Database name ซึ่งที่ใช้ก็คือ `DC_Station` ต่อหลังด้วย**
+
+## 🔐 JWT_SECRET (ENV)
+
+เราสามารถใช้ Website ในการ Generate ข้อมูล JWT Secret จากเว็บ [JwrSecret.com](https://jwtsecret.com/generate)
+
+![alt text](document_image/jwtscret.png)
+
+เพื่อให้เรานำมาใช้ Sign ให้กับ JWT TOKEN เพื่อปกป้องข้อมูล Users ในการเข้าถึงข้อมูล
+
+## 🔑 CK_LICENSEKEY (ENV)
+
+เราต้องทำการ Sign in ในเว็บไซต์ CKEditor [CKEditor](https://ckeditor.com)
+
+โดยข้อมูลของ License key มีให้เลือก 2 ตัวคือ Production, Development ให้เราเลือกตามความเหมาะสม
+
+![alt text](document_image/ckeditor.png)
+
+## 🚀 BACKENDPORT (ENV)
+
+เราสามารถกำหนด PORT ที่จะใช้ได้ตามที่ต้องการ โดยต้องกำหนดให้ไม่ชนกับ PORT ที่มีการใช้งานอยู่แล้ว เช่น `1234`
+
+## 🛡️ AUTH_SECRET (ENV)
+
+เราสามารถเข้าไป Generate ข้อมูล Secret ได้ที่เว็บไซต์นี้เลย [Auth Secret](https://auth-secret-gen.vercel.app)
+
+![alt text](document_image/authscret.png)
+
+## 🔄 AUTH_TRUST_HOST (ENV)
+
+- Production: `true`
+- Development: `false`

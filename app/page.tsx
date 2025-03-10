@@ -10,6 +10,8 @@ import { fetchAnimalFindHouseCount, fetchAnimalFoundHouseCount, fetchFindHouseAn
 
 import { ArrowRightIcon } from "@heroicons/react/24/outline";
 
+export const dynamic = 'force-dynamic'
+
 export default async function Home() {
 
   const banks: BankType[] = [

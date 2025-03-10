@@ -1,5 +1,7 @@
 import Header from "@/app/components/(manager)/Header";
 
+export const dynamic = 'force-dynamic'
+
 export default function Layout({
     children,
 }: Readonly<{
