@@ -1,0 +1,433 @@
+[{
+  "_id": {
+    "$oid": "67ac6cf33f0c0eef688209db"
+  },
+  "name": "โปร",
+  "specie": "Dog",
+  "breed": "Golden Retriever",
+  "gender": "M",
+  "dob": {
+    "$date": "2020-06-15T00:00:00.000Z"
+  },
+  "history": "Rescued from a shelter.",
+  "personalities": [
+    "Friendly",
+    "Loyal",
+    "Energetic"
+  ],
+  "healthHistories": {
+    "spayingStatus": false,
+    "illnesses": [
+      {
+        "name": "Skin Allergy",
+        "status": "Recovered"
+      },
+      {
+        "name": "Hip Dysplasia",
+        "status": "Chronic"
+      }
+    ]
+  },
+  "images": [
+    "/animals/1741588769247.webp",
+    "/images/1740152968257.jpg",
+    "/images/1740282875022.webp",
+    "/images/1740282886999.webp",
+    "/animals/1741588037533.webp"
+  ],
+  "adoptionDate": null,
+  "knowledges": [
+    {
+      "$oid": "67b48a2fd862f939e193e00c"
+    },
+    {
+      "$oid": "67b49518409a0a41c6105029"
+    },
+    {
+      "$oid": "67b49770409a0a41c6105034"
+    },
+    {
+      "$oid": "67b49550409a0a41c610502b"
+    }
+  ],
+  "createdAt": {
+    "$date": "2025-02-12T09:42:11.678Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-10T06:40:25.971Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67ac6db03f0c0eef688209e0"
+  },
+  "name": "โกเด้น",
+  "specie": "Dog",
+  "breed": "Golden Retriever",
+  "gender": "M",
+  "dob": {
+    "$date": "2025-03-10T00:00:00.000Z"
+  },
+  "history": "Rescued from a shelter.",
+  "personalities": [
+    "Friendly",
+    "Loyal",
+    "Energetic"
+  ],
+  "healthHistories": {
+    "spayingStatus": false,
+    "illnesses": [
+      {
+        "name": "Skin Allergy",
+        "status": "Recovered"
+      },
+      {
+        "name": "Hip Dysplasia",
+        "status": "Chronic"
+      }
+    ]
+  },
+  "images": [
+    "/animals/1741587924504.png",
+    "/animals/1741587924508.webp"
+  ],
+  "adoptionDate": null,
+  "knowledges": [
+    {
+      "$oid": "67b48a2fd862f939e193e00c"
+    },
+    {
+      "$oid": "67b49518409a0a41c6105029"
+    }
+  ],
+  "createdAt": {
+    "$date": "2025-02-12T09:45:20.986Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-10T06:25:24.564Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67ac7111044f60eabd83b819"
+  },
+  "name": "โอลิเวอร์",
+  "specie": "Dog",
+  "breed": "Golden Retriever",
+  "gender": "M",
+  "dob": {
+    "$date": "2020-06-15T00:00:00.000Z"
+  },
+  "history": "Rescued from a shelter.",
+  "personalities": [
+    "Friendly",
+    "Loyal",
+    "Energetic"
+  ],
+  "healthHistories": {
+    "spayingStatus": true,
+    "illnesses": [
+      {
+        "name": "Skin Allergy",
+        "status": "Recovered"
+      },
+      {
+        "name": "Hip Dysplasia",
+        "status": "Under surveillance"
+      }
+    ]
+  },
+  "images": [
+    "/animals/bo2.webp",
+    "/animals/bo2.webp"
+  ],
+  "adoptionDate": null,
+  "knowledges": [],
+  "createdAt": {
+    "$date": "2025-02-12T09:59:45.584Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-10T06:26:43.250Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67ac7b7a7118a75590e8c3c0"
+  },
+  "name": "อัลเบิร์ต",
+  "specie": "Dog",
+  "breed": "Golden Retriever",
+  "gender": "M",
+  "dob": {
+    "$date": "2020-06-15T00:00:00.000Z"
+  },
+  "history": "Rescued from a shelter.",
+  "personalities": [
+    "Friendly",
+    "Loyal",
+    "Energetic"
+  ],
+  "healthHistories": {
+    "spayingStatus": true,
+    "illnesses": [
+      {
+        "name": "Skin Allergy",
+        "status": "Under treatment"
+      },
+      {
+        "name": "Hip Dysplasia",
+        "status": "Recovered"
+      }
+    ]
+  },
+  "images": [
+    "/animals/bo.webp",
+    "/animals/bo2.webp"
+  ],
+  "adoptionDate": null,
+  "knowledges": [],
+  "createdAt": {
+    "$date": "2025-02-12T10:44:10.475Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-10T06:26:27.168Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67b4b63a2e9466175ac4b11a"
+  },
+  "name": "ฟูชิ",
+  "specie": "Cat",
+  "breed": "แมวญี่ปุ่น",
+  "gender": "F",
+  "dob": {
+    "$date": "2020-02-14T00:00:00.000Z"
+  },
+  "history": "น้องถูกทิ้งให้กลายเป็นแมวจรเพราะครอบครัวของเจ้าของแยกทางกัน",
+  "personalities": [
+    "ติดเจ้าของ",
+    "ขี้อ้อน"
+  ],
+  "healthHistories": {
+    "spayingStatus": true,
+    "illnesses": []
+  },
+  "images": [
+    "/animals/1741108195641.jpg"
+  ],
+  "adoptionDate": null,
+  "knowledges": [],
+  "createdAt": {
+    "$date": "2025-02-18T16:32:58.678Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-10T04:17:24.129Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67bc2c2ecb6d79efd2186fcd"
+  },
+  "name": "Krev'nor, Galaxy Conqueror",
+  "specie": "Cat",
+  "breed": "Pom",
+  "gender": "F",
+  "dob": {
+    "$date": "2025-02-17T00:00:00.000Z"
+  },
+  "history": "Need I say more",
+  "personalities": [
+    "Agressive",
+    "Clingy",
+    "Like to Assert dominance"
+  ],
+  "healthHistories": {
+    "spayingStatus": true,
+    "illnesses": [
+      {
+        "name": "โรคใต",
+        "status": "Under surveillance"
+      },
+      {
+        "name": "โรคความรัก",
+        "status": "Under treatment"
+      }
+    ]
+  },
+  "images": [
+    "/animals/1740489470192.jpg",
+    "/images/1740385543869.jpg",
+    "/animals/1740627929736.jpg",
+    "/animals/1740627929737.webp",
+    "/animals/1740627929738.jpg",
+    "/animals/1740627929739.jpg"
+  ],
+  "adoptionDate": null,
+  "knowledges": [
+    {
+      "$oid": "67b48a2fd862f939e193e00c"
+    },
+    {
+      "$oid": "67b49518409a0a41c6105029"
+    },
+    {
+      "$oid": "67b49738409a0a41c6105032"
+    }
+  ],
+  "createdAt": {
+    "$date": "2025-02-24T08:22:06.626Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-10T04:07:19.164Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67c1680f0ca3f28b737631fc"
+  },
+  "name": "ชาโคล",
+  "specie": "Dog",
+  "breed": "Siberian Husky",
+  "gender": "M",
+  "dob": {
+    "$date": "2021-03-01T00:00:00.000Z"
+  },
+  "history": "น้องโดนนำมาทิ้งที่ปั๊มแถวนครปฐม เจอน้องครั้งแรกหลังร้านเบอร์เกอร์คิง",
+  "personalities": [
+    "เรียบร้อย",
+    "สุขุม",
+    "ซื่อสัตย์"
+  ],
+  "healthHistories": {
+    "spayingStatus": true,
+    "illnesses": []
+  },
+  "images": [
+    "/animals/1740728335932.webp",
+    "/animals/1740728335934.webp",
+    "/animals/1740728335935.webp",
+    "/animals/1740728335936.webp"
+  ],
+  "adoptionDate": null,
+  "knowledges": [
+    {
+      "$oid": "67b49770409a0a41c6105034"
+    },
+    {
+      "$oid": "67b49738409a0a41c6105032"
+    },
+    {
+      "$oid": "67b49550409a0a41c610502b"
+    },
+    {
+      "$oid": "67b49518409a0a41c6105029"
+    },
+    {
+      "$oid": "67b48a2fd862f939e193e00c"
+    }
+  ],
+  "createdAt": {
+    "$date": "2025-02-28T07:38:55.987Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-10T04:07:19.164Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67c168ef0ca3f28b73763225"
+  },
+  "name": "อัลมอนต์",
+  "specie": "Dog",
+  "breed": "Bloodhound",
+  "gender": "F",
+  "dob": {
+    "$date": "2021-01-28T00:00:00.000Z"
+  },
+  "history": "น้องโดนเจ้าของทิ้งเพราะไม่สามรถดูแลเห็บหมัดได้",
+  "personalities": [
+    "ซน",
+    "ชอบวิ่งเล่น"
+  ],
+  "healthHistories": {
+    "spayingStatus": false,
+    "illnesses": []
+  },
+  "images": [
+    "/animals/1740728559440.jpg"
+  ],
+  "adoptionDate": {
+    "$date": "2025-03-10T05:40:29.024Z"
+  },
+  "knowledges": [
+    {
+      "$oid": "67b49770409a0a41c6105034"
+    },
+    {
+      "$oid": "67b49738409a0a41c6105032"
+    },
+    {
+      "$oid": "67b49550409a0a41c610502b"
+    },
+    {
+      "$oid": "67b49518409a0a41c6105029"
+    },
+    {
+      "$oid": "67b48a2fd862f939e193e00c"
+    }
+  ],
+  "createdAt": {
+    "$date": "2025-02-28T07:42:39.460Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-10T05:40:29.025Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67c54917d687484e691438d7"
+  },
+  "name": "แพนด้า",
+  "specie": "Dog",
+  "breed": "Shih Tzu",
+  "gender": "M",
+  "dob": {
+    "$date": "2015-04-06T00:00:00.000Z"
+  },
+  "history": "เจ้าของพาน้องมาฝากไว้ที่สถานรับเลี้ยง",
+  "personalities": [
+    "ติดคน",
+    "พลังงานล้นเหลือ"
+  ],
+  "healthHistories": {
+    "spayingStatus": false,
+    "illnesses": []
+  },
+  "images": [
+    "/animals/1740982662239.jpg"
+  ],
+  "adoptionDate": {
+    "$date": "2025-03-10T04:15:10.745Z"
+  },
+  "knowledges": [
+    {
+      "$oid": "67b49770409a0a41c6105034"
+    }
+  ],
+  "createdAt": {
+    "$date": "2025-03-03T06:15:51.113Z"
+  },
+  "updatedAt": {
+    "$date": "2025-03-10T04:15:10.746Z"
+  },
+  "__v": 0
+}]

@@ -1,0 +1,20 @@
+services:
+  frontend:
+    build: . # PATH TO DOCKERFILE
+    env_file:
+      - .env
+    environment:
+      - MONGO_URL=mongodb://admin:admin@mongo:27017/DC_Station
+    ports:
+      - 3000:3000
+    depends_on:
+      - mongodb
+
+  mongodb:
+    image: mongo
+    restart: always
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=admin
+      - MONGO_INITDB_DATABASE=DC_Station
+      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
