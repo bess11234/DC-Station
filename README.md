@@ -228,13 +228,6 @@ MongoDB Connected
 
    หลังจากนั้นให้สร้างให้ครบ Data Model
 
-   | DC_Station |
-   | ---------- |
-   | animals    |
-   | knowledges |
-   | requests   |
-   | users      |
-
    ![alt text](document_image/mongoDBCompass-datamodel.png)
 
    เมื่อสร้างครบแล้วก็สามารถนำข้อมูล MONGO_URL มาจากการกดที่ `Copy connection string` ได้เลย
@@ -268,13 +261,6 @@ MongoDB Connected
    ![alt text](document_image/mongoAtlas-createDatabase.png)
 
    หลังจากนั้นให้สร้างให้ครบ Data Model
-
-   | DC_Station |
-   | ---------- |
-   | animals    |
-   | knowledges |
-   | requests   |
-   | users      |
 
    ![alt text](document_image/mongoAtlas-createDatabase-2.png)
 
