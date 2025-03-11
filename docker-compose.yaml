@@ -7,6 +7,7 @@ services:
       - MONGO_URL=mongodb://admin:admin@mongodb/DC_Station
     ports:
       - 3000:3000
+      - 8989:8989 # MORE SECURE WILL NEED TO CHANGE CODE
     depends_on:
       - mongodb
 

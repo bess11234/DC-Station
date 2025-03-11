@@ -117,7 +117,7 @@ npm run publish
 
 📌 หลังจากดำเนินการตามขั้นตอนทั้งหมดนี้ จะสามารถเข้าใช้งานระบบได้สมบูรณ์ 🚀
 
-## 🛠️ How to install Alternative
+## 🛠️ How to install (Alternative)
 
 เราต้องทำการติดตั้ง Docker เข้ามาในเครื่องก่อน
 
