@@ -117,13 +117,37 @@ npm run publish
 
 📌 หลังจากดำเนินการตามขั้นตอนทั้งหมดนี้ จะสามารถเข้าใช้งานระบบได้สมบูรณ์ 🚀
 
-## 🛠️ Install and Run (Alternative)
+## 🛠️ How to install Alternative
 
 เราต้องทำการติดตั้ง Docker เข้ามาในเครื่องก่อน
 
 ![alt text](document_image/docker.png)
 
+
+### ตั้งค่า Environment Variables
+
+ตั้งค่า `.env` [ที่มาของ Environment Variables](#setting-environment-variables)
+
+```env
+# YOUR_SECURE_CHARACTER_FOR_JWT
+JWT_SECRET=
+
+# CKEDITOR_TOKEN
+NEXT_PUBLIC_CK_LICENSEKEY=
+
+# YOUR_PORT_TO_BACKEND
+NEXT_PUBLIC_BACKENDPORT= # 1234
+
+# YOUR_SECURE_CHARACTER_FOR_AUTH_SECRET
+AUTH_SECRET=
+
+# IS PRODUCTION
+AUTH_TRUST_HOST= # true or false
+```
+
 สามารถใช้ `docker compose` ในการติดตั้งโปรเจคเพื่อใช้งาน Website ได้ ผ่านการใช้งาน
+
+### ▶️ Run Project
 
 ```bash
 docker compose up
