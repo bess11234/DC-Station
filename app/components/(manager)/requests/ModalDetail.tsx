@@ -1,5 +1,6 @@
 import { Suspense, useEffect, useRef } from "react";
 import { Request } from "@/app/lib/definition"
+import { TableRow } from "./TableRow";
 
 export function ModalDetail({ onClose, request }: { onClose: () => void; request: Request }) {
     const modalRef = useRef<HTMLDialogElement | null>(null);
@@ -10,6 +11,8 @@ export function ModalDetail({ onClose, request }: { onClose: () => void; request
         }
     }, []);
 
+
+    // close when click outside
     const handleClickOutside = (event: React.MouseEvent<HTMLDialogElement, MouseEvent>) => {
         if (event.target === modalRef.current) {
             onClose(); // Close modal when clicking outside
@@ -26,42 +29,14 @@ export function ModalDetail({ onClose, request }: { onClose: () => void; request
                     <div className="py-4">
                         <table className="text-left space-x-1 border-separate border-spacing-2">
                             <tbody>
-                                <tr>
-                                    <th className="align-top font-semibold">ชื่อ-นามสกุล</th>
-                                    <td className="align-top">:</td>
-                                    <td>{request.requester.firstname} {request.requester.lastname}</td>
-                                </tr>
-                                <tr>
-                                    <th className="align-top font-semibold">อีเมล</th>
-                                    <td className="align-top">:</td>
-                                    <td>{request.requester.email}</td>
-                                </tr>
-                                <tr>
-                                    <th className="align-top font-semibold whitespace-nowrap w-auto">ชื่อ/ลิงค์เฟซบุ๊ค:</th>
-                                    <td className="align-top">:</td>
-                                    <td>{request.requester.fb}</td>
-                                </tr>
-                                <tr>
-                                    <th className="align-top font-semibold">เบอร์โทร:</th>
-                                    <td className="align-top">:</td>
-                                    <td>{request.requester.phone}</td>
-                                </tr>
-                                <tr>
-                                    <th className="align-top font-semibold">ประสบการณ์</th>
-                                    <td className="align-top">:</td>
-                                    <td>{request.requester.experience}</td>
-                                </tr>
-                                <tr>
-                                    <th className="align-top font-semibold">เหตุผล:</th>
-                                    <td className="align-top">:</td>
-                                    <td>{request.requester.reason}</td>
-                                </tr>
+                                <TableRow title="ชื่อ-นามสกุล" value={`${request.requester.firstname} ${request.requester.lastname}`} />
+                                <TableRow title="อีเมล" value={request.requester.email} />
+                                <TableRow title="ชื่อ/ลิงค์เฟซบุ๊ค" value={request.requester.fb} />
+                                <TableRow title="เบอร์โทร" value={request.requester.phone} />
+                                <TableRow title="ประสบการณ์" value={request.requester.experience} />
+                                <TableRow title="เหตุผล" value={request.requester.reason} />
                                 <Suspense fallback={<p>Loading...</p>}>
-                                    <tr>
-                                        <th className="align-top whitespace-nowrap w-auto font-semibold">วันที่ส่งคำร้อง:</th>
-                                        <td className="align-top">:</td>
-                                        <td><time suppressHydrationWarning dateTime={request.createdAt}>{new Date(request.createdAt).toLocaleString()}</time></td>
-                                    </tr>
+                                    <TableRow title="วันที่ส่งคำร้อง:" value={<time suppressHydrationWarning dateTime={request.createdAt}>{new Date(request.createdAt).toLocaleString()}</time>}/>
                                 </Suspense>
                             </tbody>
                         </table>

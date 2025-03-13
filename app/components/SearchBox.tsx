@@ -29,10 +29,11 @@ export function SearchAnimals() {
     }, 300)
     return (
         <>
-            <div className="w-full flex justify-center ">
-                <div className="flex items-center w-120 rounded-full border-1 overflow-hidden">
+            <div className="w-full flex justify-center">
+                <div className="flex items-center md:w-150 sm:w-120 w-70 rounded-full border-1 overflow-hidden">
+                    {/* text input */}
                     <input value={title}
-                    className="bg-transparent focus:outline-none w-110 h-full px-5 border-0" 
+                    className="bg-transparent focus:outline-none md:w-150 sm:w-120 w-70 h-full px-5 border-0" 
                     type="text" 
                     placeholder="ค้นหาหัวข้อที่คุณต้องการ"
                     onChange={(e) => {
@@ -40,8 +41,9 @@ export function SearchAnimals() {
                         searchName(e.target.value);
                     }}/>
 
+                    {/* reset button */}
                     <div role="button"
-                    className="flex items-center justify-center cursor-pointer w-10 h-10 bg-black2/10 hover:bg-black2/15 dark:bg-white/10 dark:hover:bg-white/5"
+                    className="flex items-center justify-center cursor-pointer h-10 md:w-15 w-20 bg-black2/10 hover:bg-black2/15 dark:bg-white/10 dark:hover:bg-white/5"
                     onClick={()=>{setTitle(""); searchName("")}}>
                         { title? <XMarkIcon className="size-5"/> :<MagnifyingGlassIcon className="size-5"/>}
                     </div>

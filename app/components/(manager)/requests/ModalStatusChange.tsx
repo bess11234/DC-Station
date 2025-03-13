@@ -19,6 +19,7 @@ export function ModalStatusChange({ onClose, request, newStatus }: { onClose: ()
         }
     };
 
+    // close when click outside
     const handleConfirm = async () => {
         await changeRequestStatus(request._id, newStatus); // Call API
         modalRef.current?.close(); // Close modal
