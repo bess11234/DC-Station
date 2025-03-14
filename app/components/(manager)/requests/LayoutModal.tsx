@@ -1,27 +1,27 @@
-import { useEffect, useRef } from "react"
+import { useEffect, useRef } from "react";
 
-export function LayoutModal({onClose, children} : {onClose: () => void, children:React.ReactNode}) {
-    const modalRef = useRef<HTMLDialogElement | null>(null);
+export function LayoutModal({ onClose, children }: { onClose: () => void; children: React.ReactNode }) {
+    const modalRef = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {
-        if (modalRef.current) {
-            modalRef.current.showModal(); // Open modal when component mounts
-        }
+        // Focus the modal when it mounts for accessibility
+        modalRef.current?.focus();
     }, []);
 
-    // close when click outside
-    const handleClickOutside = (event: React.MouseEvent<HTMLDialogElement, MouseEvent>) => {
+    const handleClickOutside = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         if (event.target === modalRef.current) {
-            onClose(); // Close modal when clicking outside
+            onClose(); // Close modal when clicking outside the content
         }
     };
+
     return (
-        <dialog ref={modalRef} className="bg-transparent w-screen h-screen opacity-0 transition-all duration-500 open:opacity-100 starting:open:opacity-0" onClose={onClose} onClick={handleClickOutside}>
-            <div className="relative m-auto size-full flex justify-center items-center md:w-3xl sm:w-xl w-md">
-                <div className="bg-white p-6 w-3xl rounded-2xl dark:bg-neutral-950">
-                    {children}
-                </div>
-            </div>
-        </dialog>
-    )
+        <div
+            ref={modalRef}
+            className="fixed inset-0 w-screen h-screen bg-transparent flex justify-center items-center opacity-0 transition-all duration-500 data-[open=true]:opacity-100 z-[1000]"
+            data-open="true" // Simulates the "open" state
+            onClick={handleClickOutside}
+        >
+            {children}
+        </div>
+    );
 }
