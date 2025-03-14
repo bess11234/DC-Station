@@ -40,6 +40,7 @@ export function ShowKnowledges({ knowledges }: { knowledges: Promise<Knowledge[]
                     {/* Display Data */}
                     <div className="flex flex-row sm:gap-x-3 gap-x-3 w-full">
                         <div className="grid space-y-1 flex-none">
+                            {/* Main Image */}
                             <Image
                                 src={`/api/image?filename=${knowledge.image}`}
                                 alt={`Picture of ${knowledge.title}`}
@@ -54,6 +55,7 @@ export function ShowKnowledges({ knowledges }: { knowledges: Promise<Knowledge[]
                             />
                         </div>
 
+                        {/* Description */}
                         <div className="relative flex flex-col pr-6 pt-2">
                             <div className="ml-2 mr-6">
                                 <p className="line-clamp-1 mb-1">{knowledge.title}</p>

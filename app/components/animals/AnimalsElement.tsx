@@ -63,7 +63,7 @@ export function AnimalsElement({ animals }: Props) {
     return (
         <>
             <div className="grid md:grid-cols-4 sm:grid-cols-3 grid-cols-2 sm:gap-6 gap-3 sm:m-3">
-                <Suspense fallback={<SkeletonCard number={displayAnimal.length}/>}>
+                <Suspense fallback={<SkeletonCard number={displayAnimal.length} />}>
                     {
                         displayAnimal.map((v, i) => (
                             <Card key={i} src={v.images[0]} title={v.name} desc={v.personalities.join(", ")} hrefLink={`${pathName}/${v._id}`} date={

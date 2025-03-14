@@ -9,8 +9,33 @@ import { Card } from "./components/Card";
 import { fetchAnimalFindHouseCount, fetchAnimalFoundHouseCount, fetchFindHouseAnimals, fetchFoundHouseAnimals } from "./lib/data";
 
 import { ArrowRightIcon } from "@heroicons/react/24/outline";
+import { Animal } from "./lib/definition";
 
 export const dynamic = 'force-dynamic'
+
+function DisplayAnimal({ countAnimal, animals, title, purpose }: { countAnimal: number, animals: Animal[], title: string, purpose: "find-house" | "found-house" }) {
+  return (
+    <div className="flex flex-col gap-3 w-full sm:px-6 px-3 py-3">
+      <div className="flex space-x-3">
+        {/* Title */}
+        <p className="md:text-3xl sm:text-2xl text-xl">{title} ({countAnimal})</p>
+        {/* View More ... */}
+        <Link href={`/${purpose}`} className="hover:opacity-60 active:opacity-80 flex items-center space-x-1">
+          <p>ดูเพิ่มเติม</p>
+          <ArrowRightIcon className="size-4" />
+        </Link>
+      </div>
+
+      {/* If completed will changed to Animals components */}
+      <div className="grid md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-6">
+        {animals ? animals.map((v, i) =>
+          <Card key={i} src={v.images[0]} title={v.name} desc={v.personalities.join(", ")} hrefLink={`/${purpose}/${v._id}`} date={purpose == "find-house" ? Date.parse(v.createdAt ?? "") : Date.parse(v.adoptionDate ?? "")} />)
+          : ""}
+      </div>
+
+    </div>
+  )
+}
 
 export default async function Home() {
 
@@ -50,52 +75,14 @@ export default async function Home() {
 
                 </div>
               </div>
-
-              {/* Carity Status */}
             </div>
           </div>
 
           {/* Animals looking for the house */}
-          <div className="flex flex-col gap-3 w-full sm:px-6 px-3 py-3">
-            <div className="flex space-x-3">
-              <p className="md:text-3xl sm:text-2xl text-xl">น้องหาบ้าน ({countAnimalsFindHouse})</p>
-              {/* View More ... */}
-              <Link href={"/find-house"} className="hover:opacity-60 active:opacity-80 flex items-center space-x-1">
-                <p>ดูเพิ่มเติม</p>
-                <ArrowRightIcon className="size-4" />
-              </Link>
-            </div>
-
-            {/* If completed will changed to Animals components */}
-            <div className="grid md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-6">
-              {animalFindHouse ? animalFindHouse.map((v, i) =>
-                <Card key={i} src={v.images[0]} title={v.name} desc={v.personalities.join(", ")} hrefLink={`/find-house/${v._id}`} date={Date.parse(v.createdAt ? v.createdAt : "")} />)
-              : ""}
-            </div>
-
-          </div>
+          <DisplayAnimal animals={animalFindHouse} countAnimal={countAnimalsFindHouse} title="น้องหาบ้าน" purpose="find-house" />
 
           {/* Animal found their family */}
-          <div className="flex flex-col gap-3 w-full sm:px-6 px-3 py-3">
-            <div className="flex space-x-3">
-              <p className="md:text-3xl sm:text-2xl text-xl">น้องมีบ้านแล้ว ({countAnimalsFoundHouse})</p>
-              {/* View More ... */}
-              <Link href={"/found-house"} className="hover:opacity-60 active:opacity-80 flex items-center space-x-1">
-                <p>ดูเพิ่มเติม</p>
-                <ArrowRightIcon className="size-4" />
-              </Link>
-            </div>
-
-            {/* If completed will changed to Animals components */}
-            <div className="grid md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-x-6 gap-y-3">
-              {animalFoundHouse ? animalFoundHouse.map((v, i) => (
-                <Card key={i} src={v.images[0]} title={v.name} desc={v.personalities.join(", ")} hrefLink={`/found-house/${v._id}`} date={Date.parse(v.adoptionDate ? v.adoptionDate : "")} />
-              )): ""}
-
-
-            </div>
-
-          </div>
+          <DisplayAnimal animals={animalFoundHouse} countAnimal={countAnimalsFoundHouse} title="น้องมีบ้านแล้ว" purpose="found-house" />
 
         </main>
 

@@ -19,7 +19,7 @@ export default async function KnowledgesId({ params }: { params: Promise<{ id: s
 
     return (
         <>
-            <div className="flex flex-col w-screen gap-3 items-center sm:px-16 xs:px-8 px-6">
+            <section className="flex flex-col w-screen gap-3 items-center sm:px-16 xs:px-8 px-6">
                 <div className="lg:max-w-[1000px] text-lg">
                     <p className="md:text-5xl sm:text-4xl text-3xl text-center py-3">{knowledge.title}</p>
                     <p className="indent-4 opacity-50">{knowledge.describe}</p>
@@ -37,7 +37,7 @@ export default async function KnowledgesId({ params }: { params: Promise<{ id: s
                     />
                     {knowledge.content && parse(knowledge.content)}
                 </div>
-            </div>
+            </section>
         </>
     )
 }
