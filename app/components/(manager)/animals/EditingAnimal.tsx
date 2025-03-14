@@ -52,10 +52,6 @@ export function EditingAnimal({ animal, knowledges }: { animal: AnimalKnowledges
         }
     }))
 
-    useEffect(() => {
-        console.log(inputAnimal)
-    }, [inputAnimal])
-
     const updateAnimalWithImages = createAndUpdateAnimal.bind(null, mainImage, extraImages, inputAnimal)
     const [state, formAction] = useActionState(updateAnimalWithImages, initialState)
 

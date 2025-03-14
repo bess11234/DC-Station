@@ -1,6 +1,6 @@
 "use client"
 
-import { Suspense, use, useEffect, useState, ReactNode} from "react"
+import { Suspense, use, useEffect, useState } from "react"
 import { useSearchParams } from "next/navigation"
 
 import type { Request } from "@/app/lib/definition"

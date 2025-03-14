@@ -17,7 +17,7 @@ export function LayoutModal({ onClose, children }: { onClose: () => void; childr
     return (
         <div
             ref={modalRef}
-            className="fixed inset-0 w-screen h-screen bg-transparent flex justify-center items-center opacity-0 transition-all duration-500 data-[open=true]:opacity-100 z-[1000]"
+            className="fixed bg-black2/10 dark:bg-black2/50 inset-0 w-screen h-screen flex justify-center items-center opacity-0 transition-all duration-500 data-[open=true]:opacity-100 z-[1000]"
             data-open="true" // Simulates the "open" state
             onClick={handleClickOutside}
         >
