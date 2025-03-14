@@ -37,9 +37,14 @@ router.get("/requests", async (req, res) => {
 })
 
 router.get("/requests/animal/:animalId", async (req, res) => {
+    let count = null
     const animalId = req.params.animalId
-    const requests = await Request.find({ animal: animalId }).countDocuments()
-    res.status(200).json({ status: "ok", message: requests })
+    try {
+        count = await Request.find({ animal: animalId }).countDocuments()
+    } catch (err) {
+        count = 0
+    }
+    res.status(200).json({ status: "ok", message: count })
 })
 
 router.get("/requests/pending", async (req, res) => {
@@ -48,15 +53,25 @@ router.get("/requests/pending", async (req, res) => {
 })
 
 router.get("/requests/pending/:animalId", async (req, res) => {
+    let count = null
     const animalId = req.params.animalId
-    const requests = await Request.find({ status: "Pending", animal: animalId }).countDocuments()
-    res.status(200).json({ status: "ok", message: requests })
+    try {
+        count = await Request.find({ status: "Pending", animal: animalId }).countDocuments()
+    } catch (err) {
+        count = 0
+    }
+    res.status(200).json({ status: "ok", message: count })
 })
 
 router.get("/requests/responsed/:animalId", async (req, res) => {
+    let count = null
     const animalId = req.params.animalId
-    const requests = await Request.find({ status: { $ne: "Pending" }, animal: animalId }).countDocuments()
-    res.status(200).json({ status: "ok", message: requests })
+    try {
+        count = await Request.find({ status: { $ne: "Pending" }, animal: animalId }).countDocuments()
+    } catch (err) {
+        count = 0
+    }
+    res.status(200).json({ status: "ok", message: count })
 })
 
 module.exports = router;

@@ -70,6 +70,7 @@ export function ShowAnimals({ animals }: { animals: Promise<Animal[][]> }) {
                     {/* Display Data */}
                     <div className="flex flex-row sm:gap-x-3 gap-x-3 w-full">
                         <div className="grid space-y-1 flex-none">
+                            {/* Main Image */}
                             {animal.images[0] ? (
                                 <Image
                                     src={`/api/image?filename=${animal.images[0]}`}
@@ -90,6 +91,7 @@ export function ShowAnimals({ animals }: { animals: Promise<Animal[][]> }) {
                             </Suspense>
                         </div>
 
+                        {/* Description */}
                         <div className="relative flex flex-col pr-6 pt-2">
                             <div className="ml-2 mr-6">
                                 <p className="line-clamp-1 mb-1"><span className="max-sm:hidden">{`${animal.specie == "Dog" ? "🐶" : "🐱"} `}</span> {animal.name}</p>

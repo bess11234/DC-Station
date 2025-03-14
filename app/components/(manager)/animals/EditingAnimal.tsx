@@ -1,5 +1,5 @@
 "use client"
-import { ChangeEvent, useState, useRef, useActionState } from "react"
+import { ChangeEvent, useState, useRef, useActionState, useEffect } from "react"
 import Image from "next/image"
 import { motion, AnimatePresence } from "motion/react"
 
@@ -9,6 +9,9 @@ import type { Animal, AnimalKnowledges, Illness, Knowledge } from "@/app/lib/def
 import { createAndUpdateAnimal, AnimalState } from "@/app/lib/actionClient"
 
 import { XCircleIcon, XMarkIcon, ArrowTurnDownLeftIcon, PencilSquareIcon } from "@heroicons/react/24/outline"
+
+import { InputForm } from "../InputForm"
+import { SelectForm } from "../SelectForm"
 import { DisplayDateCard } from "../../DisplayDateCard"
 
 interface display {
@@ -48,6 +51,10 @@ export function EditingAnimal({ animal, knowledges }: { animal: AnimalKnowledges
             value: v
         }
     }))
+
+    useEffect(() => {
+        console.log(inputAnimal)
+    }, [inputAnimal])
 
     const updateAnimalWithImages = createAndUpdateAnimal.bind(null, mainImage, extraImages, inputAnimal)
     const [state, formAction] = useActionState(updateAnimalWithImages, initialState)
@@ -254,42 +261,72 @@ export function EditingAnimal({ animal, knowledges }: { animal: AnimalKnowledges
             <div className="grid *:py-3 md:text-lg sm:text-base text-sm">
                 <div className="grid md:grid-cols-3 xs:grid-cols-2 py-0! *:text-nowrap gap-x-3 items-center">
                     {/* ชื่อ */}
-                    <div className="grid">
-                        <label className="text-2xl py-3" htmlFor="animalName">ชื่อ: <span className="text-red-500">*</span></label>
-                        <input className="p-3 w-full rounded-xl input-focus-theme invalid:text-red-500" onChange={(e) => handleInput(e.target.value, "name")} type="text" name="name" id="animalName" autoComplete="name" defaultValue={animal.name} required placeholder="กรุณากรอกชื่อน้องสัตว์" />
-                    </div>
+                    <InputForm
+                        label="ชื่อ"
+                        id="animalName"
+                        name="name"
+                        placeholder="กรุณากรอกชื่อน้องสัตว์"
+                        required={true}
+                        type="text"
+                        defaultValue={animal.name}
+                        onChangeInput={(e) => handleInput(e.target.value, "name")}
+                        autoComplete="name"
+                    />
 
                     {/* วันเกิด */}
-                    <div className="grid">
-                        <label className="text-2xl py-3" htmlFor="animalDob">วันเกิด: <span className="text-red-500">*</span></label>
-                        <input className="p-3 w-full rounded-xl input-focus-theme invalid:text-red-500" onChange={(e) => handleInput(e.target.value, "dob")} type="date" name="dob" id="animalDob" defaultValue={animal.dob} max={new Date().toISOString().split("T")[0]} required />
-                    </div>
+                    <InputForm
+                        label="วันเกิด"
+                        id="animalDob"
+                        name="dob"
+                        required={true}
+                        type="date"
+                        defaultValue={animal.dob}
+                        max={new Date().toISOString().split("T")[0]}
+                        onChangeInput={(e) => handleInput(e.target.value, "dob")}
+                    />
 
                     {/* สายพันธุ์ */}
-                    <div className="grid">
-                        <label className="text-2xl py-3" htmlFor="animalDob">สายพันธุ์: <span className="text-red-500">*</span></label>
-                        <select className="*:bg-white *:dark:bg-black2 p-3 w-full rounded-xl input-focus-theme" onChange={(e) => handleInput(e.target.value, "specie")} defaultValue={animal.specie} name="specie" id="animalSpecie" required>
-                            <option value="Dog">หมา 🐶</option>
-                            <option value="Cat">แมว 🐱</option>
-                        </select>
-                    </div>
+                    <SelectForm
+                        label="สายพันธุ์"
+                        id="animalSpecie"
+                        name="specie"
+                        required={true}
+                        defaultValue={animal.specie}
+                        options={[
+                            { label: "หมา 🐶", value: "Dog" },
+                            { label: "แมว 🐱", value: "Cat" },
+                        ]}
+                        onChangeInput={(e) => handleInput(e.target.value, "specie")}
+                    />
                 </div>
 
                 <div className="grid sm:grid-cols-4 grid-cols-1 py-0! *:text-nowrap sm:space-x-3 items-center">
                     {/* พันธุ์ */}
-                    <div className="grid col-span-3">
-                        <label className="text-2xl py-3" htmlFor="animalBreed">พันธุ์: <span className="text-red-500">*</span></label>
-                        <input className="p-3 w-full rounded-xl input-focus-theme invalid:text-red-500" onChange={(e) => handleInput(e.target.value, "breed")} type="text" name="breed" id="animalBreed" defaultValue={animal.breed} required placeholder="กรุณากรอกชื่อพันธุ์" />
-                    </div>
+                    <InputForm
+                        label="พันธุ์"
+                        id="animalBreed"
+                        name="breed"
+                        required={true}
+                        type="text"
+                        defaultValue={animal.breed}
+                        addtionalClass="col-span-3"
+                        placeholder="กรุณากรอกชื่อพันธุ์"
+                        onChangeInput={(e) => handleInput(e.target.value, "breed")}
+                    />
 
                     {/* เพศ */}
-                    <div className="grid">
-                        <label className="text-2xl py-3" htmlFor="animalGender">เพศ: <span className="text-red-500">*</span></label>
-                        <select className="*:bg-white *:dark:bg-black2 p-3 w-full rounded-xl input-focus-theme" onChange={(e) => handleInput(e.target.value, "gender")} name="gender" id="animalGender" defaultValue={animal.gender} required>
-                            <option value="M">เพศผู้ ♂</option>
-                            <option value="F">เพศเมีย ♀</option>
-                        </select>
-                    </div>
+                    <SelectForm
+                        label="เพศ"
+                        id="animalGender"
+                        name="gender"
+                        required={true}
+                        defaultValue={animal.gender}
+                        options={[
+                            { label: "เพศผู้ ♂", value: "M" },
+                            { label: "เพศเมีย ♀", value: "F" },
+                        ]}
+                        onChangeInput={(e) => handleInput(e.target.value, "gender")}
+                    />
                 </div>
 
                 {/* ประวัติ */}
@@ -302,11 +339,18 @@ export function EditingAnimal({ animal, knowledges }: { animal: AnimalKnowledges
                         <p className="text-2xl">ประวัติสุขภาพ</p>
 
                         {/* สถานะการทำหมัน */}
-                        <label htmlFor="animalSpayingStatus" className="text-lg p-0!">สถานะการทำหมัน: <span className="text-red-500">*</span></label>
-                        <select className="*:bg-white *:dark:bg-black2 py-1! px-3 mb-3 w-full rounded-xl input-focus-theme" onChange={(e) => handlehealthHistories(e.target.value, "spayingStatus")} name="spayingStatus" id="animalSpayingStatus" defaultValue={animal.healthHistories.spayingStatus ? "1" : "0"} required>
-                            <option value="0">ยังไม่ทำหมัน</option>
-                            <option value="1">ทำหมันแล้ว</option>
-                        </select>
+                        <SelectForm
+                            label="สถานะการทำหมัน"
+                            id="animalSpayingStatus"
+                            name="spayingStatus"
+                            required={true}
+                            defaultValue={animal.healthHistories.spayingStatus ? "1" : "0"}
+                            options={[
+                                { label: "ยังไม่ทำหมัน", value: "0" },
+                                { label: "ทำหมันแล้ว", value: "1" },
+                            ]}
+                            onChangeInput={(e) => handleInput(e.target.value, "spayingStatus")}
+                        />
 
                         {/* อาการเจ็บป่วย */}
                         <p className="text-lg p-0!">อาการเจ็บป่วย:</p>

@@ -14,7 +14,9 @@ export default function Layout({
                 <Header />
 
                 {/* Content */}
-                {children}
+                <div className="flex flex-col w-full py-8">
+                    {children}
+                </div>
             </div>
         </>
     )

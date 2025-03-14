@@ -10,18 +10,23 @@ import { fetchAnimalId, fetchKnowledgeId } from "@/app/lib/data"
 export default function Default() {
     const pathName = usePathname()
 
-    // Animal State
+    // เพื่อใช้ในการแสดงข้อมูลชื่อของ Item ที่ดึง
     const [fetchName, setFetchName] = useState<string>("")
 
+    // เพื่อดึงข้อมูลจาก ฐานข้อมูล หากเป็น (animal) เอาชื่อมาใส่ หากเป็น (knowledge) เอาชื่อเรื่องมาใส่
     async function getFetchName(id: string, fetch: "animal" | "knowledge") {
         if (fetch == "animal") {
             const animal = await fetchAnimalId(id)
+
+            // หากสัตว์ที่ใส่มาเป็นสัตว์ที่ต้อง หาบ้าน จะตรวจสอบว่าใช้สัตว์ที่ไม่ถูกรับเลี้ยงจริง ๆ ไหม
             if (pathName.indexOf("find-house") !== -1) {
                 if (animal && !animal.adoptionDate) {
                     setFetchName(animal.name)
                     return
                 }
             }
+
+            // หากสัตว์ที่ใส่มาเป็นสัตว์ที่ต้อง หาบ้าน จะตรวจสอบว่าใช้สัตว์ที่ถูกรับเลี้ยงจริง ๆ ไหม
             if (pathName.indexOf("found-house") !== -1) {
                 if (animal && !!animal.adoptionDate) {
                     setFetchName(animal.name)
@@ -29,6 +34,7 @@ export default function Default() {
                 }
             }
         }
+
         if (fetch == "knowledge") {
             const knowledge = await fetchKnowledgeId(id)
             if (knowledge) {
@@ -36,14 +42,21 @@ export default function Default() {
                 return
             }
         }
+
+        // หากไม่เข้าเงื่อนไช จะ Reset ค่า
         setFetchName("")
     }
 
+    // ใช้เพื่อนำไปแสดงเป็น Path ให้ผู้ใช้เห็น
     let pathLink: string[] | ReactElement[] = pathName.split("/")
+
+    // Path สุดท้ายจะไม่สามารถกดเป็น Link ได้
     let lastLink: ReactElement = <span></span>
 
+    // ใช้เพื่อจะดึงข้อมูลจากหลังบ้าน จากไหน
     let keyFetch: "animal" | "knowledge" | ""
 
+    // จะทำการแสดง หากเป็น True
     let isGenerated = true
 
     pathLink = pathLink.map((v, i, before) => {

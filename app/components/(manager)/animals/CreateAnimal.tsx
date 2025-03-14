@@ -9,6 +9,9 @@ import type { Animal, Illness, Knowledge } from "@/app/lib/definition"
 import { createAndUpdateAnimal, AnimalState } from "@/app/lib/actionClient"
 
 import { XCircleIcon, XMarkIcon, ArrowTurnDownLeftIcon, PencilSquareIcon } from "@heroicons/react/24/outline"
+
+import { InputForm } from "../InputForm"
+import { SelectForm } from "../SelectForm"
 import { DisplayDateCard } from "../../DisplayDateCard"
 
 interface display {
@@ -247,42 +250,70 @@ export function CreateAnimal({ animal, knowledges }: { animal: Animal, knowledge
             <div className="grid *:py-3 md:text-lg sm:text-base text-sm">
                 <div className="grid md:grid-cols-3 xs:grid-cols-2 py-0! *:text-nowrap gap-x-3 items-center">
                     {/* ชื่อ */}
-                    <div className="grid">
-                        <label className="text-2xl py-3" htmlFor="animalName">ชื่อ: <span className="text-red-500">*</span></label>
-                        <input className="p-3 w-full rounded-xl input-focus-theme invalid:text-red-500" onChange={(e) => handleInput(e.target.value, "name")} type="text" name="name" id="animalName" autoComplete="name" required placeholder="กรุณากรอกชื่อน้องสัตว์" />
-                    </div>
+                    <InputForm
+                        label="ชื่อ"
+                        id="animalName"
+                        name="name"
+                        placeholder="กรุณากรอกชื่อน้องสัตว์"
+                        required={true}
+                        type="text"
+                        onChangeInput={(e) => handleInput(e.target.value, "name")}
+                        autoComplete="name"
+                    />
 
                     {/* วันเกิด */}
-                    <div className="grid">
-                        <label className="text-2xl py-3" htmlFor="animalDob">วันเกิด: <span className="text-red-500">*</span></label>
-                        <input className="p-3 w-full rounded-xl input-focus-theme invalid:text-red-500" onChange={(e) => handleInput(e.target.value, "dob")} type="date" name="dob" id="animalDob" max={new Date().toISOString().split("T")[0]} required />
-                    </div>
+                    <InputForm
+                        label="วันเกิด"
+                        id="animalDob"
+                        name="dob"
+                        required={true}
+                        type="date"
+                        max={new Date().toISOString().split("T")[0]}
+                        onChangeInput={(e) => handleInput(e.target.value, "dob")}
+                    />
 
                     {/* สายพันธุ์ */}
-                    <div className="grid">
-                        <label className="text-2xl py-3" htmlFor="animalDob">สายพันธุ์: <span className="text-red-500">*</span></label>
-                        <select className="*:bg-white *:dark:bg-black2 p-3 w-full rounded-xl input-focus-theme" onChange={(e) => handleInput(e.target.value, "specie")} name="specie" id="animalSpecie" required>
-                            <option value="Dog">หมา 🐶</option>
-                            <option value="Cat">แมว 🐱</option>
-                        </select>
-                    </div>
+                    <SelectForm
+                        label="สายพันธุ์"
+                        id="animalSpecie"
+                        name="specie"
+                        required={true}
+                        defaultValue={animal.specie}
+                        options={[
+                            { label: "หมา 🐶", value: "Dog" },
+                            { label: "แมว 🐱", value: "Cat" },
+                        ]}
+                        onChangeInput={(e) => handleInput(e.target.value, "specie")}
+                    />
                 </div>
 
                 <div className="grid sm:grid-cols-4 grid-cols-1 py-0! *:text-nowrap sm:space-x-3 items-center">
                     {/* พันธุ์ */}
-                    <div className="grid col-span-3">
-                        <label className="text-2xl py-3" htmlFor="animalBreed">พันธุ์: <span className="text-red-500">*</span></label>
-                        <input className="p-3 w-full rounded-xl input-focus-theme invalid:text-red-500" onChange={(e) => handleInput(e.target.value, "breed")} type="text" name="breed" id="animalBreed" required placeholder="กรุณากรอกชื่อพันธุ์" />
-                    </div>
+                    <InputForm
+                        label="พันธุ์"
+                        id="animalBreed"
+                        name="breed"
+                        required={true}
+                        type="text"
+                        defaultValue={animal.breed}
+                        addtionalClass="col-span-3"
+                        placeholder="กรุณากรอกชื่อพันธุ์"
+                        onChangeInput={(e) => handleInput(e.target.value, "breed")}
+                    />
 
                     {/* เพศ */}
-                    <div className="grid">
-                        <label className="text-2xl py-3" htmlFor="animalGender">เพศ: <span className="text-red-500">*</span></label>
-                        <select className="*:bg-white *:dark:bg-black2 p-3 w-full rounded-xl input-focus-theme" onChange={(e) => handleInput(e.target.value, "gender")} name="gender" id="animalGender" required>
-                            <option value="M">เพศผู้ ♂</option>
-                            <option value="F">เพศเมีย ♀</option>
-                        </select>
-                    </div>
+                    <SelectForm
+                        label="เพศ"
+                        id="animalGender"
+                        name="gender"
+                        required={true}
+                        defaultValue={animal.gender}
+                        options={[
+                            { label: "เพศผู้ ♂", value: "M" },
+                            { label: "เพศเมีย ♀", value: "F" },
+                        ]}
+                        onChangeInput={(e) => handleInput(e.target.value, "gender")}
+                    />
                 </div>
 
                 {/* ประวัติ */}

@@ -1,6 +1,6 @@
 "use client"
 
-import { Suspense, use, useEffect, useState, ReactNode} from "react"
+import { Suspense, use, useEffect, useState } from "react"
 import { useSearchParams } from "next/navigation"
 
 import type { Request } from "@/app/lib/definition"
@@ -39,16 +39,16 @@ export function DetailRequests({ requests }: { requests: Promise<Request[][]> })
                                 <div className="ml-2 mr-6">
                                     <table className="overflow-x-auto table-auto text-left space-x-1 border-separate border-spacing-2">
                                         <tbody>
-                                            <TableRow title="ชื่อ-นามสกุล" value={`${v.requester.firstname} ${v.requester.lastname}`}/>
-                                            <TableRow title="อีเมล" value={v.requester.email}/>
-                                            <TableRow title="ชื่อ/ลิงค์เฟซบุ๊ค" value={v.requester.fb}/>
-                                            <TableRow title="เบอร์โทร" value={v.requester.phone}/>
-                                            <TableRow title="ประสบการณ์" value={v.requester.experience}/>
-                                            <TableRow title="เหตุผล" value={v.requester.reason}/>
+                                            <TableRow title="ชื่อ-นามสกุล" value={`${v.requester.firstname} ${v.requester.lastname}`} />
+                                            <TableRow title="อีเมล" value={v.requester.email} />
+                                            <TableRow title="ชื่อ/ลิงค์เฟซบุ๊ค" value={v.requester.fb} />
+                                            <TableRow title="เบอร์โทร" value={v.requester.phone} />
+                                            <TableRow title="ประสบการณ์" value={v.requester.experience} />
+                                            <TableRow title="เหตุผล" value={v.requester.reason} />
                                             {["Accepted", "Rejected"].includes(v.status) ?
-                                                <TableRow title="สถานะ" value={v.status}/> : null}
+                                                <TableRow title="สถานะ" value={v.status} /> : null}
                                             <Suspense fallback={<p>Loading...</p>}>
-                                                <TableRow title="วันที่ส่งคำร้อง:" value={<time suppressHydrationWarning dateTime={v.createdAt}>{new Date(v.createdAt).toLocaleString()}</time>}/>
+                                                <TableRow title="วันที่ส่งคำร้อง:" value={<time suppressHydrationWarning dateTime={v.createdAt}>{new Date(v.createdAt).toLocaleString()}</time>} />
                                             </Suspense>
                                         </tbody>
                                     </table>

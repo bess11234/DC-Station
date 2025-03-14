@@ -36,6 +36,7 @@ export function ShowAnimalRequests({ animals }: { animals: Promise<AnimalRequest
                     {/* Display Animals that have request */}
                     <div className="flex flex-row sm:gap-x-3 gap-x-3 w-full">
                         <div className="grid space-y-1 flex-none md:pl-3">
+                            {/* Main Image */}
                             <Image
                                 src={`/api/image?filename=${animal.images[0]}`}
                                 alt={`Picture of ${animal.name}`}
@@ -49,6 +50,8 @@ export function ShowAnimalRequests({ animals }: { animals: Promise<AnimalRequest
                                 className="rounded-3xl w-[100px] h-[100px] flex-none"
                             />
                         </div>
+
+                        {/* Description */}
                         <div className="relative flex flex-col pr-6 pt-2">
                             <div className="ml-2 mr-2">
                                 <p className="line-clamp-1 mb-1">{animal.name}</p>
