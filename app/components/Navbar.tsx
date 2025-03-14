@@ -20,7 +20,7 @@ export const metadata = {
 function Navbar() {
     const path = usePathname()
     const LinkPath = [
-        { name: "หน้าหลัก", link: "/", icons: [<HomeOutline className="sm:size-6 size-8 max-sm:mx-4" key="1"/>, <HomeSolid className="sm:size-6 size-8 max-sm:mx-4" key="2"/>] },
+        { name: "หน้าหลัก", link: "/", icons: [<HomeOutline className="sm:size-6 size-8 max-sm:mx-4" key="1" />, <HomeSolid className="sm:size-6 size-8 max-sm:mx-4" key="2" />] },
         { name: "น้องหาบ้าน", link: "/find-house", icons: [<PiPawPrint className="sm:size-6 size-8 max-sm:mx-4" key="1" />, <PiPawPrintFill className="sm:size-6 size-8 max-sm:mx-4" key="2" />] },
         { name: "เกร็ดความรู้", link: "/knowledges", icons: [<BsBook className="sm:size-6 size-8 mr-2 max-sm:mx-4" key="1" />, <BsBookFill className="sm:size-6 size-8 mr-2 max-sm:mx-4" key="2" />] },
         { name: "ติดต่อสอบถาม", link: "/contact", icons: [<RiContactsBook3Line className="sm:size-6 size-8 max-sm:mx-4" key="1" />, <RiContactsBook3Fill className="sm:size-6 size-8 max-sm:mx-4" key="2" />] },
@@ -34,16 +34,13 @@ function Navbar() {
                         <div className="relative grid xs:grid-cols-3 grid-cols-2 items-center max-xs:col-span-2">
                             {/* Left side */}
                             <Link
-                                className="max-sm:justify-self-start mr-3 overflow-hidden md:w-auto w-fit"
-                                href="/"
+                                className="max-sm:justify-self-start mr-3 overflow-hidden  w-fit"
+                                href={"/"}
                             >
                                 <div className="relative flex items-center space-x-2">
                                     <Image
                                         alt="Logo of Dogs and Cats"
-                                        // Importing an image will
-                                        // automatically set the width and height
                                         src="/favicon.ico"
-                                        // Make the image display full width
                                         style={{ width: "40px", height: "40px" }}
                                         width={40}
                                         height={40}
@@ -54,7 +51,7 @@ function Navbar() {
 
                             {/* Right side */}
                             <div className="flex flex-row justify-self-end xs:col-span-2 md:text-base text-sm">
-                                <div className="hidden sm:flex [&>a]:px-3 [&>a]:py-1 [&>a]:rounded-full space-x-1">
+                                <nav className="hidden sm:flex [&>a]:px-3 [&>a]:py-1 [&>a]:rounded-full space-x-1">
                                     {LinkPath.filter((_, i) => i != 0).map((v, i) => (
                                         <Link
                                             key={i}
@@ -65,7 +62,7 @@ function Navbar() {
                                             <span>{v.name}</span>
                                         </Link>
                                     ))}
-                                </div>
+                                </nav>
 
                                 <div className="sm:hidden flex">
                                     {/* Button for Display Navbar */}
@@ -78,7 +75,7 @@ function Navbar() {
                                         popover="auto" id="popoverNavbar" aria-label="Navbar popover" aria-description="Show the navbar items." onClick={() => document.getElementById("popoverNavbar")?.hidePopover()} >
                                         <div className="w-[100vw] overflow-y-hidden bg-white dark:bg-neutral-950 dark:text-white shadow-inner border-t hover:shadow">
                                             <div className="py-4 lg:px-8 lg:mx-0 mx-4">
-                                                <div className="flex flex-col space-y-1">
+                                                <nav className="flex flex-col space-y-1">
                                                     {LinkPath.map((v, i) => (
                                                         <Link key={i} href={v.link} onClick={() => document.getElementById("popoverNavbar")?.hidePopover()} className={`py-1 flex flex-row items-center cursor-pointer rounded-full ${v.link == path && "scale-100 dark:text-theme-200 bg-theme-400/20 dark:bg-theme-300/20"}`} >
                                                             <div className="relative">
@@ -88,7 +85,7 @@ function Navbar() {
                                                             <p className={`transition-colors text-xs ${v.link == path && "dark:text-theme-100"}`}>{v.name}</p>
                                                         </Link>
                                                     ))}
-                                                </div>
+                                                </nav>
                                             </div>
                                         </div>
                                     </div>

@@ -7,6 +7,7 @@ import { fetchFindHouseAnimals } from "@/app/lib/data"
 import { AnimalsElement } from "@/app/components/animals/AnimalsElement"
 import { FilterAnimals } from "@/app/components/animals/FilterAnimals"
 import { GuestComponent } from "@/app/components/GuestComponent"
+import { SkeletonFilterAnimal } from "@/app/components/skeletons/SkeletonFilterAnimal"
 
 export const dynamic = 'force-dynamic'
 
@@ -21,7 +22,7 @@ export default async function FindHouse() {
             <GuestComponent
                 title={<><span>มูลนิธิอาสาช่วยเหลือหมาและแมว</span><span>(🐶DC Station🐱)</span></>}
                 OptionComponentOnTitle={
-                    <Suspense fallback={<p>Loading...</p>}>
+                    <Suspense fallback={<SkeletonFilterAnimal/>}>
                         <FilterAnimals />
                     </Suspense>}
             >

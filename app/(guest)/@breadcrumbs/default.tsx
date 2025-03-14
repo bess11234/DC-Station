@@ -81,7 +81,7 @@ export default function Default() {
         if (i == pathLink.length - 1) {
             lastLink = <Link className="flex sm:hidden items-center" href={pathName.slice(0, pathName.indexOf(v))}><ChevronLeftIcon className="size-5" />{text}</Link>
             return <span key={i}>{text}</span>
-        } return (<div key={i}><Link className="hover:underline underline-offset-1" href={pathName.slice(0, pathName.indexOf(before[i + 1]))} >{text}</Link><span>&nbsp;/&nbsp;</span></div>)
+        } return (<div key={i}><Link className="transition-all underline-offset-1 opacity-60 dark:opacity-50 hover:underline hover:opacity-100 duration-300" href={pathName.slice(0, pathName.indexOf(before[i + 1]))} >{text}</Link><span>&nbsp;/&nbsp;</span></div>)
     })
     return (
         <>

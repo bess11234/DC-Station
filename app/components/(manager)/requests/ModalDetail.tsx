@@ -11,8 +11,6 @@ export function ModalDetail({ onClose, request }: { onClose: () => void; request
         }
     }, []);
 
-
-    // close when click outside
     const handleClickOutside = (event: React.MouseEvent<HTMLDialogElement, MouseEvent>) => {
         if (event.target === modalRef.current) {
             onClose(); // Close modal when clicking outside
@@ -36,7 +34,7 @@ export function ModalDetail({ onClose, request }: { onClose: () => void; request
                                 <TableRow title="ประสบการณ์" value={request.requester.experience} />
                                 <TableRow title="เหตุผล" value={request.requester.reason} />
                                 <Suspense fallback={<p>Loading...</p>}>
-                                    <TableRow title="วันที่ส่งคำร้อง:" value={<time suppressHydrationWarning dateTime={request.createdAt}>{new Date(request.createdAt).toLocaleString()}</time>}/>
+                                <TableRow title="วันที่ส่งคำร้อง:" value={<time suppressHydrationWarning dateTime={request.createdAt}>{new Date(request.createdAt).toLocaleString()}</time>}/>
                                 </Suspense>
                             </tbody>
                         </table>
@@ -48,6 +46,30 @@ export function ModalDetail({ onClose, request }: { onClose: () => void; request
                     </div>
                 </div>
             </div>
+            {/* <LayoutModal onClose={onClose}>
+            <h3 className="text-lg font-semibold text-theme-700 dark:text-theme-400">รายละเอียดคำร้องขอ</h3>
+            <hr />
+            <div className="py-4">
+                <table className="text-left space-x-1 border-separate border-spacing-2">
+                    <tbody>
+                        <TableRow title="ชื่อ-นามสกุล" value={`${request.requester.firstname} ${request.requester.lastname}`} />
+                        <TableRow title="อีเมล" value={request.requester.email} />
+                        <TableRow title="ชื่อ/ลิงค์เฟซบุ๊ค" value={request.requester.fb} />
+                        <TableRow title="เบอร์โทร" value={request.requester.phone} />
+                        <TableRow title="ประสบการณ์" value={request.requester.experience} />
+                        <TableRow title="เหตุผล" value={request.requester.reason} />
+                        <Suspense fallback={<p>Loading...</p>}>
+                            <TableRow title="วันที่ส่งคำร้อง:" value={<time suppressHydrationWarning dateTime={request.createdAt}>{new Date(request.createdAt).toLocaleString()}</time>} />
+                        </Suspense>
+                    </tbody>
+                </table>
+            </div>
+            <div className="flex justify-end">
+                <button className="cursor-pointer text-xl py-1 px-5 button-theme rounded-xl " onClick={onClose}>
+                    ปิด
+                </button>
+            </div>
+            </LayoutModal> */}
         </dialog>
     );
 }

@@ -1,11 +1,9 @@
-import { ReactNode } from "react";
-
-export function TableRow({ title, value }: { title: string; value: string|ReactNode }){
+export function TableRow({ title, value }: { title: string; value: string|React.ReactNode }){
     return (
         <tr>
-            <th className="align-top font-semibold text-lg whitespace-nowrap w-auto">{title}</th>
+            <th className="line-clamp-1 align-top font-semibold text-base md:text-lg whitespace-nowrap w-auto ">{title}</th>
             <td className="align-top">:</td>
-            <td className="sm:line-clamp-1 line-clamp-3 opacity-80 sm:text-base text-sm">{value}</td>
+            <td className="line-clamp-1 opacity-80 sm:text-base text-sm break-all">{value}</td>
         </tr>
     )
 }
