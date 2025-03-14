@@ -1,6 +1,6 @@
 "use client"
 
-import { Suspense, use, useEffect, useState, ReactNode} from "react"
+import { Suspense, use, useEffect, useState} from "react"
 import { useSearchParams } from "next/navigation"
 
 import type { Request } from "@/app/lib/definition"
@@ -11,7 +11,6 @@ import { TableRow } from "./TableRow"
 export function DetailRequests({ requests }: { requests: Promise<Request[][]> }) {
 
     const searchParams = useSearchParams()
-
     const [indexRequest, setIndexRequest] = useState<number>(0)
     const showRequest = use(requests) // Solved Promise
 
@@ -33,12 +32,12 @@ export function DetailRequests({ requests }: { requests: Promise<Request[][]> })
         <>
             {showRequest[indexRequest]
                 .map((v, i) => (
-                    <div key={i} className={v.status == "Rejected" ? "opacity-60 relative rounded-3xl dark:shadow-theme-50/10 card-theme md:text-xl sm:text-lg text-base p-3 hover:shadow-md" : "relative rounded-3xl dark:shadow-theme-50/10 card-theme md:text-xl sm:text-lg text-base p-3 hover:shadow-md"}>
+                    <div key={i} className={`${v.status == 'Rejected' ? 'opacity-60': ''} relative rounded-3xl dark:shadow-theme-50/10 card-theme md:text-xl sm:text-lg text-base p-3 hover:shadow-md`}>
                         <div className="flex flex-row sm:gap-x-3 gap-x-3 w-full mb-5">
                             <div className="relative flex flex-col pr-6 pt-2">
                                 <div className="ml-2 mr-6">
-                                    <table className="overflow-x-auto table-auto text-left space-x-1 border-separate border-spacing-2">
-                                        <tbody>
+                                    <table className="text-left table-auto w-full border-separate border-spacing-2">
+                                    <tbody>
                                             <TableRow title="ชื่อ-นามสกุล" value={`${v.requester.firstname} ${v.requester.lastname}`}/>
                                             <TableRow title="อีเมล" value={v.requester.email}/>
                                             <TableRow title="ชื่อ/ลิงค์เฟซบุ๊ค" value={v.requester.fb}/>
